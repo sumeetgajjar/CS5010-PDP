@@ -60,8 +60,4 @@ public class SimpleFibonacciCounter implements FibonacciCounter {
       return sum;
     }
   }
-
-  public static void main(String[] args) {
-    Math.addExact(1, Long.MAX_VALUE);
-  }
 }
