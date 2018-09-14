@@ -4,7 +4,7 @@ public interface FibonacciCounter {
 
   FibonacciCounter incrementCounter() throws ArithmeticException;
 
-  FibonacciCounter decrementCounter() throws ArithmeticException;
+  FibonacciCounter decrementCounter();
 
   long getCurrentCount();
 

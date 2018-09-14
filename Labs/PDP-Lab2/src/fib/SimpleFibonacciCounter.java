@@ -25,8 +25,12 @@ public class SimpleFibonacciCounter implements FibonacciCounter {
   }
 
   @Override
-  public FibonacciCounter decrementCounter() throws ArithmeticException {
-    long newCount = Math.addExact(this.currentCount, -1);
+  public FibonacciCounter decrementCounter() {
+    if (this.currentCount - 1 <= 0) {
+      throw new IllegalStateException("Min value of the counter reached, cannot decrement further.");
+    }
+
+    long newCount = this.currentCount - 1;
     long newFibonacciValue = getNthFibonacciNumber(newCount);
     return new SimpleFibonacciCounter(newCount, newFibonacciValue);
   }
