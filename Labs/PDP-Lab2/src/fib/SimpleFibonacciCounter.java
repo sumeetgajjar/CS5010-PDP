@@ -28,7 +28,6 @@ public class SimpleFibonacciCounter implements FibonacciCounter {
   @Override
   public FibonacciCounter incrementCounter() throws ArithmeticException {
     long newCount = Math.addExact(this.currentCount, 1);
-    long newFibonacciValue = getNthFibonacciNumber(newCount);
     return new SimpleFibonacciCounter(newCount);
   }
 
@@ -40,7 +39,6 @@ public class SimpleFibonacciCounter implements FibonacciCounter {
     }
 
     long newCount = this.currentCount - 1;
-    long newFibonacciValue = getNthFibonacciNumber(newCount);
     return new SimpleFibonacciCounter(newCount);
   }
 
