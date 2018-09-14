@@ -31,10 +31,9 @@ public class SimpleFibonacciCounterTest {
   @Test
   public void testDecrementCounter() {
     FibonacciCounter fibonacciCounter = new SimpleFibonacciCounter();
-    fibonacciCounter = fibonacciCounter.incrementCounter().incrementCounter().incrementCounter()
-            .decrementCounter();
+    fibonacciCounter = fibonacciCounter.incrementCounter().decrementCounter();
 
-    Assert.assertEquals(fibonacciCounter.getCurrentCount(), 3);
-    Assert.assertEquals(fibonacciCounter.getCurrentFibonacciValue(), 1);
+    Assert.assertEquals(fibonacciCounter.getCurrentCount(), 1);
+    Assert.assertEquals(fibonacciCounter.getCurrentFibonacciValue(), 0);
   }
 }
