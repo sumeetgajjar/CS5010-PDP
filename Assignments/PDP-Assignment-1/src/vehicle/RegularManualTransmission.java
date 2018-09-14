@@ -10,9 +10,9 @@ public class RegularManualTransmission implements ManualTransmission {
 
   private final GearSpeedRange[] gearSpeedRanges;
 
-  private int currentGear = 0;
-  private int currentSpeed = 0;
-  private TransmissionStatus transmissionStatus = TransmissionStatus.OK;
+  private final int currentGear;
+  private final int currentSpeed;
+  private final TransmissionStatus transmissionStatus;
 
   public RegularManualTransmission(int gear1Low, int gear1High,
                                    int gear2Low, int gear2High,
@@ -28,6 +28,10 @@ public class RegularManualTransmission implements ManualTransmission {
     this.gearSpeedRanges[4] = new GearSpeedRange(gear5Low, gear5High);
 
     performGearSpeedRangeSanityChecks();
+
+    currentGear = 0;
+    currentSpeed = 0;
+    transmissionStatus = TransmissionStatus.OK;
   }
 
   @Override
