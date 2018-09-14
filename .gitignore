@@ -69,9 +69,9 @@ cmake-build-*/
 # IntelliJ
 out/
 *.iml
-*.idea/*
-*/submissions/*
-*/docs/*
+.idea/*
+submissions/*
+docs/*
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
