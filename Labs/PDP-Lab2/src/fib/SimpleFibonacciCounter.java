@@ -1,24 +1,32 @@
 package fib;
 
+/**
+ * This class represents a Simple Fibonacci Counter and it implements interface FibonacciCounter.
+ */
 public class SimpleFibonacciCounter implements FibonacciCounter {
 
   private final long currentCount;
   private final long currentFibonacciValue;
 
-  private SimpleFibonacciCounter(long currentCount, long currentFibonacciValue) {
+  /**
+   * Constructs a SimpleFibonacciCounter object and initializes it to its given value.
+   *
+   * @param currentCount initial count of the counter
+   */
+  private SimpleFibonacciCounter(long currentCount) {
     this.currentCount = currentCount;
-    this.currentFibonacciValue = currentFibonacciValue;
+    this.currentFibonacciValue = getNthFibonacciNumber(this.currentCount);
   }
 
   public SimpleFibonacciCounter() {
-    this(1, 0);
+    this(1);
   }
 
   @Override
   public FibonacciCounter incrementCounter() throws ArithmeticException {
     long newCount = Math.addExact(this.currentCount, 1);
     long newFibonacciValue = getNthFibonacciNumber(newCount);
-    return new SimpleFibonacciCounter(newCount, newFibonacciValue);
+    return new SimpleFibonacciCounter(newCount);
   }
 
   @Override
@@ -30,7 +38,7 @@ public class SimpleFibonacciCounter implements FibonacciCounter {
 
     long newCount = this.currentCount - 1;
     long newFibonacciValue = getNthFibonacciNumber(newCount);
-    return new SimpleFibonacciCounter(newCount, newFibonacciValue);
+    return new SimpleFibonacciCounter(newCount);
   }
 
   @Override
