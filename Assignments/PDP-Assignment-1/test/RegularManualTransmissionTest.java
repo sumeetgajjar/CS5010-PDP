@@ -53,42 +53,47 @@ public class RegularManualTransmissionTest {
 
   @Test
   public void testNonAdjacentOverlappingGearSpeedRange2() {
-    ManualTransmission manualTransmission = new RegularManualTransmission(
-            0, 10,
-            5, 20,
-            15, 30,
-            25, 40,
-            4, 50);
-  }
-
-  @Test
-  public void testNonAdjacentOverlappingGearSpeedRange3() {
-    ManualTransmission manualTransmission = new RegularManualTransmission(
-            0, 10,
-            5, 40,
-            15, 30,
-            25, 40,
-            35, 50);
+    try {
+      ManualTransmission manualTransmission = new RegularManualTransmission(
+              0, 10,
+              5, 40,
+              15, 30,
+              25, 40,
+              35, 50);
+      Assert.fail();
+    } catch (Exception e) {
+      Assert.assertEquals(e.getMessage(), "Non Adjacent Overlapping(2) for Gear: 4 with previous Gears");
+    }
   }
 
   @Test
   public void testNonOverlappingGearSpeedRange() {
-    ManualTransmission manualTransmission = new RegularManualTransmission(
-            0, 10,
-            5, 20,
-            22, 30,
-            25, 40,
-            35, 50);
+    try {
+      ManualTransmission manualTransmission = new RegularManualTransmission(
+              0, 10,
+              5, 20,
+              22, 30,
+              25, 40,
+              35, 50);
+      Assert.fail();
+    } catch (Exception e) {
+      Assert.assertEquals(e.getMessage(), "Speed of Gears: 2 and 3 are non-overlapping");
+    }
   }
 
   @Test
   public void testLowSpeedOfFirstGearSpeedRange() {
-    ManualTransmission manualTransmission = new RegularManualTransmission(
-            10, 10,
-            5, 20,
-            8, 30,
-            25, 40,
-            35, 50);
+    try {
+      ManualTransmission manualTransmission = new RegularManualTransmission(
+              10, 10,
+              5, 20,
+              8, 30,
+              25, 40,
+              35, 50);
+      Assert.fail();
+    } catch (Exception e) {
+      Assert.assertEquals(e.getMessage(), "Lower Speed of First Gear is not 0");
+    }
   }
 
   @Test
