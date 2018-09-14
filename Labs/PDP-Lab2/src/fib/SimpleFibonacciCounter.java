@@ -2,8 +2,21 @@ package fib;
 
 public class SimpleFibonacciCounter implements FibonacciCounter {
 
+  private final long currentCount;
+  private final long currentValue;
+
+  public SimpleFibonacciCounter() {
+    currentValue = 0;
+    currentCount = 1;
+  }
+
+  public SimpleFibonacciCounter(long currentCount, long currentValue) {
+    this.currentCount = currentCount;
+    this.currentValue = currentValue;
+  }
+
   @Override
-  public FibonacciCounter incrmentCounter() {
+  public FibonacciCounter incrementCounter() {
     return null;
   }
 
@@ -13,12 +26,12 @@ public class SimpleFibonacciCounter implements FibonacciCounter {
   }
 
   @Override
-  public int getCurrentCount() {
+  public long getCurrentCount() {
     return 0;
   }
 
   @Override
-  public int getCurrentFibonnaciValue() {
+  public long getCurrentFibonacciValue() {
     return 0;
   }
 }

@@ -1,11 +1,12 @@
 package fib;
 
 public interface FibonacciCounter {
-  FibonacciCounter incrmentCounter();
+
+  FibonacciCounter incrementCounter();
 
   FibonacciCounter decrementCounter();
 
-  int getCurrentCount();
+  long getCurrentCount();
 
-  int getCurrentFibonnaciValue();
+  long getCurrentFibonacciValue();
 }
