@@ -52,6 +52,14 @@ public class SimpleFibonacciCounter implements FibonacciCounter {
     return this.currentFibonacciValue;
   }
 
+  /**
+   * Generates nth Fibonacci Number given n.
+   *
+   * @param n nth fibonacci number to generate
+   * @return nth fibonacci number
+   * @throws ArithmeticException if overflow occurs i.e. if nth fibonacci number is out of range of
+   *                             long.
+   */
   private long getNthFibonacciNumber(long n) throws ArithmeticException {
     if (n == 1) {
       return FibonacciCounter.FIRST_FIBONACCI_NUMBER;
