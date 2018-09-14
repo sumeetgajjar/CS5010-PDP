@@ -6,14 +6,19 @@ import vehicle.RegularManualTransmission;
 
 public class RegularManualTransmissionTest {
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testGearSpeedRange() {
-    ManualTransmission manualTransmission = new RegularManualTransmission(
-            0, 10,
-            5, 20,
-            15, 10,
-            16, 30,
-            25, 40);
+    try {
+      ManualTransmission manualTransmission = new RegularManualTransmission(
+              0, 10,
+              5, 20,
+              15, 14,
+              25, 40,
+              35, 50);
+      Assert.fail();
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals(e.getMessage(), "Low Speed of Gear: 3 is greater than High Speed");
+    }
   }
 
   @Test(expected = IllegalArgumentException.class)
