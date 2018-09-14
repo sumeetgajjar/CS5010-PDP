@@ -67,18 +67,6 @@ public class RegularManualTransmission implements ManualTransmission {
     return this;
   }
 
-  private boolean canIncreaseSpeed(int speedAfterIncrease) {
-    return speedAfterIncrease <= this.gearSpeedRanges[this.currentGear].getHighSpeed();
-  }
-
-  private boolean canShiftToHigherGear() {
-    return this.currentSpeed >= gearSpeedRanges[this.currentGear + 1].getLowSpeed();
-  }
-
-  private boolean doesHigherGearExist() {
-    return this.currentGear + 1 < MAX_GEARS;
-  }
-
   @Override
   public ManualTransmission decreaseSpeed() {
     int speedAfterDecrease = this.currentSpeed - SPEED_CHANGE;
@@ -101,18 +89,6 @@ public class RegularManualTransmission implements ManualTransmission {
 
     }
     return this;
-  }
-
-  private boolean canShiftToLowerGear() {
-    return this.currentSpeed <= this.gearSpeedRanges[this.currentGear - 1].getHighSpeed();
-  }
-
-  private boolean doesLowerGearExist() {
-    return this.currentGear - 1 >= 0;
-  }
-
-  private boolean canDecreaseSpeed(int speedAfterDecrease) {
-    return speedAfterDecrease >= this.gearSpeedRanges[this.currentGear].getLowSpeed();
   }
 
   @Override
@@ -237,4 +213,28 @@ public class RegularManualTransmission implements ManualTransmission {
     }
   }
 
+
+  private boolean canIncreaseSpeed(int speedAfterIncrease) {
+    return speedAfterIncrease <= this.gearSpeedRanges[this.currentGear].getHighSpeed();
+  }
+
+  private boolean canShiftToHigherGear() {
+    return this.currentSpeed >= gearSpeedRanges[this.currentGear + 1].getLowSpeed();
+  }
+
+  private boolean doesHigherGearExist() {
+    return this.currentGear + 1 < MAX_GEARS;
+  }
+
+  private boolean canShiftToLowerGear() {
+    return this.currentSpeed <= this.gearSpeedRanges[this.currentGear - 1].getHighSpeed();
+  }
+
+  private boolean doesLowerGearExist() {
+    return this.currentGear - 1 >= 0;
+  }
+
+  private boolean canDecreaseSpeed(int speedAfterDecrease) {
+    return speedAfterDecrease >= this.gearSpeedRanges[this.currentGear].getLowSpeed();
+  }
 }
