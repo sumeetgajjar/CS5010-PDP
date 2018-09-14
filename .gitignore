@@ -71,7 +71,7 @@ out/
 *.iml
 *.idea/*
 */submissions/*
-docs/*
+*/docs/*
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
