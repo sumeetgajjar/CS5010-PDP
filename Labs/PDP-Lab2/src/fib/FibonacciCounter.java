@@ -7,12 +7,12 @@ package fib;
 public interface FibonacciCounter {
 
   /**
-   * First Fibonacci Number
+   * First Fibonacci Number.
    */
   long FIRST_FIBONACCI_NUMBER = 0;
 
   /**
-   * Second Fibonacci Number
+   * Second Fibonacci Number.
    */
   long SECOND_FIBONACCI_NUMBER = 1;
 
@@ -43,7 +43,7 @@ public interface FibonacciCounter {
   long getCurrentCount();
 
   /**
-   * Returns the current FibonacciValue of the counter
+   * Returns the current FibonacciValue of the counter.
    *
    * @return the FibonacciValue of the counter
    */
