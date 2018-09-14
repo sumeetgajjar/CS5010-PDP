@@ -51,7 +51,7 @@ public class SimpleFibonacciCounter implements FibonacciCounter {
       long first = FIRST_FIBONACCI_NUMBER;
       long second = SECOND_FIBONACCI_NUMBER;
       long sum = 0;
-      for (int i = 2; i <= n; i++) {
+      for (long i = 2; i <= n; i++) {
         sum = Math.addExact(first, second);
         second = first;
         first = sum;
