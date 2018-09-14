@@ -8,14 +8,13 @@ public class SimpleFibonacciCounter implements FibonacciCounter {
   private final long currentCount;
   private final long currentFibonacciValue;
 
-  public SimpleFibonacciCounter() {
-    currentFibonacciValue = 0;
-    currentCount = 1;
-  }
-
-  public SimpleFibonacciCounter(long currentCount, long currentFibonacciValue) {
+  private SimpleFibonacciCounter(long currentCount, long currentFibonacciValue) {
     this.currentCount = currentCount;
     this.currentFibonacciValue = currentFibonacciValue;
+  }
+
+  public SimpleFibonacciCounter() {
+    this(1, 0);
   }
 
   @Override
