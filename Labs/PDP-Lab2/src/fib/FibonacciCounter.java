@@ -7,18 +7,18 @@ package fib;
 public interface FibonacciCounter {
 
   /**
-   * First Fibonacci Number.
+   * First Fibonacci Number is 0.
    */
   long FIRST_FIBONACCI_NUMBER = 0;
 
   /**
-   * Second Fibonacci Number.
+   * Second Fibonacci Number is 1.
    */
   long SECOND_FIBONACCI_NUMBER = 1;
 
   /**
-   * Checks if the counter can be incremented, if yes then increments the counter by 1 and returns a
-   * FibonacciCounter Object else throws an ArithmeticException.
+   * Increments the counter by 1 and returns a FibonacciCounter Object if the counter can be
+   * incremented further, else throws an ArithmeticException.
    *
    * @return a FibonacciCounter object
    * @throws ArithmeticException if FibonacciCounter Overflows.
@@ -26,8 +26,8 @@ public interface FibonacciCounter {
   FibonacciCounter incrementCounter() throws ArithmeticException;
 
   /**
-   * Checks if the counter can be decremented, if yes then decrements the counter by 1 and returns a
-   * FibonacciCounter Object else throws an IllegalStateException.
+   * Decrements the counter by 1 and returns a FibonacciCounter Object if the counter can be
+   * decremented further, else throws an IllegalStateException.
    *
    * @return a FibonacciCounter object
    * @throws IllegalStateException if FibonacciCounter is at count 1 and decrementCounter() is
