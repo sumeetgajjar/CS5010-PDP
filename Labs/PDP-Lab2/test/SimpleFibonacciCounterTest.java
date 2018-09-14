@@ -12,4 +12,10 @@ public class SimpleFibonacciCounterTest {
     Assert.assertEquals(fibonacciCounter.getCurrentCount(), 1);
     Assert.assertEquals(fibonacciCounter.getCurrentFibonacciValue(), 0);
   }
+
+  @Test(expected = IllegalStateException.class)
+  public void testDecrementCounterAtCount1() {
+    FibonacciCounter fibonacciCounter = new SimpleFibonacciCounter();
+    fibonacciCounter.decrementCounter();
+  }
 }
