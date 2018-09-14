@@ -2,9 +2,9 @@ package fib;
 
 public interface FibonacciCounter {
 
-  FibonacciCounter incrementCounter();
+  FibonacciCounter incrementCounter() throws ArithmeticException;
 
-  FibonacciCounter decrementCounter();
+  FibonacciCounter decrementCounter() throws ArithmeticException;
 
   long getCurrentCount();
 
