@@ -4,6 +4,9 @@ import org.junit.Test;
 import vehicle.ManualTransmission;
 import vehicle.RegularManualTransmission;
 
+/**
+ * A JUnit class to test RegularManualTransmission.
+ */
 public class RegularManualTransmissionTest {
 
   @Test
