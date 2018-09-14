@@ -18,6 +18,9 @@ public class SimpleFibonacciCounter implements FibonacciCounter {
     this.currentFibonacciValue = getNthFibonacciNumber(this.currentCount);
   }
 
+  /**
+   * Constructs a SimpleFibonacciCounter object and initializes its count to 1.
+   */
   public SimpleFibonacciCounter() {
     this(1);
   }
