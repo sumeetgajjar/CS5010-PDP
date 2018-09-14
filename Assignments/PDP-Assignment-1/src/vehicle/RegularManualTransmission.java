@@ -56,13 +56,14 @@ public class RegularManualTransmission implements ManualTransmission {
       } else {
         this.transmissionStatus = TransmissionStatus.OK;
       }
+
     } else {
+
       if (doesHigherGearExist()) {
         this.transmissionStatus = TransmissionStatus.CANNOT_INCREASE_SPEED_INCREASE_GEAR_FIRST;
       } else {
         this.transmissionStatus = TransmissionStatus.CANNOT_INCREASE_SPEED_REACHED_MAX_SPEED;
       }
-
     }
     return this;
   }
@@ -86,7 +87,6 @@ public class RegularManualTransmission implements ManualTransmission {
       } else {
         this.transmissionStatus = TransmissionStatus.CANNOT_DECREASE_SPEED_REACHED_MIN_SPEED;
       }
-
     }
     return this;
   }
