@@ -6,11 +6,36 @@ package fib;
  */
 public interface FibonacciCounter {
 
+  /**
+   * Checks if the counter can be incremented, if yes then increments the counter by 1 and returns a
+   * FibonacciCounter Object else throws an ArithmeticException.
+   *
+   * @return a FibonacciCounter object
+   * @throws ArithmeticException if FibonacciCounter Overflows.
+   */
   FibonacciCounter incrementCounter() throws ArithmeticException;
 
-  FibonacciCounter decrementCounter();
+  /**
+   * Checks if the counter can be decremented, if yes then decrements the counter by 1 and returns a
+   * FibonacciCounter Object else throws an IllegalStateException.
+   *
+   * @return a FibonacciCounter object
+   * @throws IllegalStateException if FibonacciCounter is at count 1 and decrementCounter() is
+   *                               invoked.
+   */
+  FibonacciCounter decrementCounter() throws IllegalStateException;
 
+  /**
+   * Returns the current of the FibonacciCounter.
+   *
+   * @return the count of the FibonacciCounter
+   */
   long getCurrentCount();
 
+  /**
+   * Returns the current FibonacciValue of the counter
+   *
+   * @return the FibonacciValue of the counter
+   */
   long getCurrentFibonacciValue();
 }
