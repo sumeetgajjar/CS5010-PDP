@@ -27,7 +27,8 @@ public class SimpleFibonacciCounter implements FibonacciCounter {
   @Override
   public FibonacciCounter decrementCounter() {
     if (this.currentCount - 1 <= 0) {
-      throw new IllegalStateException("Min value of the counter reached, cannot decrement further.");
+      throw new IllegalStateException(
+              "Min value of the counter reached, cannot decrement further.");
     }
 
     long newCount = this.currentCount - 1;
