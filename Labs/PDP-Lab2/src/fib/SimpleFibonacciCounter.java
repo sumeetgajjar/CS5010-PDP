@@ -2,9 +2,6 @@ package fib;
 
 public class SimpleFibonacciCounter implements FibonacciCounter {
 
-  private static final long FIRST_FIBONACCI_NUMBER = 0;
-  private static final long SECOND_FIBONACCI_NUMBER = 1;
-
   private final long currentCount;
   private final long currentFibonacciValue;
 
@@ -48,13 +45,13 @@ public class SimpleFibonacciCounter implements FibonacciCounter {
 
   private long getNthFibonacciNumber(long n) throws ArithmeticException {
     if (n == 1) {
-      return FIRST_FIBONACCI_NUMBER;
+      return FibonacciCounter.FIRST_FIBONACCI_NUMBER;
     } else if (n == 2) {
-      return SECOND_FIBONACCI_NUMBER;
+      return FibonacciCounter.SECOND_FIBONACCI_NUMBER;
     } else {
 
-      long first = FIRST_FIBONACCI_NUMBER;
-      long second = SECOND_FIBONACCI_NUMBER;
+      long first = FibonacciCounter.FIRST_FIBONACCI_NUMBER;
+      long second = FibonacciCounter.SECOND_FIBONACCI_NUMBER;
       long sum = 0;
       for (long i = 2; i <= n; i++) {
         sum = Math.addExact(first, second);

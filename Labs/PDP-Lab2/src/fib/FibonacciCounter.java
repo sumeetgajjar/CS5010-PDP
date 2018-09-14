@@ -7,6 +7,16 @@ package fib;
 public interface FibonacciCounter {
 
   /**
+   * First Fibonacci Number
+   */
+  long FIRST_FIBONACCI_NUMBER = 0;
+
+  /**
+   * Second Fibonacci Number
+   */
+  long SECOND_FIBONACCI_NUMBER = 1;
+
+  /**
    * Checks if the counter can be incremented, if yes then increments the counter by 1 and returns a
    * FibonacciCounter Object else throws an ArithmeticException.
    *
