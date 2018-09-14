@@ -4,6 +4,9 @@ import org.junit.Test;
 import fib.FibonacciCounter;
 import fib.SimpleFibonacciCounter;
 
+/**
+ * A Junit Test class for SimpleFibonacciCounter.
+ */
 public class SimpleFibonacciCounterTest {
 
   @Test
