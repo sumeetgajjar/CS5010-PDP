@@ -198,6 +198,25 @@ public class RegularManualTransmissionTest {
   }
 
   @Test
+  public void testChangeInGearWithoutChangeInSpeed() {
+    ManualTransmission manualTransmission = new RegularManualTransmission(
+            0, 2,
+            1, 8,
+            6, 12,
+            10, 16,
+            14, 20);
+
+    manualTransmission = manualTransmission.increaseSpeed().increaseGear().increaseGear();
+    Assert.assertEquals(manualTransmission.getStatus(),
+            "Cannot increase gear, increase speed first.");
+
+    manualTransmission = manualTransmission.increaseSpeed().increaseSpeed().increaseSpeed()
+            .increaseSpeed().increaseSpeed().increaseGear().decreaseGear().decreaseGear();
+
+    Assert.assertEquals(manualTransmission.getStatus(), "Cannot decrease gear, decrease speed first.");
+  }
+
+  @Test
   public void testEntireSimulation() {
     ManualTransmission manualTransmission = new RegularManualTransmission(
             0, 2,
