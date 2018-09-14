@@ -56,7 +56,7 @@ public class RegularManualTransmissionTest {
             35, 50);
   }
 
-  @Test()
+  @Test(expected = IllegalArgumentException.class)
   public void testNonOverlappingGearSpeedRange() {
     ManualTransmission manualTransmission = new RegularManualTransmission(
             0, 10,
