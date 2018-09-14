@@ -17,7 +17,8 @@ public class RegularManualTransmissionTest {
               35, 50);
       Assert.fail();
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals(e.getMessage(), "Low Speed of Gear: 3 is greater than High Speed");
+      Assert.assertEquals(e.getMessage(),
+              "Low Speed of Gear: 3 is greater than High Speed");
     }
   }
 
@@ -31,8 +32,9 @@ public class RegularManualTransmissionTest {
               12, 30,
               25, 40);
       Assert.fail();
-    } catch (Exception e) {
-      Assert.assertEquals(e.getMessage(), "Low Speed of Gear: 3 is greater than or equal to Low Speed of Gear: 4");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals(e.getMessage(),
+              "Low Speed of Gear: 3 is greater than or equal to Low Speed of Gear: 4");
     }
   }
 
@@ -46,8 +48,9 @@ public class RegularManualTransmissionTest {
               25, 40,
               35, 50);
       Assert.fail();
-    } catch (Exception e) {
-      Assert.assertEquals(e.getMessage(), "Non Adjacent Overlapping(2) for Gear: 3 with previous Gears");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals(e.getMessage(),
+              "Non Adjacent Overlapping(2) for Gear: 3 with previous Gears");
     }
   }
 
@@ -61,8 +64,9 @@ public class RegularManualTransmissionTest {
               25, 40,
               35, 50);
       Assert.fail();
-    } catch (Exception e) {
-      Assert.assertEquals(e.getMessage(), "Non Adjacent Overlapping(2) for Gear: 4 with previous Gears");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals(e.getMessage(),
+              "Non Adjacent Overlapping(2) for Gear: 4 with previous Gears");
     }
   }
 
@@ -76,8 +80,9 @@ public class RegularManualTransmissionTest {
               25, 40,
               35, 50);
       Assert.fail();
-    } catch (Exception e) {
-      Assert.assertEquals(e.getMessage(), "Speed of Gears: 2 and 3 are non-overlapping");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals(e.getMessage(),
+              "Speed of Gears: 2 and 3 are non-overlapping");
     }
   }
 
@@ -91,8 +96,9 @@ public class RegularManualTransmissionTest {
               25, 40,
               35, 50);
       Assert.fail();
-    } catch (Exception e) {
-      Assert.assertEquals(e.getMessage(), "Lower Speed of First Gear is not 0");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals(e.getMessage(),
+              "Lower Speed of First Gear is not 0");
     }
   }
 
@@ -213,7 +219,8 @@ public class RegularManualTransmissionTest {
     manualTransmission = manualTransmission.increaseSpeed().increaseSpeed().increaseSpeed()
             .increaseSpeed().increaseSpeed().increaseGear().decreaseGear().decreaseGear();
 
-    Assert.assertEquals(manualTransmission.getStatus(), "Cannot decrease gear, decrease speed first.");
+    Assert.assertEquals(manualTransmission.getStatus(),
+            "Cannot decrease gear, decrease speed first.");
   }
 
   @Test
