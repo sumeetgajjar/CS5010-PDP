@@ -21,27 +21,37 @@ public class RegularManualTransmissionTest {
     }
   }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void testLowSpeedGearSpeedRange() {
-    ManualTransmission manualTransmission = new RegularManualTransmission(
-            0, 10,
-            5, 20,
-            15, 25,
-            12, 30,
-            25, 40);
+  @Test
+  public void testLowSpeedsOfGearSpeedRange() {
+    try {
+      ManualTransmission manualTransmission = new RegularManualTransmission(
+              0, 10,
+              5, 20,
+              15, 25,
+              12, 30,
+              25, 40);
+      Assert.fail();
+    } catch (Exception e) {
+      Assert.assertEquals(e.getMessage(), "Low Speed of Gear: 3 is greater than or equal to Low Speed of Gear: 4");
+    }
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testNonAdjacentOverlappingGearSpeedRange1() {
-    ManualTransmission manualTransmission = new RegularManualTransmission(
-            0, 10,
-            5, 20,
-            8, 30,
-            25, 40,
-            35, 50);
+    try {
+      ManualTransmission manualTransmission = new RegularManualTransmission(
+              0, 10,
+              5, 20,
+              8, 30,
+              25, 40,
+              35, 50);
+      Assert.fail();
+    } catch (Exception e) {
+      Assert.assertEquals(e.getMessage(), "Non Adjacent Overlapping(2) for Gear: 3 with previous Gears");
+    }
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testNonAdjacentOverlappingGearSpeedRange2() {
     ManualTransmission manualTransmission = new RegularManualTransmission(
             0, 10,
@@ -51,7 +61,7 @@ public class RegularManualTransmissionTest {
             4, 50);
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testNonAdjacentOverlappingGearSpeedRange3() {
     ManualTransmission manualTransmission = new RegularManualTransmission(
             0, 10,
@@ -61,7 +71,7 @@ public class RegularManualTransmissionTest {
             35, 50);
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testNonOverlappingGearSpeedRange() {
     ManualTransmission manualTransmission = new RegularManualTransmission(
             0, 10,
@@ -71,7 +81,7 @@ public class RegularManualTransmissionTest {
             35, 50);
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testLowSpeedOfFirstGearSpeedRange() {
     ManualTransmission manualTransmission = new RegularManualTransmission(
             10, 10,
