@@ -48,7 +48,7 @@ public class RegularManualTransmission implements ManualTransmission {
   @Override
   public ManualTransmission increaseSpeed() {
     int speedAfterIncrease = this.currentSpeed + SPEED_CHANGE;
-    if (canIncreaseSpeed(speedAfterIncrease)) {
+    if (canIncreaseSpeedInCurrentGear(speedAfterIncrease)) {
       this.currentSpeed = speedAfterIncrease;
 
       if (doesHigherGearExist() && canShiftToHigherGear()) {
@@ -70,7 +70,7 @@ public class RegularManualTransmission implements ManualTransmission {
   @Override
   public ManualTransmission decreaseSpeed() {
     int speedAfterDecrease = this.currentSpeed - SPEED_CHANGE;
-    if (canDecreaseSpeed(speedAfterDecrease)) {
+    if (canDecreaseSpeedInCurrentGear(speedAfterDecrease)) {
       this.currentSpeed = speedAfterDecrease;
 
       if (doesLowerGearExist() && canShiftToLowerGear()) {
@@ -214,7 +214,7 @@ public class RegularManualTransmission implements ManualTransmission {
   }
 
 
-  private boolean canIncreaseSpeed(int speedAfterIncrease) {
+  private boolean canIncreaseSpeedInCurrentGear(int speedAfterIncrease) {
     return speedAfterIncrease <= this.gearSpeedRanges[this.currentGear].getHighSpeed();
   }
 
@@ -234,7 +234,7 @@ public class RegularManualTransmission implements ManualTransmission {
     return this.currentGear - 1 >= 0;
   }
 
-  private boolean canDecreaseSpeed(int speedAfterDecrease) {
+  private boolean canDecreaseSpeedInCurrentGear(int speedAfterDecrease) {
     return speedAfterDecrease >= this.gearSpeedRanges[this.currentGear].getLowSpeed();
   }
 }
