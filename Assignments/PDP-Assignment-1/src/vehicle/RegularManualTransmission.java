@@ -85,8 +85,7 @@ public class RegularManualTransmission implements ManualTransmission {
     if (canDecreaseSpeed(speedAfterDecrease)) {
       this.currentSpeed = speedAfterDecrease;
 
-      if (doesLowerGearExist()
-              && canShiftToLowerGear()) {
+      if (doesLowerGearExist() && canShiftToLowerGear()) {
         this.transmissionStatus = TransmissionStatus.MAY_DECREASE_GEAR;
       } else {
         this.transmissionStatus = TransmissionStatus.OK;
