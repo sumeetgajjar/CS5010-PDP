@@ -1,12 +1,12 @@
 package vehicle;
 
 /**
- * This interface represents a set of operations that a manual transmission can perform.
+ * This interface represents a set of operations that a ManualTransmission can perform.
  */
 public interface ManualTransmission {
 
   /**
-   * Returns the status of the ManualTransmission.
+   * Returns the current status of the ManualTransmission.
    *
    * @return the current status of the ManualTransmission
    */
@@ -26,20 +26,21 @@ public interface ManualTransmission {
    */
   int getGear();
 
-  //todo: change this to the style similar to bufferedReader
   /**
-   * Increases the speed of the vehicle by fixed amount. If speed can be increased without changing
-   * gears, it returns the ManualTransmission object with the updated speed else returns the
-   * ManualTransmission object with the same speed as before.
+   * Increases the speed of the vehicle by fixed amount. The speed change amount is up to
+   * implementation. If speed can be increased without changing gears, it returns the
+   * ManualTransmission object with the updated speed else returns the ManualTransmission object
+   * with the same speed as before.
    *
    * @return the ManualTransmission object with the current info
    */
   ManualTransmission increaseSpeed();
 
   /**
-   * Decreases the speed of the vehicle by fixed amount. If speed can be decreased without changing
-   * gears, it returns the ManualTransmission object with the updated speed else returns the
-   * ManualTransmission object with the same speed as before.
+   * Decreases the speed of the vehicle by fixed amount. The speed change amount is up to
+   * implementation. If speed can be decreased without changing gears, it returns the
+   * ManualTransmission object with the updated speed else returns the ManualTransmission object
+   * with the same speed as before.
    *
    * @return the ManualTransmission object with the current info
    */
