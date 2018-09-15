@@ -29,9 +29,9 @@ public class RegularManualTransmission implements ManualTransmission {
 
     performGearSpeedRangeSanityChecks();
 
-    currentGear = 0;
-    currentSpeed = 0;
-    transmissionStatus = TransmissionStatus.OK;
+    this.currentGear = 0;
+    this.currentSpeed = 0;
+    this.transmissionStatus = TransmissionStatus.OK;
   }
 
   @Override
