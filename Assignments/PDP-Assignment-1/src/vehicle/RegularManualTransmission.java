@@ -124,10 +124,10 @@ public class RegularManualTransmission implements ManualTransmission {
   }
 
   private void performGearSpeedRangeSanityChecks() {
-    checkLowSpeedOfFirstGearSpeedRange();
+    checkLowSpeedOfFirstGear();
     checkInvalidGearSpeedRange();
-    checkInvalidLowSpeedGearSpeedRange();
-    checkInvalidOverlappingGearSpeedRange();
+    checkInvalidLowSpeedsOfGears();
+    checkInvalidGearOverLapping();
   }
 
   private void checkInvalidGearSpeedRange() {
@@ -140,7 +140,7 @@ public class RegularManualTransmission implements ManualTransmission {
     }
   }
 
-  private void checkInvalidLowSpeedGearSpeedRange() {
+  private void checkInvalidLowSpeedsOfGears() {
     for (int i = 0; i < gearSpeedRanges.length; i++) {
       for (int j = i + 1; j < gearSpeedRanges.length; j++) {
         if (gearSpeedRanges[i].getLowSpeed() >= gearSpeedRanges[j].getLowSpeed()) {
@@ -153,12 +153,12 @@ public class RegularManualTransmission implements ManualTransmission {
     }
   }
 
-  private void checkInvalidOverlappingGearSpeedRange() {
-    checkInvalidOverLappingGearSpeedRangeWithPrevGears();
-    checkInvalidOverlappingGearSpeedRangeWithNextGears();
+  private void checkInvalidGearOverLapping() {
+    checkNonAdjacentGearOverLappingWithPrevGears();
+    checkNonAdjacentGearOverLappingWithNextGears();
   }
 
-  private void checkInvalidOverLappingGearSpeedRangeWithPrevGears() {
+  private void checkNonAdjacentGearOverLappingWithPrevGears() {
     for (int i = 1; i < gearSpeedRanges.length - 1; i++) {
       GearSpeedRange gearSpeedRange = gearSpeedRanges[i];
 
@@ -183,7 +183,7 @@ public class RegularManualTransmission implements ManualTransmission {
     }
   }
 
-  private void checkInvalidOverlappingGearSpeedRangeWithNextGears() {
+  private void checkNonAdjacentGearOverLappingWithNextGears() {
     for (int i = 1; i < gearSpeedRanges.length - 1; i++) {
       GearSpeedRange gearSpeedRange = gearSpeedRanges[i];
 
@@ -203,7 +203,7 @@ public class RegularManualTransmission implements ManualTransmission {
     }
   }
 
-  private void checkLowSpeedOfFirstGearSpeedRange() {
+  private void checkLowSpeedOfFirstGear() {
     if (gearSpeedRanges[0].getLowSpeed() != 0) {
       throw new IllegalArgumentException("Lower Speed of First Gear is not 0");
     }
