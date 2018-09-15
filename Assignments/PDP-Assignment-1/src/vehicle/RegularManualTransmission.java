@@ -76,11 +76,35 @@ public class RegularManualTransmission implements ManualTransmission {
     return this.currentGear + 1;
   }
 
+  /**
+   * Increases the speed of the vehicle by 1 if it is possible and changes the status. Following
+   * scenarios are possible:
+   * <ul>
+   * <li>If speed can be increased without changing gear then speed increases and status is set to
+   * <code>{@link TransmissionStatus#OK}</code>
+   * </li>
+   *
+   * <li>If speed can be increased and the intended speed lies within range of next gear then speed
+   * increases and status is set to <code>{@link TransmissionStatus#MAY_INCREASE_GEAR}</code>
+   * </li>
+   *
+   * <li>If speed cannot be increased as the intended speed is to high for current gear then status
+   * is set to <code>{@link TransmissionStatus#CANNOT_INCREASE_SPEED_INCREASE_GEAR_FIRST}</code>
+   * </li>
+   *
+   * <li>If speed cannot be increased as it will go beyond the speed limit of the vehicle then
+   * status is set to
+   * <code>{@link TransmissionStatus#CANNOT_INCREASE_SPEED_REACHED_MAX_SPEED}</code>
+   * </li>
+   * </ul>
+   *
+   * @return the caller ManualTransmission object with the modified information
+   */
   @Override
   public ManualTransmission increaseSpeed() {
-    int speedAfterIncrease = this.currentSpeed + SPEED_CHANGE;
-    if (canIncreaseSpeedInCurrentGear(speedAfterIncrease)) {
-      this.currentSpeed = speedAfterIncrease;
+    int intendedSpeed = this.currentSpeed + SPEED_CHANGE;
+    if (canIncreaseSpeedInCurrentGear(intendedSpeed)) {
+      this.currentSpeed = intendedSpeed;
 
       if (doesHigherGearExist() && canShiftToHigherGear()) {
         this.transmissionStatus = TransmissionStatus.MAY_INCREASE_GEAR;
@@ -97,11 +121,34 @@ public class RegularManualTransmission implements ManualTransmission {
     return this;
   }
 
+  /**
+   * Decreases the speed of the vehicle by 1 if it is possible and changes the status. Following
+   * scenarios are possible:
+   * <ul>
+   * <li>If speed can be decreased without changing gear then speed decreases and status is set to
+   * <code>{@link TransmissionStatus#OK}</code>
+   * </li>
+   *
+   * <li>If speed can be decreased and the intended speed lies within range of previous gear then
+   * speed decreases and status is set to <code>{@link TransmissionStatus#MAY_DECREASE_GEAR}</code>
+   * </li>
+   *
+   * <li>If speed cannot be decreased as the intended speed is to low for current gear then status
+   * is set to <code>{@link TransmissionStatus#CANNOT_DECREASE_SPEED_DECREASE_GEAR_FIRST}</code>
+   * </li>
+   *
+   * <li>If speed cannot be decreased as it is already 0 then status is set to <code>{@link
+   * TransmissionStatus#CANNOT_DECREASE_SPEED_REACHED_MIN_SPEED}</code>
+   * </li>
+   * </ul>
+   *
+   * @return the caller ManualTransmission object with the modified information
+   */
   @Override
   public ManualTransmission decreaseSpeed() {
-    int speedAfterDecrease = this.currentSpeed - SPEED_CHANGE;
-    if (canDecreaseSpeedInCurrentGear(speedAfterDecrease)) {
-      this.currentSpeed = speedAfterDecrease;
+    int intendedSpeed = this.currentSpeed - SPEED_CHANGE;
+    if (canDecreaseSpeedInCurrentGear(intendedSpeed)) {
+      this.currentSpeed = intendedSpeed;
 
       if (doesLowerGearExist() && canShiftToLowerGear()) {
         this.transmissionStatus = TransmissionStatus.MAY_DECREASE_GEAR;
@@ -118,6 +165,26 @@ public class RegularManualTransmission implements ManualTransmission {
     return this;
   }
 
+  /**
+   * Increases the gear of the vehicle by 1 if it is possible and changes the status. Following
+   * scenarios are possible:
+   * <ul>
+   * <li>If a higher gear exists and gear can be increased without changing speed of the vehicle
+   * then gear increases and status is set to <code>{@link TransmissionStatus#OK}</code>
+   * </li>
+   *
+   * <li>If a higher gear exists but the gear cannot be increased as the current speed is low for
+   * next gear then status is set to
+   * <code>{@link TransmissionStatus#CANNOT_INCREASE_GEAR_INCREASE_SPEED_FIRST}</code>
+   * </li>
+   *
+   * <li>If a higher gear does not exist then status is set to <code>{@link
+   * TransmissionStatus#CANNOT_INCREASE_GEAR_REACHED_MAX_GEAR}</code>
+   * </li>
+   * </ul>
+   *
+   * @return the caller ManualTransmission object with the modified information
+   */
   @Override
   public ManualTransmission increaseGear() {
     if (doesHigherGearExist()) {
@@ -133,6 +200,26 @@ public class RegularManualTransmission implements ManualTransmission {
     return this;
   }
 
+  /**
+   * Decreases the gear of the vehicle by 1 if it is possible and changes the status. Following
+   * scenarios are possible:
+   * <ul>
+   * <li>If a lower gear exists and gear can be decreased without changing speed of the vehicle
+   * then gear decreases and status is set to <code>{@link TransmissionStatus#OK}</code>
+   * </li>
+   *
+   * <li>If a lower gear exists but the gear cannot be decreased as the current speed is high for
+   * previous gear then status is set to
+   * <code>{@link TransmissionStatus#CANNOT_DECREASE_GEAR_DECREASE_SPEED_FIRST}</code>
+   * </li>
+   *
+   * <li>If a lower gear does not exist then status is set to <code>{@link
+   * TransmissionStatus#CANNOT_DECREASE_GEAR_REACHED_MIN_GEAR}</code>
+   * </li>
+   * </ul>
+   *
+   * @return the caller ManualTransmission object with the modified information
+   */
   @Override
   public ManualTransmission decreaseGear() {
     if (doesLowerGearExist()) {
@@ -155,12 +242,12 @@ public class RegularManualTransmission implements ManualTransmission {
     checkLowSpeedOfFirstGear();
     checkInvalidGearSpeedRange();
     checkInvalidLowSpeedsOfGears();
-    checkAdjacentNonOverlappingGears();
+    checkNonOverlappingAdjacentGears();
     checkInvalidGearOverLapping();
   }
 
   /**
-   * Throws IllegalArgumentException if the lower speed of the 1st gear is not 0.
+   * Checks if the lower speed of the 1st gear is not 0.
    *
    * @throws IllegalArgumentException if the lower speed of the 1st gear is not 0
    */
@@ -209,7 +296,7 @@ public class RegularManualTransmission implements ManualTransmission {
    *
    * @throws IllegalArgumentException if there exists non overlapping adjacent gears
    */
-  private void checkAdjacentNonOverlappingGears() throws IllegalArgumentException {
+  private void checkNonOverlappingAdjacentGears() throws IllegalArgumentException {
     for (int i = 0; i < gearSpeedRanges.length - 1; i++) {
       if (gearSpeedRanges[i].getUpperLimit() < gearSpeedRanges[i + 1].getLowerLimit()) {
         throw new IllegalArgumentException(
@@ -222,7 +309,7 @@ public class RegularManualTransmission implements ManualTransmission {
   /**
    * Checks if only adjacent gears overlaps.
    *
-   * @throws IllegalArgumentException if only adjacent gears overlaps
+   * @throws IllegalArgumentException if non adjacent gears overlaps
    */
   private void checkInvalidGearOverLapping() throws IllegalArgumentException {
     checkNonAdjacentGearOverLappingWithPrevGears();
@@ -230,9 +317,10 @@ public class RegularManualTransmission implements ManualTransmission {
   }
 
   /**
-   * Checks if only adjacent gears overlaps.
+   * Checks if overlapping exists between a gear and the gears before it. If any such overlapping
+   * exists and the gears are non adjacent then it throws an exception.
    *
-   * @throws IllegalArgumentException if only adjacent gears overlaps
+   * @throws IllegalArgumentException if non adjacent gears overlaps
    */
   private void checkNonAdjacentGearOverLappingWithPrevGears() throws IllegalArgumentException {
     for (int i = 1; i < gearSpeedRanges.length - 1; i++) {
@@ -255,9 +343,10 @@ public class RegularManualTransmission implements ManualTransmission {
   }
 
   /**
-   * Checks if only adjacent gears overlaps.
+   * Checks if overlapping exists between a gear and the gears after it. If any such overlapping
+   * exists and the gears are non adjacent then it throws an exception.
    *
-   * @throws IllegalArgumentException if only adjacent gears overlaps
+   * @throws IllegalArgumentException if non adjacent gears overlaps
    */
   private void checkNonAdjacentGearOverLappingWithNextGears() throws IllegalArgumentException {
     for (int i = 1; i < gearSpeedRanges.length - 1; i++) {
@@ -280,27 +369,59 @@ public class RegularManualTransmission implements ManualTransmission {
   }
 
 
-  private boolean canIncreaseSpeedInCurrentGear(int speedAfterIncrease) {
-    return speedAfterIncrease <= this.gearSpeedRanges[this.currentGear].getUpperLimit();
+  /**
+   * Checks if speed can be increased in current gear.
+   *
+   * @param intendedSpeed the intended speed of vehicle
+   * @return if speed can be increased in current gear
+   */
+  private boolean canIncreaseSpeedInCurrentGear(int intendedSpeed) {
+    return intendedSpeed <= this.gearSpeedRanges[this.currentGear].getUpperLimit();
   }
 
-  private boolean canShiftToHigherGear() {
-    return this.currentSpeed >= gearSpeedRanges[this.currentGear + 1].getLowerLimit();
+  /**
+   * Checks if speed can be decreased in current gear.
+   *
+   * @param intendedSpeed the intended speed of vehicle
+   * @return if speed can be decreased in current gear
+   */
+  private boolean canDecreaseSpeedInCurrentGear(int intendedSpeed) {
+    return intendedSpeed >= this.gearSpeedRanges[this.currentGear].getLowerLimit();
   }
 
+  /**
+   * Checks if there exist a higher gear relative to current gear.
+   *
+   * @return if there exists a higher gear relative to current gear
+   */
   private boolean doesHigherGearExist() {
     return this.currentGear + 1 < TOTAL_GEARS_IN_VEHICLE;
   }
 
-  private boolean canShiftToLowerGear() {
-    return this.currentSpeed <= this.gearSpeedRanges[this.currentGear - 1].getUpperLimit();
-  }
-
+  /**
+   * Checks if there exist a lower gear relative to current gear.
+   *
+   * @return if there exists a lower gear relative to current gear
+   */
   private boolean doesLowerGearExist() {
     return this.currentGear - 1 >= 0;
   }
 
-  private boolean canDecreaseSpeedInCurrentGear(int speedAfterDecrease) {
-    return speedAfterDecrease >= this.gearSpeedRanges[this.currentGear].getLowerLimit();
+  /**
+   * Checks if the current speed is within the gear speed range of next gear.
+   *
+   * @return if the current speed is within the gear speed range of next gear
+   */
+  private boolean canShiftToHigherGear() {
+    return this.currentSpeed >= gearSpeedRanges[this.currentGear + 1].getLowerLimit();
+  }
+
+  /**
+   * Checks if the current speed is within the gear speed range of previous gear.
+   *
+   * @return if the current speed is within the gear speed range of previous gear.
+   */
+  private boolean canShiftToLowerGear() {
+    return this.currentSpeed <= this.gearSpeedRanges[this.currentGear - 1].getUpperLimit();
   }
 }

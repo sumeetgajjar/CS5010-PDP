@@ -1,7 +1,7 @@
 package vehicle.bean;
 
 /**
- * This class represents the range of a speed for the Gear. It consists of lowerLimit and
+ * This class represents the range of speed for the Gear. It consists of lowerLimit and
  * upperLimit.
  */
 public class GearSpeedRange {
