@@ -195,10 +195,10 @@ public class RegularManualTransmission implements ManualTransmission {
     for (int i = 0; i < gearSpeedRanges.length; i++) {
       for (int j = i + 1; j < gearSpeedRanges.length; j++) {
         if (gearSpeedRanges[i].getLowerLimit() >= gearSpeedRanges[j].getLowerLimit()) {
-          throw new IllegalArgumentException(
-                  String.format(
-                          "Lower limit of Gear: %d is greater than or equal to Lower limit of Gear: %d",
-                          i + 1, j + 1));
+          String exceptionMessage = String.format(
+                  "Lower limit of Gear: %d is greater than or equal to Lower limit of Gear: %d",
+                  i + 1, j + 1);
+          throw new IllegalArgumentException(exceptionMessage);
         }
       }
     }
