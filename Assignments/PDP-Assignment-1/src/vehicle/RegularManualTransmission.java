@@ -93,7 +93,8 @@ public class RegularManualTransmission implements ManualTransmission {
    * </li>
    *
    * <li>If speed cannot be increased as it will go beyond the speed limit of the vehicle then
-   * status is set to <code>{@link TransmissionStatus#CANNOT_INCREASE_SPEED_REACHED_MAX_SPEED}</code>
+   * status is set to
+   * <code>{@link TransmissionStatus#CANNOT_INCREASE_SPEED_REACHED_MAX_SPEED}</code>
    * </li>
    * </ul>
    *
