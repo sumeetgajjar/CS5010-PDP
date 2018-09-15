@@ -368,26 +368,58 @@ public class RegularManualTransmission implements ManualTransmission {
   }
 
 
+  /**
+   * Checks if speed can be increased in current gear.
+   *
+   * @param intendedSpeed the intended speed of vehicle
+   * @return if speed can be increased in current gear
+   */
   private boolean canIncreaseSpeedInCurrentGear(int intendedSpeed) {
     return intendedSpeed <= this.gearSpeedRanges[this.currentGear].getUpperLimit();
   }
 
+  /**
+   * Checks if speed can be decreased in current gear.
+   *
+   * @param intendedSpeed the intended speed of vehicle
+   * @return if speed can be decreased in current gear
+   */
   private boolean canDecreaseSpeedInCurrentGear(int intendedSpeed) {
     return intendedSpeed >= this.gearSpeedRanges[this.currentGear].getLowerLimit();
   }
 
+  /**
+   * Checks if there exist a higher gear relative to current gear.
+   *
+   * @return if there exists a higher gear relative to current gear
+   */
   private boolean doesHigherGearExist() {
     return this.currentGear + 1 < TOTAL_GEARS_IN_VEHICLE;
   }
 
+  /**
+   * Checks if there exist a lower gear relative to current gear.
+   *
+   * @return if there exists a lower gear relative to current gear
+   */
   private boolean doesLowerGearExist() {
     return this.currentGear - 1 >= 0;
   }
 
+  /**
+   * Checks if the current speed is within the gear speed range of next gear.
+   *
+   * @return if the current speed is within the gear speed range of next gear
+   */
   private boolean canShiftToHigherGear() {
     return this.currentSpeed >= gearSpeedRanges[this.currentGear + 1].getLowerLimit();
   }
 
+  /**
+   * Checks if the current speed is within the gear speed range of previous gear.
+   *
+   * @return if the current speed is within the gear speed range of previous gear.
+   */
   private boolean canShiftToLowerGear() {
     return this.currentSpeed <= this.gearSpeedRanges[this.currentGear - 1].getUpperLimit();
   }
