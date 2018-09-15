@@ -159,6 +159,22 @@ public class RegularManualTransmission implements ManualTransmission {
     checkInvalidGearOverLapping();
   }
 
+  /**
+   * Throws IllegalArgumentException if the lower speed of the 1st gear is not 0.
+   *
+   * @throws IllegalArgumentException if the lower speed of the 1st gear is not 0
+   */
+  private void checkLowSpeedOfFirstGear() throws IllegalArgumentException {
+    if (gearSpeedRanges[0].getLowerLimit() != 0) {
+      throw new IllegalArgumentException("Lower limit of First Gear is not 0");
+    }
+  }
+
+  /**
+   * Checks if low speed of gear is greater than high speed.
+   *
+   * @throws IllegalArgumentException if low speed of gear is greater than high speed
+   */
   private void checkInvalidGearSpeedRange() throws IllegalArgumentException {
     for (int i = 0; i < gearSpeedRanges.length; i++) {
       if (gearSpeedRanges[i].getLowerLimit() > gearSpeedRanges[i].getUpperLimit()) {
@@ -169,6 +185,12 @@ public class RegularManualTransmission implements ManualTransmission {
     }
   }
 
+  /**
+   * Checks if low speed of previous gear is greater than low speed of next gear.
+   *
+   * @throws IllegalArgumentException if low speed of previous gear is greater than low speed of
+   *                                  next gear
+   */
   private void checkInvalidLowSpeedsOfGears() throws IllegalArgumentException {
     for (int i = 0; i < gearSpeedRanges.length; i++) {
       for (int j = i + 1; j < gearSpeedRanges.length; j++) {
@@ -182,6 +204,11 @@ public class RegularManualTransmission implements ManualTransmission {
     }
   }
 
+  /**
+   * Checks if there exists non overlapping adjacent gears.
+   *
+   * @throws IllegalArgumentException if there exists non overlapping adjacent gears
+   */
   private void checkAdjacentNonOverlappingGears() throws IllegalArgumentException {
     for (int i = 0; i < gearSpeedRanges.length - 1; i++) {
       if (gearSpeedRanges[i].getUpperLimit() < gearSpeedRanges[i + 1].getLowerLimit()) {
@@ -192,11 +219,21 @@ public class RegularManualTransmission implements ManualTransmission {
     }
   }
 
+  /**
+   * Checks if only adjacent gears overlaps.
+   *
+   * @throws IllegalArgumentException if only adjacent gears overlaps
+   */
   private void checkInvalidGearOverLapping() throws IllegalArgumentException {
     checkNonAdjacentGearOverLappingWithPrevGears();
     checkNonAdjacentGearOverLappingWithNextGears();
   }
 
+  /**
+   * Checks if only adjacent gears overlaps.
+   *
+   * @throws IllegalArgumentException if only adjacent gears overlaps
+   */
   private void checkNonAdjacentGearOverLappingWithPrevGears() throws IllegalArgumentException {
     for (int i = 1; i < gearSpeedRanges.length - 1; i++) {
       GearSpeedRange gearSpeedRange = gearSpeedRanges[i];
@@ -217,6 +254,11 @@ public class RegularManualTransmission implements ManualTransmission {
     }
   }
 
+  /**
+   * Checks if only adjacent gears overlaps.
+   *
+   * @throws IllegalArgumentException if only adjacent gears overlaps
+   */
   private void checkNonAdjacentGearOverLappingWithNextGears() throws IllegalArgumentException {
     for (int i = 1; i < gearSpeedRanges.length - 1; i++) {
       GearSpeedRange gearSpeedRange = gearSpeedRanges[i];
@@ -234,17 +276,6 @@ public class RegularManualTransmission implements ManualTransmission {
                 String.format("Non Adjacent Overlapping(%d) for Gear: %d with next Gears",
                         nextGearSpeedRangeOverlapping, i + 1));
       }
-    }
-  }
-
-  /**
-   * Throws IllegalArgumentException if the lower speed of the 1st gear is not 0.
-   *
-   * @throws IllegalArgumentException if the lower speed of the 1st gear is not 0
-   */
-  private void checkLowSpeedOfFirstGear() throws IllegalArgumentException {
-    if (gearSpeedRanges[0].getLowerLimit() != 0) {
-      throw new IllegalArgumentException("Lower limit of First Gear is not 0");
     }
   }
 
