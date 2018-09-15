@@ -116,6 +116,25 @@ public class RegularManualTransmission implements ManualTransmission {
     return this;
   }
 
+  /**
+   * Decrease the speed of the vehicle by 1 if its possible and changes the status. Following
+   * scenarios are possible:
+   * <ul>
+   * <li>If speed can be decreased without changing gear then speed decreases and status is set to
+   * <code>{@link TransmissionStatus#OK}</code></li>
+   *
+   * <li>If speed can be decreased and the intended speed lies within range of previous gear then
+   * speed decreases and status is set to <code>{@link TransmissionStatus#MAY_DECREASE_GEAR}</code></li>
+   *
+   * <li>If speed cannot be decreased as the intended speed is to low for current gear then status
+   * is set to <code>{@link TransmissionStatus#CANNOT_DECREASE_SPEED_DECREASE_GEAR_FIRST}</code></li>
+   *
+   * <li>If speed cannot be decreased as it is already 0 then status is set to <code>{@link
+   * TransmissionStatus#CANNOT_DECREASE_SPEED_REACHED_MIN_SPEED}</code></li>
+   * </ul>
+   *
+   * @return the caller ManualTransmission object with the modified information
+   */
   @Override
   public ManualTransmission decreaseSpeed() {
     int intendedSpeed = this.currentSpeed - SPEED_CHANGE;
