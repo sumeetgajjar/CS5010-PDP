@@ -127,6 +127,7 @@ public class RegularManualTransmission implements ManualTransmission {
     checkLowSpeedOfFirstGear();
     checkInvalidGearSpeedRange();
     checkInvalidLowSpeedsOfGears();
+    checkAdjacentNonOverlappingGears();
     checkInvalidGearOverLapping();
   }
 
@@ -153,6 +154,16 @@ public class RegularManualTransmission implements ManualTransmission {
     }
   }
 
+  private void checkAdjacentNonOverlappingGears() {
+    for (int i = 0; i < gearSpeedRanges.length - 1; i++) {
+      if (gearSpeedRanges[i].getHighSpeed() < gearSpeedRanges[i + 1].getLowSpeed()) {
+        throw new IllegalArgumentException(
+                String.format("Speed of Gears: %d and %d are non-overlapping",
+                        i + 1, i + 2));
+      }
+    }
+  }
+
   private void checkInvalidGearOverLapping() {
     checkNonAdjacentGearOverLappingWithPrevGears();
     checkNonAdjacentGearOverLappingWithNextGears();
@@ -170,12 +181,7 @@ public class RegularManualTransmission implements ManualTransmission {
         }
       }
 
-      if (previousGearSpeedRangeOverlapping == 0) {
-        throw new IllegalArgumentException(
-                String.format("Speed of Gears: %d and %d are non-overlapping",
-                        i, i + 1));
-
-      } else if (previousGearSpeedRangeOverlapping != 1) {
+      if (previousGearSpeedRangeOverlapping != 1) {
         throw new IllegalArgumentException(
                 String.format("Non Adjacent Overlapping(%d) for Gear: %d with previous Gears",
                         previousGearSpeedRangeOverlapping, i + 1));
