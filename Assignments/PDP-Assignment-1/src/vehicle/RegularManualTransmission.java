@@ -3,10 +3,22 @@ package vehicle;
 import vehicle.bean.GearSpeedRange;
 import vehicle.bean.TransmissionStatus;
 
+/**
+ * This class represents a RegularManualTransmission and it implements ManualTransmission interface.
+ * A RegularManualTransmission has a currentSpeed, currentGear, transmissionStatus and Speed ranges
+ * for its Gears.
+ */
 public class RegularManualTransmission implements ManualTransmission {
 
+  /**
+   * Fixed amount by which the Speed of the vehicle changes, 1.
+   */
   private static final int SPEED_CHANGE = 1;
-  private static final int MAX_GEARS = 5;
+
+  /**
+   * Total number of gears in the vehicle, 5.
+   */
+  private static final int TOTAL_GEARS_IN_VEHICLE = 5;
 
   private final GearSpeedRange[] gearSpeedRanges;
 
@@ -20,7 +32,7 @@ public class RegularManualTransmission implements ManualTransmission {
                                    int gear4Low, int gear4High,
                                    int gear5Low, int gear5High) {
 
-    this.gearSpeedRanges = new GearSpeedRange[MAX_GEARS];
+    this.gearSpeedRanges = new GearSpeedRange[TOTAL_GEARS_IN_VEHICLE];
     this.gearSpeedRanges[0] = new GearSpeedRange(gear1Low, gear1High);
     this.gearSpeedRanges[1] = new GearSpeedRange(gear2Low, gear2High);
     this.gearSpeedRanges[2] = new GearSpeedRange(gear3Low, gear3High);
@@ -131,7 +143,7 @@ public class RegularManualTransmission implements ManualTransmission {
 
   private void checkInvalidGearSpeedRange() {
     for (int i = 0; i < gearSpeedRanges.length; i++) {
-      if (gearSpeedRanges[i].getLowSpeed() > gearSpeedRanges[i].getHighSpeed()) {
+      if (gearSpeedRanges[i].getLowerLimit() > gearSpeedRanges[i].getUpperLimit()) {
         throw new IllegalArgumentException(
                 String.format("Low Speed of Gear: %d is greater than High Speed",
                         i + 1));
@@ -142,7 +154,7 @@ public class RegularManualTransmission implements ManualTransmission {
   private void checkInvalidLowSpeedsOfGears() {
     for (int i = 0; i < gearSpeedRanges.length; i++) {
       for (int j = i + 1; j < gearSpeedRanges.length; j++) {
-        if (gearSpeedRanges[i].getLowSpeed() >= gearSpeedRanges[j].getLowSpeed()) {
+        if (gearSpeedRanges[i].getLowerLimit() >= gearSpeedRanges[j].getLowerLimit()) {
           throw new IllegalArgumentException(
                   String.format(
                           "Low Speed of Gear: %d is greater than or equal to Low Speed of Gear: %d",
@@ -154,7 +166,7 @@ public class RegularManualTransmission implements ManualTransmission {
 
   private void checkAdjacentNonOverlappingGears() {
     for (int i = 0; i < gearSpeedRanges.length - 1; i++) {
-      if (gearSpeedRanges[i].getHighSpeed() < gearSpeedRanges[i + 1].getLowSpeed()) {
+      if (gearSpeedRanges[i].getUpperLimit() < gearSpeedRanges[i + 1].getLowerLimit()) {
         throw new IllegalArgumentException(
                 String.format("Speed of Gears: %d and %d are non-overlapping",
                         i + 1, i + 2));
@@ -174,7 +186,7 @@ public class RegularManualTransmission implements ManualTransmission {
       int previousGearSpeedRangeOverlapping = 0;
       for (int j = i - 1; j >= 0; j--) {
         GearSpeedRange previousGearSpeedRange = gearSpeedRanges[j];
-        if (gearSpeedRange.getLowSpeed() <= previousGearSpeedRange.getHighSpeed()) {
+        if (gearSpeedRange.getLowerLimit() <= previousGearSpeedRange.getUpperLimit()) {
           previousGearSpeedRangeOverlapping++;
         }
       }
@@ -194,7 +206,7 @@ public class RegularManualTransmission implements ManualTransmission {
       int nextGearSpeedRangeOverlapping = 0;
       for (int k = i + 1; k < gearSpeedRanges.length; k++) {
         GearSpeedRange nextGearSpeedRange = gearSpeedRanges[k];
-        if (gearSpeedRange.getHighSpeed() >= nextGearSpeedRange.getLowSpeed()) {
+        if (gearSpeedRange.getUpperLimit() >= nextGearSpeedRange.getLowerLimit()) {
           nextGearSpeedRangeOverlapping++;
         }
       }
@@ -208,26 +220,26 @@ public class RegularManualTransmission implements ManualTransmission {
   }
 
   private void checkLowSpeedOfFirstGear() {
-    if (gearSpeedRanges[0].getLowSpeed() != 0) {
+    if (gearSpeedRanges[0].getLowerLimit() != 0) {
       throw new IllegalArgumentException("Lower Speed of First Gear is not 0");
     }
   }
 
 
   private boolean canIncreaseSpeedInCurrentGear(int speedAfterIncrease) {
-    return speedAfterIncrease <= this.gearSpeedRanges[this.currentGear].getHighSpeed();
+    return speedAfterIncrease <= this.gearSpeedRanges[this.currentGear].getUpperLimit();
   }
 
   private boolean canShiftToHigherGear() {
-    return this.currentSpeed >= gearSpeedRanges[this.currentGear + 1].getLowSpeed();
+    return this.currentSpeed >= gearSpeedRanges[this.currentGear + 1].getLowerLimit();
   }
 
   private boolean doesHigherGearExist() {
-    return this.currentGear + 1 < MAX_GEARS;
+    return this.currentGear + 1 < TOTAL_GEARS_IN_VEHICLE;
   }
 
   private boolean canShiftToLowerGear() {
-    return this.currentSpeed <= this.gearSpeedRanges[this.currentGear - 1].getHighSpeed();
+    return this.currentSpeed <= this.gearSpeedRanges[this.currentGear - 1].getUpperLimit();
   }
 
   private boolean doesLowerGearExist() {
@@ -235,6 +247,6 @@ public class RegularManualTransmission implements ManualTransmission {
   }
 
   private boolean canDecreaseSpeedInCurrentGear(int speedAfterDecrease) {
-    return speedAfterDecrease >= this.gearSpeedRanges[this.currentGear].getLowSpeed();
+    return speedAfterDecrease >= this.gearSpeedRanges[this.currentGear].getLowerLimit();
   }
 }

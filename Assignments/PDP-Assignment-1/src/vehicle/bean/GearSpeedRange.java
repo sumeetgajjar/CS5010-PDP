@@ -1,19 +1,23 @@
 package vehicle.bean;
 
+/**
+ * This class represents the range of a speed for the Gear. It consists of lowerLimit and
+ * upperLimit.
+ */
 public class GearSpeedRange {
-  private final int lowSpeed;
-  private final int highSpeed;
+  private final int lowerLimit;
+  private final int upperLimit;
 
-  public GearSpeedRange(int lowSpeed, int highSpeed) {
-    this.lowSpeed = lowSpeed;
-    this.highSpeed = highSpeed;
+  public GearSpeedRange(int lowerLimit, int upperLimit) {
+    this.lowerLimit = lowerLimit;
+    this.upperLimit = upperLimit;
   }
 
-  public int getLowSpeed() {
-    return lowSpeed;
+  public int getLowerLimit() {
+    return lowerLimit;
   }
 
-  public int getHighSpeed() {
-    return highSpeed;
+  public int getUpperLimit() {
+    return upperLimit;
   }
 }
