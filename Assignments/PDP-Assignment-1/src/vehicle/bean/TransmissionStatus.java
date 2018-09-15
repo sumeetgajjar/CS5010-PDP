@@ -6,7 +6,7 @@ package vehicle.bean;
 public enum TransmissionStatus {
 
   /**
-   * Indicates the speed or gear was changed successfully.
+   * Indicates the speed or gear (but not both) was changed successfully.
    * <ul>
    * <li>If speed was changed then it was changed successfully without changing gear</li>
    * <li>If gear was changed then it was changed successfully without changing speed</li>
