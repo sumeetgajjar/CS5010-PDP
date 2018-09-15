@@ -21,7 +21,7 @@ public class RegularManualTransmissionTest {
       Assert.fail();
     } catch (IllegalArgumentException e) {
       Assert.assertEquals(e.getMessage(),
-              "Low Speed of Gear: 3 is greater than High Speed");
+              "Lower limit of Gear: 3 is greater than Upper limit");
     }
   }
 
@@ -37,7 +37,7 @@ public class RegularManualTransmissionTest {
       Assert.fail();
     } catch (IllegalArgumentException e) {
       Assert.assertEquals(e.getMessage(),
-              "Low Speed of Gear: 3 is greater than or equal to Low Speed of Gear: 4");
+              "Lower limit of Gear: 3 is greater than or equal to Lower limit of Gear: 4");
     }
   }
 
@@ -101,7 +101,7 @@ public class RegularManualTransmissionTest {
       Assert.fail();
     } catch (IllegalArgumentException e) {
       Assert.assertEquals(e.getMessage(),
-              "Lower Speed of First Gear is not 0");
+              "Lower limit of First Gear is not 0");
     }
   }
 

@@ -145,7 +145,7 @@ public class RegularManualTransmission implements ManualTransmission {
     for (int i = 0; i < gearSpeedRanges.length; i++) {
       if (gearSpeedRanges[i].getLowerLimit() > gearSpeedRanges[i].getUpperLimit()) {
         throw new IllegalArgumentException(
-                String.format("Low Speed of Gear: %d is greater than High Speed",
+                String.format("Lower limit of Gear: %d is greater than Upper limit",
                         i + 1));
       }
     }
@@ -157,7 +157,7 @@ public class RegularManualTransmission implements ManualTransmission {
         if (gearSpeedRanges[i].getLowerLimit() >= gearSpeedRanges[j].getLowerLimit()) {
           throw new IllegalArgumentException(
                   String.format(
-                          "Low Speed of Gear: %d is greater than or equal to Low Speed of Gear: %d",
+                          "Lower limit of Gear: %d is greater than or equal to Lower limit of Gear: %d",
                           i + 1, j + 1));
         }
       }
@@ -221,7 +221,7 @@ public class RegularManualTransmission implements ManualTransmission {
 
   private void checkLowSpeedOfFirstGear() {
     if (gearSpeedRanges[0].getLowerLimit() != 0) {
-      throw new IllegalArgumentException("Lower Speed of First Gear is not 0");
+      throw new IllegalArgumentException("Lower limit of First Gear is not 0");
     }
   }
 
