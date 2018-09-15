@@ -26,6 +26,20 @@ public class RegularManualTransmission implements ManualTransmission {
   private int currentSpeed;
   private TransmissionStatus transmissionStatus;
 
+  /**
+   * Constructs the RegularManualTransmission object with given gear speed ranges.
+   *
+   * @param gear1Low  lower limit of the 1st gear
+   * @param gear1High upper limit of the 1st gear
+   * @param gear2Low  lower limit of the 2nd gear
+   * @param gear2High upper limit of the 2nd gear
+   * @param gear3Low  lower limit of the 3rd gear
+   * @param gear3High upper limit of the 3rd gear
+   * @param gear4Low  lower limit of the 4th gear
+   * @param gear4High upper limit of the 4th gear
+   * @param gear5Low  lower limit of the 5th gear
+   * @param gear5High upper limit of the 5th gear
+   */
   public RegularManualTransmission(int gear1Low, int gear1High,
                                    int gear2Low, int gear2High,
                                    int gear3Low, int gear3High,
