@@ -76,6 +76,25 @@ public class RegularManualTransmission implements ManualTransmission {
     return this.currentGear + 1;
   }
 
+  /**
+   * Increases the speed of the vehicle by 1 if its possible and changes the status. Following
+   * scenarios are possible:
+   * <ul>
+   * <li>If speed can be increased without changing gear then speed increases and status is set to
+   * <code>{@link TransmissionStatus#OK}</code></li>
+   *
+   * <li>If speed can be increased and the intended speed lies within range of next gear then speed
+   * increases and status is set to <code>{@link TransmissionStatus#MAY_INCREASE_GEAR}</code></li>
+   *
+   * <li>If speed cannot be increased as the intended speed is to high for current gear then status
+   * is set to <code>{@link TransmissionStatus#CANNOT_INCREASE_SPEED_INCREASE_GEAR_FIRST}</code></li>
+   *
+   * <li>If speed cannot be increased as it will go beyond the speed limit of the vehicle then
+   * status is set to <code>{@link TransmissionStatus#CANNOT_INCREASE_SPEED_REACHED_MAX_SPEED}</code></li>
+   * </ul>
+   *
+   * @return the caller ManualTransmission object with the modified information
+   */
   @Override
   public ManualTransmission increaseSpeed() {
     int intendedSpeed = this.currentSpeed + SPEED_CHANGE;
