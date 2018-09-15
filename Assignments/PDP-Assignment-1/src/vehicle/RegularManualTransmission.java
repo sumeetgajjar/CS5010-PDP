@@ -60,15 +60,12 @@ public class RegularManualTransmission implements ManualTransmission {
       } else {
         this.transmissionStatus = TransmissionStatus.OK;
       }
-
     } else {
-
       if (doesHigherGearExist()) {
         this.transmissionStatus = TransmissionStatus.CANNOT_INCREASE_SPEED_INCREASE_GEAR_FIRST;
       } else {
         this.transmissionStatus = TransmissionStatus.CANNOT_INCREASE_SPEED_REACHED_MAX_SPEED;
       }
-
     }
     return this;
   }
@@ -84,15 +81,12 @@ public class RegularManualTransmission implements ManualTransmission {
       } else {
         this.transmissionStatus = TransmissionStatus.OK;
       }
-
     } else {
-
       if (doesLowerGearExist()) {
         this.transmissionStatus = TransmissionStatus.CANNOT_DECREASE_SPEED_DECREASE_GEAR_FIRST;
       } else {
         this.transmissionStatus = TransmissionStatus.CANNOT_DECREASE_SPEED_REACHED_MIN_SPEED;
       }
-
     }
     return this;
   }
@@ -101,14 +95,12 @@ public class RegularManualTransmission implements ManualTransmission {
   public ManualTransmission increaseGear() {
     int gearAfterIncrease = this.currentGear + 1;
     if (gearAfterIncrease < MAX_GEARS) {
-
       if (canShiftToHigherGear()) {
         this.currentGear = gearAfterIncrease;
         this.transmissionStatus = TransmissionStatus.OK;
       } else {
         this.transmissionStatus = TransmissionStatus.CANNOT_INCREASE_GEAR_INCREASE_SPEED_FIRST;
       }
-
     } else {
       this.transmissionStatus = TransmissionStatus.CANNOT_INCREASE_GEAR_REACHED_MAX_GEAR;
     }
@@ -119,14 +111,12 @@ public class RegularManualTransmission implements ManualTransmission {
   public ManualTransmission decreaseGear() {
     int gearAfterDecrease = this.currentGear - 1;
     if (gearAfterDecrease >= 0) {
-
       if (canShiftToLowerGear()) {
         this.currentGear = gearAfterDecrease;
         this.transmissionStatus = TransmissionStatus.OK;
       } else {
         this.transmissionStatus = TransmissionStatus.CANNOT_DECREASE_GEAR_DECREASE_SPEED_FIRST;
       }
-
     } else {
       this.transmissionStatus = TransmissionStatus.CANNOT_DECREASE_GEAR_REACHED_MIN_GEAR;
     }
