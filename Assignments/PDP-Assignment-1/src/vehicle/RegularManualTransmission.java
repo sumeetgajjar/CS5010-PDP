@@ -93,10 +93,9 @@ public class RegularManualTransmission implements ManualTransmission {
 
   @Override
   public ManualTransmission increaseGear() {
-    int gearAfterIncrease = this.currentGear + 1;
-    if (gearAfterIncrease < MAX_GEARS) {
+    if (doesHigherGearExist()) {
       if (canShiftToHigherGear()) {
-        this.currentGear = gearAfterIncrease;
+        this.currentGear += 1;
         this.transmissionStatus = TransmissionStatus.OK;
       } else {
         this.transmissionStatus = TransmissionStatus.CANNOT_INCREASE_GEAR_INCREASE_SPEED_FIRST;
@@ -109,10 +108,9 @@ public class RegularManualTransmission implements ManualTransmission {
 
   @Override
   public ManualTransmission decreaseGear() {
-    int gearAfterDecrease = this.currentGear - 1;
-    if (gearAfterDecrease >= 0) {
+    if (doesLowerGearExist()) {
       if (canShiftToLowerGear()) {
-        this.currentGear = gearAfterDecrease;
+        this.currentGear -= 1;
         this.transmissionStatus = TransmissionStatus.OK;
       } else {
         this.transmissionStatus = TransmissionStatus.CANNOT_DECREASE_GEAR_DECREASE_SPEED_FIRST;
