@@ -10,9 +10,9 @@ public class RegularManualTransmission implements ManualTransmission {
 
   private final GearSpeedRange[] gearSpeedRanges;
 
-  private final int currentGear;
-  private final int currentSpeed;
-  private final TransmissionStatus transmissionStatus;
+  private int currentGear;
+  private int currentSpeed;
+  private TransmissionStatus transmissionStatus;
 
   public RegularManualTransmission(int gear1Low, int gear1High,
                                    int gear2Low, int gear2High,
@@ -68,6 +68,7 @@ public class RegularManualTransmission implements ManualTransmission {
       } else {
         this.transmissionStatus = TransmissionStatus.CANNOT_INCREASE_SPEED_REACHED_MAX_SPEED;
       }
+
     }
     return this;
   }
@@ -91,6 +92,7 @@ public class RegularManualTransmission implements ManualTransmission {
       } else {
         this.transmissionStatus = TransmissionStatus.CANNOT_DECREASE_SPEED_REACHED_MIN_SPEED;
       }
+
     }
     return this;
   }
