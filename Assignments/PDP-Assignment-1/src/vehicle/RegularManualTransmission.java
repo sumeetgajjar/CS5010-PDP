@@ -155,12 +155,12 @@ public class RegularManualTransmission implements ManualTransmission {
     checkLowSpeedOfFirstGear();
     checkInvalidGearSpeedRange();
     checkInvalidLowSpeedsOfGears();
-    checkAdjacentNonOverlappingGears();
+    checkNonOverlappingAdjacentGears();
     checkInvalidGearOverLapping();
   }
 
   /**
-   * Throws IllegalArgumentException if the lower speed of the 1st gear is not 0.
+   * Checks if the lower speed of the 1st gear is not 0.
    *
    * @throws IllegalArgumentException if the lower speed of the 1st gear is not 0
    */
@@ -209,7 +209,7 @@ public class RegularManualTransmission implements ManualTransmission {
    *
    * @throws IllegalArgumentException if there exists non overlapping adjacent gears
    */
-  private void checkAdjacentNonOverlappingGears() throws IllegalArgumentException {
+  private void checkNonOverlappingAdjacentGears() throws IllegalArgumentException {
     for (int i = 0; i < gearSpeedRanges.length - 1; i++) {
       if (gearSpeedRanges[i].getUpperLimit() < gearSpeedRanges[i + 1].getLowerLimit()) {
         throw new IllegalArgumentException(
@@ -222,7 +222,7 @@ public class RegularManualTransmission implements ManualTransmission {
   /**
    * Checks if only adjacent gears overlaps.
    *
-   * @throws IllegalArgumentException if only adjacent gears overlaps
+   * @throws IllegalArgumentException if non adjacent gears overlaps
    */
   private void checkInvalidGearOverLapping() throws IllegalArgumentException {
     checkNonAdjacentGearOverLappingWithPrevGears();
@@ -230,9 +230,10 @@ public class RegularManualTransmission implements ManualTransmission {
   }
 
   /**
-   * Checks if only adjacent gears overlaps.
+   * Checks if overlapping exists between a gear and the gears before it. If any such overlapping
+   * exists and the gears are non adjacent then it throws an exception.
    *
-   * @throws IllegalArgumentException if only adjacent gears overlaps
+   * @throws IllegalArgumentException if non adjacent gears overlaps
    */
   private void checkNonAdjacentGearOverLappingWithPrevGears() throws IllegalArgumentException {
     for (int i = 1; i < gearSpeedRanges.length - 1; i++) {
@@ -255,9 +256,10 @@ public class RegularManualTransmission implements ManualTransmission {
   }
 
   /**
-   * Checks if only adjacent gears overlaps.
+   * Checks if overlapping exists between a gear and the gears after it. If any such overlapping
+   * exists and the gears are non adjacent then it throws an exception.
    *
-   * @throws IllegalArgumentException if only adjacent gears overlaps
+   * @throws IllegalArgumentException if non adjacent gears overlaps
    */
   private void checkNonAdjacentGearOverLappingWithNextGears() throws IllegalArgumentException {
     for (int i = 1; i < gearSpeedRanges.length - 1; i++) {
