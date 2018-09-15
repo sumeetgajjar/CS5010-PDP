@@ -39,12 +39,13 @@ public class RegularManualTransmission implements ManualTransmission {
    * @param gear4High upper limit of the 4th gear
    * @param gear5Low  lower limit of the 5th gear
    * @param gear5High upper limit of the 5th gear
+   * @throws IllegalArgumentException if any of the sanity checks for gear range fails
    */
   public RegularManualTransmission(int gear1Low, int gear1High,
                                    int gear2Low, int gear2High,
                                    int gear3Low, int gear3High,
                                    int gear4Low, int gear4High,
-                                   int gear5Low, int gear5High) {
+                                   int gear5Low, int gear5High) throws IllegalArgumentException {
 
     this.gearSpeedRanges = new GearSpeedRange[TOTAL_GEARS_IN_VEHICLE];
     this.gearSpeedRanges[0] = new GearSpeedRange(gear1Low, gear1High);
@@ -147,7 +148,10 @@ public class RegularManualTransmission implements ManualTransmission {
     return this;
   }
 
-  private void performGearSpeedRangeSanityChecks() {
+  /**
+   * Performs various sanity checks on all given gear speed ranges.
+   */
+  private void performGearSpeedRangeSanityChecks() throws IllegalArgumentException {
     checkLowSpeedOfFirstGear();
     checkInvalidGearSpeedRange();
     checkInvalidLowSpeedsOfGears();
@@ -155,7 +159,7 @@ public class RegularManualTransmission implements ManualTransmission {
     checkInvalidGearOverLapping();
   }
 
-  private void checkInvalidGearSpeedRange() {
+  private void checkInvalidGearSpeedRange() throws IllegalArgumentException {
     for (int i = 0; i < gearSpeedRanges.length; i++) {
       if (gearSpeedRanges[i].getLowerLimit() > gearSpeedRanges[i].getUpperLimit()) {
         throw new IllegalArgumentException(
@@ -165,7 +169,7 @@ public class RegularManualTransmission implements ManualTransmission {
     }
   }
 
-  private void checkInvalidLowSpeedsOfGears() {
+  private void checkInvalidLowSpeedsOfGears() throws IllegalArgumentException {
     for (int i = 0; i < gearSpeedRanges.length; i++) {
       for (int j = i + 1; j < gearSpeedRanges.length; j++) {
         if (gearSpeedRanges[i].getLowerLimit() >= gearSpeedRanges[j].getLowerLimit()) {
@@ -178,7 +182,7 @@ public class RegularManualTransmission implements ManualTransmission {
     }
   }
 
-  private void checkAdjacentNonOverlappingGears() {
+  private void checkAdjacentNonOverlappingGears() throws IllegalArgumentException {
     for (int i = 0; i < gearSpeedRanges.length - 1; i++) {
       if (gearSpeedRanges[i].getUpperLimit() < gearSpeedRanges[i + 1].getLowerLimit()) {
         throw new IllegalArgumentException(
@@ -188,12 +192,12 @@ public class RegularManualTransmission implements ManualTransmission {
     }
   }
 
-  private void checkInvalidGearOverLapping() {
+  private void checkInvalidGearOverLapping() throws IllegalArgumentException {
     checkNonAdjacentGearOverLappingWithPrevGears();
     checkNonAdjacentGearOverLappingWithNextGears();
   }
 
-  private void checkNonAdjacentGearOverLappingWithPrevGears() {
+  private void checkNonAdjacentGearOverLappingWithPrevGears() throws IllegalArgumentException {
     for (int i = 1; i < gearSpeedRanges.length - 1; i++) {
       GearSpeedRange gearSpeedRange = gearSpeedRanges[i];
 
@@ -213,7 +217,7 @@ public class RegularManualTransmission implements ManualTransmission {
     }
   }
 
-  private void checkNonAdjacentGearOverLappingWithNextGears() {
+  private void checkNonAdjacentGearOverLappingWithNextGears() throws IllegalArgumentException {
     for (int i = 1; i < gearSpeedRanges.length - 1; i++) {
       GearSpeedRange gearSpeedRange = gearSpeedRanges[i];
 
@@ -233,7 +237,12 @@ public class RegularManualTransmission implements ManualTransmission {
     }
   }
 
-  private void checkLowSpeedOfFirstGear() {
+  /**
+   * Throws IllegalArgumentException if the lower speed of the 1st gear is not 0.
+   *
+   * @throws IllegalArgumentException if the lower speed of the 1st gear is not 0
+   */
+  private void checkLowSpeedOfFirstGear() throws IllegalArgumentException {
     if (gearSpeedRanges[0].getLowerLimit() != 0) {
       throw new IllegalArgumentException("Lower limit of First Gear is not 0");
     }
