@@ -1,33 +1,33 @@
 package fib;
 
 /**
- * This interface represents a set of operations for a FibonacciCounter. A Fibonacci counter counts
- * Fibonacci numbers from 1. The first Fibonacci number is 0 and the second is 1).
+ * This interface represents a set of operations for a FibonacciCounter. A FibonacciCounter counts
+ * Fibonacci numbers from 1. The first Fibonacci number is 0, the second is 1 and nth fibonacci
+ * number is calculated as f(n)=f(n-1)+f(n-2).
  */
 public interface FibonacciCounter {
 
   /**
-   * First Fibonacci Number is 0.
+   * First Fibonacci number is 0.
    */
   long FIRST_FIBONACCI_NUMBER = 0;
 
   /**
-   * Second Fibonacci Number is 1.
+   * Second Fibonacci number is 1.
    */
   long SECOND_FIBONACCI_NUMBER = 1;
 
   /**
-   * Increments the counter by 1 and returns a FibonacciCounter Object. If the counter cannot be
-   * incremented further, it throws an ArithmeticException.
+   * Increments the counter by 1 and returns a FibonacciCounter object. If the counter cannot be
+   * incremented further, it throws an exception.
    *
    * @return a FibonacciCounter object
-   * @throws ArithmeticException if FibonacciCounter Overflows.
+   * @throws ArithmeticException if FibonacciCounter overflows.
    */
   FibonacciCounter incrementCounter() throws ArithmeticException;
 
-  //todo: change this to the style similar to bufferedReader
   /**
-   * Decrements the counter by 1 and returns a FibonacciCounter Object. If the counter cannot be
+   * Decrements the counter by 1 and returns a FibonacciCounter object. If the counter cannot be
    * decremented further, it throws an IllegalStateException.
    *
    * @return a FibonacciCounter object
