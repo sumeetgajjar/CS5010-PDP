@@ -6,21 +6,21 @@ package vehicle;
 public interface ManualTransmission {
 
   /**
-   * Return the status of the ManualTransmission.
+   * Returns the status of the ManualTransmission.
    *
    * @return the current status of the ManualTransmission
    */
   String getStatus();
 
   /**
-   * Return the current speed of the vehicle.
+   * Returns the current speed of the vehicle.
    *
    * @return the current speed of the vehicle
    */
   int getSpeed();
 
   /**
-   * Return the current gear of the vehicle.
+   * Returns the current gear of the vehicle.
    *
    * @return the current gear of the vehicle
    */
