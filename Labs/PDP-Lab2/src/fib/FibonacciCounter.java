@@ -25,6 +25,7 @@ public interface FibonacciCounter {
    */
   FibonacciCounter incrementCounter() throws ArithmeticException;
 
+  //todo: change this to the style similar to bufferedReader
   /**
    * Decrements the counter by 1 and returns a FibonacciCounter Object. If the counter cannot be
    * decremented further, it throws an IllegalStateException.
