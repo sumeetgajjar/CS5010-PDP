@@ -26,6 +26,7 @@ public interface ManualTransmission {
    */
   int getGear();
 
+  //todo: change this to the style similar to bufferedReader
   /**
    * Increases the speed of the vehicle by fixed amount. If speed can be increased without changing
    * gears, it returns the ManualTransmission object with the updated speed else returns the
