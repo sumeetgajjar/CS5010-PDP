@@ -77,20 +77,24 @@ public class RegularManualTransmission implements ManualTransmission {
   }
 
   /**
-   * Increases the speed of the vehicle by 1 if its possible and changes the status. Following
+   * Increases the speed of the vehicle by 1 if it is possible and changes the status. Following
    * scenarios are possible:
    * <ul>
    * <li>If speed can be increased without changing gear then speed increases and status is set to
-   * <code>{@link TransmissionStatus#OK}</code></li>
+   * <code>{@link TransmissionStatus#OK}</code>
+   * </li>
    *
    * <li>If speed can be increased and the intended speed lies within range of next gear then speed
-   * increases and status is set to <code>{@link TransmissionStatus#MAY_INCREASE_GEAR}</code></li>
+   * increases and status is set to <code>{@link TransmissionStatus#MAY_INCREASE_GEAR}</code>
+   * </li>
    *
    * <li>If speed cannot be increased as the intended speed is to high for current gear then status
-   * is set to <code>{@link TransmissionStatus#CANNOT_INCREASE_SPEED_INCREASE_GEAR_FIRST}</code></li>
+   * is set to <code>{@link TransmissionStatus#CANNOT_INCREASE_SPEED_INCREASE_GEAR_FIRST}</code>
+   * </li>
    *
    * <li>If speed cannot be increased as it will go beyond the speed limit of the vehicle then
-   * status is set to <code>{@link TransmissionStatus#CANNOT_INCREASE_SPEED_REACHED_MAX_SPEED}</code></li>
+   * status is set to <code>{@link TransmissionStatus#CANNOT_INCREASE_SPEED_REACHED_MAX_SPEED}</code>
+   * </li>
    * </ul>
    *
    * @return the caller ManualTransmission object with the modified information
@@ -117,20 +121,24 @@ public class RegularManualTransmission implements ManualTransmission {
   }
 
   /**
-   * Decrease the speed of the vehicle by 1 if its possible and changes the status. Following
+   * Decreases the speed of the vehicle by 1 if it is possible and changes the status. Following
    * scenarios are possible:
    * <ul>
    * <li>If speed can be decreased without changing gear then speed decreases and status is set to
-   * <code>{@link TransmissionStatus#OK}</code></li>
+   * <code>{@link TransmissionStatus#OK}</code>
+   * </li>
    *
    * <li>If speed can be decreased and the intended speed lies within range of previous gear then
-   * speed decreases and status is set to <code>{@link TransmissionStatus#MAY_DECREASE_GEAR}</code></li>
+   * speed decreases and status is set to <code>{@link TransmissionStatus#MAY_DECREASE_GEAR}</code>
+   * </li>
    *
    * <li>If speed cannot be decreased as the intended speed is to low for current gear then status
-   * is set to <code>{@link TransmissionStatus#CANNOT_DECREASE_SPEED_DECREASE_GEAR_FIRST}</code></li>
+   * is set to <code>{@link TransmissionStatus#CANNOT_DECREASE_SPEED_DECREASE_GEAR_FIRST}</code>
+   * </li>
    *
    * <li>If speed cannot be decreased as it is already 0 then status is set to <code>{@link
-   * TransmissionStatus#CANNOT_DECREASE_SPEED_REACHED_MIN_SPEED}</code></li>
+   * TransmissionStatus#CANNOT_DECREASE_SPEED_REACHED_MIN_SPEED}</code>
+   * </li>
    * </ul>
    *
    * @return the caller ManualTransmission object with the modified information
@@ -156,6 +164,26 @@ public class RegularManualTransmission implements ManualTransmission {
     return this;
   }
 
+  /**
+   * Increases the gear of the vehicle by 1 if it is possible and changes the status. Following
+   * scenarios are possible:
+   * <ul>
+   * <li>If a higher gear exists and gear can be increased without changing speed of the vehicle
+   * then gear increases and status is set to <code>{@link TransmissionStatus#OK}</code>
+   * </li>
+   *
+   * <li>If a higher gear exists but the gear cannot be increased as the current speed is low for
+   * next gear then status is set to
+   * <code>{@link TransmissionStatus#CANNOT_INCREASE_GEAR_INCREASE_SPEED_FIRST}</code>
+   * </li>
+   *
+   * <li>If a higher gear does not exist then status is set to <code>{@link
+   * TransmissionStatus#CANNOT_INCREASE_GEAR_REACHED_MAX_GEAR}</code>
+   * </li>
+   * </ul>
+   *
+   * @return the caller ManualTransmission object with the modified information
+   */
   @Override
   public ManualTransmission increaseGear() {
     if (doesHigherGearExist()) {
@@ -171,6 +199,26 @@ public class RegularManualTransmission implements ManualTransmission {
     return this;
   }
 
+  /**
+   * Decreases the gear of the vehicle by 1 if it is possible and changes the status. Following
+   * scenarios are possible:
+   * <ul>
+   * <li>If a lower gear exists and gear can be decreased without changing speed of the vehicle
+   * then gear decreases and status is set to <code>{@link TransmissionStatus#OK}</code>
+   * </li>
+   *
+   * <li>If a lower gear exists but the gear cannot be decreased as the current speed is high for
+   * previous gear then status is set to
+   * <code>{@link TransmissionStatus#CANNOT_DECREASE_GEAR_DECREASE_SPEED_FIRST}</code>
+   * </li>
+   *
+   * <li>If a lower gear does not exist then status is set to <code>{@link
+   * TransmissionStatus#CANNOT_DECREASE_GEAR_REACHED_MIN_GEAR}</code>
+   * </li>
+   * </ul>
+   *
+   * @return the caller ManualTransmission object with the modified information
+   */
   @Override
   public ManualTransmission decreaseGear() {
     if (doesLowerGearExist()) {
