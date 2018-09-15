@@ -9,7 +9,8 @@ public class SimpleFibonacciCounter implements FibonacciCounter {
   private final long currentFibonacciValue;
 
   /**
-   * Constructs a SimpleFibonacciCounter object and initializes it to its given value.
+   * Constructs a SimpleFibonacciCounter object with given count and compute its corresponding
+   * fibonacci number.
    *
    * @param currentCount initial count of the counter
    */

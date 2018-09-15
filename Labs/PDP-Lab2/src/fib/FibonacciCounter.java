@@ -17,8 +17,8 @@ public interface FibonacciCounter {
   long SECOND_FIBONACCI_NUMBER = 1;
 
   /**
-   * Increments the counter by 1 and returns a FibonacciCounter Object if the counter can be
-   * incremented further, else throws an ArithmeticException.
+   * Increments the counter by 1 and returns a FibonacciCounter Object. If the counter cannot be
+   * incremented further, it throws an ArithmeticException.
    *
    * @return a FibonacciCounter object
    * @throws ArithmeticException if FibonacciCounter Overflows.
@@ -26,8 +26,8 @@ public interface FibonacciCounter {
   FibonacciCounter incrementCounter() throws ArithmeticException;
 
   /**
-   * Decrements the counter by 1 and returns a FibonacciCounter Object if the counter can be
-   * decremented further, else throws an IllegalStateException.
+   * Decrements the counter by 1 and returns a FibonacciCounter Object. If the counter cannot be
+   * decremented further, it throws an IllegalStateException.
    *
    * @return a FibonacciCounter object
    * @throws IllegalStateException if FibonacciCounter is at count 1 and decrementCounter() is
@@ -36,7 +36,7 @@ public interface FibonacciCounter {
   FibonacciCounter decrementCounter() throws IllegalStateException;
 
   /**
-   * Returns the current of the FibonacciCounter.
+   * Returns the current count of the FibonacciCounter.
    *
    * @return the count of the FibonacciCounter
    */
