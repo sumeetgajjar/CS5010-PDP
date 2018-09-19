@@ -168,6 +168,7 @@ public class RegularManualTransmissionTest {
             14, 20);
 
     manualTransmission = manualTransmission.increaseSpeed().increaseSpeed().increaseSpeed();
+    Assert.assertEquals(manualTransmission.getGear(), 1);
     Assert.assertEquals(manualTransmission.getSpeed(), 3);
 
     manualTransmission = manualTransmission
@@ -175,6 +176,7 @@ public class RegularManualTransmissionTest {
             .increaseSpeed()
             .decreaseGear()
             .decreaseSpeed().decreaseSpeed();
+    Assert.assertEquals(manualTransmission.getGear(), 1);
     Assert.assertEquals(manualTransmission.getSpeed(), 2);
   }
 
