@@ -216,9 +216,10 @@ public class RegularManualTransmissionTest {
 
     manualTransmission = manualTransmission
             .increaseSpeed().increaseSpeed().increaseSpeed().increaseSpeed();
+    Assert.assertEquals(manualTransmission.getGear(), 1);
+    Assert.assertEquals(manualTransmission.getSpeed(), 2);
     Assert.assertEquals(manualTransmission.getStatus(),
             "Cannot increase speed, increase gear first.");
-    Assert.assertEquals(manualTransmission.getSpeed(), 2);
 
     manualTransmission = manualTransmission
             .increaseGear()
@@ -226,7 +227,9 @@ public class RegularManualTransmissionTest {
             .decreaseSpeed().decreaseSpeed().decreaseSpeed().decreaseSpeed();
     Assert.assertEquals(manualTransmission.getStatus(),
             "Cannot decrease speed, decrease gear first.");
+    Assert.assertEquals(manualTransmission.getGear(), 2);
     Assert.assertEquals(manualTransmission.getSpeed(), 1);
+
   }
 
   @Test
@@ -247,11 +250,11 @@ public class RegularManualTransmissionTest {
             "Cannot increase gear, increase speed first.");
 
     manualTransmission = manualTransmission
-            .increaseSpeed().increaseSpeed()
-            .increaseSpeed().increaseSpeed()
+            .increaseSpeed().increaseSpeed().increaseSpeed().increaseSpeed().increaseSpeed()
             .increaseGear()
             .decreaseGear().decreaseGear().decreaseGear();
 
+    Assert.assertEquals(manualTransmission.getGear(), 1);
     Assert.assertEquals(manualTransmission.getStatus(),
             "Cannot decrease gear, decrease speed first.");
   }
