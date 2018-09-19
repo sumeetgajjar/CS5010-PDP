@@ -27,6 +27,8 @@ public class RegularManualTransmission implements ManualTransmission {
   private TransmissionStatus transmissionStatus;
 
   /**
+   * Constructs the RegularManualTransmission obj with given no of Gears and Gear speed ranges.
+   *
    * @param totalNoOfGears total number of gears in vehicle
    * @param speeds         speed range of all gears in vehicle. It should follow given format,
    *                       gear1Low, gear1High, gear2Low, gear2High, gear3Low, gear3High and so on.
@@ -68,7 +70,7 @@ public class RegularManualTransmission implements ManualTransmission {
   }
 
   /**
-   * Constructs the RegularManualTransmission object with given gear speed ranges.
+   * Constructs the RegularManualTransmission object of 5 Gears with given gear speed ranges.
    *
    * @param gear1Low  lower limit of the 1st gear
    * @param gear1High upper limit of the 1st gear
@@ -281,7 +283,17 @@ public class RegularManualTransmission implements ManualTransmission {
     return this;
   }
 
-  private void performUserInputSanityChecks(int totalNoOfGears, int[] speeds) {
+  /**
+   * @param totalNoOfGears total number of gears in vehicle
+   * @param speeds         speed range of all gears in vehicle. It should follow given format,
+   *                       gear1Low, gear1High, gear2Low, gear2High, gear3Low, gear3High and so on.
+   * @throws IllegalArgumentException if
+   *                                  <ul>
+   *                                  <li>Total no of Gears is not greater than 0</li>
+   *                                  <li>Length Speeds is not equal to 2*TotalNoOfGears</li>
+   *                                  </ul>
+   */
+  private void performUserInputSanityChecks(int totalNoOfGears, int[] speeds) throws IllegalArgumentException {
     if (totalNoOfGears <= 0) {
       throw new IllegalArgumentException("Total no of Gears should be greater than 0");
     }
