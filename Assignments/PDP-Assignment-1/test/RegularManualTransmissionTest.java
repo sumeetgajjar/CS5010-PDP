@@ -300,5 +300,6 @@ public class RegularManualTransmissionTest {
 
     manualTransmission = manualTransmission.decreaseSpeed();
     Assert.assertEquals(manualTransmission.getSpeed(), 0);
+    Assert.assertEquals(manualTransmission.getGear(), 1);
   }
 }
