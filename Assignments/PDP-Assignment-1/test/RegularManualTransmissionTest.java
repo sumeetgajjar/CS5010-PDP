@@ -148,14 +148,15 @@ public class RegularManualTransmissionTest {
             10, 16,
             14, 20);
 
-    manualTransmission = manualTransmission.increaseSpeed().increaseSpeed().increaseGear()
+    manualTransmission = manualTransmission
+            .increaseSpeed().increaseSpeed().increaseSpeed().increaseSpeed().increaseGear()
             .increaseSpeed().increaseSpeed().increaseSpeed().increaseSpeed().increaseGear()
             .increaseSpeed().increaseSpeed().increaseSpeed().increaseSpeed().increaseGear()
             .increaseSpeed().increaseSpeed().increaseSpeed().increaseSpeed().increaseGear()
             .increaseSpeed().increaseSpeed().increaseSpeed().increaseSpeed()
             .increaseSpeed().increaseSpeed().increaseSpeed();
 
-
+    Assert.assertEquals(manualTransmission.getSpeed(), 20);
     Assert.assertEquals(manualTransmission.getStatus(),
             "Cannot increase speed. Reached maximum speed.");
   }
