@@ -129,7 +129,7 @@ public class RegularManualTransmissionTest {
             25, 40,
             35, 50);
 
-    manualTransmission = manualTransmission.increaseSpeed()
+    manualTransmission = manualTransmission
             .decreaseSpeed().decreaseSpeed().decreaseSpeed().decreaseSpeed();
 
     Assert.assertEquals(manualTransmission.getStatus(),
