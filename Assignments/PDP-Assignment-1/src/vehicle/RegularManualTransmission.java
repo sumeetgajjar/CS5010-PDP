@@ -49,15 +49,19 @@ public class RegularManualTransmission implements ManualTransmission {
    *                                  Gear3</li>
    *                                  </ul>
    */
-  protected RegularManualTransmission(int totalNoOfGears, int... speeds) throws IllegalArgumentException {
+  protected RegularManualTransmission(int totalNoOfGears, int... speeds)
+          throws IllegalArgumentException {
 
     performUserInputSanityChecks(totalNoOfGears, speeds);
 
     this.gearSpeedRanges = new GearSpeedRange[totalNoOfGears];
 
-    int gearLowSpeedIndex = 0, gearHighSpeedIndex = 1;
+    int gearLowSpeedIndex = 0;
+    int gearHighSpeedIndex = 1;
     for (int i = 0; i < totalNoOfGears; i++) {
-      this.gearSpeedRanges[i] = new GearSpeedRange(speeds[gearLowSpeedIndex], speeds[gearHighSpeedIndex]);
+      this.gearSpeedRanges[i] = new GearSpeedRange(speeds[gearLowSpeedIndex],
+              speeds[gearHighSpeedIndex]);
+
       gearLowSpeedIndex += 2;
       gearHighSpeedIndex += 2;
     }
@@ -284,6 +288,8 @@ public class RegularManualTransmission implements ManualTransmission {
   }
 
   /**
+   * Checks if totalNoOfGears and no of speeds are valid and consistent with each other.
+   *
    * @param totalNoOfGears total number of gears in vehicle
    * @param speeds         speed range of all gears in vehicle. It should follow given format,
    *                       gear1Low, gear1High, gear2Low, gear2High, gear3Low, gear3High and so on.
@@ -293,7 +299,9 @@ public class RegularManualTransmission implements ManualTransmission {
    *                                  <li>Length Speeds is not equal to 2*TotalNoOfGears</li>
    *                                  </ul>
    */
-  private void performUserInputSanityChecks(int totalNoOfGears, int[] speeds) throws IllegalArgumentException {
+  private void performUserInputSanityChecks(int totalNoOfGears, int[] speeds)
+          throws IllegalArgumentException {
+
     if (totalNoOfGears <= 0) {
       throw new IllegalArgumentException("Total no of Gears should be greater than 0");
     }
