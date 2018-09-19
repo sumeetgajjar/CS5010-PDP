@@ -26,6 +26,26 @@ public class RegularManualTransmission implements ManualTransmission {
   private int currentSpeed;
   private TransmissionStatus transmissionStatus;
 
+  protected RegularManualTransmission(int totalNoOfGears, int... speeds) throws IllegalArgumentException {
+
+    performUserInputSanityChecks(totalNoOfGears, speeds);
+
+    this.gearSpeedRanges = new GearSpeedRange[totalNoOfGears];
+
+    int gearLowSpeedIndex = 0, gearHighSpeedIndex = 1;
+    for (int i = 0; i < totalNoOfGears; i++) {
+      this.gearSpeedRanges[i] = new GearSpeedRange(speeds[gearLowSpeedIndex], speeds[gearHighSpeedIndex]);
+      gearLowSpeedIndex += 2;
+      gearHighSpeedIndex += 2;
+    }
+
+    performGearSpeedRangeSanityChecks();
+
+    this.currentGear = 0;
+    this.currentSpeed = 0;
+    this.transmissionStatus = TransmissionStatus.OK;
+  }
+
   /**
    * Constructs the RegularManualTransmission object with given gear speed ranges.
    *
@@ -46,19 +66,12 @@ public class RegularManualTransmission implements ManualTransmission {
                                    int gear3Low, int gear3High,
                                    int gear4Low, int gear4High,
                                    int gear5Low, int gear5High) throws IllegalArgumentException {
-
-    this.gearSpeedRanges = new GearSpeedRange[TOTAL_GEARS_IN_VEHICLE];
-    this.gearSpeedRanges[0] = new GearSpeedRange(gear1Low, gear1High);
-    this.gearSpeedRanges[1] = new GearSpeedRange(gear2Low, gear2High);
-    this.gearSpeedRanges[2] = new GearSpeedRange(gear3Low, gear3High);
-    this.gearSpeedRanges[3] = new GearSpeedRange(gear4Low, gear4High);
-    this.gearSpeedRanges[4] = new GearSpeedRange(gear5Low, gear5High);
-
-    performGearSpeedRangeSanityChecks();
-
-    this.currentGear = 0;
-    this.currentSpeed = 0;
-    this.transmissionStatus = TransmissionStatus.OK;
+    this(TOTAL_GEARS_IN_VEHICLE,
+            gear1Low, gear1High,
+            gear2Low, gear2High,
+            gear3Low, gear3High,
+            gear4Low, gear4High,
+            gear5Low, gear5High);
   }
 
   @Override
@@ -233,6 +246,18 @@ public class RegularManualTransmission implements ManualTransmission {
       this.transmissionStatus = TransmissionStatus.CANNOT_DECREASE_GEAR_REACHED_MIN_GEAR;
     }
     return this;
+  }
+
+  private void performUserInputSanityChecks(int totalNoOfGears, int[] speeds) {
+    if (totalNoOfGears <= 0) {
+      throw new IllegalArgumentException("Total no of Gears should be greater than 0");
+    }
+
+    if (speeds.length != 2 * totalNoOfGears) {
+      throw new IllegalArgumentException(
+              String.format("Invalid no of Gear speeds. Expected: %d, Actual: %d",
+                      2 * totalNoOfGears, speeds.length));
+    }
   }
 
   /**
