@@ -26,6 +26,27 @@ public class RegularManualTransmission implements ManualTransmission {
   private int currentSpeed;
   private TransmissionStatus transmissionStatus;
 
+  /**
+   * @param totalNoOfGears total number of gears in vehicle
+   * @param speeds         speed range of all gears in vehicle. It should follow given format,
+   *                       gear1Low, gear1High, gear2Low, gear2High, gear3Low, gear3High and so on.
+   * @throws IllegalArgumentException if input params does not pass the Sanity tests. Sanity tests
+   *                                  fall in following categories:
+   *                                  <ul>
+   *                                  <li>Total no of Gears is not greater than 0</li>
+   *                                  <li>Length Speeds is not equal to 2*TotalNoOfGears</li>
+   *                                  <li>Low Speed of 1st gear is less than 0</li>
+   *                                  <li>Low Speed of a gear is greater than its High Speed</li>
+   *                                  <li>Low Speed of Gear1 is not strictly less than Low Speed of
+   *                                  Gear2</li>
+   *                                  <li>There exists non adjacent Gear speed range overlapping.
+   *                                  e.g. Low Speed of Gear3 is less than High Speed of Gear1
+   *                                  </li>
+   *                                  <li>There exists adjacent non overlapping for Gear speed
+   *                                  range e.g. High Speed of Gear2 is less than Low Speed of
+   *                                  Gear3</li>
+   *                                  </ul>
+   */
   protected RegularManualTransmission(int totalNoOfGears, int... speeds) throws IllegalArgumentException {
 
     performUserInputSanityChecks(totalNoOfGears, speeds);
@@ -59,7 +80,19 @@ public class RegularManualTransmission implements ManualTransmission {
    * @param gear4High upper limit of the 4th gear
    * @param gear5Low  lower limit of the 5th gear
    * @param gear5High upper limit of the 5th gear
-   * @throws IllegalArgumentException if any of the sanity checks for gear range fails
+   * @throws IllegalArgumentException if any of the following sanity checks for gear range fails
+   *                                  <ul>
+   *                                  <li>Low Speed of 1st gear is less than 0</li>
+   *                                  <li>Low Speed of a gear is greater than its High Speed</li>
+   *                                  <li>Low Speed of Gear1 is not strictly less than Low Speed of
+   *                                  Gear2</li>
+   *                                  <li>There exists non adjacent Gear speed range overlapping.
+   *                                  e.g. Low Speed of Gear3 is less than High Speed of Gear1
+   *                                  </li>
+   *                                  <li>There exists adjacent non overlapping for Gear speed
+   *                                  range e.g. High Speed of Gear2 is less than Low Speed of
+   *                                  Gear3</li>
+   *                                  </ul>
    */
   public RegularManualTransmission(int gear1Low, int gear1High,
                                    int gear2Low, int gear2High,
