@@ -137,7 +137,7 @@ public class RegularManualTransmissionTest {
   }
 
   @Test
-  public void testCurrentSpeedCannotIncreaseThanMaxSpeed() {
+  public void testCurrentSpeedOrGearCannotIncreaseThanMaxSpeedOrGear() {
     ManualTransmission manualTransmission = new RegularManualTransmission(
             0, 4,
             2, 8,
@@ -156,6 +156,10 @@ public class RegularManualTransmissionTest {
     Assert.assertEquals(manualTransmission.getSpeed(), 20);
     Assert.assertEquals(manualTransmission.getStatus(),
             "Cannot increase speed. Reached maximum speed.");
+
+    manualTransmission = manualTransmission.increaseGear();
+    Assert.assertEquals(manualTransmission.getGear(), 5);
+    Assert.assertEquals(manualTransmission.getStatus(), "Cannot increase gear. Reached maximum gear.");
   }
 
   @Test
