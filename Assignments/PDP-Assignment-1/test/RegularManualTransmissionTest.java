@@ -10,6 +10,21 @@ import vehicle.RegularManualTransmission;
 public class RegularManualTransmissionTest {
 
   @Test
+  public void testInitialization() {
+    ManualTransmission manualTransmission = new RegularManualTransmission(
+            0, 2,
+            1, 8,
+            6, 12,
+            10, 16,
+            14, 20);
+
+    Assert.assertEquals(manualTransmission.getGear(), 1);
+    Assert.assertEquals(manualTransmission.getSpeed(), 0);
+    Assert.assertEquals(manualTransmission.getStatus(), "OK: everything is OK.");
+
+  }
+
+  @Test
   public void testGearSpeedRange() {
     try {
       ManualTransmission manualTransmission = new RegularManualTransmission(
@@ -115,6 +130,8 @@ public class RegularManualTransmissionTest {
             35, 50);
 
     manualTransmission = manualTransmission.increaseSpeed()
+            .decreaseSpeed()
+            .decreaseSpeed()
             .decreaseSpeed()
             .decreaseSpeed();
 
