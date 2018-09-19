@@ -250,7 +250,7 @@ public class RegularManualTransmissionTest {
             .increaseSpeed().increaseSpeed()
             .increaseSpeed().increaseSpeed()
             .increaseGear()
-            .decreaseGear().decreaseGear();
+            .decreaseGear().decreaseGear().decreaseGear();
 
     Assert.assertEquals(manualTransmission.getStatus(),
             "Cannot decrease gear, decrease speed first.");
