@@ -159,7 +159,8 @@ public class RegularManualTransmissionTest {
 
     manualTransmission = manualTransmission.increaseGear();
     Assert.assertEquals(manualTransmission.getGear(), 5);
-    Assert.assertEquals(manualTransmission.getStatus(), "Cannot increase gear. Reached maximum gear.");
+    Assert.assertEquals(manualTransmission.getStatus(),
+            "Cannot increase gear. Reached maximum gear.");
   }
 
   @Test
