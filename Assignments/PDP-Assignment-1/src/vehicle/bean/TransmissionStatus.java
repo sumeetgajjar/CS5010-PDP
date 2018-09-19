@@ -72,10 +72,20 @@ public enum TransmissionStatus {
 
   private final String statusMessage;
 
+  /**
+   * Constructs a TransmissionStatus enum object.
+   *
+   * @param statusMessage status message to be associated with the enum
+   */
   TransmissionStatus(String statusMessage) {
     this.statusMessage = statusMessage;
   }
 
+  /**
+   * Returns the status message associated with respective enum.
+   *
+   * @return the status message associated with respective enum
+   */
   public String getStatusMessage() {
     return statusMessage;
   }
