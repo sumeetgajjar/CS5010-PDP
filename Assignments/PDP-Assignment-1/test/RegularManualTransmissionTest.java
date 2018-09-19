@@ -291,30 +291,59 @@ public class RegularManualTransmissionTest {
     manualTransmission = manualTransmission
             .increaseSpeed()
             .decreaseGear();
+
+    Assert.assertEquals(manualTransmission.getGear(), 2);
+    Assert.assertEquals(manualTransmission.getSpeed(), 4);
     Assert.assertEquals(manualTransmission.getStatus(),
             "Cannot decrease gear, decrease speed first.");
 
     manualTransmission = manualTransmission
             .increaseSpeed().increaseSpeed().increaseSpeed().increaseSpeed().increaseSpeed();
+
+    Assert.assertEquals(manualTransmission.getGear(), 2);
+    Assert.assertEquals(manualTransmission.getSpeed(), 8);
     Assert.assertEquals(manualTransmission.getStatus(),
             "Cannot increase speed, increase gear first.");
 
     manualTransmission = manualTransmission
             .increaseGear()
-            .decreaseSpeed()
-            .decreaseGear();
-    Assert.assertEquals(manualTransmission.getGear(), 2);
+            .increaseSpeed().increaseSpeed();
+
+    Assert.assertEquals(manualTransmission.getGear(), 3);
+    Assert.assertEquals(manualTransmission.getSpeed(), 10);
 
     manualTransmission = manualTransmission
-            .decreaseSpeed().decreaseSpeed().decreaseSpeed().decreaseSpeed().decreaseSpeed()
-            .decreaseGear()
-            .decreaseSpeed()
-            .decreaseGear();
-    Assert.assertEquals(manualTransmission.getStatus(),
-            "Cannot decrease gear. Reached minimum gear.");
+            .decreaseSpeed().decreaseSpeed().decreaseSpeed().decreaseSpeed().decreaseSpeed();
 
-    manualTransmission = manualTransmission.decreaseSpeed();
-    Assert.assertEquals(manualTransmission.getSpeed(), 0);
+    Assert.assertEquals(manualTransmission.getGear(), 3);
+    Assert.assertEquals(manualTransmission.getSpeed(), 6);
+    Assert.assertEquals(manualTransmission.getStatus(), "Cannot decrease speed, decrease gear first.");
+
+    manualTransmission = manualTransmission
+            .decreaseGear()
+            .decreaseSpeed().decreaseSpeed().decreaseSpeed().decreaseSpeed().decreaseSpeed();
+
+    Assert.assertEquals(manualTransmission.getGear(), 2);
+    Assert.assertEquals(manualTransmission.getSpeed(), 1);
+    Assert.assertEquals(manualTransmission.getStatus(), "OK: you may decrease the gear.");
+
+
+    manualTransmission = manualTransmission
+            .decreaseGear()
+            .decreaseSpeed();
+
     Assert.assertEquals(manualTransmission.getGear(), 1);
+    Assert.assertEquals(manualTransmission.getSpeed(), 0);
+    Assert.assertEquals(manualTransmission.getStatus(), "OK: everything is OK.");
+
+    manualTransmission = manualTransmission.decreaseSpeed().decreaseSpeed();
+    Assert.assertEquals(manualTransmission.getStatus(), "Cannot decrease speed. Reached minimum speed.");
+
+    manualTransmission = manualTransmission.decreaseGear();
+    Assert.assertEquals(manualTransmission.getStatus(), "Cannot decrease gear. Reached minimum gear.");
+
+    Assert.assertEquals(manualTransmission.getGear(), 1);
+    Assert.assertEquals(manualTransmission.getSpeed(), 0);
+
   }
 }
