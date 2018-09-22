@@ -20,6 +20,7 @@ public class RegularManualTransmission implements ManualTransmission {
    */
   private static final int TOTAL_GEARS_IN_VEHICLE = 5;
 
+  private final int totalGearsInVehicle;
   private final GearSpeedRange[] gearSpeedRanges;
 
   private int currentGear;
@@ -54,7 +55,8 @@ public class RegularManualTransmission implements ManualTransmission {
 
     performUserInputSanityChecks(totalNoOfGears, speeds);
 
-    this.gearSpeedRanges = new GearSpeedRange[totalNoOfGears];
+    this.totalGearsInVehicle = totalNoOfGears;
+    this.gearSpeedRanges = new GearSpeedRange[this.totalGearsInVehicle];
 
     int gearLowSpeedIndex = 0;
     int gearHighSpeedIndex = 1;
@@ -473,7 +475,7 @@ public class RegularManualTransmission implements ManualTransmission {
    * @return if there exists a higher gear relative to current gear
    */
   private boolean doesHigherGearExist() {
-    return this.currentGear + 1 < TOTAL_GEARS_IN_VEHICLE;
+    return this.currentGear + 1 < this.totalGearsInVehicle;
   }
 
   /**
