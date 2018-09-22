@@ -56,7 +56,7 @@ public class RegularManualTransmission implements ManualTransmission {
     performUserInputSanityChecks(totalNoOfGears, speeds);
 
     this.totalGearsInVehicle = totalNoOfGears;
-    this.gearSpeedRanges = new GearSpeedRange[totalNoOfGears];
+    this.gearSpeedRanges = new GearSpeedRange[this.totalGearsInVehicle];
 
     int gearLowSpeedIndex = 0;
     int gearHighSpeedIndex = 1;
