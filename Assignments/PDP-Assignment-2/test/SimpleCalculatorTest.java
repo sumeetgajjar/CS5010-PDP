@@ -12,6 +12,25 @@ public class SimpleCalculatorTest {
   }
 
   @Test
+  public void testBasicOperations() {
+    Calculator calculator = new SimpleCalculator();
+    calculator = calculator.input('8').input('+').input('2').input('=');
+    Assert.assertEquals(calculator.getResult(), "10");
+
+    calculator = calculator.input('-').input('4').input('=');
+    Assert.assertEquals(calculator.getResult(), "6");
+
+    calculator = calculator.input('*').input('2').input('=');
+    Assert.assertEquals(calculator.getResult(), "12");
+
+    calculator = calculator.input('=');
+    Assert.assertEquals(calculator.getResult(), "12");
+
+    calculator = calculator.input('=').input('=').input('=').input('=');
+    Assert.assertEquals(calculator.getResult(), "12");
+  }
+
+  @Test
   public void testOperandGreaterThan32Bit() {
     try {
       String input = String.valueOf((2 ^ 31));
