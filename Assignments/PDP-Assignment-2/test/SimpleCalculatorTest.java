@@ -29,16 +29,23 @@ public class SimpleCalculatorTest {
 
   @Test
   public void test32BitOperand() {
-    try {
-      String input = String.valueOf((2 ^ 31) - 1);
-      Calculator calculator = new SimpleCalculator();
+    String input = String.valueOf((2 ^ 31) - 1);
+    Calculator calculator = new SimpleCalculator();
 
-      for (int i = 0; i < input.length(); i++) {
-        calculator = calculator.input(input.charAt(i));
-      }
-    } catch (Exception ignored) {
-      Assert.fail("Test failed for input equal to 32 bits");
+    for (int i = 0; i < input.length(); i++) {
+      calculator = calculator.input(input.charAt(i));
     }
+  }
+
+  @Test
+  public void testNegativeOperand() {
+    Calculator calculator = new SimpleCalculator();
+    try {
+      calculator = calculator.input('-');
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals(e.getMessage(), "Invalid Input");
+    }
+    Assert.assertEquals(calculator.getResult(), "");
   }
 
   @Test
@@ -64,8 +71,25 @@ public class SimpleCalculatorTest {
   }
 
   @Test
-  public void testIncorrectInputSequence() {
+  public void testIncorrectInputOperand() {
     Calculator calculator = new SimpleCalculator();
+    calculator.input('1');
+    Assert.assertEquals(calculator.getResult(), "1");
+
+    try {
+      calculator.input('a');
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals(e.getMessage(), "Invalid Input");
+    }
+    Assert.assertEquals(calculator.getResult(), "1");
+
+    try {
+      calculator.input('/');
+    } catch (Exception e) {
+      Assert.assertEquals(e.getMessage(), "Invalid Input");
+    }
+    Assert.assertEquals(calculator.getResult(), "1");
+
 
   }
 }
