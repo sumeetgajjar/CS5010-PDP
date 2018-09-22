@@ -1,8 +1,13 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import calculator.Calculator;
 import calculator.SimpleCalculator;
+import calculator.bean.Pair;
 
 public class SimpleCalculatorTest {
   @Test
@@ -13,21 +18,35 @@ public class SimpleCalculatorTest {
 
   @Test
   public void testBasicOperations() {
+    List<Pair<List<Character>, String>> testSequences = new ArrayList<>();
+    testSequences.add(new Pair<>(Arrays.asList('8', '+', '2', '='), "10"));
+    testSequences.add(new Pair<>(Arrays.asList('-', '4', '='), "6"));
+    testSequences.add(new Pair<>(Arrays.asList('*', '2', '='), "12"));
+    testSequences.add(new Pair<>(Arrays.asList('='), "12"));
+    testSequences.add(new Pair<>(Arrays.asList('=', '='), "12"));
+    testSequences.add(new Pair<>(Arrays.asList('=', '=', '='), "12"));
+    testSequences.add(new Pair<>(Arrays.asList('=', '=', '=', '='), "12"));
+
+    executeSequencesAndVerifyResult(testSequences);
+  }
+
+  private void executeSequencesAndVerifyResult(List<Pair<List<Character>, String>> testSequences) throws IllegalStateException {
     Calculator calculator = new SimpleCalculator();
-    calculator = calculator.input('8').input('+').input('2').input('=');
-    Assert.assertEquals(calculator.getResult(), "10");
 
-    calculator = calculator.input('-').input('4').input('=');
-    Assert.assertEquals(calculator.getResult(), "6");
+    for (Pair<List<Character>, String> pair : testSequences) {
+      List<Character> sequences = pair.first;
+      for (Character sequence : sequences) {
+        calculator.input(sequence);
+      }
 
-    calculator = calculator.input('*').input('2').input('=');
-    Assert.assertEquals(calculator.getResult(), "12");
-
-    calculator = calculator.input('=');
-    Assert.assertEquals(calculator.getResult(), "12");
-
-    calculator = calculator.input('=').input('=').input('=').input('=');
-    Assert.assertEquals(calculator.getResult(), "12");
+      String expectedResult = pair.second;
+      String actualResult = calculator.getResult();
+      if (!expectedResult.equals(actualResult)) {
+        throw new IllegalStateException(
+                String.format("Mismatch found. InputSequence: %s , Expected: %s , Actual: %s"
+                        , pair.first, expectedResult, actualResult));
+      }
+    }
   }
 
   @Test
