@@ -214,5 +214,7 @@ public class SimpleCalculatorTest {
     clearInputTestSequences.add(Pair.of('C', ""));
     clearInputTestSequences.add(Pair.of('C', ""));
     clearInputTestSequences.add(Pair.of('C', ""));
+
+    executeSequencesAndVerifyResult(clearInputTestSequences);
   }
 }
