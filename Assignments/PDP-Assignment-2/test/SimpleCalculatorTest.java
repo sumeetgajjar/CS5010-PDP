@@ -121,6 +121,7 @@ public class SimpleCalculatorTest {
   public void testMultipleOperationsOnSameObject() {
     Calculator calculator = new SimpleCalculator();
     calculator = calculator.input('1').input('+').input('9');
+    Assert.assertEquals("1+9", calculator.getResult());
 
     Calculator calculator1 = calculator.input('=');
     Assert.assertEquals("10", calculator1.getResult());
