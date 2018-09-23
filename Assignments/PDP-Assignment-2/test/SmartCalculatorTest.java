@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -12,6 +13,18 @@ public class SmartCalculatorTest extends AbstractCalculatorTest {
   @Override
   protected Calculator getCalculatorInstance() {
     return new SmartCalculator();
+  }
+
+  @Test
+  public void testInputSequenceBeginsWithOperator() {
+    for (char input : new char[]{'+', '-', '*'}) {
+      Calculator calculator = getCalculatorInstance();
+      calculator = calculator.input(input);
+      Assert.assertEquals("", calculator.getResult());
+
+      calculator = calculator.input(input).input('2');
+      Assert.assertEquals("2", calculator.getResult());
+    }
   }
 
   @Test

@@ -20,9 +20,7 @@ public abstract class AbstractCalculatorTest {
 
   @Test
   public void testInputOperandAndOperator() {
-    char[] validInput = new char[]{
-            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-            '+', '-', '*', '=', 'C'};
+    char[] validInput = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'C'};
 
     for (char input : validInput) {
       Calculator calculator = getCalculatorInstance();
