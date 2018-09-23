@@ -28,23 +28,7 @@ public class SmartCalculatorTest extends AbstractCalculatorTest {
   }
 
   @Test
-  public void testOnlyEqualToOperator() {
-    List<Pair<Character, String>> testSequences = new ArrayList<>();
-
-    testSequences.add(Pair.of('1', "1"));
-    testSequences.add(Pair.of('=', "1"));
-    testSequences.add(Pair.of('=', "1"));
-
-    testSequences.add(Pair.of('1', "1"));
-    testSequences.add(Pair.of('2', "12"));
-    testSequences.add(Pair.of('=', "12"));
-    testSequences.add(Pair.of('=', "12"));
-
-    executeSequencesAndVerifyResult(testSequences);
-  }
-
-  @Test
-  public void testCorrectSequence() {
+  public void testMultipleEqualsAfterExpression() {
     List<Pair<Character, String>> testSequences = new ArrayList<>();
     testSequences.add(Pair.of('=', ""));
     testSequences.add(Pair.of('3', "3"));
@@ -72,8 +56,10 @@ public class SmartCalculatorTest extends AbstractCalculatorTest {
     testSequences.add(Pair.of('=', "512"));
 
     executeSequencesAndVerifyResult(testSequences);
+  }
 
-
+  @Test
+  public void testSkippingSecondOperand() {
     List<Pair<Character, String>> testSequences1 = new ArrayList<>();
     testSequences1.add(Pair.of('2', "2"));
     testSequences1.add(Pair.of('+', "2+"));
@@ -82,42 +68,85 @@ public class SmartCalculatorTest extends AbstractCalculatorTest {
     testSequences1.add(Pair.of('=', "8"));
     testSequences1.add(Pair.of('=', "10"));
 
-    testSequences1.add(Pair.of('*', "10*"));
-    testSequences1.add(Pair.of('=', "100"));
-    testSequences1.add(Pair.of('=', "1000"));
-    testSequences1.add(Pair.of('=', "10000"));
-    testSequences1.add(Pair.of('=', "100000"));
-
-    testSequences1.add(Pair.of('-', "100000-"));
-    testSequences1.add(Pair.of('=', "0"));
-    testSequences1.add(Pair.of('=', "-100000"));
-    testSequences1.add(Pair.of('=', "-200000"));
-    testSequences1.add(Pair.of('=', "-300000"));
-
     executeSequencesAndVerifyResult(testSequences1);
-
 
     List<Pair<Character, String>> testSequences2 = new ArrayList<>();
     testSequences2.add(Pair.of('1', "1"));
-    testSequences2.add(Pair.of('-', "1-"));
-    testSequences2.add(Pair.of('+', "1+"));
-    testSequences2.add(Pair.of('*', "1*"));
-    testSequences2.add(Pair.of('+', "1+"));
-    testSequences2.add(Pair.of('1', "1+1"));
-    testSequences2.add(Pair.of('=', "2"));
+    testSequences2.add(Pair.of('0', "10"));
+    testSequences2.add(Pair.of('*', "10*"));
+    testSequences2.add(Pair.of('=', "100"));
+    testSequences2.add(Pair.of('=', "1000"));
+    testSequences2.add(Pair.of('=', "10000"));
+    testSequences2.add(Pair.of('=', "100000"));
 
     executeSequencesAndVerifyResult(testSequences2);
 
-
     List<Pair<Character, String>> testSequences3 = new ArrayList<>();
-    testSequences3.add(Pair.of('1', "1"));
-    testSequences3.add(Pair.of('=', "1"));
-    testSequences3.add(Pair.of('2', "2"));
-    testSequences3.add(Pair.of('=', "2"));
-    testSequences3.add(Pair.of('3', "3"));
-    testSequences3.add(Pair.of('=', "3"));
+    testSequences2.add(Pair.of('1', "1"));
+    testSequences2.add(Pair.of('-', "1-"));
+    testSequences2.add(Pair.of('=', "0"));
+    testSequences2.add(Pair.of('=', "-1"));
+    testSequences2.add(Pair.of('=', "-2"));
+    testSequences2.add(Pair.of('=', "-3"));
 
     executeSequencesAndVerifyResult(testSequences3);
+  }
 
+  @Test
+  public void testConsecutiveOperators() {
+    List<Pair<Character, String>> testSequences4 = new ArrayList<>();
+    testSequences4.add(Pair.of('1', "1"));
+    testSequences4.add(Pair.of('-', "1-"));
+    testSequences4.add(Pair.of('+', "1+"));
+    testSequences4.add(Pair.of('*', "1*"));
+    testSequences4.add(Pair.of('+', "1+"));
+    testSequences4.add(Pair.of('1', "1+1"));
+    testSequences4.add(Pair.of('=', "2"));
+
+    executeSequencesAndVerifyResult(testSequences4);
+  }
+
+  @Test
+  public void testOnlyEqualToOperator() {
+    List<Pair<Character, String>> testSequences = new ArrayList<>();
+
+    testSequences.add(Pair.of('1', "1"));
+    testSequences.add(Pair.of('=', "1"));
+    testSequences.add(Pair.of('=', "1"));
+
+    testSequences.add(Pair.of('1', "1"));
+    testSequences.add(Pair.of('2', "12"));
+    testSequences.add(Pair.of('=', "12"));
+    testSequences.add(Pair.of('=', "12"));
+
+    executeSequencesAndVerifyResult(testSequences);
+  }
+
+  @Test
+  public void testMultipleEqualTo() {
+    List<Pair<Character, String>> testSequences5 = new ArrayList<>();
+    testSequences5.add(Pair.of('1', "1"));
+    testSequences5.add(Pair.of('=', "1"));
+    testSequences5.add(Pair.of('2', "2"));
+    testSequences5.add(Pair.of('=', "2"));
+    testSequences5.add(Pair.of('3', "3"));
+    testSequences5.add(Pair.of('=', "3"));
+
+    executeSequencesAndVerifyResult(testSequences5);
+  }
+
+  @Test
+  public void testOperatorsAtBeginning() {
+    List<Pair<Character, String>> testSequences = new ArrayList<>();
+    testSequences.add(Pair.of('+', ""));
+    testSequences.add(Pair.of('-', ""));
+    testSequences.add(Pair.of('*', ""));
+    testSequences.add(Pair.of('+', ""));
+    testSequences.add(Pair.of('3', "3"));
+    testSequences.add(Pair.of('+', "3+"));
+    testSequences.add(Pair.of('1', "3+1"));
+    testSequences.add(Pair.of('=', "4"));
+
+    executeSequencesAndVerifyResult(testSequences);
   }
 }
