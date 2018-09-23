@@ -12,15 +12,22 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
   }
 
   @Test
+  public void testInputSequenceBeginsWithOperator() {
+    for (char input : new char[]{'=', '+', '-', '*'}) {
+      Calculator calculator = getCalculatorInstance();
+      try {
+        calculator = calculator.input(input);
+
+        Assert.fail("Should have failed");
+      } catch (IllegalArgumentException ignored) {
+      }
+      Assert.assertEquals("", calculator.getResult());
+    }
+  }
+
+  @Test
   public void testIncorrectInputSequence() {
     Calculator calculator = getCalculatorInstance();
-    try {
-      calculator.input('=');
-
-      Assert.fail("Should have failed");
-    } catch (IllegalArgumentException ignored) {
-    }
-    Assert.assertEquals("", calculator.getResult());
 
     try {
       calculator = calculator.input('3').input('2');
