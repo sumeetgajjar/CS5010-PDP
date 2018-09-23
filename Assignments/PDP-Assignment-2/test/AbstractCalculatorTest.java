@@ -182,14 +182,26 @@ public abstract class AbstractCalculatorTest {
             .input('4').input('8').input('3').input('6')
             .input('4').input('7');
 
-    Calculator calculator1 = calculator
+    calculator = calculator
             .input('+').input('1').input('0').input('=');
-    Assert.assertEquals("0", calculator1.getResult());
+    Assert.assertEquals("0", calculator.getResult());
 
-    Calculator calculator2 = calculator
-            .input('+').input('1').input('0')
-            .input('+').input('1').input('1');
-    Assert.assertEquals("11", calculator2.getResult());
+    calculator = calculator
+            .input('+').input('1').input('0');
+    Assert.assertEquals("0+10", calculator.getResult());
+
+    calculator = calculator.input('+')
+            .input('2').input('1').input('4').input('7')
+            .input('4').input('8').input('3').input('6')
+            .input('4').input('7');
+    Assert.assertEquals("0+10+2147483647", calculator.getResult());
+
+    calculator = calculator.input('+').input('8');
+    Assert.assertEquals("0+10+2147483647+8", calculator.getResult());
+
+
+    calculator = calculator.input('=');
+    Assert.assertEquals("8", calculator.getResult());
   }
 
   @Test
