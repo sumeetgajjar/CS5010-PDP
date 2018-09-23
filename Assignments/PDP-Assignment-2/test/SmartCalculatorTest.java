@@ -149,4 +149,22 @@ public class SmartCalculatorTest extends AbstractCalculatorTest {
 
     executeSequencesAndVerifyResult(testSequences);
   }
+
+  @Test
+  public void testEqualToAfterExpressionEval() {
+    List<Pair<Character, String>> testSequences = new ArrayList<>();
+    testSequences.add(Pair.of('1', "1"));
+    testSequences.add(Pair.of('+', "1+"));
+    testSequences.add(Pair.of('1', "1+1"));
+    testSequences.add(Pair.of('=', "2"));
+    testSequences.add(Pair.of('2', "2"));
+    testSequences.add(Pair.of('=', "2"));
+    testSequences.add(Pair.of('=', "2"));
+    testSequences.add(Pair.of('=', "2"));
+    testSequences.add(Pair.of('+', "2+"));
+    testSequences.add(Pair.of('1', "2+1"));
+    testSequences.add(Pair.of('=', "3"));
+
+    executeSequencesAndVerifyResult(testSequences);
+  }
 }
