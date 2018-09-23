@@ -1,2 +1,147 @@
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import calculator.Calculator;
+import calculator.bean.Pair;
+
 public abstract class AbstractCalculatorTest {
+
+  protected abstract Calculator getCalculatorInstance();
+
+  @Test
+  public void testInitialization() {
+    Calculator calculator = getCalculatorInstance();
+    Assert.assertEquals(calculator.getResult(), "");
+  }
+
+  @Test
+  public void testInputOperandAndOperator() {
+    char[] validInput = new char[]{
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+            '+', '-', '*', '=', 'C'};
+
+    for (char input : validInput) {
+      Calculator calculator = getCalculatorInstance();
+      calculator.input(input);
+
+      Assert.assertEquals(String.valueOf(input), calculator.getResult());
+    }
+
+    Calculator calculator = getCalculatorInstance();
+    calculator.input('1');
+    Assert.assertEquals("1", calculator.getResult());
+
+    try {
+      calculator.input('a');
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals(e.getMessage(), "Invalid Input");
+    }
+    Assert.assertEquals("1", calculator.getResult());
+
+    try {
+      calculator.input('/');
+    } catch (Exception e) {
+      Assert.assertEquals(e.getMessage(), "Invalid Input");
+    }
+    Assert.assertEquals("1", calculator.getResult());
+  }
+
+  @Test
+  public void testExecuteSequencesAndVerifyResult() {
+    try {
+      executeSequencesAndVerifyResult(Collections.emptyList());
+      Assert.fail("Should have failed");
+    } catch (Exception ignored) {
+    }
+
+    try {
+      List<Pair<Character, String>> testSequences = new ArrayList<>();
+      testSequences.add(Pair.of('1', "1"));
+      testSequences.add(Pair.of('+', "1-"));
+      testSequences.add(Pair.of('3', "1+3"));
+      testSequences.add(Pair.of('=', "4"));
+
+      executeSequencesAndVerifyResult(testSequences);
+
+      Assert.fail("Should have failed");
+    } catch (Exception ignored) {
+    }
+
+    List<Pair<Character, String>> testSequences = new ArrayList<>();
+    testSequences.add(Pair.of('1', "1"));
+    testSequences.add(Pair.of('+', "1+"));
+    testSequences.add(Pair.of('3', "1+3"));
+    testSequences.add(Pair.of('=', "4"));
+
+    executeSequencesAndVerifyResult(testSequences);
+  }
+
+  @Test
+  public void testOperandGreaterThan32Bit() {
+    try {
+      String input = String.valueOf((2 ^ 31));
+      Calculator calculator = getCalculatorInstance();
+
+      for (int i = 0; i < input.length(); i++) {
+        calculator = calculator.input(input.charAt(i));
+      }
+
+      Assert.fail("Test passed for input greater than 32 bits");
+    } catch (RuntimeException e) {
+      Assert.assertEquals("Operand overflow: operand is greater than 32 bits", e.getMessage());
+    }
+  }
+
+  @Test
+  public void test32BitOperand() {
+    String input = String.valueOf((2 ^ 31) - 1);
+    Calculator calculator = getCalculatorInstance();
+
+    for (int i = 0; i < input.length(); i++) {
+      calculator = calculator.input(input.charAt(i));
+    }
+    Assert.assertEquals("2147483647", calculator.getResult());
+  }
+
+  @Test
+  public void testNegativeOperand() {
+    Calculator calculator = getCalculatorInstance();
+    try {
+      calculator = calculator.input('-');
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals(e.getMessage(), "Invalid Input");
+    }
+    Assert.assertEquals("", calculator.getResult());
+  }
+
+  private void executeSequencesAndVerifyResult(char input, String result) throws IllegalStateException {
+    executeSequencesAndVerifyResult(Collections.singletonList(Pair.of(input, result)));
+  }
+
+  protected void executeSequencesAndVerifyResult(List<Pair<Character, String>> sequencePairs) throws IllegalStateException {
+
+    if (sequencePairs.size() == 0) {
+      throw new IllegalStateException("sequencePairs size cannot be zero");
+    }
+
+    Calculator calculator = getCalculatorInstance();
+
+    for (int i = 0; i < sequencePairs.size(); i++) {
+      char input = sequencePairs.get(i).first;
+      calculator = calculator.input(input);
+
+      String actualResult = calculator.getResult();
+      String expectedResult = sequencePairs.get(i).second;
+
+      if (!expectedResult.equals(actualResult)) {
+        throw new IllegalStateException(
+                String.format("Mismatch found at Pair: %d . Expected Result: %s , Actual Result: %s"
+                        , i + 1, expectedResult, actualResult));
+      }
+    }
+  }
 }
