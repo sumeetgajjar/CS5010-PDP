@@ -2,7 +2,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,85 +20,93 @@ public class SimpleCalculatorTest {
   @Test
   public void testExecuteSequencesAndVerifyResult() {
     try {
-      executeSequencesAndVerifyResult(Collections.emptyList(),
-              Collections.singletonList("1"));
-
-      Assert.fail("Should have failed");
-    } catch (Exception e) {
-      Assert.assertEquals("Size mismatch for input sequence and result sequence",
-              e.getMessage());
-    }
-
-    try {
-      executeSequencesAndVerifyResult(Collections.singletonList('1'),
-              Arrays.asList("1", "2"));
-
-      Assert.fail("Should have failed");
-    } catch (Exception e) {
-      Assert.assertEquals("Size mismatch for input sequence and result sequence",
-              e.getMessage());
-    }
-
-
-    try {
-      executeSequencesAndVerifyResult(Collections.singletonList('1'),
-              Collections.emptyList());
-
-      Assert.fail("Should have failed");
-    } catch (Exception e) {
-      Assert.assertEquals("Size mismatch for input sequence and result sequence",
-              e.getMessage());
-    }
-
-    try {
-      executeSequencesAndVerifyResult(Arrays.asList('1', '+', '3', '='),
-              Arrays.asList("1", "1-", "1+3", "4"));
+      executeSequencesAndVerifyResult(Collections.emptyList());
 
       Assert.fail("Should have failed");
     } catch (Exception ignored) {
     }
 
-    executeSequencesAndVerifyResult(Arrays.asList('1', '+', '3', '='),
-            Arrays.asList("1", "1+", "1+3", "4"));
+    try {
+      List<Pair<Character, String>> testSequences = new ArrayList<>();
+      testSequences.add(Pair.of('1', "1"));
+      testSequences.add(Pair.of('+', "1-"));
+      testSequences.add(Pair.of('3', "1+3"));
+      testSequences.add(Pair.of('=', "4"));
+
+      executeSequencesAndVerifyResult(testSequences);
+
+      Assert.fail("Should have failed");
+    } catch (Exception ignored) {
+    }
+
+    List<Pair<Character, String>> testSequences = new ArrayList<>();
+    testSequences.add(Pair.of('1', "1"));
+    testSequences.add(Pair.of('+', "1+"));
+    testSequences.add(Pair.of('3', "1+3"));
+    testSequences.add(Pair.of('=', "4"));
+
+    executeSequencesAndVerifyResult(testSequences);
   }
 
   @Test
   public void testBasicOperations() {
-    List<Character> oneDigitInputSequence = new ArrayList<>(Arrays.asList(
-            '8', '+', '2', '=',
-            '-', '4', '=',
-            '*', '2', '='));
+    List<Pair<Character, String>> oneDigitTestSequences = new ArrayList<>();
+    oneDigitTestSequences.add(Pair.of('8', "8"));
+    oneDigitTestSequences.add(Pair.of('+', "8+"));
+    oneDigitTestSequences.add(Pair.of('2', "8+2"));
+    oneDigitTestSequences.add(Pair.of('=', "10"));
 
-    List<String> oneDigitResultSequence = new ArrayList<>(Arrays.asList(
-            "8", "8+", "8+2", "10",
-            "10-", "10-4", "6",
-            "6*", "6*2", "12"));
+    oneDigitTestSequences.add(Pair.of('-', "10-"));
+    oneDigitTestSequences.add(Pair.of('4', "10-4"));
+    oneDigitTestSequences.add(Pair.of('=', "6"));
 
-    executeSequencesAndVerifyResult(oneDigitInputSequence, oneDigitResultSequence);
+    oneDigitTestSequences.add(Pair.of('*', "6*"));
+    oneDigitTestSequences.add(Pair.of('2', "6*2"));
+    oneDigitTestSequences.add(Pair.of('=', "12"));
 
-    List<Character> twoDigitInputSequence = new ArrayList<>(Arrays.asList(
-            '1', '2', '+', '1', '0', '=',
-            '-', '2', '2', '=',
-            '*', '1', '0', '='));
+    executeSequencesAndVerifyResult(oneDigitTestSequences);
 
-    List<String> twoDigitResultSequence = new ArrayList<>(Arrays.asList(
-            "1", "12", "12+", "12+1", "12+10", "22",
-            "22-", "22-2", "22-22", "0",
-            "0*", "0*1", "0*10", "0"));
+    List<Pair<Character, String>> twoDigitTestSequences = new ArrayList<>();
+    twoDigitTestSequences.add(Pair.of('1', "1"));
+    twoDigitTestSequences.add(Pair.of('2', "12"));
+    twoDigitTestSequences.add(Pair.of('+', "12+"));
+    twoDigitTestSequences.add(Pair.of('1', "12+1"));
+    twoDigitTestSequences.add(Pair.of('0', "12+10"));
+    twoDigitTestSequences.add(Pair.of('=', "22"));
 
-    executeSequencesAndVerifyResult(twoDigitInputSequence, twoDigitResultSequence);
+    twoDigitTestSequences.add(Pair.of('-', "22-"));
+    twoDigitTestSequences.add(Pair.of('2', "22-2"));
+    twoDigitTestSequences.add(Pair.of('2', "22-22"));
+    twoDigitTestSequences.add(Pair.of('=', "0"));
 
-    List<Character> threeDigitInputSequence = new ArrayList<>(Arrays.asList(
-            '1', '2', '3', '+', '1', '0', '0', '=',
-            '-', '2', '0', '0', '=',
-            '*', '1', '0', '0', '=');
+    twoDigitTestSequences.add(Pair.of('*', "0*"));
+    twoDigitTestSequences.add(Pair.of('1', "0*1"));
+    twoDigitTestSequences.add(Pair.of('0', "0*10"));
+    twoDigitTestSequences.add(Pair.of('=', "0"));
 
-    List<String> threeDigitResultSequence = new ArrayList<>(Arrays.asList(
-            "1", "12", "123", "123+", "123+1", "123+10", "123+100", "223",
-            "223-", "223-2", "223-20", "223-200", "23",
-            "23*", "23*1", "23*10", "23*100", "2300"));
+    executeSequencesAndVerifyResult(twoDigitTestSequences);
 
-    executeSequencesAndVerifyResult(threeDigitInputSequence, threeDigitResultSequence);
+    List<Pair<Character, String>> threeDigitTestSequences = new ArrayList<>();
+    threeDigitTestSequences.add(Pair.of('1', "1"));
+    threeDigitTestSequences.add(Pair.of('2', "12"));
+    threeDigitTestSequences.add(Pair.of('3', "123"));
+    threeDigitTestSequences.add(Pair.of('+', "123+"));
+    threeDigitTestSequences.add(Pair.of('1', "123+1"));
+    threeDigitTestSequences.add(Pair.of('0', "123+10"));
+    threeDigitTestSequences.add(Pair.of('0', "123+100"));
+    threeDigitTestSequences.add(Pair.of('=', "223"));
+    threeDigitTestSequences.add(Pair.of('-', "223-"));
+    threeDigitTestSequences.add(Pair.of('2', "223-2"));
+    threeDigitTestSequences.add(Pair.of('0', "223-20"));
+    threeDigitTestSequences.add(Pair.of('0', "223-200"));
+    threeDigitTestSequences.add(Pair.of('=', "23"));
+    threeDigitTestSequences.add(Pair.of('*', "23*"));
+    threeDigitTestSequences.add(Pair.of('1', "23*1"));
+    threeDigitTestSequences.add(Pair.of('0', "23*10"));
+    threeDigitTestSequences.add(Pair.of('0', "23*100"));
+    threeDigitTestSequences.add(Pair.of('=', "2300"));
+
+    executeSequencesAndVerifyResult(threeDigitTestSequences);
   }
 
   private void executeSequencesAndVerifyResult(char input, String result) throws IllegalStateException {
