@@ -11,6 +11,7 @@ import calculator.SimpleCalculator;
 import calculator.bean.Pair;
 
 public class SimpleCalculatorTest {
+
   @Test
   public void testInitialization() {
     Calculator calculator = new SimpleCalculator();
