@@ -56,8 +56,7 @@ public class SimpleCalculatorTest {
               Arrays.asList("1", "1-", "1+3", "4"));
 
       Assert.fail("Should have failed");
-    } catch (Exception e) {
-      Assert.assertEquals("", e.getMessage());
+    } catch (Exception ignored) {
     }
 
     executeSequencesAndVerifyResult(Arrays.asList('1', '+', '3', '='),
