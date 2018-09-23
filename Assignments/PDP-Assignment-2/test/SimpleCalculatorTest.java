@@ -48,33 +48,6 @@ public class SimpleCalculatorTest {
     executeSequencesAndVerifyResult(testSequences);
   }
 
-  private void executeSequencesAndVerifyResult(char input, String result) throws IllegalStateException {
-    executeSequencesAndVerifyResult(Collections.singletonList(Pair.of(input, result)));
-  }
-
-  private void executeSequencesAndVerifyResult(List<Pair<Character, String>> sequencePairs) throws IllegalStateException {
-
-    if (sequencePairs.size() == 0) {
-      throw new IllegalStateException("sequencePairs size cannot be zero");
-    }
-
-    Calculator calculator = new SimpleCalculator();
-
-    for (int i = 0; i < sequencePairs.size(); i++) {
-      char input = sequencePairs.get(i).first;
-      calculator = calculator.input(input);
-
-      String actualResult = calculator.getResult();
-      String expectedResult = sequencePairs.get(i).second;
-
-      if (!expectedResult.equals(actualResult)) {
-        throw new IllegalStateException(
-                String.format("Mismatch found at Pair: %d . Expected Result: %s , Actual Result: %s"
-                        , i + 1, expectedResult, actualResult));
-      }
-    }
-  }
-
   @Test
   public void testOperandGreaterThan32Bit() {
     try {
@@ -132,6 +105,28 @@ public class SimpleCalculatorTest {
       Assert.assertEquals(e.getMessage(), "Invalid Input");
     }
     Assert.assertEquals(calculator.getResult(), "1");
+  }
+
+  @Test
+  public void testMultipleOperators() {
+    Calculator calculator = new SimpleCalculator();
+    calculator = calculator.input('8').input('+').input('2')
+            .input('-').input('2')
+            .input('*').input('4');
+
+    Assert.assertEquals("48", calculator.getResult());
+  }
+
+  @Test
+  public void testMultipleOperationsOnSameObject() {
+    Calculator calculator = new SimpleCalculator();
+    calculator = calculator.input('1').input('+').input('9');
+
+    Calculator calculator1 = calculator.input('=');
+    Assert.assertEquals("10", calculator1.getResult());
+
+    Calculator calculator2 = calculator.input('=');
+    Assert.assertEquals("10", calculator2.getResult());
   }
 
   @Test
@@ -312,5 +307,32 @@ public class SimpleCalculatorTest {
     clearInputTestSequences.add(Pair.of('C', ""));
 
     executeSequencesAndVerifyResult(clearInputTestSequences);
+  }
+
+  private void executeSequencesAndVerifyResult(char input, String result) throws IllegalStateException {
+    executeSequencesAndVerifyResult(Collections.singletonList(Pair.of(input, result)));
+  }
+
+  private void executeSequencesAndVerifyResult(List<Pair<Character, String>> sequencePairs) throws IllegalStateException {
+
+    if (sequencePairs.size() == 0) {
+      throw new IllegalStateException("sequencePairs size cannot be zero");
+    }
+
+    Calculator calculator = new SimpleCalculator();
+
+    for (int i = 0; i < sequencePairs.size(); i++) {
+      char input = sequencePairs.get(i).first;
+      calculator = calculator.input(input);
+
+      String actualResult = calculator.getResult();
+      String expectedResult = sequencePairs.get(i).second;
+
+      if (!expectedResult.equals(actualResult)) {
+        throw new IllegalStateException(
+                String.format("Mismatch found at Pair: %d . Expected Result: %s , Actual Result: %s"
+                        , i + 1, expectedResult, actualResult));
+      }
+    }
   }
 }
