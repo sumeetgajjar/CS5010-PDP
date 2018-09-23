@@ -119,12 +119,20 @@ public class SimpleCalculatorTest {
 
   @Test
   public void testMultipleOperators() {
-    Calculator calculator = new SimpleCalculator();
-    calculator = calculator.input('8').input('+').input('2')
-            .input('-').input('2')
-            .input('*').input('4');
+    List<Pair<Character, String>> testSequences = new ArrayList<>();
+    testSequences.add(Pair.of('1', "1"));
+    testSequences.add(Pair.of('0', "10"));
+    testSequences.add(Pair.of('+', "10+"));
+    testSequences.add(Pair.of('2', "10+2"));
+    testSequences.add(Pair.of('-', "10+2-"));
+    testSequences.add(Pair.of('4', "10+2-4"));
+    testSequences.add(Pair.of('*', "10+2-4*"));
+    testSequences.add(Pair.of('3', "10+2-4*3"));
+    testSequences.add(Pair.of('+', "10+2-4*3+"));
+    testSequences.add(Pair.of('1', "10+2-4*3+1"));
+    testSequences.add(Pair.of('=', "25"));
 
-    Assert.assertEquals("48", calculator.getResult());
+    executeSequencesAndVerifyResult(testSequences);
   }
 
   @Test
