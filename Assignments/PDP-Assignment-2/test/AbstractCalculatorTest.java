@@ -144,4 +144,51 @@ public abstract class AbstractCalculatorTest {
       }
     }
   }
+
+  @Test
+  public void testMultipleOperationsOnSameObject() {
+    Calculator calculator = getCalculatorInstance();
+    calculator = calculator.input('1').input('+').input('9');
+    Assert.assertEquals("1+9", calculator.getResult());
+
+    Calculator calculator1 = calculator.input('=');
+    Assert.assertEquals("10", calculator1.getResult());
+
+    Calculator calculator2 = calculator.input('=');
+    Assert.assertEquals("10", calculator2.getResult());
+  }
+
+  @Test
+  public void testNegativeResult() {
+    Calculator calculator = getCalculatorInstance();
+    calculator = calculator.input('1').input('0').input('-').input('2').input('0').input('=');
+    Assert.assertEquals("-20", calculator.getResult());
+
+    calculator = calculator
+            .input('-')
+            .input('2').input('1').input('4').input('7')
+            .input('4').input('8').input('3').input('6')
+            .input('4').input('7');
+
+    calculator = calculator.input('+').input('1');
+    Assert.assertEquals("1", calculator.getResult());
+  }
+
+  @Test
+  public void testResultOverflow() {
+    Calculator calculator = getCalculatorInstance();
+    calculator = calculator
+            .input('2').input('1').input('4').input('7')
+            .input('4').input('8').input('3').input('6')
+            .input('4').input('7');
+
+    Calculator calculator1 = calculator
+            .input('+').input('1').input('0').input('=');
+    Assert.assertEquals("0", calculator1.getResult());
+
+    Calculator calculator2 = calculator
+            .input('+').input('1').input('0')
+            .input('+').input('1').input('1');
+    Assert.assertEquals("11", calculator2.getResult());
+  }
 }
