@@ -40,6 +40,7 @@ public class SimpleCalculatorTest {
               e.getMessage());
     }
 
+
     try {
       executeSequencesAndVerifyResult(Collections.singletonList('1'),
               Collections.emptyList());
