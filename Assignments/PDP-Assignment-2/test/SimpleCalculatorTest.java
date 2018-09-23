@@ -130,6 +130,22 @@ public class SimpleCalculatorTest {
   }
 
   @Test
+  public void testNegativeResult() {
+    Calculator calculator = new SimpleCalculator();
+    calculator = calculator.input('1').input('0').input('-').input('2').input('0').input('=');
+    Assert.assertEquals("-20", calculator.getResult());
+
+    calculator = calculator
+            .input('-')
+            .input('2').input('1').input('4').input('7')
+            .input('4').input('8').input('3').input('6')
+            .input('4').input('7');
+
+    calculator = calculator.input('+').input('1');
+    Assert.assertEquals("1", calculator.getResult());
+  }
+
+  @Test
   public void testResultOverflow() {
     Calculator calculator = new SimpleCalculator();
     calculator = calculator
