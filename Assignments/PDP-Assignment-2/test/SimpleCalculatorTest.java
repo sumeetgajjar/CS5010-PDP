@@ -3,6 +3,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import calculator.Calculator;
@@ -18,33 +19,58 @@ public class SimpleCalculatorTest {
 
   @Test
   public void testBasicOperations() {
-    List<Pair<List<Character>, String>> testSequences = new ArrayList<>();
-    testSequences.add(new Pair<>(Arrays.asList('8', '+', '2', '='), "10"));
-    testSequences.add(new Pair<>(Arrays.asList('-', '4', '='), "6"));
-    testSequences.add(new Pair<>(Arrays.asList('*', '2', '='), "12"));
-    testSequences.add(new Pair<>(Arrays.asList('='), "12"));
-    testSequences.add(new Pair<>(Arrays.asList('=', '='), "12"));
-    testSequences.add(new Pair<>(Arrays.asList('=', '=', '='), "12"));
-    testSequences.add(new Pair<>(Arrays.asList('=', '=', '=', '='), "12"));
+    List<Pair<List<Character>, List<String>>> testSequences = new ArrayList<>();
+    testSequences.add(new Pair<>(Arrays.asList('8', '+', '2', '='),
+            Arrays.asList("8", "8+", "8+2", "10")));
+
+    testSequences.add(Pair.of(Arrays.asList('-', '4', '='),
+            Arrays.asList("10-", "10-4", "6")));
+
+    testSequences.add(Pair.of(Arrays.asList('*', '2', '='),
+            Arrays.asList("6*", "6*2", "12")));
+
+    testSequences.add(Pair.of(Arrays.asList('='),
+            Arrays.asList("12")));
+
+    testSequences.add(Pair.of(Arrays.asList('=', '='),
+            Arrays.asList("12")));
+
+    testSequences.add(Pair.of(Arrays.asList('=', '=', '='),
+            Arrays.asList("12")));
+
+    testSequences.add(Pair.of(Arrays.asList('=', '=', '=', '='),
+            Arrays.asList("12")));
+
 
     executeSequencesAndVerifyResult(testSequences);
   }
 
-  private void executeSequencesAndVerifyResult(List<Pair<List<Character>, String>> testSequences) throws IllegalStateException {
+  private void executeSequencesAndVerifyResult(Pair<List<Character>, List<String>> testSequence) {
+    executeSequencesAndVerifyResult(Collections.singletonList(testSequence));
+  }
+
+  private void executeSequencesAndVerifyResult(List<Pair<List<Character>, List<String>>> testSequences) throws IllegalStateException {
     Calculator calculator = new SimpleCalculator();
 
-    for (Pair<List<Character>, String> pair : testSequences) {
-      List<Character> sequences = pair.first;
-      for (Character sequence : sequences) {
-        calculator.input(sequence);
+    for (Pair<List<Character>, List<String>> pair : testSequences) {
+      List<Character> inputSequence = pair.first;
+      List<String> resultSequence = pair.second;
+
+      if (inputSequence.size() != resultSequence.size()) {
+        throw new IllegalStateException("Size mismatch for input sequence and result sequence");
       }
 
-      String expectedResult = pair.second;
-      String actualResult = calculator.getResult();
-      if (!expectedResult.equals(actualResult)) {
-        throw new IllegalStateException(
-                String.format("Mismatch found. InputSequence: %s , Expected: %s , Actual: %s"
-                        , pair.first, expectedResult, actualResult));
+      for (int i = 0; i < inputSequence.size(); i++) {
+        calculator = calculator.input(inputSequence.get(i));
+
+        String actualResult = calculator.getResult();
+        String expectedResult = resultSequence.get(i);
+
+        if (!expectedResult.equals(actualResult)) {
+          throw new IllegalStateException(
+                  String.format("Mismatch found. InputSequence: %s , Expected: %s , Actual: %s"
+                          , pair.first, expectedResult, actualResult));
+        }
       }
     }
   }
@@ -61,7 +87,7 @@ public class SimpleCalculatorTest {
 
       Assert.fail("Test passed for input greater than 32 bits");
     } catch (RuntimeException e) {
-      Assert.assertEquals(e.getMessage(), "Operand overflow: operand is greater than 32 bits");
+      Assert.assertEquals("Operand overflow: operand is greater than 32 bits", e.getMessage());
     }
   }
 
@@ -73,6 +99,7 @@ public class SimpleCalculatorTest {
     for (int i = 0; i < input.length(); i++) {
       calculator = calculator.input(input.charAt(i));
     }
+    Assert.assertEquals("2147483647", calculator.getResult());
   }
 
   @Test
@@ -83,29 +110,7 @@ public class SimpleCalculatorTest {
     } catch (IllegalArgumentException e) {
       Assert.assertEquals(e.getMessage(), "Invalid Input");
     }
-    Assert.assertEquals(calculator.getResult(), "");
-  }
-
-  @Test
-  public void testCorrectInputSequence() {
-    Calculator calculator = new SimpleCalculator();
-    calculator = calculator.input('3');
-    Assert.assertEquals(calculator.getResult(), "3");
-
-    calculator = calculator.input('4');
-    Assert.assertEquals(calculator.getResult(), "34");
-
-    calculator = calculator.input('+');
-    Assert.assertEquals(calculator.getResult(), "34+");
-
-    calculator = calculator.input('2');
-    Assert.assertEquals(calculator.getResult(), "34+2");
-
-    calculator = calculator.input('4');
-    Assert.assertEquals(calculator.getResult(), "34+24");
-
-    calculator = calculator.input('=');
-    Assert.assertEquals(calculator.getResult(), "56");
+    Assert.assertEquals("", calculator.getResult());
   }
 
   @Test
@@ -127,7 +132,5 @@ public class SimpleCalculatorTest {
       Assert.assertEquals(e.getMessage(), "Invalid Input");
     }
     Assert.assertEquals(calculator.getResult(), "1");
-
-
   }
 }
