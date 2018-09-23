@@ -18,6 +18,42 @@ public class SimpleCalculatorTest {
   }
 
   @Test
+  public void testExecuteSequencesAndVerifyResult() {
+    try {
+      executeSequencesAndVerifyResult(Collections.emptyList(),
+              Collections.singletonList("1"));
+
+      Assert.fail("Should have failed");
+    } catch (Exception e) {
+      Assert.assertEquals("Size mismatch for input sequence and result sequence",
+              e.getMessage());
+    }
+
+    try {
+      executeSequencesAndVerifyResult(Collections.singletonList('1'),
+              Arrays.asList("1", "2"));
+
+      Assert.fail("Should have failed");
+    } catch (Exception e) {
+      Assert.assertEquals("Size mismatch for input sequence and result sequence",
+              e.getMessage());
+    }
+
+    try {
+      executeSequencesAndVerifyResult(Collections.singletonList('1'),
+              Collections.emptyList());
+
+      Assert.fail("Should have failed");
+    } catch (Exception e) {
+      Assert.assertEquals("Size mismatch for input sequence and result sequence",
+              e.getMessage());
+    }
+
+    executeSequencesAndVerifyResult(Arrays.asList('1', '+', '3', '='),
+            Arrays.asList("1", "1+", "1+3", "4"));
+  }
+
+  @Test
   public void testBasicOperations() {
     List<Pair<List<Character>, List<String>>> testSequences = new ArrayList<>();
     testSequences.add(new Pair<>(Arrays.asList('8', '+', '2', '='),
@@ -45,8 +81,8 @@ public class SimpleCalculatorTest {
     executeSequencesAndVerifyResult(testSequences);
   }
 
-  private void executeSequencesAndVerifyResult(Pair<List<Character>, List<String>> testSequence) {
-    executeSequencesAndVerifyResult(Collections.singletonList(testSequence));
+  private void executeSequencesAndVerifyResult(List<Character> inputSequence, List<String> results) throws IllegalStateException {
+    executeSequencesAndVerifyResult(Collections.singletonList(Pair.of(inputSequence, results)));
   }
 
   private void executeSequencesAndVerifyResult(List<Pair<List<Character>, List<String>>> testSequences) throws IllegalStateException {
