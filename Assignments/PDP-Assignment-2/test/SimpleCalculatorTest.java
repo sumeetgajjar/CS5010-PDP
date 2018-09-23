@@ -51,64 +51,67 @@ public class SimpleCalculatorTest {
               e.getMessage());
     }
 
+    try {
+      executeSequencesAndVerifyResult(Arrays.asList('1', '+', '3', '='),
+              Arrays.asList("1", "1-", "1+3", "4"));
+
+      Assert.fail("Should have failed");
+    } catch (Exception e) {
+      Assert.assertEquals("", e.getMessage());
+    }
+
     executeSequencesAndVerifyResult(Arrays.asList('1', '+', '3', '='),
             Arrays.asList("1", "1+", "1+3", "4"));
   }
 
   @Test
   public void testBasicOperations() {
-    List<Pair<List<Character>, List<String>>> testSequences = new ArrayList<>();
-    testSequences.add(new Pair<>(Arrays.asList('8', '+', '2', '='),
-            Arrays.asList("8", "8+", "8+2", "10")));
+    List<Character> inputSequence = new ArrayList<>();
+    List<String> resultSequence = new ArrayList<>();
 
-    testSequences.add(Pair.of(Arrays.asList('-', '4', '='),
-            Arrays.asList("10-", "10-4", "6")));
+    inputSequence.addAll(Arrays.asList('8', '+', '2', '='));
+    resultSequence.addAll(Arrays.asList("8", "8+", "8+2", "10"));
 
-    testSequences.add(Pair.of(Arrays.asList('*', '2', '='),
-            Arrays.asList("6*", "6*2", "12")));
+    inputSequence.addAll(Arrays.asList('-', '4', '='));
+    resultSequence.addAll(Arrays.asList("10-", "10-4", "6"));
 
-    testSequences.add(Pair.of(Arrays.asList('='),
-            Arrays.asList("12")));
+    inputSequence.addAll(Arrays.asList('*', '2', '='));
+    resultSequence.addAll(Arrays.asList("6*", "6*2", "12"));
 
-    testSequences.add(Pair.of(Arrays.asList('=', '='),
-            Arrays.asList("12")));
+    inputSequence.addAll(Arrays.asList('='));
+    resultSequence.addAll(Arrays.asList("12"));
 
-    testSequences.add(Pair.of(Arrays.asList('=', '=', '='),
-            Arrays.asList("12")));
+    inputSequence.addAll(Arrays.asList('=', '='));
+    resultSequence.addAll(Arrays.asList("12", "12"));
 
-    testSequences.add(Pair.of(Arrays.asList('=', '=', '=', '='),
-            Arrays.asList("12")));
+    inputSequence.addAll(Arrays.asList('=', '=', '='));
+    resultSequence.addAll(Arrays.asList("12", "12", "12"));
 
+    inputSequence.addAll(Arrays.asList('=', '=', '=', '='));
+    resultSequence.addAll(Arrays.asList("12", "12", "12", "12"));
 
-    executeSequencesAndVerifyResult(testSequences);
+    executeSequencesAndVerifyResult(inputSequence, resultSequence);
   }
 
-  private void executeSequencesAndVerifyResult(List<Character> inputSequence, List<String> results) throws IllegalStateException {
-    executeSequencesAndVerifyResult(Collections.singletonList(Pair.of(inputSequence, results)));
-  }
+  private void executeSequencesAndVerifyResult(
+          List<Character> inputSequence, List<String> resultSequence) throws IllegalStateException {
 
-  private void executeSequencesAndVerifyResult(List<Pair<List<Character>, List<String>>> testSequences) throws IllegalStateException {
     Calculator calculator = new SimpleCalculator();
 
-    for (Pair<List<Character>, List<String>> pair : testSequences) {
-      List<Character> inputSequence = pair.first;
-      List<String> resultSequence = pair.second;
+    if (inputSequence.size() != resultSequence.size()) {
+      throw new IllegalStateException("Size mismatch for input sequence and result sequence");
+    }
 
-      if (inputSequence.size() != resultSequence.size()) {
-        throw new IllegalStateException("Size mismatch for input sequence and result sequence");
-      }
+    for (int i = 0; i < inputSequence.size(); i++) {
+      calculator = calculator.input(inputSequence.get(i));
 
-      for (int i = 0; i < inputSequence.size(); i++) {
-        calculator = calculator.input(inputSequence.get(i));
+      String actualResult = calculator.getResult();
+      String expectedResult = resultSequence.get(i);
 
-        String actualResult = calculator.getResult();
-        String expectedResult = resultSequence.get(i);
-
-        if (!expectedResult.equals(actualResult)) {
-          throw new IllegalStateException(
-                  String.format("Mismatch found. InputSequence: %s , Expected: %s , Actual: %s"
-                          , pair.first, expectedResult, actualResult));
-        }
+      if (!expectedResult.equals(actualResult)) {
+        throw new IllegalStateException(
+                String.format("Mismatch found at %d. InputSequence: %s , Expected: %s , Actual: %s"
+                        , i + 1, inputSequence, expectedResult, actualResult));
       }
     }
   }
@@ -170,5 +173,11 @@ public class SimpleCalculatorTest {
       Assert.assertEquals(e.getMessage(), "Invalid Input");
     }
     Assert.assertEquals(calculator.getResult(), "1");
+  }
+
+  @Test
+  public void testClearButton() {
+    List<Pair<List<Character>, List<String>>> testSequences = new ArrayList<>();
+//    testSequences.add(Pair.of(Arrays.asList('1', '+', '2', 'C')))
   }
 }
