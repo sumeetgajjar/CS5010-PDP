@@ -141,6 +141,7 @@ public class SimpleCalculatorTest {
 
   @Test
   public void testNegativeOperand() {
+
     Calculator calculator = new SimpleCalculator();
     try {
       calculator = calculator.input('-');
