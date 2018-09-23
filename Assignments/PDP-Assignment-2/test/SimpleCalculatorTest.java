@@ -65,52 +65,66 @@ public class SimpleCalculatorTest {
 
   @Test
   public void testBasicOperations() {
-    List<Character> inputSequence = new ArrayList<>();
-    List<String> resultSequence = new ArrayList<>();
+    List<Character> oneDigitInputSequence = new ArrayList<>(Arrays.asList(
+            '8', '+', '2', '=',
+            '-', '4', '=',
+            '*', '2', '='));
 
-    inputSequence.addAll(Arrays.asList('8', '+', '2', '='));
-    resultSequence.addAll(Arrays.asList("8", "8+", "8+2", "10"));
+    List<String> oneDigitResultSequence = new ArrayList<>(Arrays.asList(
+            "8", "8+", "8+2", "10",
+            "10-", "10-4", "6",
+            "6*", "6*2", "12"));
 
-    inputSequence.addAll(Arrays.asList('-', '4', '='));
-    resultSequence.addAll(Arrays.asList("10-", "10-4", "6"));
+    executeSequencesAndVerifyResult(oneDigitInputSequence, oneDigitResultSequence);
 
-    inputSequence.addAll(Arrays.asList('*', '2', '='));
-    resultSequence.addAll(Arrays.asList("6*", "6*2", "12"));
+    List<Character> twoDigitInputSequence = new ArrayList<>(Arrays.asList(
+            '1', '2', '+', '1', '0', '=',
+            '-', '2', '2', '=',
+            '*', '1', '0', '='));
 
-    inputSequence.addAll(Arrays.asList('='));
-    resultSequence.addAll(Arrays.asList("12"));
+    List<String> twoDigitResultSequence = new ArrayList<>(Arrays.asList(
+            "1", "12", "12+", "12+1", "12+10", "22",
+            "22-", "22-2", "22-22", "0",
+            "0*", "0*1", "0*10", "0"));
 
-    inputSequence.addAll(Arrays.asList('=', '='));
-    resultSequence.addAll(Arrays.asList("12", "12"));
+    executeSequencesAndVerifyResult(twoDigitInputSequence, twoDigitResultSequence);
 
-    inputSequence.addAll(Arrays.asList('=', '=', '='));
-    resultSequence.addAll(Arrays.asList("12", "12", "12"));
+    List<Character> threeDigitInputSequence = new ArrayList<>(Arrays.asList(
+            '1', '2', '3', '+', '1', '0', '0', '=',
+            '-', '2', '0', '0', '=',
+            '*', '1', '0', '0', '=');
 
-    inputSequence.addAll(Arrays.asList('=', '=', '=', '='));
-    resultSequence.addAll(Arrays.asList("12", "12", "12", "12"));
+    List<String> threeDigitResultSequence = new ArrayList<>(Arrays.asList(
+            "1", "12", "123", "123+", "123+1", "123+10", "123+100", "223",
+            "223-", "223-2", "223-20", "223-200", "23",
+            "23*", "23*1", "23*10", "23*100", "2300"));
 
-    executeSequencesAndVerifyResult(inputSequence, resultSequence);
+    executeSequencesAndVerifyResult(threeDigitInputSequence, threeDigitResultSequence);
   }
 
-  private void executeSequencesAndVerifyResult(
-          List<Character> inputSequence, List<String> resultSequence) throws IllegalStateException {
+  private void executeSequencesAndVerifyResult(char input, String result) throws IllegalStateException {
+    executeSequencesAndVerifyResult(Collections.singletonList(Pair.of(input, result)));
+  }
+
+  private void executeSequencesAndVerifyResult(List<Pair<Character, String>> sequencePairs) throws IllegalStateException {
+
+    if (sequencePairs.size() == 0) {
+      throw new IllegalStateException("sequencePairs size cannot be zero");
+    }
 
     Calculator calculator = new SimpleCalculator();
 
-    if (inputSequence.size() != resultSequence.size()) {
-      throw new IllegalStateException("Size mismatch for input sequence and result sequence");
-    }
-
-    for (int i = 0; i < inputSequence.size(); i++) {
-      calculator = calculator.input(inputSequence.get(i));
+    for (int i = 0; i < sequencePairs.size(); i++) {
+      char input = sequencePairs.get(i).first;
+      calculator = calculator.input(input);
 
       String actualResult = calculator.getResult();
-      String expectedResult = resultSequence.get(i);
+      String expectedResult = sequencePairs.get(i).second;
 
       if (!expectedResult.equals(actualResult)) {
         throw new IllegalStateException(
-                String.format("Mismatch found at %d. InputSequence: %s , Expected: %s , Actual: %s"
-                        , i + 1, inputSequence, expectedResult, actualResult));
+                String.format("Mismatch found at Pair: %d . Expected Result: %s , Actual Result: %s"
+                        , i + 1, expectedResult, actualResult));
       }
     }
   }
