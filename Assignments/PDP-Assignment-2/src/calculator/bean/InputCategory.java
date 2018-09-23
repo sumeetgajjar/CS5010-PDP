@@ -1,6 +1,6 @@
 package calculator.bean;
 
-public enum InputType {
+public enum InputCategory {
   OPERAND,
   OPERATOR,
   EQUAL_TO,
