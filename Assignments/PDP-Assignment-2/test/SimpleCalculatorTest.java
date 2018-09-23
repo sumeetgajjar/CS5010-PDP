@@ -18,6 +18,20 @@ public class SimpleCalculatorTest {
   }
 
   @Test
+  public void testValidOperandAndOperator() {
+    char[] validInput = new char[]{
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+            '+', '-', '*', '=', 'C'};
+
+    for (char input : validInput) {
+      Calculator calculator = new SimpleCalculator();
+      calculator.input(input);
+
+      Assert.assertEquals(String.valueOf(input), calculator.getResult());
+    }
+  }
+
+  @Test
   public void testExecuteSequencesAndVerifyResult() {
     try {
       executeSequencesAndVerifyResult(Collections.emptyList());
