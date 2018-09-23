@@ -21,7 +21,6 @@ public class SimpleCalculatorTest {
   public void testExecuteSequencesAndVerifyResult() {
     try {
       executeSequencesAndVerifyResult(Collections.emptyList());
-
       Assert.fail("Should have failed");
     } catch (Exception ignored) {
     }
