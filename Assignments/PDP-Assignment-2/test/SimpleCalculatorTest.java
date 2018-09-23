@@ -48,67 +48,6 @@ public class SimpleCalculatorTest {
     executeSequencesAndVerifyResult(testSequences);
   }
 
-  @Test
-  public void testBasicOperations() {
-    List<Pair<Character, String>> oneDigitTestSequences = new ArrayList<>();
-    oneDigitTestSequences.add(Pair.of('8', "8"));
-    oneDigitTestSequences.add(Pair.of('+', "8+"));
-    oneDigitTestSequences.add(Pair.of('2', "8+2"));
-    oneDigitTestSequences.add(Pair.of('=', "10"));
-
-    oneDigitTestSequences.add(Pair.of('-', "10-"));
-    oneDigitTestSequences.add(Pair.of('4', "10-4"));
-    oneDigitTestSequences.add(Pair.of('=', "6"));
-
-    oneDigitTestSequences.add(Pair.of('*', "6*"));
-    oneDigitTestSequences.add(Pair.of('2', "6*2"));
-    oneDigitTestSequences.add(Pair.of('=', "12"));
-
-    executeSequencesAndVerifyResult(oneDigitTestSequences);
-
-    List<Pair<Character, String>> twoDigitTestSequences = new ArrayList<>();
-    twoDigitTestSequences.add(Pair.of('1', "1"));
-    twoDigitTestSequences.add(Pair.of('2', "12"));
-    twoDigitTestSequences.add(Pair.of('+', "12+"));
-    twoDigitTestSequences.add(Pair.of('1', "12+1"));
-    twoDigitTestSequences.add(Pair.of('0', "12+10"));
-    twoDigitTestSequences.add(Pair.of('=', "22"));
-
-    twoDigitTestSequences.add(Pair.of('-', "22-"));
-    twoDigitTestSequences.add(Pair.of('2', "22-2"));
-    twoDigitTestSequences.add(Pair.of('2', "22-22"));
-    twoDigitTestSequences.add(Pair.of('=', "0"));
-
-    twoDigitTestSequences.add(Pair.of('*', "0*"));
-    twoDigitTestSequences.add(Pair.of('1', "0*1"));
-    twoDigitTestSequences.add(Pair.of('0', "0*10"));
-    twoDigitTestSequences.add(Pair.of('=', "0"));
-
-    executeSequencesAndVerifyResult(twoDigitTestSequences);
-
-    List<Pair<Character, String>> threeDigitTestSequences = new ArrayList<>();
-    threeDigitTestSequences.add(Pair.of('1', "1"));
-    threeDigitTestSequences.add(Pair.of('2', "12"));
-    threeDigitTestSequences.add(Pair.of('3', "123"));
-    threeDigitTestSequences.add(Pair.of('+', "123+"));
-    threeDigitTestSequences.add(Pair.of('1', "123+1"));
-    threeDigitTestSequences.add(Pair.of('0', "123+10"));
-    threeDigitTestSequences.add(Pair.of('0', "123+100"));
-    threeDigitTestSequences.add(Pair.of('=', "223"));
-    threeDigitTestSequences.add(Pair.of('-', "223-"));
-    threeDigitTestSequences.add(Pair.of('2', "223-2"));
-    threeDigitTestSequences.add(Pair.of('0', "223-20"));
-    threeDigitTestSequences.add(Pair.of('0', "223-200"));
-    threeDigitTestSequences.add(Pair.of('=', "23"));
-    threeDigitTestSequences.add(Pair.of('*', "23*"));
-    threeDigitTestSequences.add(Pair.of('1', "23*1"));
-    threeDigitTestSequences.add(Pair.of('0', "23*10"));
-    threeDigitTestSequences.add(Pair.of('0', "23*100"));
-    threeDigitTestSequences.add(Pair.of('=', "2300"));
-
-    executeSequencesAndVerifyResult(threeDigitTestSequences);
-  }
-
   private void executeSequencesAndVerifyResult(char input, String result) throws IllegalStateException {
     executeSequencesAndVerifyResult(Collections.singletonList(Pair.of(input, result)));
   }
@@ -195,9 +134,85 @@ public class SimpleCalculatorTest {
     Assert.assertEquals(calculator.getResult(), "1");
   }
 
+
   @Test
-  public void testClearButton() {
-    List<Pair<List<Character>, List<String>>> testSequences = new ArrayList<>();
-//    testSequences.add(Pair.of(Arrays.asList('1', '+', '2', 'C')))
+  public void testBasicOperations() {
+    List<Pair<Character, String>> oneDigitTestSequences = new ArrayList<>();
+    oneDigitTestSequences.add(Pair.of('8', "8"));
+    oneDigitTestSequences.add(Pair.of('+', "8+"));
+    oneDigitTestSequences.add(Pair.of('2', "8+2"));
+    oneDigitTestSequences.add(Pair.of('=', "10"));
+
+    oneDigitTestSequences.add(Pair.of('-', "10-"));
+    oneDigitTestSequences.add(Pair.of('4', "10-4"));
+    oneDigitTestSequences.add(Pair.of('=', "6"));
+
+    oneDigitTestSequences.add(Pair.of('*', "6*"));
+    oneDigitTestSequences.add(Pair.of('2', "6*2"));
+    oneDigitTestSequences.add(Pair.of('=', "12"));
+
+    executeSequencesAndVerifyResult(oneDigitTestSequences);
+
+    List<Pair<Character, String>> twoDigitTestSequences = new ArrayList<>();
+    twoDigitTestSequences.add(Pair.of('1', "1"));
+    twoDigitTestSequences.add(Pair.of('2', "12"));
+    twoDigitTestSequences.add(Pair.of('+', "12+"));
+    twoDigitTestSequences.add(Pair.of('1', "12+1"));
+    twoDigitTestSequences.add(Pair.of('0', "12+10"));
+    twoDigitTestSequences.add(Pair.of('=', "22"));
+
+    twoDigitTestSequences.add(Pair.of('-', "22-"));
+    twoDigitTestSequences.add(Pair.of('2', "22-2"));
+    twoDigitTestSequences.add(Pair.of('2', "22-22"));
+    twoDigitTestSequences.add(Pair.of('=', "0"));
+
+    twoDigitTestSequences.add(Pair.of('*', "0*"));
+    twoDigitTestSequences.add(Pair.of('1', "0*1"));
+    twoDigitTestSequences.add(Pair.of('0', "0*10"));
+    twoDigitTestSequences.add(Pair.of('=', "0"));
+
+    executeSequencesAndVerifyResult(twoDigitTestSequences);
+
+    List<Pair<Character, String>> threeDigitTestSequences = new ArrayList<>();
+    threeDigitTestSequences.add(Pair.of('1', "1"));
+    threeDigitTestSequences.add(Pair.of('2', "12"));
+    threeDigitTestSequences.add(Pair.of('3', "123"));
+    threeDigitTestSequences.add(Pair.of('+', "123+"));
+    threeDigitTestSequences.add(Pair.of('1', "123+1"));
+    threeDigitTestSequences.add(Pair.of('0', "123+10"));
+    threeDigitTestSequences.add(Pair.of('0', "123+100"));
+    threeDigitTestSequences.add(Pair.of('=', "223"));
+
+    threeDigitTestSequences.add(Pair.of('-', "223-"));
+    threeDigitTestSequences.add(Pair.of('2', "223-2"));
+    threeDigitTestSequences.add(Pair.of('0', "223-20"));
+    threeDigitTestSequences.add(Pair.of('0', "223-200"));
+    threeDigitTestSequences.add(Pair.of('=', "23"));
+
+    threeDigitTestSequences.add(Pair.of('*', "23*"));
+    threeDigitTestSequences.add(Pair.of('1', "23*1"));
+    threeDigitTestSequences.add(Pair.of('0', "23*10"));
+    threeDigitTestSequences.add(Pair.of('0', "23*100"));
+    threeDigitTestSequences.add(Pair.of('=', "2300"));
+
+    executeSequencesAndVerifyResult(threeDigitTestSequences);
+
+    List<Pair<Character, String>> clearInputTestSequences = new ArrayList<>();
+    clearInputTestSequences.add(Pair.of('C', ""));
+    clearInputTestSequences.add(Pair.of('C', ""));
+    clearInputTestSequences.add(Pair.of('C', ""));
+    clearInputTestSequences.add(Pair.of('1', "1"));
+    clearInputTestSequences.add(Pair.of('C', ""));
+    clearInputTestSequences.add(Pair.of('1', "1"));
+    clearInputTestSequences.add(Pair.of('-', "1-"));
+    clearInputTestSequences.add(Pair.of('C', ""));
+    clearInputTestSequences.add(Pair.of('4', "4"));
+    clearInputTestSequences.add(Pair.of('-', "4-"));
+    clearInputTestSequences.add(Pair.of('2', "4-2"));
+    clearInputTestSequences.add(Pair.of('=', "2"));
+    clearInputTestSequences.add(Pair.of('C', ""));
+    clearInputTestSequences.add(Pair.of('C', ""));
+    clearInputTestSequences.add(Pair.of('C', ""));
+    clearInputTestSequences.add(Pair.of('C', ""));
   }
 }
