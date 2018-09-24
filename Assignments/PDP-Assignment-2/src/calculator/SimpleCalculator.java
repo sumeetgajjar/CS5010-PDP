@@ -2,6 +2,7 @@ package calculator;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -73,27 +74,33 @@ public class SimpleCalculator extends AbstractCalculator {
     return this;
   }
 
-  private void performActionForInputCategoryOperand(char input) {
-    String lastElement = this.currentExpression.peekLast();
+  private List<String> performActionForInputCategoryOperand(char input) {
+    Deque<String> deque = new LinkedList<>(this.currentExpression);
+
+    String lastElement = deque.peekLast();
     if (Objects.nonNull(lastElement)) {
 
       char lastInput = lastElement.charAt(lastElement.length() - 1);
       InputCategory lastInputCategory = getInputType(lastInput);
 
       if (lastInputCategory == InputCategory.OPERAND) {
-        lastElement = this.currentExpression.pollLast();
+        lastElement = deque.pollLast();
         String newNumber = appendDigit(lastElement, input);
-        this.currentExpression.addLast(newNumber);
+        deque.addLast(newNumber);
       } else if (lastInputCategory == InputCategory.OPERATOR) {
-        this.currentExpression.addLast(String.valueOf(input));
+        deque.addLast(String.valueOf(input));
       }
     } else {
-      this.currentExpression.addLast(String.valueOf(input));
+      deque.addLast(String.valueOf(input));
     }
+
+    return new LinkedList<>(deque);
   }
 
-  private void performActionForInputCategoryOperator(char input) {
-    this.currentExpression.addLast(String.valueOf(input));
+  private List<String> performActionForInputCategoryOperator(char input) {
+    Deque<String> deque = new LinkedList<>(this.currentExpression);
+    deque.addLast(String.valueOf(input));
+    return new LinkedList<>(deque);
   }
 
   private void performActionForInputCategoryEqualTo() {
