@@ -1,6 +1,5 @@
 package calculator;
 
-import java.util.List;
 import java.util.Set;
 
 import calculator.bean.InputCategory;
