@@ -24,7 +24,15 @@ public class SimpleCalculator extends AbstractCalculator {
   private static final char CLEAR_INPUT_CHARACTER = 'C';
   private static final char EQUAL_TO_CHARACTER = '=';
 
-  private final String inputSequence = "";
+  private final String inputSequence;
+
+  private SimpleCalculator(String inputSequence) {
+    this.inputSequence = inputSequence;
+  }
+
+  public SimpleCalculator() {
+    this("");
+  }
 
   @Override
   public String getResult() {
