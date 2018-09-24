@@ -133,18 +133,21 @@ public class SimpleCalculator extends AbstractCalculator {
   protected List<String> performActionForInputCategoryEqualTo() {
     Deque<String> currentExpressionDeque = getCurrentExpressionDeque();
 
-    while (!currentExpressionDeque.isEmpty()) {
-      int n1 = Integer.parseInt(currentExpressionDeque.removeFirst());
-      char operator = currentExpressionDeque.removeFirst().charAt(0);
-      int n2 = Integer.parseInt(currentExpressionDeque.removeFirst());
+    if (currentExpressionDeque.size() > 1) {
+      while (!currentExpressionDeque.isEmpty()) {
+        int n1 = Integer.parseInt(currentExpressionDeque.removeFirst());
+        char operator = currentExpressionDeque.removeFirst().charAt(0);
+        int n2 = Integer.parseInt(currentExpressionDeque.removeFirst());
 
-      int result = performOperation(operator, n1, n2);
+        int result = performOperation(operator, n1, n2);
 
-      currentExpressionDeque.addFirst(String.valueOf(result));
-      if (currentExpressionDeque.size() == 1) {
-        break;
+        currentExpressionDeque.addFirst(String.valueOf(result));
+        if (currentExpressionDeque.size() == 1) {
+          break;
+        }
       }
     }
+
 
     return getListFromDeque(currentExpressionDeque);
   }
@@ -174,7 +177,7 @@ public class SimpleCalculator extends AbstractCalculator {
     } else if (currentInputCategory == InputCategory.OPERATOR) {
       nextValidInputCategory = new HashSet<>(Arrays.asList(InputCategory.OPERAND));
     } else if (currentInputCategory == InputCategory.EQUAL_TO) {
-      nextValidInputCategory = new HashSet<>(Arrays.asList(InputCategory.OPERATOR));
+      nextValidInputCategory = new HashSet<>(Arrays.asList(InputCategory.OPERATOR, InputCategory.EQUAL_TO));
     } else if (currentInputCategory == InputCategory.CLEAR) {
       return getInitialValidInputCategory();
     } else {
