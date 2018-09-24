@@ -26,8 +26,6 @@ public class SimpleCalculator extends AbstractCalculator {
                   Arrays.asList(Operator.ADD, Operator.SUBTRACT, Operator.MULTIPLY)
           ));
 
-  private static final char CLEAR_INPUT_CHARACTER = 'C';
-  private static final char EQUAL_TO_CHARACTER = '=';
   private static final Set<InputCategory> INITIAL_VALID_INPUT_CATEGORY_SET =
           Collections.unmodifiableSet(
                   new HashSet<>(Arrays.asList(InputCategory.OPERAND, InputCategory.CLEAR)));
@@ -79,6 +77,28 @@ public class SimpleCalculator extends AbstractCalculator {
     return new SimpleCalculator(newExpression, nextAnticipatedInputCategory, newResult);
   }
 
+  @Override
+  protected Set<Character> getSupportedInputs() {
+    return Stream.of(getSupportedDigits(),
+            getSupportedOperatorSymbols(),
+            Collections.singleton(CLEAR_INPUT_CHARACTER),
+            Collections.singleton(EQUAL_TO_CHARACTER))
+            .flatMap(Set::stream)
+            .collect(Collectors.toCollection(LinkedHashSet::new));
+  }
+
+  @Override
+  protected Set<Character> getSupportedDigits() {
+    return SUPPORTED_DIGITS;
+  }
+
+  @Override
+  protected Set<Character> getSupportedOperatorSymbols() {
+    return SUPPORTED_OPERATORS.stream()
+            .map(Operator::getSymbol)
+            .collect(Collectors.toCollection(LinkedHashSet::new));
+  }
+
   private List<String> performActionForInputCategoryOperand(char input) {
     Deque<String> currentExpressionDeque = getCurrentExpressionDeque();
 
@@ -127,41 +147,18 @@ public class SimpleCalculator extends AbstractCalculator {
     return getListFromDeque(currentExpressionDeque);
   }
 
-  private LinkedList<String> getListFromDeque(Deque<String> expressionDeque) {
-    return new LinkedList<>(expressionDeque);
-  }
-
-  private LinkedList<String> getCurrentExpressionDeque() {
-    return new LinkedList<>(this.currentExpression);
-  }
-
   private List<String> performActionForInputCategoryClear() {
     List<String> newExpression = getCurrentExpressionDeque();
     newExpression.clear();
     return newExpression;
   }
 
-  private int performOperation(char operatorSymbol, int n1, int n2) {
-    try {
-      Operator operator = Operator.getOperator(operatorSymbol);
-      return operator.performOperation(n1, n2);
-    } catch (ArithmeticException e) {
-      return 0;
-    }
+  private LinkedList<String> getListFromDeque(Deque<String> expressionDeque) {
+    return new LinkedList<>(expressionDeque);
   }
 
-  private String generateResultString(List<String> expression) {
-    return String.join("", expression);
-  }
-
-  private String appendDigit(String numberString, char digitToAppend) {
-    try {
-      int currentNumber = Integer.parseInt(numberString);
-      int newNumber = Math.addExact(Math.multiplyExact(currentNumber, 10), digitToAppend - '0');
-      return String.valueOf(newNumber);
-    } catch (ArithmeticException e) {
-      throw new RuntimeException("Operand overflow: operand is greater than 32 bits", e);
-    }
+  private LinkedList<String> getCurrentExpressionDeque() {
+    return new LinkedList<>(this.currentExpression);
   }
 
   private void isCurrentInputValid(char input, InputCategory currentInputCategory) throws IllegalArgumentException {
@@ -194,45 +191,5 @@ public class SimpleCalculator extends AbstractCalculator {
 
     nextValidInputCategory.add(InputCategory.CLEAR);
     return Collections.unmodifiableSet(nextValidInputCategory);
-  }
-
-  private InputCategory getInputType(char input) throws IllegalArgumentException {
-    if (getSupportedDigits().contains(input)) {
-      return InputCategory.OPERAND;
-    } else if (getSupportedOperatorSymbols().contains(input)) {
-      return InputCategory.OPERATOR;
-    } else if (CLEAR_INPUT_CHARACTER == input) {
-      return InputCategory.CLEAR;
-    } else if (EQUAL_TO_CHARACTER == input) {
-      return InputCategory.EQUAL_TO;
-    } else {
-      throw new IllegalArgumentException(String.format("Cannot Identify the InputCategory for:%s", input));
-    }
-  }
-
-  private void isInputCharacterLegal(char input) throws IllegalArgumentException {
-    Set<Character> legalInputSet = getSupportedInputs();
-    if (!legalInputSet.contains(input)) {
-      throw new IllegalArgumentException(String.format("Input: '%s' is illegal", input));
-    }
-  }
-
-  private Set<Character> getSupportedInputs() {
-    return Stream.of(getSupportedDigits(),
-            getSupportedOperatorSymbols(),
-            Collections.singleton(CLEAR_INPUT_CHARACTER),
-            Collections.singleton(EQUAL_TO_CHARACTER))
-            .flatMap(Set::stream)
-            .collect(Collectors.toCollection(LinkedHashSet::new));
-  }
-
-  private Set<Character> getSupportedDigits() {
-    return SUPPORTED_DIGITS;
-  }
-
-  private Set<Character> getSupportedOperatorSymbols() {
-    return SUPPORTED_OPERATORS.stream()
-            .map(Operator::getSymbol)
-            .collect(Collectors.toCollection(LinkedHashSet::new));
   }
 }
