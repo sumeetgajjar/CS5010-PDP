@@ -92,6 +92,21 @@ public abstract class AbstractCalculatorTest {
     } catch (RuntimeException e) {
       Assert.assertEquals("Operand overflow: operand is greater than 32 bits", e.getMessage());
     }
+
+    try {
+      Calculator calculator = getCalculatorInstance();
+      calculator = calculator.input('1').input('+');
+
+      String input = String.valueOf((2 ^ 31));
+
+      for (int i = 0; i < input.length(); i++) {
+        calculator = calculator.input(input.charAt(i));
+      }
+
+      Assert.fail("Test passed for input greater than 32 bits");
+    } catch (RuntimeException e) {
+      Assert.assertEquals("Operand overflow: operand is greater than 32 bits", e.getMessage());
+    }
   }
 
   @Test

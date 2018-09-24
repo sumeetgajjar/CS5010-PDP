@@ -24,58 +24,73 @@ public class SimpleCalculator extends AbstractCalculator {
   private static final char CLEAR_INPUT_CHARACTER = 'C';
   private static final char EQUAL_TO_CHARACTER = '=';
 
-  private final String inputSequence;
+  private String inputSequence;
+  private boolean firstInput;
+  private InputCategory inputSequenceCategory;
+  private String result;
+  private int number1;
+  private int number2;
+  private int signal = 1;
 
-  private SimpleCalculator(String inputSequence) {
+  private SimpleCalculator(String inputSequence, boolean firstInput) {
     this.inputSequence = inputSequence;
+    this.firstInput = firstInput;
   }
 
   public SimpleCalculator() {
-    this("");
+    this("", true);
   }
 
   @Override
   public String getResult() {
-    return "";
+    return this.result;
   }
 
   @Override
   public Calculator input(char input) throws IllegalArgumentException {
     isInputCharacterLegal(input);
-    InputCategory paramInputCategory = getInputType(input);
-    isInputCharacterValid(paramInputCategory);
-    String newInputSequence = inputSequence + input;
+    InputCategory currentInputCategory = getInputType(input);
+    isCurrentInputValid(currentInputCategory);
+
 
     return null;
   }
 
-  private void isInputCharacterValid(InputCategory paramInputCategory) throws IllegalArgumentException {
-    if (inputSequence.isEmpty()) {
-      if (paramInputCategory == InputCategory.EQUAL_TO || paramInputCategory == InputCategory.OPERATOR) {
-        throw new IllegalArgumentException("Invalid Input");
-      }
+  private void isCurrentInputValid(InputCategory currentInputCategory) throws IllegalArgumentException {
+    Set<InputCategory> validInputCategorySet;
+    if (firstInput) {
+      validInputCategorySet = getInitialValidInputCategory();
     } else {
-      InputCategory currentInputCategory = getInputType(inputSequence.charAt(inputSequence.length() - 1));
-      Set<InputCategory> illegalInputCategorySet = getIllegalInputCategory(currentInputCategory);
-      if (illegalInputCategorySet.contains(paramInputCategory)) {
-        throw new IllegalArgumentException("Invalid Input");
-      }
+      validInputCategorySet = getNextValidInputCategory(this.inputSequenceCategory);
+    }
+
+    if (!validInputCategorySet.contains(currentInputCategory)) {
+      throw new IllegalArgumentException("Invalid Input");
     }
   }
 
-  private Set<InputCategory> getIllegalInputCategory(InputCategory inputCategory) {
-    switch (inputCategory) {
-      case OPERAND:
-        return Collections.emptySet();
-      case OPERATOR:
-        return Collections.unmodifiableSet(new HashSet<>(Arrays.asList(InputCategory.OPERATOR, InputCategory.EQUAL_TO)));
-      case EQUAL_TO:
-        return Collections.unmodifiableSet(new HashSet<>(Arrays.asList(InputCategory.EQUAL_TO, InputCategory.OPERAND)));
-      case CLEAR:
-        return Collections.unmodifiableSet(new HashSet<>(Arrays.asList(InputCategory.OPERATOR, InputCategory.EQUAL_TO)));
-      default:
-        throw new IllegalStateException("Invalid InputCategory");
+  private Set<InputCategory> getInitialValidInputCategory() {
+    return Collections.unmodifiableSet(new HashSet<>(
+            Arrays.asList(InputCategory.OPERAND, InputCategory.CLEAR)));
+  }
+
+  private Set<InputCategory> getNextValidInputCategory(InputCategory inputCategory) {
+    Set<InputCategory> nextLegalInputCategory;
+
+    if (inputCategory == InputCategory.OPERAND) {
+      nextLegalInputCategory = new HashSet<>(Arrays.asList(InputCategory.OPERAND, InputCategory.OPERATOR));
+    } else if (inputCategory == InputCategory.OPERATOR) {
+      nextLegalInputCategory = new HashSet<>(Arrays.asList(InputCategory.OPERAND));
+    } else if (inputCategory == InputCategory.EQUAL_TO) {
+      nextLegalInputCategory = new HashSet<>(Arrays.asList(InputCategory.OPERATOR));
+    } else if (inputCategory == InputCategory.CLEAR) {
+      nextLegalInputCategory = new HashSet<>(Arrays.asList(InputCategory.OPERAND));
+    } else {
+      throw new IllegalStateException("Invalid InputCategory");
     }
+
+    nextLegalInputCategory.add(InputCategory.CLEAR);
+    return Collections.unmodifiableSet(nextLegalInputCategory);
   }
 
   private InputCategory getInputType(char input) throws IllegalArgumentException {
