@@ -187,7 +187,7 @@ public class SimpleCalculator extends AbstractCalculator {
     } else if (currentInputCategory == InputCategory.EQUAL_TO) {
       nextValidInputCategory = new HashSet<>(Arrays.asList(InputCategory.OPERATOR));
     } else if (currentInputCategory == InputCategory.CLEAR) {
-      nextValidInputCategory = getInitialValidInputCategory();
+      return getInitialValidInputCategory();
     } else {
       throw new IllegalArgumentException(String.format("Invalid InputCategory: %s", currentInputCategory));
     }
