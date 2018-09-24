@@ -75,7 +75,7 @@ public class SimpleCalculator extends AbstractCalculator {
   }
 
   private List<String> performActionForInputCategoryOperand(char input) {
-    Deque<String> deque = new LinkedList<>(this.currentExpression);
+    Deque<String> deque = getCurrentExpressionDeque();
 
     String lastElement = deque.peekLast();
     if (Objects.nonNull(lastElement)) {
@@ -98,32 +98,36 @@ public class SimpleCalculator extends AbstractCalculator {
   }
 
   private List<String> performActionForInputCategoryOperator(char input) {
-    Deque<String> deque = new LinkedList<>(this.currentExpression);
-    deque.addLast(String.valueOf(input));
-    return new LinkedList<>(deque);
+    Deque<String> currentExpressionDeque = getCurrentExpressionDeque();
+    currentExpressionDeque.addLast(String.valueOf(input));
+    return new LinkedList<>(currentExpressionDeque);
   }
 
   private List<String> performActionForInputCategoryEqualTo() {
-    Deque<String> deque = new LinkedList<>(this.currentExpression);
+    Deque<String> currentExpressionDeque = getCurrentExpressionDeque();
 
-    while (!deque.isEmpty()) {
-      int n1 = Integer.parseInt(deque.removeFirst());
-      char operator = deque.removeFirst().charAt(0);
-      int n2 = Integer.parseInt(deque.removeFirst());
+    while (!currentExpressionDeque.isEmpty()) {
+      int n1 = Integer.parseInt(currentExpressionDeque.removeFirst());
+      char operator = currentExpressionDeque.removeFirst().charAt(0);
+      int n2 = Integer.parseInt(currentExpressionDeque.removeFirst());
 
       int result = performOperation(operator, n1, n2);
 
-      deque.addFirst(String.valueOf(result));
-      if (deque.size() == 1) {
+      currentExpressionDeque.addFirst(String.valueOf(result));
+      if (currentExpressionDeque.size() == 1) {
         break;
       }
     }
 
-    return new LinkedList<>(deque);
+    return new LinkedList<>(currentExpressionDeque);
+  }
+
+  private LinkedList<String> getCurrentExpressionDeque() {
+    return new LinkedList<>(this.currentExpression);
   }
 
   private List<String> performActionForInputCategoryClear() {
-    LinkedList<String> modifiedExpression = new LinkedList<>(this.currentExpression);
+    List<String> modifiedExpression = getCurrentExpressionDeque();
     modifiedExpression.clear();
     return modifiedExpression;
   }
