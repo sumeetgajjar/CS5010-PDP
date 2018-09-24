@@ -36,10 +36,14 @@ public class SimpleCalculator extends AbstractCalculator {
   private final List<String> currentExpression;
   private final String result;
 
+  private SimpleCalculator(List<String> currentExpression, Set<InputCategory> anticipatedInputCategorySet, String result) {
+    this.currentExpression = Collections.unmodifiableList(currentExpression);
+    this.anticipatedInputCategorySet = anticipatedInputCategorySet;
+    this.result = result;
+  }
+
   public SimpleCalculator() {
-    anticipatedInputCategorySet = this.getInitialValidInputCategory();
-    currentExpression = new LinkedList<>();
-    result = "";
+    this(Collections.emptyList(), INITIAL_VALID_INPUT_CATEGORY_SET, "");
   }
 
   @Override
@@ -55,52 +59,53 @@ public class SimpleCalculator extends AbstractCalculator {
 
     isCurrentInputValid(input, currentInputCategory);
 
-    List<String> modifiedExpression;
+    List<String> newExpression;
 
     if (currentInputCategory == InputCategory.CLEAR) {
-      modifiedExpression = performActionForInputCategoryClear();
+      newExpression = performActionForInputCategoryClear();
     } else if (currentInputCategory == InputCategory.OPERAND) {
-      modifiedExpression = performActionForInputCategoryOperand(input);
+      newExpression = performActionForInputCategoryOperand(input);
     } else if (currentInputCategory == InputCategory.OPERATOR) {
-      modifiedExpression = performActionForInputCategoryOperator(input);
+      newExpression = performActionForInputCategoryOperator(input);
     } else if (currentInputCategory == InputCategory.EQUAL_TO) {
-      modifiedExpression = performActionForInputCategoryEqualTo();
+      newExpression = performActionForInputCategoryEqualTo();
+    } else {
+      throw new IllegalArgumentException(String.format("Invalid InputCategory: %s", currentInputCategory));
     }
 
-    this.result = generateResultString();
-    this.anticipatedInputCategorySet = getValidInputCategory(currentInputCategory);
+    String newResult = generateResultString(newExpression);
+    Set<InputCategory> nextAnticipatedInputCategory = getValidInputCategory(currentInputCategory);
 
-    //todo: decide on what is suppose to be done
-    return this;
+    return new SimpleCalculator(newExpression, nextAnticipatedInputCategory, newResult);
   }
 
   private List<String> performActionForInputCategoryOperand(char input) {
-    Deque<String> deque = getCurrentExpressionDeque();
+    Deque<String> currentExpressionDeque = getCurrentExpressionDeque();
 
-    String lastElement = deque.peekLast();
+    String lastElement = currentExpressionDeque.peekLast();
     if (Objects.nonNull(lastElement)) {
 
       char lastInput = lastElement.charAt(lastElement.length() - 1);
       InputCategory lastInputCategory = getInputType(lastInput);
 
       if (lastInputCategory == InputCategory.OPERAND) {
-        lastElement = deque.pollLast();
+        lastElement = currentExpressionDeque.pollLast();
         String newNumber = appendDigit(lastElement, input);
-        deque.addLast(newNumber);
+        currentExpressionDeque.addLast(newNumber);
       } else if (lastInputCategory == InputCategory.OPERATOR) {
-        deque.addLast(String.valueOf(input));
+        currentExpressionDeque.addLast(String.valueOf(input));
       }
     } else {
-      deque.addLast(String.valueOf(input));
+      currentExpressionDeque.addLast(String.valueOf(input));
     }
 
-    return new LinkedList<>(deque);
+    return getListFromDeque(currentExpressionDeque);
   }
 
   private List<String> performActionForInputCategoryOperator(char input) {
     Deque<String> currentExpressionDeque = getCurrentExpressionDeque();
     currentExpressionDeque.addLast(String.valueOf(input));
-    return new LinkedList<>(currentExpressionDeque);
+    return getListFromDeque(currentExpressionDeque);
   }
 
   private List<String> performActionForInputCategoryEqualTo() {
@@ -119,7 +124,11 @@ public class SimpleCalculator extends AbstractCalculator {
       }
     }
 
-    return new LinkedList<>(currentExpressionDeque);
+    return getListFromDeque(currentExpressionDeque);
+  }
+
+  private LinkedList<String> getListFromDeque(Deque<String> expressionDeque) {
+    return new LinkedList<>(expressionDeque);
   }
 
   private LinkedList<String> getCurrentExpressionDeque() {
@@ -127,9 +136,9 @@ public class SimpleCalculator extends AbstractCalculator {
   }
 
   private List<String> performActionForInputCategoryClear() {
-    List<String> modifiedExpression = getCurrentExpressionDeque();
-    modifiedExpression.clear();
-    return modifiedExpression;
+    List<String> newExpression = getCurrentExpressionDeque();
+    newExpression.clear();
+    return newExpression;
   }
 
   private int performOperation(char operatorSymbol, int n1, int n2) {
@@ -141,7 +150,7 @@ public class SimpleCalculator extends AbstractCalculator {
     }
   }
 
-  private String generateResultString() {
+  private String generateResultString(List<String> expression) {
     return String.join("", this.currentExpression);
   }
 
