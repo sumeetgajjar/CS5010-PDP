@@ -57,9 +57,7 @@ public class SimpleCalculator extends AbstractCalculator {
   @Override
   public Calculator input(char input) throws IllegalArgumentException {
     isInputCharacterLegal(input);
-
     InputCategory currentInputCategory = getInputCategory(input);
-
     isCurrentInputValid(input, currentInputCategory);
 
     List<String> newExpression;
