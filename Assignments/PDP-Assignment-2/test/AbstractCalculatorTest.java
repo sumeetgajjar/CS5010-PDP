@@ -20,7 +20,7 @@ public abstract class AbstractCalculatorTest {
 
   @Test
   public void testInputOperandAndOperator() {
-    char[] validInput = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'C'};
+    char[] validInput = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
     for (char input : validInput) {
       Calculator calculator = getCalculatorInstance();
@@ -29,23 +29,27 @@ public abstract class AbstractCalculatorTest {
       Assert.assertEquals(String.valueOf(input), calculator.getResult());
     }
 
-    Calculator calculator = getCalculatorInstance();
-    calculator.input('1');
-    Assert.assertEquals("1", calculator.getResult());
+    Calculator calculator1 = getCalculatorInstance();
+    calculator1.input('C');
+    Assert.assertEquals("", calculator1.getResult());
+
+    Calculator calculator2 = getCalculatorInstance();
+    calculator2.input('1');
+    Assert.assertEquals("1", calculator2.getResult());
 
     try {
-      calculator.input('a');
+      calculator2.input('a');
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals(e.getMessage(), "Invalid Input");
+      Assert.assertEquals(e.getMessage(), "Input: 'a' is illegal");
     }
-    Assert.assertEquals("1", calculator.getResult());
+    Assert.assertEquals("1", calculator2.getResult());
 
     try {
-      calculator.input('/');
+      calculator2.input('/');
     } catch (Exception e) {
-      Assert.assertEquals(e.getMessage(), "Invalid Input");
+      Assert.assertEquals(e.getMessage(), "Input: '/' is illegal");
     }
-    Assert.assertEquals("1", calculator.getResult());
+    Assert.assertEquals("1", calculator2.getResult());
   }
 
   @Test
@@ -81,7 +85,7 @@ public abstract class AbstractCalculatorTest {
   @Test
   public void testOperandGreaterThan32Bit() {
     try {
-      String input = String.valueOf((2 ^ 31));
+      String input = String.valueOf((1L + Integer.MAX_VALUE));
       Calculator calculator = getCalculatorInstance();
 
       for (int i = 0; i < input.length(); i++) {
@@ -97,7 +101,7 @@ public abstract class AbstractCalculatorTest {
       Calculator calculator = getCalculatorInstance();
       calculator = calculator.input('1').input('+');
 
-      String input = String.valueOf((2 ^ 31));
+      String input = String.valueOf((1L + Integer.MAX_VALUE));
 
       for (int i = 0; i < input.length(); i++) {
         calculator = calculator.input(input.charAt(i));
@@ -111,7 +115,7 @@ public abstract class AbstractCalculatorTest {
 
   @Test
   public void test32BitOperand() {
-    String input = String.valueOf((2 ^ 31) - 1);
+    String input = String.valueOf(Integer.MAX_VALUE);
     Calculator calculator = getCalculatorInstance();
 
     for (int i = 0; i < input.length(); i++) {

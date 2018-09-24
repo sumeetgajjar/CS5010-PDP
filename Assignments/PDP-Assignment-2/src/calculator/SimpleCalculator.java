@@ -82,7 +82,7 @@ public class SimpleCalculator extends AbstractCalculator {
     this.anticipatedInputCategorySet = getValidInputCategory(currentInputCategory);
 
 
-    return null;
+    return this;
   }
 
   private int performOperation(char operatorSymbol, int n1, int n2) {
@@ -159,7 +159,7 @@ public class SimpleCalculator extends AbstractCalculator {
   private void isInputCharacterLegal(char input) throws IllegalArgumentException {
     Set<Character> legalInputSet = getSupportedInputs();
     if (!legalInputSet.contains(input)) {
-      throw new IllegalArgumentException(String.format("Input: %s is illegal", input));
+      throw new IllegalArgumentException(String.format("Input: '%s' is illegal", input));
     }
   }
 
