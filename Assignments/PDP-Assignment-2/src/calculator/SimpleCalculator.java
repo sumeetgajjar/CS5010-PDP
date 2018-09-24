@@ -144,26 +144,26 @@ public class SimpleCalculator extends AbstractCalculator {
     return INITIAL_VALID_INPUT_CATEGORY_SET;
   }
 
-  private Set<InputCategory> getValidInputCategory(InputCategory inputCategory) {
-    Set<InputCategory> nextLegalInputCategory;
+  private Set<InputCategory> getValidInputCategory(InputCategory currentInputCategory) {
+    Set<InputCategory> nextValidInputCategory;
 
-    if (inputCategory == InputCategory.OPERAND) {
-      nextLegalInputCategory = new HashSet<>(Arrays.asList(InputCategory.OPERAND, InputCategory.OPERATOR));
+    if (currentInputCategory == InputCategory.OPERAND) {
+      nextValidInputCategory = new HashSet<>(Arrays.asList(InputCategory.OPERAND, InputCategory.OPERATOR));
       if (this.deque.size() >= 2) {
-        nextLegalInputCategory.add(InputCategory.EQUAL_TO);
+        nextValidInputCategory.add(InputCategory.EQUAL_TO);
       }
-    } else if (inputCategory == InputCategory.OPERATOR) {
-      nextLegalInputCategory = new HashSet<>(Arrays.asList(InputCategory.OPERAND));
-    } else if (inputCategory == InputCategory.EQUAL_TO) {
-      nextLegalInputCategory = new HashSet<>(Arrays.asList(InputCategory.OPERATOR));
-    } else if (inputCategory == InputCategory.CLEAR) {
-      nextLegalInputCategory = getInitialValidInputCategory();
+    } else if (currentInputCategory == InputCategory.OPERATOR) {
+      nextValidInputCategory = new HashSet<>(Arrays.asList(InputCategory.OPERAND));
+    } else if (currentInputCategory == InputCategory.EQUAL_TO) {
+      nextValidInputCategory = new HashSet<>(Arrays.asList(InputCategory.OPERATOR));
+    } else if (currentInputCategory == InputCategory.CLEAR) {
+      nextValidInputCategory = getInitialValidInputCategory();
     } else {
-      throw new IllegalArgumentException(String.format("Invalid InputCategory: %s", inputCategory));
+      throw new IllegalArgumentException(String.format("Invalid InputCategory: %s", currentInputCategory));
     }
 
-    nextLegalInputCategory.add(InputCategory.CLEAR);
-    return Collections.unmodifiableSet(nextLegalInputCategory);
+    nextValidInputCategory.add(InputCategory.CLEAR);
+    return Collections.unmodifiableSet(nextValidInputCategory);
   }
 
   private InputCategory getInputType(char input) throws IllegalArgumentException {
