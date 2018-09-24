@@ -1,12 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import calculator.Calculator;
-import calculator.bean.Pair;
 
 public abstract class AbstractCalculatorTest {
 
@@ -50,36 +45,6 @@ public abstract class AbstractCalculatorTest {
       Assert.assertEquals(e.getMessage(), "Input: '/' is illegal");
     }
     Assert.assertEquals("1", calculator2.getResult());
-  }
-
-  @Test
-  public void testExecuteSequencesAndVerifyResult() {
-    try {
-      executeSequencesAndVerifyResult(Collections.emptyList());
-      Assert.fail("Should have failed");
-    } catch (Exception ignored) {
-    }
-
-    try {
-      List<Pair<Character, String>> testSequences = new ArrayList<>();
-      testSequences.add(Pair.of('1', "1"));
-      testSequences.add(Pair.of('+', "1-"));
-      testSequences.add(Pair.of('3', "1+3"));
-      testSequences.add(Pair.of('=', "4"));
-
-      executeSequencesAndVerifyResult(testSequences);
-
-      Assert.fail("Should have failed");
-    } catch (Exception ignored) {
-    }
-
-    List<Pair<Character, String>> testSequences = new ArrayList<>();
-    testSequences.add(Pair.of('1', "1"));
-    testSequences.add(Pair.of('+', "1+"));
-    testSequences.add(Pair.of('3', "1+3"));
-    testSequences.add(Pair.of('=', "4"));
-
-    executeSequencesAndVerifyResult(testSequences);
   }
 
   @Test
@@ -133,33 +98,6 @@ public abstract class AbstractCalculatorTest {
       Assert.assertEquals(e.getMessage(), "Input: '-' is illegal");
     }
     Assert.assertEquals("", calculator.getResult());
-  }
-
-  private void executeSequencesAndVerifyResult(char input, String result) throws IllegalStateException {
-    executeSequencesAndVerifyResult(Collections.singletonList(Pair.of(input, result)));
-  }
-
-  protected void executeSequencesAndVerifyResult(List<Pair<Character, String>> sequencePairs) throws IllegalStateException {
-
-    if (sequencePairs.size() == 0) {
-      throw new IllegalStateException("sequencePairs size cannot be zero");
-    }
-
-    Calculator calculator = getCalculatorInstance();
-
-    for (int i = 0; i < sequencePairs.size(); i++) {
-      char input = sequencePairs.get(i).first;
-      calculator = calculator.input(input);
-
-      String actualResult = calculator.getResult();
-      String expectedResult = sequencePairs.get(i).second;
-
-      if (!expectedResult.equals(actualResult)) {
-        throw new IllegalStateException(
-                String.format("Mismatch found at Pair: %d . Expected Result: %s , Actual Result: %s"
-                        , i + 1, expectedResult, actualResult));
-      }
-    }
   }
 
   @Test
@@ -223,102 +161,162 @@ public abstract class AbstractCalculatorTest {
 
   @Test
   public void testMultipleOperators() {
-    List<Pair<Character, String>> testSequences = new ArrayList<>();
-    testSequences.add(Pair.of('1', "1"));
-    testSequences.add(Pair.of('0', "10"));
-    testSequences.add(Pair.of('+', "10+"));
-    testSequences.add(Pair.of('2', "10+2"));
-    testSequences.add(Pair.of('-', "10+2-"));
-    testSequences.add(Pair.of('4', "10+2-4"));
-    testSequences.add(Pair.of('*', "10+2-4*"));
-    testSequences.add(Pair.of('3', "10+2-4*3"));
-    testSequences.add(Pair.of('+', "10+2-4*3+"));
-    testSequences.add(Pair.of('1', "10+2-4*3+1"));
-    testSequences.add(Pair.of('=', "25"));
+    Calculator calculator = getCalculatorInstance();
 
-    executeSequencesAndVerifyResult(testSequences);
+    calculator = calculator.input('1');
+    Assert.assertEquals("1", calculator.getResult());
+    calculator = calculator.input('0');
+    Assert.assertEquals("10", calculator.getResult());
+    calculator = calculator.input('+');
+    Assert.assertEquals("10+", calculator.getResult());
+    calculator = calculator.input('2');
+    Assert.assertEquals("10+2", calculator.getResult());
+    calculator = calculator.input('-');
+    Assert.assertEquals("10+2-", calculator.getResult());
+    calculator = calculator.input('4');
+    Assert.assertEquals("10+2-4", calculator.getResult());
+    calculator = calculator.input('*');
+    Assert.assertEquals("10+2-4*", calculator.getResult());
+    calculator = calculator.input('3');
+    Assert.assertEquals("10+2-4*3", calculator.getResult());
+    calculator = calculator.input('+');
+    Assert.assertEquals("10+2-4*3+", calculator.getResult());
+    calculator = calculator.input('1');
+    Assert.assertEquals("10+2-4*3+1", calculator.getResult());
+    calculator = calculator.input('=');
+    Assert.assertEquals("25", calculator.getResult());
   }
 
   @Test
   public void testBasicOperations() {
-    List<Pair<Character, String>> oneDigitTestSequences = new ArrayList<>();
-    oneDigitTestSequences.add(Pair.of('8', "8"));
-    oneDigitTestSequences.add(Pair.of('+', "8+"));
-    oneDigitTestSequences.add(Pair.of('2', "8+2"));
-    oneDigitTestSequences.add(Pair.of('=', "10"));
+    Calculator calculator = getCalculatorInstance();
+    calculator = calculator.input('8');
+    Assert.assertEquals("8", calculator.getResult());
+    calculator = calculator.input('+');
+    Assert.assertEquals("8+", calculator.getResult());
+    calculator = calculator.input('2');
+    Assert.assertEquals("8+2", calculator.getResult());
+    calculator = calculator.input('=');
+    Assert.assertEquals("10", calculator.getResult());
 
-    oneDigitTestSequences.add(Pair.of('-', "10-"));
-    oneDigitTestSequences.add(Pair.of('4', "10-4"));
-    oneDigitTestSequences.add(Pair.of('=', "6"));
+    calculator = calculator.input('-');
+    Assert.assertEquals("10-", calculator.getResult());
+    calculator = calculator.input('4');
+    Assert.assertEquals("10-4", calculator.getResult());
+    calculator = calculator.input('=');
+    Assert.assertEquals("6", calculator.getResult());
 
-    oneDigitTestSequences.add(Pair.of('*', "6*"));
-    oneDigitTestSequences.add(Pair.of('2', "6*2"));
-    oneDigitTestSequences.add(Pair.of('=', "12"));
+    calculator = calculator.input('*');
+    Assert.assertEquals("6*", calculator.getResult());
+    calculator = calculator.input('2');
+    Assert.assertEquals("6*2", calculator.getResult());
+    calculator = calculator.input('=');
+    Assert.assertEquals("12", calculator.getResult());
 
-    executeSequencesAndVerifyResult(oneDigitTestSequences);
+    Calculator calculator1 = getCalculatorInstance();
+    calculator1 = calculator1.input('1');
+    Assert.assertEquals("1", calculator1.getResult());
+    calculator1 = calculator1.input('2');
+    Assert.assertEquals("12", calculator1.getResult());
+    calculator1 = calculator1.input('+');
+    Assert.assertEquals("12+", calculator1.getResult());
+    calculator1 = calculator1.input('1');
+    Assert.assertEquals("12+1", calculator1.getResult());
+    calculator1 = calculator1.input('0');
+    Assert.assertEquals("12+10", calculator1.getResult());
+    calculator1 = calculator1.input('=');
+    Assert.assertEquals("22", calculator1.getResult());
 
-    List<Pair<Character, String>> twoDigitTestSequences = new ArrayList<>();
-    twoDigitTestSequences.add(Pair.of('1', "1"));
-    twoDigitTestSequences.add(Pair.of('2', "12"));
-    twoDigitTestSequences.add(Pair.of('+', "12+"));
-    twoDigitTestSequences.add(Pair.of('1', "12+1"));
-    twoDigitTestSequences.add(Pair.of('0', "12+10"));
-    twoDigitTestSequences.add(Pair.of('=', "22"));
+    calculator1 = calculator1.input('-');
+    Assert.assertEquals("22-", calculator1.getResult());
+    calculator1 = calculator1.input('2');
+    Assert.assertEquals("22-2", calculator1.getResult());
+    calculator1 = calculator1.input('2');
+    Assert.assertEquals("22-22", calculator1.getResult());
+    calculator1 = calculator1.input('=');
+    Assert.assertEquals("0", calculator1.getResult());
 
-    twoDigitTestSequences.add(Pair.of('-', "22-"));
-    twoDigitTestSequences.add(Pair.of('2', "22-2"));
-    twoDigitTestSequences.add(Pair.of('2', "22-22"));
-    twoDigitTestSequences.add(Pair.of('=', "0"));
+    calculator1 = calculator1.input('*');
+    Assert.assertEquals("0*", calculator1.getResult());
+    calculator1 = calculator1.input('1');
+    Assert.assertEquals("0*1", calculator1.getResult());
+    calculator1 = calculator1.input('0');
+    Assert.assertEquals("0*10", calculator1.getResult());
+    calculator1 = calculator1.input('=');
+    Assert.assertEquals("0", calculator1.getResult());
 
-    twoDigitTestSequences.add(Pair.of('*', "0*"));
-    twoDigitTestSequences.add(Pair.of('1', "0*1"));
-    twoDigitTestSequences.add(Pair.of('0', "0*10"));
-    twoDigitTestSequences.add(Pair.of('=', "0"));
+    Calculator calculator2 = getCalculatorInstance();
+    calculator2 = calculator2.input('1');
+    Assert.assertEquals("1", calculator2.getResult());
+    calculator2 = calculator2.input('2');
+    Assert.assertEquals("12", calculator2.getResult());
+    calculator2 = calculator2.input('3');
+    Assert.assertEquals("123", calculator2.getResult());
+    calculator2 = calculator2.input('+');
+    Assert.assertEquals("123+", calculator2.getResult());
+    calculator2 = calculator2.input('1');
+    Assert.assertEquals("123+1", calculator2.getResult());
+    calculator2 = calculator2.input('0');
+    Assert.assertEquals("123+10", calculator2.getResult());
+    calculator2 = calculator2.input('0');
+    Assert.assertEquals("123+100", calculator2.getResult());
+    calculator2 = calculator2.input('=');
+    Assert.assertEquals("223", calculator2.getResult());
 
-    executeSequencesAndVerifyResult(twoDigitTestSequences);
+    calculator2 = calculator2.input('-');
+    Assert.assertEquals("223-", calculator2.getResult());
+    calculator2 = calculator2.input('2');
+    Assert.assertEquals("223-2", calculator2.getResult());
+    calculator2 = calculator2.input('0');
+    Assert.assertEquals("223-20", calculator2.getResult());
+    calculator2 = calculator2.input('0');
+    Assert.assertEquals("223-200", calculator2.getResult());
+    calculator2 = calculator2.input('=');
+    Assert.assertEquals("23", calculator2.getResult());
 
-    List<Pair<Character, String>> threeDigitTestSequences = new ArrayList<>();
-    threeDigitTestSequences.add(Pair.of('1', "1"));
-    threeDigitTestSequences.add(Pair.of('2', "12"));
-    threeDigitTestSequences.add(Pair.of('3', "123"));
-    threeDigitTestSequences.add(Pair.of('+', "123+"));
-    threeDigitTestSequences.add(Pair.of('1', "123+1"));
-    threeDigitTestSequences.add(Pair.of('0', "123+10"));
-    threeDigitTestSequences.add(Pair.of('0', "123+100"));
-    threeDigitTestSequences.add(Pair.of('=', "223"));
+    calculator2 = calculator2.input('*');
+    Assert.assertEquals("23*", calculator2.getResult());
+    calculator2 = calculator2.input('1');
+    Assert.assertEquals("23*1", calculator2.getResult());
+    calculator2 = calculator2.input('0');
+    Assert.assertEquals("23*10", calculator2.getResult());
+    calculator2 = calculator2.input('0');
+    Assert.assertEquals("23*100", calculator2.getResult());
+    calculator2 = calculator2.input('=');
+    Assert.assertEquals("2300", calculator2.getResult());
 
-    threeDigitTestSequences.add(Pair.of('-', "223-"));
-    threeDigitTestSequences.add(Pair.of('2', "223-2"));
-    threeDigitTestSequences.add(Pair.of('0', "223-20"));
-    threeDigitTestSequences.add(Pair.of('0', "223-200"));
-    threeDigitTestSequences.add(Pair.of('=', "23"));
-
-    threeDigitTestSequences.add(Pair.of('*', "23*"));
-    threeDigitTestSequences.add(Pair.of('1', "23*1"));
-    threeDigitTestSequences.add(Pair.of('0', "23*10"));
-    threeDigitTestSequences.add(Pair.of('0', "23*100"));
-    threeDigitTestSequences.add(Pair.of('=', "2300"));
-
-    executeSequencesAndVerifyResult(threeDigitTestSequences);
-
-    List<Pair<Character, String>> clearInputTestSequences = new ArrayList<>();
-    clearInputTestSequences.add(Pair.of('C', ""));
-    clearInputTestSequences.add(Pair.of('C', ""));
-    clearInputTestSequences.add(Pair.of('C', ""));
-    clearInputTestSequences.add(Pair.of('1', "1"));
-    clearInputTestSequences.add(Pair.of('C', ""));
-    clearInputTestSequences.add(Pair.of('1', "1"));
-    clearInputTestSequences.add(Pair.of('-', "1-"));
-    clearInputTestSequences.add(Pair.of('C', ""));
-    clearInputTestSequences.add(Pair.of('4', "4"));
-    clearInputTestSequences.add(Pair.of('-', "4-"));
-    clearInputTestSequences.add(Pair.of('2', "4-2"));
-    clearInputTestSequences.add(Pair.of('=', "2"));
-    clearInputTestSequences.add(Pair.of('C', ""));
-    clearInputTestSequences.add(Pair.of('C', ""));
-    clearInputTestSequences.add(Pair.of('C', ""));
-    clearInputTestSequences.add(Pair.of('C', ""));
-
-    executeSequencesAndVerifyResult(clearInputTestSequences);
+    Calculator calculator3 = getCalculatorInstance();
+    calculator3 = calculator3.input('C');
+    Assert.assertEquals("", calculator3.getResult());
+    calculator3 = calculator3.input('C');
+    Assert.assertEquals("", calculator3.getResult());
+    calculator3 = calculator3.input('C');
+    Assert.assertEquals("", calculator3.getResult());
+    calculator3 = calculator3.input('1');
+    Assert.assertEquals("1", calculator3.getResult());
+    calculator3 = calculator3.input('C');
+    Assert.assertEquals("", calculator3.getResult());
+    calculator3 = calculator3.input('1');
+    Assert.assertEquals("1", calculator3.getResult());
+    calculator3 = calculator3.input('-');
+    Assert.assertEquals("1-", calculator3.getResult());
+    calculator3 = calculator3.input('C');
+    Assert.assertEquals("", calculator3.getResult());
+    calculator3 = calculator3.input('4');
+    Assert.assertEquals("4", calculator3.getResult());
+    calculator3 = calculator3.input('-');
+    Assert.assertEquals("4-", calculator3.getResult());
+    calculator3 = calculator3.input('2');
+    Assert.assertEquals("4-2", calculator3.getResult());
+    calculator3 = calculator3.input('=');
+    Assert.assertEquals("2", calculator3.getResult());
+    calculator3 = calculator3.input('C');
+    Assert.assertEquals("", calculator3.getResult());
+    calculator3 = calculator3.input('C');
+    Assert.assertEquals("", calculator3.getResult());
+    calculator3 = calculator3.input('C');
+    Assert.assertEquals("", calculator3.getResult());
+    calculator3 = calculator3.input('C');
+    Assert.assertEquals("", calculator3.getResult());
   }
 }

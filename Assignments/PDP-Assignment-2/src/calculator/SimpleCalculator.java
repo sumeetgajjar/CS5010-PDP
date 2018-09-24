@@ -34,7 +34,7 @@ public class SimpleCalculator extends AbstractCalculator {
   private final List<String> currentExpression;
   private final String result;
 
-  private SimpleCalculator(List<String> currentExpression, Set<InputCategory> anticipatedInputCategorySet, String result) {
+  protected SimpleCalculator(List<String> currentExpression, Set<InputCategory> anticipatedInputCategorySet, String result) {
     this.currentExpression = Collections.unmodifiableList(currentExpression);
     this.anticipatedInputCategorySet = anticipatedInputCategorySet;
     this.result = result;
@@ -114,7 +114,7 @@ public class SimpleCalculator extends AbstractCalculator {
         currentExpressionDeque.addLast(newNumber);
       } else if (lastInputCategory == InputCategory.OPERATOR) {
         currentExpressionDeque.addLast(String.valueOf(input));
-      }else{
+      } else {
         throw new IllegalStateException(String.format("Cannot Handle InputCategory: %s", lastInputCategory));
       }
     } else {
@@ -185,7 +185,7 @@ public class SimpleCalculator extends AbstractCalculator {
     return Collections.unmodifiableSet(nextValidInputCategory);
   }
 
-  private void isCurrentInputValid(char input, InputCategory currentInputCategory) throws IllegalArgumentException {
+  protected void isCurrentInputValid(char input, InputCategory currentInputCategory) throws IllegalArgumentException {
     if (!this.anticipatedInputCategorySet.contains(currentInputCategory)) {
       throw new IllegalArgumentException(String.format("Input: '%s' is illegal", input));
     }
