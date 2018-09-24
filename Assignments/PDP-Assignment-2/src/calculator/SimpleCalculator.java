@@ -103,19 +103,23 @@ public class SimpleCalculator extends AbstractCalculator {
     return new LinkedList<>(deque);
   }
 
-  private void performActionForInputCategoryEqualTo() {
-    while (!this.currentExpression.isEmpty()) {
-      int n1 = Integer.parseInt(this.currentExpression.removeFirst());
-      char operator = this.currentExpression.removeFirst().charAt(0);
-      int n2 = Integer.parseInt(this.currentExpression.removeFirst());
+  private List<String> performActionForInputCategoryEqualTo() {
+    Deque<String> deque = new LinkedList<>(this.currentExpression);
+
+    while (!deque.isEmpty()) {
+      int n1 = Integer.parseInt(deque.removeFirst());
+      char operator = deque.removeFirst().charAt(0);
+      int n2 = Integer.parseInt(deque.removeFirst());
 
       int result = performOperation(operator, n1, n2);
 
-      this.currentExpression.addFirst(String.valueOf(result));
-      if (this.currentExpression.size() == 1) {
+      deque.addFirst(String.valueOf(result));
+      if (deque.size() == 1) {
         break;
       }
     }
+
+    return new LinkedList<>(deque);
   }
 
   private List<String> performActionForInputCategoryClear() {
