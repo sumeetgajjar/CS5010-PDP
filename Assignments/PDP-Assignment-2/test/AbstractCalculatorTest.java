@@ -24,28 +24,28 @@ public abstract class AbstractCalculatorTest {
 
     for (char input : validInput) {
       Calculator calculator = getCalculatorInstance();
-      calculator.input(input);
+      calculator = calculator.input(input);
 
       Assert.assertEquals(String.valueOf(input), calculator.getResult());
     }
 
     Calculator calculator1 = getCalculatorInstance();
-    calculator1.input('C');
+    calculator1 = calculator1.input('C');
     Assert.assertEquals("", calculator1.getResult());
 
     Calculator calculator2 = getCalculatorInstance();
-    calculator2.input('1');
+    calculator2 = calculator2.input('1');
     Assert.assertEquals("1", calculator2.getResult());
 
     try {
-      calculator2.input('a');
+      calculator2 = calculator2.input('a');
     } catch (IllegalArgumentException e) {
       Assert.assertEquals(e.getMessage(), "Input: 'a' is illegal");
     }
     Assert.assertEquals("1", calculator2.getResult());
 
     try {
-      calculator2.input('/');
+      calculator2 = calculator2.input('/');
     } catch (Exception e) {
       Assert.assertEquals(e.getMessage(), "Input: '/' is illegal");
     }
