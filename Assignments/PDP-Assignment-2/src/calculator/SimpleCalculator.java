@@ -151,7 +151,7 @@ public class SimpleCalculator extends AbstractCalculator {
   }
 
   private String generateResultString(List<String> expression) {
-    return String.join("", this.currentExpression);
+    return String.join("", expression);
   }
 
   private String appendDigit(String numberString, char digitToAppend) {
