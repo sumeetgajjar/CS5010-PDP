@@ -43,7 +43,7 @@ public class SimpleCalculator extends AbstractCalculator {
 
     InputCategory currentInputCategory = getInputType(input);
 
-    isCurrentInputValid(currentInputCategory);
+    isCurrentInputValid(input, currentInputCategory);
 
     if (currentInputCategory == InputCategory.CLEAR) {
       this.deque.clear();
@@ -74,7 +74,11 @@ public class SimpleCalculator extends AbstractCalculator {
         int n2 = Integer.parseInt(this.deque.removeFirst());
 
         int result = performOperation(operator, n1, n2);
+
         this.deque.addFirst(String.valueOf(result));
+        if (this.deque.size() == 1) {
+          break;
+        }
       }
     }
 
@@ -112,9 +116,9 @@ public class SimpleCalculator extends AbstractCalculator {
     }
   }
 
-  private void isCurrentInputValid(InputCategory currentInputCategory) throws IllegalArgumentException {
+  private void isCurrentInputValid(char input, InputCategory currentInputCategory) throws IllegalArgumentException {
     if (!this.anticipatedInputCategorySet.contains(currentInputCategory)) {
-      throw new IllegalArgumentException("Invalid Input");
+      throw new IllegalArgumentException(String.format("Input: '%s' is illegal", input));
     }
   }
 
@@ -128,6 +132,9 @@ public class SimpleCalculator extends AbstractCalculator {
 
     if (inputCategory == InputCategory.OPERAND) {
       nextLegalInputCategory = new HashSet<>(Arrays.asList(InputCategory.OPERAND, InputCategory.OPERATOR));
+      if (this.deque.size() >= 2) {
+        nextLegalInputCategory.add(InputCategory.EQUAL_TO);
+      }
     } else if (inputCategory == InputCategory.OPERATOR) {
       nextLegalInputCategory = new HashSet<>(Arrays.asList(InputCategory.OPERAND));
     } else if (inputCategory == InputCategory.EQUAL_TO) {
