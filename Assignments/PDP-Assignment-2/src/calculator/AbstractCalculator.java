@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import calculator.bean.InputCategory;
-import calculator.bean.Operator;
+import calculator.bean.Operation;
 
 public abstract class AbstractCalculator implements Calculator {
 
@@ -16,12 +16,12 @@ public abstract class AbstractCalculator implements Calculator {
 
   protected abstract Set<Character> getSupportedDigits();
 
-  protected abstract Set<Character> getSupportedOperatorSymbols();
+  protected abstract Set<Character> getSupportedOperationSymbols();
 
   protected InputCategory getInputCategory(char input) throws IllegalArgumentException {
     if (getSupportedDigits().contains(input)) {
       return InputCategory.OPERAND;
-    } else if (getSupportedOperatorSymbols().contains(input)) {
+    } else if (getSupportedOperationSymbols().contains(input)) {
       return InputCategory.OPERATOR;
     } else if (CLEAR_INPUT_CHARACTER == input) {
       return InputCategory.CLEAR;
@@ -45,8 +45,8 @@ public abstract class AbstractCalculator implements Calculator {
 
   protected int performOperation(char operatorSymbol, int n1, int n2) {
     try {
-      Operator operator = Operator.getOperator(operatorSymbol);
-      return operator.performOperation(n1, n2);
+      Operation operation = Operation.getOperation(operatorSymbol);
+      return operation.perform(n1, n2);
     } catch (ArithmeticException e) {
       return 0;
     }

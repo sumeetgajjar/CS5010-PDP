@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import calculator.bean.InputCategory;
-import calculator.bean.Operator;
+import calculator.bean.Operation;
 
 public class SimpleCalculator extends AbstractCalculator {
 
@@ -21,9 +21,9 @@ public class SimpleCalculator extends AbstractCalculator {
           Collections.unmodifiableSet(new LinkedHashSet<>(
                   Arrays.asList('1', '2', '3', '4', '5', '6', '7', '8', '9', '0')));
 
-  private static final Set<Operator> SUPPORTED_OPERATORS =
+  private static final Set<Operation> SUPPORTED_OPERATIONS =
           Collections.unmodifiableSet(new LinkedHashSet<>(
-                  Arrays.asList(Operator.ADD, Operator.SUBTRACT, Operator.MULTIPLY)
+                  Arrays.asList(Operation.ADD, Operation.SUBTRACT, Operation.MULTIPLY)
           ));
 
   private static final Set<InputCategory> INITIAL_VALID_INPUT_CATEGORY_SET =
@@ -80,7 +80,7 @@ public class SimpleCalculator extends AbstractCalculator {
   @Override
   protected Set<Character> getSupportedInputs() {
     return Stream.of(getSupportedDigits(),
-            getSupportedOperatorSymbols(),
+            getSupportedOperationSymbols(),
             Collections.singleton(CLEAR_INPUT_CHARACTER),
             Collections.singleton(EQUAL_TO_CHARACTER))
             .flatMap(Set::stream)
@@ -93,9 +93,9 @@ public class SimpleCalculator extends AbstractCalculator {
   }
 
   @Override
-  protected Set<Character> getSupportedOperatorSymbols() {
-    return SUPPORTED_OPERATORS.stream()
-            .map(Operator::getSymbol)
+  protected Set<Character> getSupportedOperationSymbols() {
+    return SUPPORTED_OPERATIONS.stream()
+            .map(Operation::getSymbol)
             .collect(Collectors.toCollection(LinkedHashSet::new));
   }
 
