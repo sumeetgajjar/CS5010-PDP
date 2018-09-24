@@ -53,7 +53,7 @@ public class SimpleCalculator extends AbstractCalculator {
   public Calculator input(char input) throws IllegalArgumentException {
     isInputCharacterLegal(input);
 
-    InputCategory currentInputCategory = getInputType(input);
+    InputCategory currentInputCategory = getInputCategory(input);
 
     isCurrentInputValid(input, currentInputCategory);
 
@@ -99,14 +99,14 @@ public class SimpleCalculator extends AbstractCalculator {
             .collect(Collectors.toCollection(LinkedHashSet::new));
   }
 
-  private List<String> performActionForInputCategoryOperand(char input) {
+  protected List<String> performActionForInputCategoryOperand(char input) {
     Deque<String> currentExpressionDeque = getCurrentExpressionDeque();
 
     String lastElement = currentExpressionDeque.peekLast();
     if (Objects.nonNull(lastElement)) {
 
       char lastInput = lastElement.charAt(lastElement.length() - 1);
-      InputCategory lastInputCategory = getInputType(lastInput);
+      InputCategory lastInputCategory = getInputCategory(lastInput);
 
       if (lastInputCategory == InputCategory.OPERAND) {
         lastElement = currentExpressionDeque.pollLast();
@@ -114,6 +114,8 @@ public class SimpleCalculator extends AbstractCalculator {
         currentExpressionDeque.addLast(newNumber);
       } else if (lastInputCategory == InputCategory.OPERATOR) {
         currentExpressionDeque.addLast(String.valueOf(input));
+      }else{
+        throw new IllegalStateException(String.format("Cannot Handle InputCategory: %s", lastInputCategory));
       }
     } else {
       currentExpressionDeque.addLast(String.valueOf(input));
@@ -122,13 +124,13 @@ public class SimpleCalculator extends AbstractCalculator {
     return getListFromDeque(currentExpressionDeque);
   }
 
-  private List<String> performActionForInputCategoryOperator(char input) {
+  protected List<String> performActionForInputCategoryOperator(char input) {
     Deque<String> currentExpressionDeque = getCurrentExpressionDeque();
     currentExpressionDeque.addLast(String.valueOf(input));
     return getListFromDeque(currentExpressionDeque);
   }
 
-  private List<String> performActionForInputCategoryEqualTo() {
+  protected List<String> performActionForInputCategoryEqualTo() {
     Deque<String> currentExpressionDeque = getCurrentExpressionDeque();
 
     while (!currentExpressionDeque.isEmpty()) {
@@ -147,31 +149,21 @@ public class SimpleCalculator extends AbstractCalculator {
     return getListFromDeque(currentExpressionDeque);
   }
 
-  private List<String> performActionForInputCategoryClear() {
+  protected List<String> performActionForInputCategoryClear() {
     List<String> newExpression = getCurrentExpressionDeque();
     newExpression.clear();
     return newExpression;
   }
 
-  private LinkedList<String> getListFromDeque(Deque<String> expressionDeque) {
+  protected LinkedList<String> getListFromDeque(Deque<String> expressionDeque) {
     return new LinkedList<>(expressionDeque);
   }
 
-  private LinkedList<String> getCurrentExpressionDeque() {
+  protected LinkedList<String> getCurrentExpressionDeque() {
     return new LinkedList<>(this.currentExpression);
   }
 
-  private void isCurrentInputValid(char input, InputCategory currentInputCategory) throws IllegalArgumentException {
-    if (!this.anticipatedInputCategorySet.contains(currentInputCategory)) {
-      throw new IllegalArgumentException(String.format("Input: '%s' is illegal", input));
-    }
-  }
-
-  private Set<InputCategory> getInitialValidInputCategory() {
-    return INITIAL_VALID_INPUT_CATEGORY_SET;
-  }
-
-  private Set<InputCategory> getValidInputCategory(InputCategory currentInputCategory) {
+  protected Set<InputCategory> getValidInputCategory(InputCategory currentInputCategory) {
     Set<InputCategory> nextValidInputCategory;
 
     if (currentInputCategory == InputCategory.OPERAND) {
@@ -191,5 +183,15 @@ public class SimpleCalculator extends AbstractCalculator {
 
     nextValidInputCategory.add(InputCategory.CLEAR);
     return Collections.unmodifiableSet(nextValidInputCategory);
+  }
+
+  private void isCurrentInputValid(char input, InputCategory currentInputCategory) throws IllegalArgumentException {
+    if (!this.anticipatedInputCategorySet.contains(currentInputCategory)) {
+      throw new IllegalArgumentException(String.format("Input: '%s' is illegal", input));
+    }
+  }
+
+  private Set<InputCategory> getInitialValidInputCategory() {
+    return INITIAL_VALID_INPUT_CATEGORY_SET;
   }
 }

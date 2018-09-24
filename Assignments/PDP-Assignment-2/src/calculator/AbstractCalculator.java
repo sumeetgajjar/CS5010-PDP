@@ -18,7 +18,7 @@ public abstract class AbstractCalculator implements Calculator {
 
   protected abstract Set<Character> getSupportedOperatorSymbols();
 
-  protected InputCategory getInputType(char input) throws IllegalArgumentException {
+  protected InputCategory getInputCategory(char input) throws IllegalArgumentException {
     if (getSupportedDigits().contains(input)) {
       return InputCategory.OPERAND;
     } else if (getSupportedOperatorSymbols().contains(input)) {
