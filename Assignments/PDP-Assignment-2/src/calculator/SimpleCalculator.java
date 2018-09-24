@@ -27,6 +27,9 @@ public class SimpleCalculator extends AbstractCalculator {
 
   private static final char CLEAR_INPUT_CHARACTER = 'C';
   private static final char EQUAL_TO_CHARACTER = '=';
+  private static final Set<InputCategory> INITIAL_VALID_INPUT_CATEGORY_SET =
+          Collections.unmodifiableSet(
+                  new HashSet<>(Arrays.asList(InputCategory.OPERAND, InputCategory.CLEAR)));
 
   private Set<InputCategory> anticipatedInputCategorySet = this.getInitialValidInputCategory();
   private Deque<String> deque = new LinkedList<>();
@@ -138,8 +141,7 @@ public class SimpleCalculator extends AbstractCalculator {
   }
 
   private Set<InputCategory> getInitialValidInputCategory() {
-    return Collections.unmodifiableSet(new HashSet<>(
-            Arrays.asList(InputCategory.OPERAND, InputCategory.CLEAR)));
+    return INITIAL_VALID_INPUT_CATEGORY_SET;
   }
 
   private Set<InputCategory> getValidInputCategory(InputCategory inputCategory) {
@@ -155,7 +157,7 @@ public class SimpleCalculator extends AbstractCalculator {
     } else if (inputCategory == InputCategory.EQUAL_TO) {
       nextLegalInputCategory = new HashSet<>(Arrays.asList(InputCategory.OPERATOR));
     } else if (inputCategory == InputCategory.CLEAR) {
-      nextLegalInputCategory = new HashSet<>(Arrays.asList(InputCategory.OPERAND));
+      nextLegalInputCategory = getInitialValidInputCategory();
     } else {
       throw new IllegalArgumentException(String.format("Invalid InputCategory: %s", inputCategory));
     }
