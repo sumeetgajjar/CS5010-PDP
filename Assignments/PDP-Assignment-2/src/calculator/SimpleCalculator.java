@@ -2,10 +2,10 @@ package calculator;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Deque;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -31,9 +31,15 @@ public class SimpleCalculator extends AbstractCalculator {
           Collections.unmodifiableSet(
                   new HashSet<>(Arrays.asList(InputCategory.OPERAND, InputCategory.CLEAR)));
 
-  private Set<InputCategory> anticipatedInputCategorySet = this.getInitialValidInputCategory();
-  private Deque<String> deque = new LinkedList<>();
-  private String result = "";
+  private final Set<InputCategory> anticipatedInputCategorySet;
+  private final List<String> currentExpression;
+  private final String result;
+
+  public SimpleCalculator() {
+    anticipatedInputCategorySet = this.getInitialValidInputCategory();
+    currentExpression = new LinkedList<>();
+    result = "";
+  }
 
   @Override
   public String getResult() {
@@ -48,14 +54,16 @@ public class SimpleCalculator extends AbstractCalculator {
 
     isCurrentInputValid(input, currentInputCategory);
 
+    List<String> modifiedExpression;
+
     if (currentInputCategory == InputCategory.CLEAR) {
-      performActionForInputCategoryClear();
+      modifiedExpression = performActionForInputCategoryClear();
     } else if (currentInputCategory == InputCategory.OPERAND) {
-      performActionForInputCategoryOperand(input);
+      modifiedExpression = performActionForInputCategoryOperand(input);
     } else if (currentInputCategory == InputCategory.OPERATOR) {
-      performActionForInputCategoryOperator(input);
+      modifiedExpression = performActionForInputCategoryOperator(input);
     } else if (currentInputCategory == InputCategory.EQUAL_TO) {
-      performActionForInputCategoryEqualTo();
+      modifiedExpression = performActionForInputCategoryEqualTo();
     }
 
     this.result = generateResultString();
@@ -66,45 +74,47 @@ public class SimpleCalculator extends AbstractCalculator {
   }
 
   private void performActionForInputCategoryOperand(char input) {
-    String lastElement = this.deque.peekLast();
+    String lastElement = this.currentExpression.peekLast();
     if (Objects.nonNull(lastElement)) {
 
       char lastInput = lastElement.charAt(lastElement.length() - 1);
       InputCategory lastInputCategory = getInputType(lastInput);
 
       if (lastInputCategory == InputCategory.OPERAND) {
-        lastElement = this.deque.pollLast();
+        lastElement = this.currentExpression.pollLast();
         String newNumber = appendDigit(lastElement, input);
-        this.deque.addLast(newNumber);
+        this.currentExpression.addLast(newNumber);
       } else if (lastInputCategory == InputCategory.OPERATOR) {
-        this.deque.addLast(String.valueOf(input));
+        this.currentExpression.addLast(String.valueOf(input));
       }
     } else {
-      this.deque.addLast(String.valueOf(input));
+      this.currentExpression.addLast(String.valueOf(input));
     }
   }
 
   private void performActionForInputCategoryOperator(char input) {
-    this.deque.addLast(String.valueOf(input));
+    this.currentExpression.addLast(String.valueOf(input));
   }
 
   private void performActionForInputCategoryEqualTo() {
-    while (!this.deque.isEmpty()) {
-      int n1 = Integer.parseInt(this.deque.removeFirst());
-      char operator = this.deque.removeFirst().charAt(0);
-      int n2 = Integer.parseInt(this.deque.removeFirst());
+    while (!this.currentExpression.isEmpty()) {
+      int n1 = Integer.parseInt(this.currentExpression.removeFirst());
+      char operator = this.currentExpression.removeFirst().charAt(0);
+      int n2 = Integer.parseInt(this.currentExpression.removeFirst());
 
       int result = performOperation(operator, n1, n2);
 
-      this.deque.addFirst(String.valueOf(result));
-      if (this.deque.size() == 1) {
+      this.currentExpression.addFirst(String.valueOf(result));
+      if (this.currentExpression.size() == 1) {
         break;
       }
     }
   }
 
-  private void performActionForInputCategoryClear() {
-    this.deque.clear();
+  private List<String> performActionForInputCategoryClear() {
+    LinkedList<String> modifiedExpression = new LinkedList<>(this.currentExpression);
+    modifiedExpression.clear();
+    return modifiedExpression;
   }
 
   private int performOperation(char operatorSymbol, int n1, int n2) {
@@ -117,11 +127,7 @@ public class SimpleCalculator extends AbstractCalculator {
   }
 
   private String generateResultString() {
-    return String.join("", this.deque);
-  }
-
-  public static void main(String[] args) {
-    System.out.println(String.valueOf('2' - '0'));
+    return String.join("", this.currentExpression);
   }
 
   private String appendDigit(String numberString, char digitToAppend) {
@@ -149,7 +155,7 @@ public class SimpleCalculator extends AbstractCalculator {
 
     if (currentInputCategory == InputCategory.OPERAND) {
       nextValidInputCategory = new HashSet<>(Arrays.asList(InputCategory.OPERAND, InputCategory.OPERATOR));
-      if (this.deque.size() >= 2) {
+      if (this.currentExpression.size() >= 2) {
         nextValidInputCategory.add(InputCategory.EQUAL_TO);
       }
     } else if (currentInputCategory == InputCategory.OPERATOR) {
