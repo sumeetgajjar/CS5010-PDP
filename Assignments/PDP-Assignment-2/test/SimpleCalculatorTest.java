@@ -40,6 +40,15 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
 
     calculator = calculator.input('=');
     Assert.assertEquals("20", calculator.getResult());
+
+    calculator = calculator.input('=');
+    Assert.assertEquals("20", calculator.getResult());
+
+    calculator = calculator.input('=');
+    Assert.assertEquals("20", calculator.getResult());
+
+    calculator = calculator.input('=');
+    Assert.assertEquals("20", calculator.getResult());
   }
 
   @Test
