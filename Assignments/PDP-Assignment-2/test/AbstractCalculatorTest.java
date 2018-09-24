@@ -130,7 +130,7 @@ public abstract class AbstractCalculatorTest {
     try {
       calculator = calculator.input('-');
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals(e.getMessage(), "Invalid Input");
+      Assert.assertEquals(e.getMessage(), "Input: '-' is illegal");
     }
     Assert.assertEquals("", calculator.getResult());
   }
@@ -179,7 +179,7 @@ public abstract class AbstractCalculatorTest {
   public void testNegativeResult() {
     Calculator calculator = getCalculatorInstance();
     calculator = calculator.input('1').input('0').input('-').input('2').input('0').input('=');
-    Assert.assertEquals("-20", calculator.getResult());
+    Assert.assertEquals("-10", calculator.getResult());
 
     calculator = calculator
             .input('-')
@@ -187,7 +187,7 @@ public abstract class AbstractCalculatorTest {
             .input('4').input('8').input('3').input('6')
             .input('4').input('7');
 
-    calculator = calculator.input('+').input('1');
+    calculator = calculator.input('+').input('1').input('=');
     Assert.assertEquals("1", calculator.getResult());
   }
 
