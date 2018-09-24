@@ -85,7 +85,7 @@ public class SimpleCalculator extends AbstractCalculator {
     this.result = generateResultString();
     this.anticipatedInputCategorySet = getValidInputCategory(currentInputCategory);
 
-
+    //todo: decide on what is suppose to be done
     return this;
   }
 
