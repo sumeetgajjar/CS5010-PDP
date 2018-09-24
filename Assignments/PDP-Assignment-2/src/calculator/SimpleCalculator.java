@@ -46,40 +46,13 @@ public class SimpleCalculator extends AbstractCalculator {
     isCurrentInputValid(input, currentInputCategory);
 
     if (currentInputCategory == InputCategory.CLEAR) {
-      this.deque.clear();
+      performActionForInputCategoryClear();
     } else if (currentInputCategory == InputCategory.OPERAND) {
-      String lastElement = this.deque.peekLast();
-      if (Objects.nonNull(lastElement)) {
-
-        char lastInput = lastElement.charAt(lastElement.length() - 1);
-        InputCategory lastInputCategory = getInputType(lastInput);
-
-        if (lastInputCategory == InputCategory.OPERAND) {
-          lastElement = this.deque.pollLast();
-          String newNumber = appendDigit(lastElement, input);
-          this.deque.addLast(newNumber);
-        } else if (lastInputCategory == InputCategory.OPERATOR) {
-          this.deque.addLast(String.valueOf(input));
-        }
-      } else {
-        this.deque.addLast(String.valueOf(input));
-      }
+      performActionForInputCategoryOperand(input);
     } else if (currentInputCategory == InputCategory.OPERATOR) {
-      this.deque.addLast(String.valueOf(input));
+      performActionForInputCategoryOperator(input);
     } else if (currentInputCategory == InputCategory.EQUAL_TO) {
-
-      while (!this.deque.isEmpty()) {
-        int n1 = Integer.parseInt(this.deque.removeFirst());
-        char operator = this.deque.removeFirst().charAt(0);
-        int n2 = Integer.parseInt(this.deque.removeFirst());
-
-        int result = performOperation(operator, n1, n2);
-
-        this.deque.addFirst(String.valueOf(result));
-        if (this.deque.size() == 1) {
-          break;
-        }
-      }
+      performActionForInputCategoryEqualTo();
     }
 
     this.result = generateResultString();
@@ -87,6 +60,48 @@ public class SimpleCalculator extends AbstractCalculator {
 
     //todo: decide on what is suppose to be done
     return this;
+  }
+
+  private void performActionForInputCategoryOperand(char input) {
+    String lastElement = this.deque.peekLast();
+    if (Objects.nonNull(lastElement)) {
+
+      char lastInput = lastElement.charAt(lastElement.length() - 1);
+      InputCategory lastInputCategory = getInputType(lastInput);
+
+      if (lastInputCategory == InputCategory.OPERAND) {
+        lastElement = this.deque.pollLast();
+        String newNumber = appendDigit(lastElement, input);
+        this.deque.addLast(newNumber);
+      } else if (lastInputCategory == InputCategory.OPERATOR) {
+        this.deque.addLast(String.valueOf(input));
+      }
+    } else {
+      this.deque.addLast(String.valueOf(input));
+    }
+  }
+
+  private void performActionForInputCategoryOperator(char input) {
+    this.deque.addLast(String.valueOf(input));
+  }
+
+  private void performActionForInputCategoryEqualTo() {
+    while (!this.deque.isEmpty()) {
+      int n1 = Integer.parseInt(this.deque.removeFirst());
+      char operator = this.deque.removeFirst().charAt(0);
+      int n2 = Integer.parseInt(this.deque.removeFirst());
+
+      int result = performOperation(operator, n1, n2);
+
+      this.deque.addFirst(String.valueOf(result));
+      if (this.deque.size() == 1) {
+        break;
+      }
+    }
+  }
+
+  private void performActionForInputCategoryClear() {
+    this.deque.clear();
   }
 
   private int performOperation(char operatorSymbol, int n1, int n2) {
@@ -142,7 +157,7 @@ public class SimpleCalculator extends AbstractCalculator {
     } else if (inputCategory == InputCategory.CLEAR) {
       nextLegalInputCategory = new HashSet<>(Arrays.asList(InputCategory.OPERAND));
     } else {
-      throw new IllegalStateException("Invalid InputCategory");
+      throw new IllegalArgumentException(String.format("Invalid InputCategory: %s", inputCategory));
     }
 
     nextLegalInputCategory.add(InputCategory.CLEAR);
