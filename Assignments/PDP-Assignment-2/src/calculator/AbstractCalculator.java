@@ -39,10 +39,6 @@ public abstract class AbstractCalculator implements Calculator {
     }
   }
 
-  protected String generateResultString(List<String> expression) {
-    return String.join("", expression);
-  }
-
   protected int performOperation(char operatorSymbol, int n1, int n2) {
     try {
       Operation operation = Operation.getOperation(operatorSymbol);

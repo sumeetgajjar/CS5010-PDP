@@ -17,24 +17,29 @@ import calculator.bean.Operation;
 
 public class SimpleCalculator extends AbstractCalculator {
 
-  private static final Set<Character> SUPPORTED_DIGITS =
-          Collections.unmodifiableSet(new LinkedHashSet<>(
-                  Arrays.asList('1', '2', '3', '4', '5', '6', '7', '8', '9', '0')));
+  private static final Set<Character> SUPPORTED_DIGITS = Collections.unmodifiableSet(
+          new LinkedHashSet<>(
+                  Arrays.asList('1', '2', '3', '4', '5', '6', '7', '8', '9', '0'
+                  )));
 
-  private static final Set<Operation> SUPPORTED_OPERATIONS =
-          Collections.unmodifiableSet(new LinkedHashSet<>(
-                  Arrays.asList(Operation.ADD, Operation.SUBTRACT, Operation.MULTIPLY)
-          ));
+  private static final Set<Operation> SUPPORTED_OPERATIONS = Collections.unmodifiableSet(
+          new LinkedHashSet<>(
+                  Arrays.asList(Operation.ADD, Operation.SUBTRACT, Operation.MULTIPLY
+                  )));
 
   private static final Set<InputCategory> INITIAL_VALID_INPUT_CATEGORY_SET =
           Collections.unmodifiableSet(
-                  new HashSet<>(Arrays.asList(InputCategory.OPERAND, InputCategory.CLEAR)));
+                  new HashSet<>(Arrays.asList(InputCategory.OPERAND, InputCategory.CLEAR
+                  )));
 
   private final Set<InputCategory> anticipatedInputCategorySet;
   private final List<String> currentExpression;
   private final String result;
 
-  protected SimpleCalculator(List<String> currentExpression, Set<InputCategory> anticipatedInputCategorySet, String result) {
+  protected SimpleCalculator(List<String> currentExpression,
+                             Set<InputCategory> anticipatedInputCategorySet,
+                             String result) {
+
     this.currentExpression = Collections.unmodifiableList(currentExpression);
     this.anticipatedInputCategorySet = anticipatedInputCategorySet;
     this.result = result;
@@ -196,5 +201,9 @@ public class SimpleCalculator extends AbstractCalculator {
 
   private Set<InputCategory> getInitialValidInputCategory() {
     return INITIAL_VALID_INPUT_CATEGORY_SET;
+  }
+
+  protected String generateResultString(List<String> expression) {
+    return String.join("", expression);
   }
 }
