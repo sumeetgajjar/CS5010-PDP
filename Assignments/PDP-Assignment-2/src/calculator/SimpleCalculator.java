@@ -57,16 +57,20 @@ public class SimpleCalculator extends AbstractCalculator {
   }
 
   private void isCurrentInputValid(InputCategory currentInputCategory) throws IllegalArgumentException {
+    Set<InputCategory> validInputCategorySet = getNextValidInputCategorySet();
+    if (!validInputCategorySet.contains(currentInputCategory)) {
+      throw new IllegalArgumentException("Invalid Input");
+    }
+  }
+
+  private Set<InputCategory> getNextValidInputCategorySet() {
     Set<InputCategory> validInputCategorySet;
     if (firstInput) {
       validInputCategorySet = getInitialValidInputCategory();
     } else {
-      validInputCategorySet = getNextValidInputCategory(this.inputSequenceCategory);
+      validInputCategorySet = getValidInputCategory(this.inputSequenceCategory);
     }
-
-    if (!validInputCategorySet.contains(currentInputCategory)) {
-      throw new IllegalArgumentException("Invalid Input");
-    }
+    return validInputCategorySet;
   }
 
   private Set<InputCategory> getInitialValidInputCategory() {
@@ -74,7 +78,7 @@ public class SimpleCalculator extends AbstractCalculator {
             Arrays.asList(InputCategory.OPERAND, InputCategory.CLEAR)));
   }
 
-  private Set<InputCategory> getNextValidInputCategory(InputCategory inputCategory) {
+  private Set<InputCategory> getValidInputCategory(InputCategory inputCategory) {
     Set<InputCategory> nextLegalInputCategory;
 
     if (inputCategory == InputCategory.OPERAND) {
