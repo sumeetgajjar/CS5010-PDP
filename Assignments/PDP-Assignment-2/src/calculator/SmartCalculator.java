@@ -18,8 +18,8 @@ public class SmartCalculator extends SimpleCalculator {
                   Arrays.asList(InputCategory.CLEAR, InputCategory.EQUAL_TO, InputCategory.OPERATOR, InputCategory.OPERAND)
           ));
 
-  private Operation lastOperation;
-  private int lastOperand;
+  private final Operation lastOperation;
+  private final int lastOperand;
 
 
   public SmartCalculator(List<String> newExpression, Set<InputCategory> nextAnticipatedInputCategory, String result, Operation lastOperation, int lastOperand) {
@@ -46,8 +46,41 @@ public class SmartCalculator extends SimpleCalculator {
 
     String newResult = generateResultString(newExpression);
     Set<InputCategory> nextAnticipatedInputCategory = getValidInputCategory(currentInputCategory);
+    int newLastOperand = getLastOperand();
+    Operation newLastOperator = getLastOperator();
 
-    return new SmartCalculator(newExpression, nextAnticipatedInputCategory, newResult, lastOperation, lastOperand);
+    return new SmartCalculator(newExpression, nextAnticipatedInputCategory, newResult, newLastOperator, newLastOperand);
+  }
+
+  private Operation getLastOperator() {
+    if (this.currentExpression.size() == 0) {
+      return Operation.ADD;
+    } else if (this.currentExpression.size() == 1) {
+      return lastOperation;
+    } else if (this.currentExpression.size() == 2) {
+      return Operation.getOperation(getCurrentExpressionDeque().peekLast().charAt(0));
+    } else {
+      Deque<String> currentExpressionDeque = getCurrentExpressionDeque();
+      currentExpressionDeque.removeLast();
+      return Operation.getOperation(currentExpressionDeque.removeLast().charAt(0));
+    }
+  }
+
+  private int getLastOperand() {
+    if (this.currentExpression.size() == 0) {
+      return 0;
+    } else if (this.currentExpression.size() == 1) {
+      return lastOperand;
+    } else {
+      Deque<String> currentExpressionDeque = getCurrentExpressionDeque();
+      while (!currentExpressionDeque.isEmpty()) {
+        try {
+          return Integer.parseInt(currentExpressionDeque.removeLast());
+        } catch (NumberFormatException ignored) {
+        }
+      }
+    }
+    throw new IllegalStateException("Cannot reach here");
   }
 
   @Override
@@ -90,8 +123,6 @@ public class SmartCalculator extends SimpleCalculator {
 
       currentExpressionDeque.addFirst(String.valueOf(result));
       if (currentExpressionDeque.size() == 1) {
-        lastOperation = Operation.getOperation(operator);
-        lastOperand = n2;
         break;
       }
     }
