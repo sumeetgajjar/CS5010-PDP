@@ -15,7 +15,7 @@ public class SimpleOperandInputCategory extends AbstractInputCategory {
 
   private final Set<Character> supportedOperators;
 
-  protected SimpleOperandInputCategory(List<String> expression, Set<Character> supportCharacters, Set<Character> supportedOperators) {
+  public SimpleOperandInputCategory(List<String> expression, Set<Character> supportCharacters, Set<Character> supportedOperators) {
     super(expression, supportCharacters);
     this.supportedOperators = Collections.unmodifiableSet(supportedOperators);
   }

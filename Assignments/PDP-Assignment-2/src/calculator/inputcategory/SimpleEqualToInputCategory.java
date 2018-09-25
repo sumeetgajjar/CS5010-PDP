@@ -13,7 +13,7 @@ import calculator.util.Utils;
 
 public class SimpleEqualToInputCategory extends AbstractInputCategory {
 
-  protected SimpleEqualToInputCategory(List<String> expression, Set<Character> supportCharacters) {
+  public SimpleEqualToInputCategory(List<String> expression, Set<Character> supportCharacters) {
     super(expression, supportCharacters);
   }
 

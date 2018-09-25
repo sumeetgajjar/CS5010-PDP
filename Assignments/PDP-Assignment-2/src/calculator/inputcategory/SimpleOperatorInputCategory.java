@@ -12,7 +12,7 @@ import calculator.util.Utils;
 
 public class SimpleOperatorInputCategory extends AbstractInputCategory {
 
-  protected SimpleOperatorInputCategory(List<String> expression, Set<Character> supportCharacters) {
+  public SimpleOperatorInputCategory(List<String> expression, Set<Character> supportCharacters) {
     super(expression, supportCharacters);
   }
 

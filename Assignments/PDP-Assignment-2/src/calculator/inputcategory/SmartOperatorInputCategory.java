@@ -30,7 +30,7 @@ public class SmartOperatorInputCategory extends SimpleOperatorInputCategory {
       char ch = lastElement.charAt(lastElement.length() - 1);
       if (this.supportedDigits.contains(ch)) {
         expressionDeque.addLast(String.valueOf(input));
-      } else if (this.supportedOperators.contains(ch)) {
+      } else if (this.supportedCharacters.contains(ch)) {
         expressionDeque.removeLast();
         expressionDeque.addLast(String.valueOf(input));
       } else {
