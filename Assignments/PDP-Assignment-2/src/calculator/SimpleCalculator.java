@@ -32,17 +32,11 @@ public class SimpleCalculator extends AbstractCalculator {
                   new HashSet<>(Arrays.asList(InputCategory.OPERAND, InputCategory.CLEAR
                   )));
 
-  private final Set<InputCategory> anticipatedInputCategorySet;
-  private final List<String> currentExpression;
-  private final String result;
-
   protected SimpleCalculator(List<String> currentExpression,
                              Set<InputCategory> anticipatedInputCategorySet,
                              String result) {
+    super(anticipatedInputCategorySet, currentExpression, result);
 
-    this.currentExpression = Collections.unmodifiableList(currentExpression);
-    this.anticipatedInputCategorySet = anticipatedInputCategorySet;
-    this.result = result;
   }
 
   public SimpleCalculator() {

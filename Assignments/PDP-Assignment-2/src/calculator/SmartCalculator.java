@@ -75,30 +75,24 @@ public class SmartCalculator extends SimpleCalculator {
     Deque<String> currentExpressionDeque = getCurrentExpressionDeque();
 
     if (currentExpressionDeque.size() == 1) {
-      int n1 = Integer.parseInt(currentExpressionDeque.removeFirst());
-      int newResult = lastOperation.perform(n1, lastOperand);
-      currentExpressionDeque.addFirst(String.valueOf(newResult));
+      currentExpressionDeque.addLast(String.valueOf(lastOperation.getSymbol()));
+      currentExpressionDeque.addLast(String.valueOf(lastOperand));
     } else if (currentExpressionDeque.size() == 2) {
+      currentExpressionDeque.addLast(currentExpressionDeque.peekFirst());
+    }
+
+    while (!currentExpressionDeque.isEmpty()) {
       int n1 = Integer.parseInt(currentExpressionDeque.removeFirst());
       char operator = currentExpressionDeque.removeFirst().charAt(0);
-      int newResult = performOperation(operator, n1, n1);
-      currentExpressionDeque.addFirst(String.valueOf(newResult));
-      lastOperation = Operation.getOperation(operator);
-      lastOperand = n1;
-    } else {
-      while (!currentExpressionDeque.isEmpty()) {
-        int n1 = Integer.parseInt(currentExpressionDeque.removeFirst());
-        char operator = currentExpressionDeque.removeFirst().charAt(0);
-        int n2 = Integer.parseInt(currentExpressionDeque.removeFirst());
+      int n2 = Integer.parseInt(currentExpressionDeque.removeFirst());
 
-        int result = performOperation(operator, n1, n2);
+      int result = performOperation(operator, n1, n2);
 
-        currentExpressionDeque.addFirst(String.valueOf(result));
-        if (currentExpressionDeque.size() == 1) {
-          lastOperation = Operation.getOperation(operator);
-          lastOperand = n2;
-          break;
-        }
+      currentExpressionDeque.addFirst(String.valueOf(result));
+      if (currentExpressionDeque.size() == 1) {
+        lastOperation = Operation.getOperation(operator);
+        lastOperand = n2;
+        break;
       }
     }
 

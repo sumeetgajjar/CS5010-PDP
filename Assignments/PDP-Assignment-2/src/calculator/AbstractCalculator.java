@@ -1,5 +1,7 @@
 package calculator;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 import calculator.bean.InputCategory;
@@ -10,6 +12,16 @@ public abstract class AbstractCalculator implements Calculator {
 
   protected static final char CLEAR_INPUT_CHARACTER = 'C';
   protected static final char EQUAL_TO_CHARACTER = '=';
+
+  protected final Set<InputCategory> anticipatedInputCategorySet;
+  protected final List<String> currentExpression;
+  protected final String result;
+
+  public AbstractCalculator(Set<InputCategory> anticipatedInputCategorySet, List<String> currentExpression, String result) {
+    this.anticipatedInputCategorySet = anticipatedInputCategorySet;
+    this.currentExpression = Collections.unmodifiableList(currentExpression);
+    this.result = result;
+  }
 
   protected abstract Set<Character> getSupportedInputs();
 
