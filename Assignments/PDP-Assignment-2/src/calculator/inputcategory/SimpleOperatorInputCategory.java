@@ -10,19 +10,10 @@ import java.util.Set;
 import calculator.bean.InputCategory;
 import calculator.util.Utils;
 
-public class SimpleOperatorInputCategory implements InputCategoryInterface {
+public class SimpleOperatorInputCategory extends AbstractInputCategory {
 
-  protected final List<String> expression;
-  protected final Set<Character> supportedOperators;
-
-  public SimpleOperatorInputCategory(List<String> expression, Set<Character> supportedOperators) {
-    this.expression = expression;
-    this.supportedOperators = Collections.unmodifiableSet(supportedOperators);
-  }
-
-  @Override
-  public boolean belongToInputCategory(char input) {
-    return this.supportedOperators.contains(input);
+  protected SimpleOperatorInputCategory(List<String> expression, Set<Character> supportCharacters) {
+    super(expression, supportCharacters);
   }
 
   @Override
