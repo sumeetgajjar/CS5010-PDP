@@ -5,13 +5,18 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import calculator.bean.InputCategory;
 import calculator.bean.Operation;
+import calculator.inputcategory.InputCategoryInterface;
+import calculator.inputcategory.SmartClearInputCategory;
+import calculator.inputcategory.SmartEqualToInputCategory;
+import calculator.inputcategory.SmartOperandInputCategory;
+import calculator.inputcategory.SmartOperatorInputCategory;
+import calculator.util.Utils;
 
-public class SmartCalculator extends SimpleCalculator {
+public class SmartCalculator extends AbstractCalculator {
 
   private static final Set<InputCategory> INITIAL_VALID_INPUT_CATEGORY_SET =
           Collections.unmodifiableSet(new HashSet<>(
@@ -33,64 +38,30 @@ public class SmartCalculator extends SimpleCalculator {
   }
 
   @Override
-  protected Calculator getNewCalculatorInstance(List<String> newExpression, String newResult, Set<InputCategory> nextAnticipatedInputCategory) {
+  protected Set<Character> getSupportedOperators() {
+    return SUPPORTED_OPERATOR;
+  }
+
+  @Override
+  protected Set<Character> getSupportedDigits() {
+    return SUPPORTED_DIGITS;
+  }
+
+  @Override
+  protected List<InputCategoryInterface> getSupportedInputCategoryInterface() {
+    return Arrays.asList(
+            new SmartOperandInputCategory(this.currentExpression, getSupportedDigits(), getSupportedOperators()),
+            new SmartOperatorInputCategory(this.currentExpression, getSupportedOperators(), getSupportedDigits()),
+            new SmartEqualToInputCategory(this.currentExpression, EQUAL_TO_CHARACTER_SET, lastOperation, lastOperand),
+            new SmartClearInputCategory(this.currentExpression, CLEAR_CHARACTER_SET)
+    );
+  }
+
+  @Override
+  protected Calculator getCalculatorInstance(List<String> expression, String result, Set<InputCategory> anticipatedInputCategory) {
     int newLastOperand = getLastOperand();
     Operation newLastOperator = getLastOperator();
-    return new SmartCalculator(newExpression, nextAnticipatedInputCategory, newResult, newLastOperator, newLastOperand);
-  }
-
-  @Override
-  protected List<String> performInputCategoryEqualToAction() {
-    Deque<String> expressionDeque = getExpressionDeque(this.currentExpression);
-
-    if (expressionDeque.size() == 1) {
-      expressionDeque.addLast(String.valueOf(this.lastOperation.getSymbol()));
-      expressionDeque.addLast(String.valueOf(this.lastOperand));
-    } else if (expressionDeque.size() == 2) {
-      expressionDeque.addLast(expressionDeque.peekFirst());
-    }
-
-    return evaluateExpression(getExpressionList(expressionDeque));
-  }
-
-  @Override
-  protected Set<InputCategory> getInitialValidInputCategorySet() {
-    return INITIAL_VALID_INPUT_CATEGORY_SET;
-  }
-
-  @Override
-  protected Set<InputCategory> getValidInputCategorySetForOperand() {
-    return new HashSet<>(Arrays.asList(InputCategory.OPERAND, InputCategory.OPERATOR, InputCategory.EQUAL_TO));
-  }
-
-  @Override
-  protected Set<InputCategory> getValidInputCategorySetForOperator() {
-    return new HashSet<>(Arrays.asList(InputCategory.OPERAND, InputCategory.OPERATOR, InputCategory.EQUAL_TO));
-  }
-
-  @Override
-  protected Set<InputCategory> getValidInputCategorySetForEqualTo() {
-    return new HashSet<>(Arrays.asList(InputCategory.OPERATOR, InputCategory.EQUAL_TO));
-  }
-
-  @Override
-  protected List<String> performInputCategoryOperatorAction(char input) {
-    Deque<String> expressionDeque = getExpressionDeque(this.currentExpression);
-
-    String lastElement = expressionDeque.peekLast();
-    if (Objects.nonNull(lastElement)) {
-      InputCategory lastInputCategory = getInputCategory(lastElement);
-      if (lastInputCategory == InputCategory.OPERAND) {
-        expressionDeque.addLast(String.valueOf(input));
-      } else if (lastInputCategory == InputCategory.OPERATOR) {
-        expressionDeque.removeLast();
-        expressionDeque.addLast(String.valueOf(input));
-      } else {
-        throw new IllegalStateException(String.format("Cannot Handle InputCategory: %s", lastInputCategory));
-      }
-    }
-
-    return getExpressionList(expressionDeque);
+    return new SmartCalculator(expression, anticipatedInputCategory, result, newLastOperator, newLastOperand);
   }
 
   private Operation getLastOperator() {
@@ -99,11 +70,12 @@ public class SmartCalculator extends SimpleCalculator {
     } else if (this.currentExpression.size() == 1) {
       return this.lastOperation;
     } else {
-      Deque<String> currentExpressionDeque = getExpressionDeque(this.currentExpression);
+      Deque<String> currentExpressionDeque = Utils.getExpressionDeque(this.currentExpression);
       while (!currentExpressionDeque.isEmpty()) {
         String lastElement = currentExpressionDeque.removeLast();
-        if (getInputCategory(lastElement) == InputCategory.OPERATOR) {
-          return Operation.getOperation(lastElement.charAt(0));
+        char operatorSymbol = lastElement.charAt(lastElement.length() - 1);
+        if (getSupportedOperators().contains(operatorSymbol)) {
+          return Operation.getOperation(operatorSymbol);
         }
       }
     }
@@ -116,10 +88,11 @@ public class SmartCalculator extends SimpleCalculator {
     } else if (this.currentExpression.size() == 1) {
       return this.lastOperand;
     } else {
-      Deque<String> currentExpressionDeque = getExpressionDeque(this.currentExpression);
+      Deque<String> currentExpressionDeque = Utils.getExpressionDeque(this.currentExpression);
       while (!currentExpressionDeque.isEmpty()) {
         String lastElement = currentExpressionDeque.removeLast();
-        if (getInputCategory(lastElement) == InputCategory.OPERAND) {
+        char digit = lastElement.charAt(lastElement.length() - 1);
+        if (getSupportedDigits().contains(digit)) {
           return Integer.parseInt(lastElement);
         }
       }

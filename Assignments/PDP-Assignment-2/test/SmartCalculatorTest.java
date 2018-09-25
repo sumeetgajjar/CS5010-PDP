@@ -226,11 +226,11 @@ public class SmartCalculatorTest extends AbstractCalculatorTest {
     calculator = calculator.input('=');
     Assert.assertEquals("2", calculator.getResult());
 
-    try{
+    try {
       calculator = calculator.input('2');
       Assert.fail("should have fail");
-    }catch (Exception e){
-      Assert.assertEquals("Input: '2' is illegal",e.getMessage());
+    } catch (Exception e) {
+      Assert.assertEquals("Input: '2' is illegal", e.getMessage());
     }
 
     calculator = calculator.input('=');
