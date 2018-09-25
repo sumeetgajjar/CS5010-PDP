@@ -11,6 +11,10 @@ public class Pair<U, V> {
     this.second = second;
   }
 
+  public static <F, S> Pair<F, S> of(F first, S second) {
+    return new Pair<>(first, second);
+  }
+
   @Override
   public boolean equals(Object that) {
     if (this == that) return true;
@@ -23,9 +27,5 @@ public class Pair<U, V> {
   @Override
   public int hashCode() {
     return Objects.hash(first, second);
-  }
-
-  public static <F, S> Pair<F, S> of(F first, S second) {
-    return new Pair<>(first, second);
   }
 }

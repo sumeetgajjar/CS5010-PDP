@@ -2,8 +2,10 @@ package calculator.bean;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public enum Operation {
+
   ADD('+') {
     @Override
     public int perform(int n1, int n2) {
@@ -35,13 +37,18 @@ public enum Operation {
     this.symbol = symbol;
   }
 
+  public static Operation getOperation(char symbol) {
+    Operation operation = Operation.SYMBOL_OPERATION_MAPPING.get(symbol);
+    if (Objects.isNull(operation)) {
+      throw new IllegalArgumentException(String.format("Operation not found: %s", symbol));
+    } else {
+      return operation;
+    }
+  }
+
   public abstract int perform(int n1, int n2) throws ArithmeticException;
 
   public char getSymbol() {
     return symbol;
-  }
-
-  public static Operation getOperation(char symbol) {
-    return Operation.SYMBOL_OPERATION_MAPPING.get(symbol);
   }
 }
