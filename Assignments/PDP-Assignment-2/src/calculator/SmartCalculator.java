@@ -114,18 +114,7 @@ public class SmartCalculator extends SimpleCalculator {
       currentExpressionDeque.addLast(currentExpressionDeque.peekFirst());
     }
 
-    while (!currentExpressionDeque.isEmpty()) {
-      int n1 = Integer.parseInt(currentExpressionDeque.removeFirst());
-      char operator = currentExpressionDeque.removeFirst().charAt(0);
-      int n2 = Integer.parseInt(currentExpressionDeque.removeFirst());
-
-      int result = performOperation(operator, n1, n2);
-
-      currentExpressionDeque.addFirst(String.valueOf(result));
-      if (currentExpressionDeque.size() == 1) {
-        break;
-      }
-    }
+    evaluateExpression(currentExpressionDeque);
 
     return getListFromDeque(currentExpressionDeque);
   }
