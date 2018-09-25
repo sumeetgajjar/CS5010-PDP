@@ -57,11 +57,22 @@ public class SimpleCalculator extends AbstractCalculator {
   @Override
   public Calculator input(char input) throws IllegalArgumentException {
     isInputCharacterLegal(input);
+
     InputCategory currentInputCategory = getInputCategory(input);
+
     isCurrentInputValid(input, currentInputCategory);
 
-    List<String> newExpression;
+    List<String> newExpression = getNewExpressionSequence(input, currentInputCategory);
 
+    String newResult = generateResultString(newExpression);
+
+    Set<InputCategory> nextAnticipatedInputCategory = getValidInputCategory(currentInputCategory);
+
+    return new SimpleCalculator(newExpression, nextAnticipatedInputCategory, newResult);
+  }
+
+  protected List<String> getNewExpressionSequence(char input, InputCategory currentInputCategory) {
+    List<String> newExpression;
     if (currentInputCategory == InputCategory.CLEAR) {
       newExpression = performActionForInputCategoryClear();
     } else if (currentInputCategory == InputCategory.OPERAND) {
@@ -73,11 +84,7 @@ public class SimpleCalculator extends AbstractCalculator {
     } else {
       throw new IllegalArgumentException(String.format("Invalid InputCategory: %s", currentInputCategory));
     }
-
-    String newResult = generateResultString(newExpression);
-    Set<InputCategory> nextAnticipatedInputCategory = getValidInputCategory(currentInputCategory);
-
-    return new SimpleCalculator(newExpression, nextAnticipatedInputCategory, newResult);
+    return newExpression;
   }
 
   @Override

@@ -42,17 +42,7 @@ public class SmartCalculator extends SimpleCalculator {
 
     List<String> newExpression;
 
-    if (currentInputCategory == InputCategory.CLEAR) {
-      newExpression = performActionForInputCategoryClear();
-    } else if (currentInputCategory == InputCategory.OPERAND) {
-      newExpression = performActionForInputCategoryOperand(input);
-    } else if (currentInputCategory == InputCategory.OPERATOR) {
-      newExpression = performActionForInputCategoryOperator(input);
-    } else if (currentInputCategory == InputCategory.EQUAL_TO) {
-      newExpression = performActionForInputCategoryEqualTo();
-    } else {
-      throw new IllegalArgumentException(String.format("Invalid InputCategory: %s", currentInputCategory));
-    }
+    newExpression = getNewExpressionSequence(input, currentInputCategory);
 
     String newResult = generateResultString(newExpression);
     Set<InputCategory> nextAnticipatedInputCategory = getValidInputCategory(currentInputCategory);
