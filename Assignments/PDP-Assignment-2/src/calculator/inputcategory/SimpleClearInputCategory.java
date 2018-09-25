@@ -10,19 +10,10 @@ import java.util.Set;
 import calculator.bean.InputCategory;
 import calculator.util.Utils;
 
-public class SimpleClearInputCategory implements InputCategoryInterface {
-
-  private final List<String> expression;
-  private final Set<Character> supportedClearCharacters;
+public class SimpleClearInputCategory extends AbstractInputCategory {
 
   public SimpleClearInputCategory(List<String> expression, Set<Character> clearInputCharacterSet) {
-    this.expression = expression;
-    supportedClearCharacters = clearInputCharacterSet;
-  }
-
-  @Override
-  public boolean belongToInputCategory(char input) {
-    return this.supportedClearCharacters.contains(input);
+    super(expression, clearInputCharacterSet);
   }
 
   @Override
