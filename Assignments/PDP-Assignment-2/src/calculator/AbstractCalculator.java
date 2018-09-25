@@ -32,4 +32,13 @@ public abstract class AbstractCalculator implements Calculator {
     Set<InputCategory> nextAnticipatedInputCategory = getValidInputCategory(currentInputCategory);
     return getNewCalculatorInstance(newExpression, newResult, nextAnticipatedInputCategory);
   }
+
+  private void isInputCharacterLegal(char input) throws IllegalArgumentException {
+    Set<Character> legalInputSet = getSupportedInputs();
+    if (!legalInputSet.contains(input)) {
+      throw new IllegalArgumentException(String.format("Input: '%s' is illegal", input));
+    }
+  }
+
+  protected abstract Set<Character> getSupportedInputs();
 }

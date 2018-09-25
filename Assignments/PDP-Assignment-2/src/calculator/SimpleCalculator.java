@@ -218,13 +218,6 @@ public class SimpleCalculator extends AbstractCalculator {
     return String.join("", expression);
   }
 
-  private void isInputCharacterLegal(char input) throws IllegalArgumentException {
-    Set<Character> legalInputSet = getSupportedInputs();
-    if (!legalInputSet.contains(input)) {
-      throw new IllegalArgumentException(String.format("Input: '%s' is illegal", input));
-    }
-  }
-
   private String appendDigit(String numberString, char digitToAppend) {
     try {
       int currentNumber = Integer.parseInt(numberString);
