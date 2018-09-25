@@ -7,7 +7,7 @@ import java.util.Set;
 import calculator.bean.Operation;
 import calculator.util.Utils;
 
-public class SmartEqualToInputCategory extends EqualToInputCategory {
+public class SmartEqualToInputCategory extends SimpleEqualToInputCategory {
 
   private final Operation lastOperation;
   private final int lastOperand;

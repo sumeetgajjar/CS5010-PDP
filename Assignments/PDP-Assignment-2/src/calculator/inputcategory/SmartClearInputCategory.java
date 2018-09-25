@@ -8,7 +8,7 @@ import java.util.Set;
 
 import calculator.bean.InputCategory;
 
-public class SmartClearInputCategory extends ClearInputCategory {
+public class SmartClearInputCategory extends SimpleClearInputCategory {
 
   public SmartClearInputCategory(List<String> expression, Set<Character> clearInputCharacterSet) {
     super(expression, clearInputCharacterSet);

@@ -11,7 +11,7 @@ import java.util.Set;
 import calculator.bean.InputCategory;
 import calculator.util.Utils;
 
-public class SmartOperatorInputCategory extends OperatorInputCategory {
+public class SmartOperatorInputCategory extends SimpleOperatorInputCategory {
 
   private final Set<Character> supportedDigits;
 

@@ -10,30 +10,30 @@ import java.util.Set;
 import calculator.bean.InputCategory;
 import calculator.util.Utils;
 
-public class OperatorInputCategory implements InputCategoryInterface {
+public class SimpleClearInputCategory implements InputCategoryInterface {
 
-  protected final List<String> expression;
-  protected final Set<Character> supportedOperators;
+  private final List<String> expression;
+  private final Set<Character> supportedClearCharacters;
 
-  public OperatorInputCategory(List<String> expression, Set<Character> supportedOperators) {
+  public SimpleClearInputCategory(List<String> expression, Set<Character> clearInputCharacterSet) {
     this.expression = expression;
-    this.supportedOperators = Collections.unmodifiableSet(supportedOperators);
+    supportedClearCharacters = clearInputCharacterSet;
   }
 
   @Override
   public boolean belongToInputCategory(char input) {
-    return this.supportedOperators.contains(input);
+    return this.supportedClearCharacters.contains(input);
   }
 
   @Override
   public InputCategory getInputCategory() {
-    return InputCategory.OPERATOR;
+    return InputCategory.CLEAR;
   }
 
   @Override
   public List<String> performAction(char input) {
     Deque<String> expressionDeque = Utils.getExpressionDeque(this.expression);
-    expressionDeque.addLast(String.valueOf(input));
+    expressionDeque.clear();
     return Utils.getExpressionList(expressionDeque);
   }
 

@@ -8,7 +8,7 @@ import java.util.Set;
 
 import calculator.bean.InputCategory;
 
-public class SmartOperandInputCategory extends OperandInputCategory {
+public class SmartOperandInputCategory extends SimpleOperandInputCategory {
 
 
   public SmartOperandInputCategory(List<String> expression, Set<Character> supportedOperands, Set<Character> supportedOperators) {

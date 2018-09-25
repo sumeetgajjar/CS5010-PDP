@@ -11,13 +11,13 @@ import java.util.Set;
 import calculator.bean.InputCategory;
 import calculator.util.Utils;
 
-public class OperandInputCategory implements InputCategoryInterface {
+public class SimpleOperandInputCategory implements InputCategoryInterface {
 
   private final List<String> expression;
   private final Set<Character> supportedOperands;
   private final Set<Character> supportedOperators;
 
-  public OperandInputCategory(List<String> expression, Set<Character> supportedOperands, Set<Character> supportedOperators) {
+  public SimpleOperandInputCategory(List<String> expression, Set<Character> supportedOperands, Set<Character> supportedOperators) {
     this.expression = Collections.unmodifiableList(expression);
     this.supportedOperands = Collections.unmodifiableSet(supportedOperands);
     this.supportedOperators = Collections.unmodifiableSet(supportedOperators);
