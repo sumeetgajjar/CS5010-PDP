@@ -11,21 +11,13 @@ import java.util.Set;
 import calculator.bean.InputCategory;
 import calculator.util.Utils;
 
-public class SimpleOperandInputCategory implements InputCategoryInterface {
+public class SimpleOperandInputCategory extends AbstractInputCategory {
 
-  private final List<String> expression;
-  private final Set<Character> supportedOperands;
   private final Set<Character> supportedOperators;
 
-  public SimpleOperandInputCategory(List<String> expression, Set<Character> supportedOperands, Set<Character> supportedOperators) {
-    this.expression = Collections.unmodifiableList(expression);
-    this.supportedOperands = Collections.unmodifiableSet(supportedOperands);
+  protected SimpleOperandInputCategory(List<String> expression, Set<Character> supportCharacters, Set<Character> supportedOperators) {
+    super(expression, supportCharacters);
     this.supportedOperators = Collections.unmodifiableSet(supportedOperators);
-  }
-
-  @Override
-  public boolean belongToInputCategory(char input) {
-    return this.supportedOperands.contains(input);
   }
 
   @Override
@@ -42,7 +34,7 @@ public class SimpleOperandInputCategory implements InputCategoryInterface {
 
       char lastInput = lastElement.charAt(lastElement.length() - 1);
 
-      if (this.supportedOperands.contains(lastInput)) {
+      if (this.supportedCharacters.contains(lastInput)) {
         lastElement = expressionDeque.pollLast();
         String newNumber = appendDigit(lastElement, input);
         expressionDeque.addLast(newNumber);
