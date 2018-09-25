@@ -132,6 +132,7 @@ public class SimpleCalculator extends AbstractCalculator {
     return getExpressionList(expressionDeque);
   }
 
+  @Override
   protected Set<Character> getSupportedInputs() {
     return Stream.of(SUPPORTED_DIGITS,
             SUPPORTED_OPERATOR,
@@ -165,6 +166,7 @@ public class SimpleCalculator extends AbstractCalculator {
     return getInputCategory(element.charAt(element.length() - 1));
   }
 
+  @Override
   protected InputCategory getInputCategory(char input) throws IllegalArgumentException {
     for (Pair<InputCategory, Set<Character>> pair : VALID_INPUT_CATEGORY_LIST) {
       InputCategory inputCategory = pair.first;

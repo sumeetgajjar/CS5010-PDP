@@ -33,6 +33,8 @@ public abstract class AbstractCalculator implements Calculator {
     return getNewCalculatorInstance(newExpression, newResult, nextAnticipatedInputCategory);
   }
 
+  protected abstract InputCategory getInputCategory(char input);
+
   private void isInputCharacterLegal(char input) throws IllegalArgumentException {
     Set<Character> legalInputSet = getSupportedInputs();
     if (!legalInputSet.contains(input)) {
