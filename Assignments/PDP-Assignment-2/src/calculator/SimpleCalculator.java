@@ -22,7 +22,7 @@ import static calculator.bean.InputCategory.EQUAL_TO;
 import static calculator.bean.InputCategory.OPERAND;
 import static calculator.bean.InputCategory.OPERATOR;
 
-public class SimpleCalculator implements Calculator {
+public class SimpleCalculator extends AbstractCalculator {
 
   private static final Set<Character> CLEAR_INPUT_CHARACTER_SET = Collections.singleton('C');
 
@@ -51,36 +51,14 @@ public class SimpleCalculator implements Calculator {
                                   Pair.of(EQUAL_TO, EQUAL_TO_CHARACTER_SET)
                           )));
 
-  protected final List<String> currentExpression;
-  private final Set<InputCategory> anticipatedInputCategorySet;
-  private final String result;
-
   protected SimpleCalculator(List<String> currentExpression,
                              Set<InputCategory> anticipatedInputCategorySet,
                              String result) {
-    this.anticipatedInputCategorySet = anticipatedInputCategorySet;
-    this.currentExpression = currentExpression;
-    this.result = result;
+    super(currentExpression, anticipatedInputCategorySet, result);
   }
 
   public SimpleCalculator() {
     this(Collections.emptyList(), INITIAL_VALID_INPUT_CATEGORY_SET, "");
-  }
-
-  @Override
-  public String getResult() {
-    return this.result;
-  }
-
-  @Override
-  public Calculator input(char input) throws IllegalArgumentException {
-    isInputCharacterLegal(input);
-    InputCategory currentInputCategory = getInputCategory(input);
-    isCurrentInputValid(input, currentInputCategory);
-    List<String> newExpression = performInputCategoryAction(currentInputCategory, input);
-    String newResult = generateResultString(newExpression);
-    Set<InputCategory> nextAnticipatedInputCategory = getValidInputCategory(currentInputCategory);
-    return getNewCalculatorInstance(newExpression, newResult, nextAnticipatedInputCategory);
   }
 
   protected Calculator getNewCalculatorInstance(List<String> newExpression, String newResult, Set<InputCategory> nextAnticipatedInputCategory) {
