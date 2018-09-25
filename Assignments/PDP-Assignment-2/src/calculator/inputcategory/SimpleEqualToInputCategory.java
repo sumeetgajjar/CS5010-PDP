@@ -11,19 +11,10 @@ import calculator.bean.InputCategory;
 import calculator.bean.Operation;
 import calculator.util.Utils;
 
-public class SimpleEqualToInputCategory implements InputCategoryInterface {
+public class SimpleEqualToInputCategory extends AbstractInputCategory {
 
-  protected final List<String> expression;
-  private final Set<Character> supportedEqualToCharacters;
-
-  public SimpleEqualToInputCategory(List<String> expression, Set<Character> supportedEqualToCharacters) {
-    this.expression = expression;
-    this.supportedEqualToCharacters = supportedEqualToCharacters;
-  }
-
-  @Override
-  public boolean belongToInputCategory(char input) {
-    return this.supportedEqualToCharacters.contains(input);
+  protected SimpleEqualToInputCategory(List<String> expression, Set<Character> supportCharacters) {
+    super(expression, supportCharacters);
   }
 
   @Override

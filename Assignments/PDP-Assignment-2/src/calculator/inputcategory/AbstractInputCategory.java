@@ -6,15 +6,15 @@ import java.util.Set;
 public abstract class AbstractInputCategory implements InputCategoryInterface {
 
   protected final List<String> expression;
-  protected final Set<Character> supportCharacters;
+  protected final Set<Character> supportedCharacters;
 
-  protected AbstractInputCategory(List<String> expression, Set<Character> clearInputCharacterSet) {
+  protected AbstractInputCategory(List<String> expression, Set<Character> supportCharacters) {
     this.expression = expression;
-    this.supportCharacters = clearInputCharacterSet;
+    this.supportedCharacters = supportCharacters;
   }
 
   @Override
   public boolean belongToInputCategory(char input) {
-    return this.supportCharacters.contains(input);
+    return this.supportedCharacters.contains(input);
   }
 }
