@@ -28,13 +28,13 @@ import calculator.command.Command;
  * <li>getSupportedDigits</li>
  * <li>getSupportedCommands</li>
  * <li>getCalculatorInstance</li>
- * </ul></p>
+ * </ul>
  *
  * <p>The programmer should also provide a constructor, of following signature
  * <code>Calculator({@link List} currentExpression, {@link Set}
- * anticipatedCommandNames, {@link String} result)</code></p>
+ * anticipatedCommandNames, {@link String} result)</code>
  *
- * <p>Programmers can use already defined Character Set for their Implementations</p>
+ * <p>Programmers can use already defined Character Set for their Implementations
  */
 public abstract class AbstractCalculator implements Calculator {
 

@@ -20,32 +20,32 @@ import calculator.util.Utils;
  * This class represents a SmartCalculator. It extends {@link AbstractCalculator} and it can only
  * work with 32-bit whole numbers.
  *
- * <p>The valid operand characters are 0-9.</p>
+ * <p>The valid operand characters are 0-9.
  *
- * <p>The valid operators are +, - and *.</p>
+ * <p>The valid operators are +, - and *.
  *
  * <p>The SmartCalculator does not support negative numbers as input, although it can handle
- * negative results.</p>
+ * negative results.
  *
  * <p>The {@link SmartCalculator} does “infer” second missing operand. For e.g. the input 12+=
  * produces 24. The input 12+== produces 36, and so on. The state at the end of each “=” is the
- * result of the computation thus far.</p>
+ * result of the computation thus far.
  *
  * <p>The calculator does allow inputting “=” multiple times. For e.g., 12+10 = produces 22.
- * However 12+10== and 12+10=== will produce 80 and 104 respectively.</p>
+ * However 12+10== and 12+10=== will produce 80 and 104 respectively.
  *
  * <p>For Input beginning with operator, the operator will be ignored. For e.g. +12-10= will ignore
- * "+" and result into 2.</p>
+ * "+" and result into 2.
  *
  * <p>For Input with 2 consecutive operator will ignore the first operator. For e.g. 12-+10= will
- * ignore "-" and produce 22.</p>
+ * ignore "-" and produce 22.
  *
- * <p>The input ’C’ will clear the calculator inputs.</p>
+ * <p>The input ’C’ will clear the calculator inputs.
  *
  * <p>The input method throws an IllegalArgumentException for all invalid inputs and sequences, and
  * a RuntimeException if a valid input causes an operand to overflow. If the result of the
  * arithmetic overflows, then the result is reported as 0. For e.g., p + q - 1 0 will result in -10
- * if p+q overflows.</p>
+ * if p+q overflows.
  *
  * <p>Following is the list of valid input sequences for {@link SmartCalculator}.
  * <ul>
@@ -54,7 +54,7 @@ import calculator.util.Utils;
  * <li>+12+20-40=</li>
  * <li>12+20=-40=</li>
  * <li>12+==</li>
- * </ul></p>
+ * </ul>
  */
 public class SmartCalculator extends AbstractCalculator {
 

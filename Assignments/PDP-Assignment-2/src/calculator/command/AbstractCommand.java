@@ -12,6 +12,7 @@ import calculator.bean.CommandName;
  * <ul>
  * <li><code>expression</code>: current algebraic expression</li>
  * <li><code>supportedCharacters</code>: characters supported by the command</li>
+ * <li><code>commandName</code>: name of the Command</li>
  * </ul>
  *
  * <p>To implement a {@link Command} the programmer needs to extend this class and provide
@@ -21,7 +22,7 @@ import calculator.bean.CommandName;
  * <li>getNextValidCommands</li>
  * </ul>
  * The programmer should also provide a constructor, of following signature Command({@link List}
- * expression, {@link Set} supportedCharacters)</p>
+ * expression, {@link Set} supportedCharacters)
  */
 public abstract class AbstractCommand implements Command {
 
