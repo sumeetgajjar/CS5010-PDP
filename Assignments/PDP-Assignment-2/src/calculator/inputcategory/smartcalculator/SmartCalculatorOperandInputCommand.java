@@ -7,14 +7,14 @@ import java.util.List;
 import java.util.Set;
 
 import calculator.bean.CommandName;
-import calculator.inputcategory.simplecalculator.SimpleCalculatorOperandInputCategory;
+import calculator.inputcategory.simplecalculator.SimpleCalculatorOperandInputCommand;
 
-public class SmartCalculatorOperandInputCategory extends SimpleCalculatorOperandInputCategory {
+public class SmartCalculatorOperandInputCommand extends SimpleCalculatorOperandInputCommand {
 
 
-  public SmartCalculatorOperandInputCategory(List<String> expression,
-                                             Set<Character> supportedOperands,
-                                             Set<Character> supportedOperators) {
+  public SmartCalculatorOperandInputCommand(List<String> expression,
+                                            Set<Character> supportedOperands,
+                                            Set<Character> supportedOperators) {
 
     super(expression, supportedOperands, supportedOperators);
   }

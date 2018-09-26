@@ -9,14 +9,14 @@ import java.util.Objects;
 import java.util.Set;
 
 import calculator.bean.CommandName;
-import calculator.inputcategory.AbstractInputCategory;
+import calculator.inputcategory.AbstractCommand;
 import calculator.util.Utils;
 
-public class SimpleCalculatorOperandInputCategory extends AbstractInputCategory {
+public class SimpleCalculatorOperandInputCommand extends AbstractCommand {
 
   private final Set<Character> supportedOperators;
 
-  public SimpleCalculatorOperandInputCategory(
+  public SimpleCalculatorOperandInputCommand(
           List<String> expression,
           Set<Character> supportCharacters,
           Set<Character> supportedOperators) {

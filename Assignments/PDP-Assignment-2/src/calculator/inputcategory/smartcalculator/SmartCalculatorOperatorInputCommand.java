@@ -9,16 +9,16 @@ import java.util.Objects;
 import java.util.Set;
 
 import calculator.bean.CommandName;
-import calculator.inputcategory.simplecalculator.SimpleCalculatorOperatorInputCategory;
+import calculator.inputcategory.simplecalculator.SimpleCalculatorOperatorInputCommand;
 import calculator.util.Utils;
 
-public class SmartCalculatorOperatorInputCategory extends SimpleCalculatorOperatorInputCategory {
+public class SmartCalculatorOperatorInputCommand extends SimpleCalculatorOperatorInputCommand {
 
   private final Set<Character> supportedDigits;
 
-  public SmartCalculatorOperatorInputCategory(List<String> expression,
-                                              Set<Character> supportedOperators,
-                                              Set<Character> supportedDigits) {
+  public SmartCalculatorOperatorInputCommand(List<String> expression,
+                                             Set<Character> supportedOperators,
+                                             Set<Character> supportedDigits) {
 
     super(expression, supportedOperators);
     this.supportedDigits = supportedDigits;

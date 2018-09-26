@@ -5,18 +5,18 @@ import java.util.List;
 import java.util.Set;
 
 import calculator.bean.Operation;
-import calculator.inputcategory.simplecalculator.SimpleCalculatorEqualToInputCategory;
+import calculator.inputcategory.simplecalculator.SimpleCalculatorEqualToCommand;
 import calculator.util.Utils;
 
-public class SmartCalculatorEqualToInputCategory extends SimpleCalculatorEqualToInputCategory {
+public class SmartCalculatorEqualToCommand extends SimpleCalculatorEqualToCommand {
 
   private final Operation lastOperation;
   private final int lastOperand;
 
-  public SmartCalculatorEqualToInputCategory(List<String> expression,
-                                             Set<Character> supportedEqualToCharacters,
-                                             Operation lastOperation,
-                                             int lastOperand) {
+  public SmartCalculatorEqualToCommand(List<String> expression,
+                                       Set<Character> supportedEqualToCharacters,
+                                       Operation lastOperation,
+                                       int lastOperand) {
 
     super(expression, supportedEqualToCharacters);
     this.lastOperation = lastOperation;

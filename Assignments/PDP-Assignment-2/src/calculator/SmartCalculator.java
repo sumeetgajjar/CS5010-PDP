@@ -10,10 +10,10 @@ import java.util.Set;
 import calculator.bean.CommandName;
 import calculator.bean.Operation;
 import calculator.inputcategory.Command;
-import calculator.inputcategory.smartcalculator.SmartCalculatorClearInputCategory;
-import calculator.inputcategory.smartcalculator.SmartCalculatorEqualToInputCategory;
-import calculator.inputcategory.smartcalculator.SmartCalculatorOperandInputCategory;
-import calculator.inputcategory.smartcalculator.SmartCalculatorOperatorInputCategory;
+import calculator.inputcategory.smartcalculator.SmartCalculatorClearInputCommand;
+import calculator.inputcategory.smartcalculator.SmartCalculatorEqualToCommand;
+import calculator.inputcategory.smartcalculator.SmartCalculatorOperandInputCommand;
+import calculator.inputcategory.smartcalculator.SmartCalculatorOperatorInputCommand;
 import calculator.util.Utils;
 
 public class SmartCalculator extends AbstractCalculator {
@@ -62,23 +62,23 @@ public class SmartCalculator extends AbstractCalculator {
   @Override
   protected List<Command> getSupportedInputCategoryInterface() {
     return Arrays.asList(
-            new SmartCalculatorOperandInputCategory(
+            new SmartCalculatorOperandInputCommand(
                     this.currentExpression,
                     getSupportedDigits(),
                     getSupportedOperators()),
 
-            new SmartCalculatorOperatorInputCategory(
+            new SmartCalculatorOperatorInputCommand(
                     this.currentExpression,
                     getSupportedOperators(),
                     getSupportedDigits()),
 
-            new SmartCalculatorEqualToInputCategory(
+            new SmartCalculatorEqualToCommand(
                     this.currentExpression,
                     EQUAL_TO_CHARACTER_SET,
                     lastOperation,
                     lastOperand),
 
-            new SmartCalculatorClearInputCategory(
+            new SmartCalculatorClearInputCommand(
                     this.currentExpression,
                     CLEAR_CHARACTER_SET)
     );

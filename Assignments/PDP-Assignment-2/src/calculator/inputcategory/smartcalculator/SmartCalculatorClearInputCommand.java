@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.Set;
 
 import calculator.bean.CommandName;
-import calculator.inputcategory.simplecalculator.SimpleCalculatorClearInputCategory;
+import calculator.inputcategory.simplecalculator.SimpleCalculatorClearInputCommand;
 
-public class SmartCalculatorClearInputCategory extends SimpleCalculatorClearInputCategory {
+public class SmartCalculatorClearInputCommand extends SimpleCalculatorClearInputCommand {
 
-  public SmartCalculatorClearInputCategory(List<String> expression,
-                                           Set<Character> clearInputCharacterSet) {
+  public SmartCalculatorClearInputCommand(List<String> expression,
+                                          Set<Character> clearInputCharacterSet) {
 
     super(expression, clearInputCharacterSet);
   }

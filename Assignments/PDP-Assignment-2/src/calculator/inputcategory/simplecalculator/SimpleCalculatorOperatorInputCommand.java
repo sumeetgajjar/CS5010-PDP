@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.Set;
 
 import calculator.bean.CommandName;
-import calculator.inputcategory.AbstractInputCategory;
+import calculator.inputcategory.AbstractCommand;
 import calculator.util.Utils;
 
-public class SimpleCalculatorOperatorInputCategory extends AbstractInputCategory {
+public class SimpleCalculatorOperatorInputCommand extends AbstractCommand {
 
-  public SimpleCalculatorOperatorInputCategory(List<String> expression,
-                                               Set<Character> supportCharacters) {
+  public SimpleCalculatorOperatorInputCommand(List<String> expression,
+                                              Set<Character> supportCharacters) {
 
     super(expression, supportCharacters);
   }

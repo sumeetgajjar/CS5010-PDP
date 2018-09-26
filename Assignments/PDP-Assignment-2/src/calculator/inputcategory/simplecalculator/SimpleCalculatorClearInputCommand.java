@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.Set;
 
 import calculator.bean.CommandName;
-import calculator.inputcategory.AbstractInputCategory;
+import calculator.inputcategory.AbstractCommand;
 import calculator.util.Utils;
 
-public class SimpleCalculatorClearInputCategory extends AbstractInputCategory {
+public class SimpleCalculatorClearInputCommand extends AbstractCommand {
 
-  public SimpleCalculatorClearInputCategory(List<String> expression,
-                                            Set<Character> clearInputCharacterSet) {
+  public SimpleCalculatorClearInputCommand(List<String> expression,
+                                           Set<Character> clearInputCharacterSet) {
 
     super(expression, clearInputCharacterSet);
   }

@@ -9,13 +9,13 @@ import java.util.Set;
 
 import calculator.bean.CommandName;
 import calculator.bean.Operation;
-import calculator.inputcategory.AbstractInputCategory;
+import calculator.inputcategory.AbstractCommand;
 import calculator.util.Utils;
 
-public class SimpleCalculatorEqualToInputCategory extends AbstractInputCategory {
+public class SimpleCalculatorEqualToCommand extends AbstractCommand {
 
-  public SimpleCalculatorEqualToInputCategory(List<String> expression,
-                                              Set<Character> supportCharacters) {
+  public SimpleCalculatorEqualToCommand(List<String> expression,
+                                        Set<Character> supportCharacters) {
 
     super(expression, supportCharacters);
   }
