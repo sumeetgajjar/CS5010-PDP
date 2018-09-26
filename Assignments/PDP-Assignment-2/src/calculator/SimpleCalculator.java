@@ -50,7 +50,7 @@ import static calculator.bean.CommandName.OPERAND;
 public class SimpleCalculator extends AbstractCalculator {
 
   /**
-   * Initial Set of Commands that are supported by the SimpleCalculator.
+   * Initial Set of Commands that are supported by the {@link SimpleCalculator}.
    */
   private static final Set<CommandName> INITIAL_VALID_INPUT_CATEGORY_SET =
           Collections.unmodifiableSet(

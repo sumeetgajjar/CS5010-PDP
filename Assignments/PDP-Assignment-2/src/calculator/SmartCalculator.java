@@ -18,6 +18,9 @@ import calculator.util.Utils;
 
 public class SmartCalculator extends AbstractCalculator {
 
+  /**
+   * Initial Set of Commands that are supported by the {@link SmartCalculator}.
+   */
   private static final Set<CommandName> INITIAL_VALID_INPUT_CATEGORY_SET =
           Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
                   CommandName.CLEAR,
@@ -25,10 +28,25 @@ public class SmartCalculator extends AbstractCalculator {
                   CommandName.OPERAND)
           ));
 
+  /**
+   * last operation in the previous algebraic expression
+   */
   private final Operation lastOperation;
+
+  /**
+   * last operand in the previous algebraic expression
+   */
   private final int lastOperand;
 
-
+  /**
+   * Private Constructor which constructs a Object of {@link SmartCalculator} with given values.
+   *
+   * @param newExpression               current algebraic expression
+   * @param nextAnticipatedCommandNames the current result of calculator
+   * @param result                      set of valid command names next input can have
+   * @param lastOperation               last operation in the previous algebraic expression
+   * @param lastOperand                 last operand in the previous algebraic expression
+   */
   private SmartCalculator(List<String> newExpression,
                           Set<CommandName> nextAnticipatedCommandNames,
                           String result,
@@ -40,6 +58,18 @@ public class SmartCalculator extends AbstractCalculator {
     this.lastOperation = lastOperation;
   }
 
+  /**
+   * Public constructor which constructs a Object of {@link SmartCalculator} with default values.
+   * The default values of fields are as follows.
+   * <ul>
+   * <li><code>currentExpression</code>: empty list</li>
+   * <li><code>anticipatedCommandNames</code>: {@link CommandName#OPERAND},
+   * {@link CommandName#CLEAR}, {@link CommandName#OPERATOR}</li>
+   * <li><code>result</code>: ""</li>
+   * <li><code>lastOperation</code>: {@link Operation#ADD}</li>
+   * <li><code>lastOperand</code>: 0"</li>
+   * </ul>
+   */
   public SmartCalculator() {
     this(
             Collections.emptyList(),
@@ -49,16 +79,56 @@ public class SmartCalculator extends AbstractCalculator {
             0);
   }
 
+  /**
+   * Returns the list of supported operators by {@link SmartCalculator}. The list includes
+   * following.
+   * <ul>
+   * <li>+</li>
+   * <li>-</li>
+   * <li>*</li>
+   * </ul>
+   *
+   * @return the list of supported operators by {@link SmartCalculator}
+   */
   @Override
   protected Set<Character> getSupportedOperators() {
     return SUPPORTED_OPERATOR;
   }
 
+  /**
+   * Returns the list of supported digits by {@link SmartCalculator} The list includes following.
+   * <ul>
+   * <li>1</li>
+   * <li>2</li>
+   * <li>3</li>
+   * <li>4</li>
+   * <li>5</li>
+   * <li>6</li>
+   * <li>7</li>
+   * <li>8</li>
+   * <li>9</li>
+   * <li>0</li>
+   * </ul>
+   *
+   * @return the list of supported digits by {@link SmartCalculator}
+   */
   @Override
   protected Set<Character> getSupportedDigits() {
     return SUPPORTED_DIGITS;
   }
 
+  /**
+   * Returns the list of supported {@link Command} by {@link SmartCalculator}. The list includes
+   * following commands.
+   * <ul>
+   * <li>{@link SmartCalculatorOperandInputCommand}</li>
+   * <li>{@link SmartCalculatorOperatorInputCommand}</li>
+   * <li>{@link SmartCalculatorEqualToCommand}</li>
+   * <li>{@link SmartCalculatorClearInputCommand}</li>
+   * </ul>
+   *
+   * @return the list of supported {@link Command} by {@link SmartCalculator}
+   */
   @Override
   protected List<Command> getSupportedCommands() {
     return Arrays.asList(
@@ -84,6 +154,14 @@ public class SmartCalculator extends AbstractCalculator {
     );
   }
 
+  /**
+   * Returns a new Object of {@link SmartCalculator} with given values.
+   *
+   * @param expression              current algebraic expression
+   * @param result                  the current result of calculator
+   * @param anticipatedCommandNames set of valid command names next input can have
+   * @return a new Object of {@link SmartCalculator} with given values.
+   */
   @Override
   protected Calculator getCalculatorInstance(
           List<String> expression,
@@ -101,6 +179,12 @@ public class SmartCalculator extends AbstractCalculator {
             newLastOperand);
   }
 
+  /**
+   * Returns the last operation in the current algebraic expression. If the size of the current
+   * expression is 0 return {@link Operation#ADD}.
+   *
+   * @return the last operation in the current algebraic expression
+   */
   private Operation getLastOperator() {
     if (this.currentExpression.size() == 0) {
       return Operation.ADD;
@@ -119,6 +203,12 @@ public class SmartCalculator extends AbstractCalculator {
     throw new IllegalStateException("Cannot reach here");
   }
 
+  /**
+   * Returns the last operand in the current algebraic expression. If the size of the current
+   * expression is 0 returns 0.
+   *
+   * @return the last operand in the current algebraic expression
+   */
   private int getLastOperand() {
     if (this.currentExpression.size() == 0) {
       return 0;
