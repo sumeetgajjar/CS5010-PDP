@@ -136,7 +136,7 @@ public abstract class AbstractCalculatorTest {
   @Test
   public void testIllegalInputAfterNthOperand() {
     char[] validOperands = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-    char[] validOperators1 = new char[]{'+', '-', '*'};
+    char[] validOperators = new char[]{'+', '-', '*'};
 
     Calculator calculator = getCalculatorInstance();
     String expectedResult = "";
@@ -161,7 +161,7 @@ public abstract class AbstractCalculatorTest {
       }
       Assert.assertEquals(expectedResult, calculator.getResult());
 
-      char operator = validOperators1[random.nextInt(validOperators1.length)];
+      char operator = validOperators[random.nextInt(validOperators.length)];
       calculator = calculator.input(operator);
       expectedResult += operator;
     }
