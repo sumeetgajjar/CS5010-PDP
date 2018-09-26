@@ -33,6 +33,8 @@ import calculator.command.Command;
  * <p>The programmer should also provide a constructor, of following signature
  * <code>Calculator({@link List} currentExpression, {@link Set}
  * anticipatedCommandNames, {@link String} result)</code></p>
+ *
+ * <p>Programmers can use already defined Character Set for their Implementations</p>
  */
 public abstract class AbstractCalculator implements Calculator {
 
@@ -47,7 +49,7 @@ public abstract class AbstractCalculator implements Calculator {
   protected static final Set<Character> EQUAL_TO_CHARACTER_SET = Collections.singleton('=');
 
   /**
-   * Set of default supported Digits.
+   * Set of Digits from 0 to 9.
    */
   protected static final Set<Character> SUPPORTED_DIGITS = Collections.unmodifiableSet(
           new LinkedHashSet<>(
@@ -55,7 +57,7 @@ public abstract class AbstractCalculator implements Calculator {
                   )));
 
   /**
-   * Set of default supported operators.
+   * Set of Operations (+,-,*).
    */
   protected static final Set<Character> SUPPORTED_OPERATOR = Collections.unmodifiableSet(
           new LinkedHashSet<>(Arrays.asList('+', '-', '*')));
@@ -93,23 +95,23 @@ public abstract class AbstractCalculator implements Calculator {
   }
 
   /**
-   * Returns a {@link Set} of operators as character, which this Calculator supports.
+   * Returns a {@link Set} of character, which the Calculator supports.
    *
-   * @return a {@link Set} of operators as character, which this Calculator supports
+   * @return a {@link Set} of character, which the Calculator supports
    */
   protected abstract Set<Character> getSupportedOperators();
 
   /**
-   * Returns a {@link Set} of digits as characters, which this Calculator supports.
+   * Returns a {@link Set} of digits, which the Calculator supports.
    *
-   * @return a {@link Set} of digits as characters, which this Calculator supports
+   * @return a {@link Set} of digits, which the Calculator supports
    */
   protected abstract Set<Character> getSupportedDigits();
 
   /**
-   * Returns a {@link List} of {@link Command}, which this Calculator supports.
+   * Returns a {@link List} of {@link Command}, which the Calculator supports.
    *
-   * @return a {@link List} of {@link Command}, which this Calculator supports
+   * @return a {@link List} of {@link Command}, which the Calculator supports
    */
   protected abstract List<Command> getSupportedCommands();
 
@@ -128,9 +130,8 @@ public abstract class AbstractCalculator implements Calculator {
 
   /**
    * Takes an input char and returns a new {@link Calculator} object. The new {@link Calculator} is
-   * result of successful processing of the given char. It throws an IllegalArgumentException for
-   * all invalid inputs and sequences, and a RuntimeException if a valid input causes an operand to
-   * overflow.
+   * result of processing the given char. It throws an IllegalArgumentException for all invalid
+   * inputs and sequences, and a RuntimeException if a valid input causes an operand to overflow.
    *
    * @param input the input for the {@link Calculator}
    * @return a new {@link Calculator} object as a result of correct processing of given input
@@ -148,8 +149,7 @@ public abstract class AbstractCalculator implements Calculator {
 
     String newResult = generateResultString(newExpression);
 
-    Set<CommandName> nextAnticipatedCommandNames =
-            currentCommand.getNextValidCommands();
+    Set<CommandName> nextAnticipatedCommandNames = currentCommand.getNextValidCommands();
 
     return getCalculatorInstance(newExpression, newResult, nextAnticipatedCommandNames);
   }

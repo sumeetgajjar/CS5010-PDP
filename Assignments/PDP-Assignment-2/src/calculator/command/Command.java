@@ -20,15 +20,14 @@ public interface Command {
   boolean doesInputCharacterBelongToCommand(char input);
 
   /**
-   * Returns the associated {@link CommandName} with the Command.
+   * Returns the {@link CommandName} associated with the Command.
    *
-   * @return the associated {@link CommandName} with the Command
+   * @return the {@link CommandName} associated with the Command
    */
   CommandName getCommandName();
 
   /**
    * Returns the algebraic expression generated as result of performing action on the given input.
-   * It throws an RuntimeException if the given input causes an operand overflow for the calculator
    *
    * @param input input character
    * @return the algebraic expression generated as result of performing action on the given input
