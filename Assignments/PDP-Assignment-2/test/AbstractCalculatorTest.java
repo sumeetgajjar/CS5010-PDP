@@ -186,6 +186,15 @@ public abstract class AbstractCalculatorTest {
     }
     Assert.assertEquals("214748364", calculator.getResult());
 
+    calculator = calculator.input('+');
+    Assert.assertEquals("214748364+", calculator.getResult());
+
+    calculator = calculator.input('1');
+    Assert.assertEquals("214748364+1", calculator.getResult());
+
+    calculator = calculator.input('=');
+    Assert.assertEquals("214748365", calculator.getResult());
+
     Calculator calculator1 = getCalculatorInstance();
     try {
       calculator1 = calculator1.input('1').input('+');
@@ -202,6 +211,8 @@ public abstract class AbstractCalculatorTest {
     }
     Assert.assertEquals("1+214748364", calculator1.getResult());
 
+    calculator1 = calculator1.input('=');
+    Assert.assertEquals("214748365", calculator.getResult());
   }
 
   @Test
