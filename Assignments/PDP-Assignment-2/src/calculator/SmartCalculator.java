@@ -60,7 +60,7 @@ public class SmartCalculator extends AbstractCalculator {
   }
 
   @Override
-  protected List<Command> getSupportedInputCategoryInterface() {
+  protected List<Command> getSupportedCommands() {
     return Arrays.asList(
             new SmartCalculatorOperandInputCommand(
                     this.currentExpression,

@@ -27,7 +27,7 @@ import calculator.command.Command;
  * <ul>
  * <li>getSupportedOperators</li>
  * <li>getSupportedDigits</li>
- * <li>getSupportedInputCategoryInterface</li>
+ * <li>getSupportedCommands</li>
  * <li>getCalculatorInstance</li>
  * </ul>
  *
@@ -89,7 +89,7 @@ public abstract class AbstractCalculator implements Calculator {
 
   protected abstract Set<Character> getSupportedDigits();
 
-  protected abstract List<Command> getSupportedInputCategoryInterface();
+  protected abstract List<Command> getSupportedCommands();
 
   protected abstract Calculator getCalculatorInstance(
           List<String> expression,
@@ -132,7 +132,7 @@ public abstract class AbstractCalculator implements Calculator {
   private Command getInputCategoryInterface(char input)
           throws IllegalArgumentException {
 
-    for (Command command : getSupportedInputCategoryInterface()) {
+    for (Command command : getSupportedCommands()) {
       if (command.doesInputCharacterBelongToCommand(input)) {
         return command;
       }
