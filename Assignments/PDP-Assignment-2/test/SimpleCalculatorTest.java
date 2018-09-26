@@ -167,7 +167,7 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
       Assert.fail("Should have failed");
     } catch (IllegalArgumentException ignored) {
     }
-    Assert.assertEquals("32", calculator.getResult());
+    Assert.assertEquals("", calculator.getResult());
 
     try {
       calculator = calculator.input('3').input('2');
@@ -269,17 +269,17 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
     calculator = calculator.input('=');
     Assert.assertEquals("6", calculator.getResult());
     calculator = calculator.input('*');
-    Assert.assertEquals("4*", calculator.getResult());
+    Assert.assertEquals("6*", calculator.getResult());
     calculator = calculator.input('8');
-    Assert.assertEquals("4*8", calculator.getResult());
+    Assert.assertEquals("6*8", calculator.getResult());
     calculator = calculator.input('=');
-    Assert.assertEquals("32", calculator.getResult());
+    Assert.assertEquals("48", calculator.getResult());
     calculator = calculator.input('-');
-    Assert.assertEquals("32-", calculator.getResult());
+    Assert.assertEquals("48-", calculator.getResult());
     calculator = calculator.input('7');
-    Assert.assertEquals("32-7", calculator.getResult());
+    Assert.assertEquals("48-7", calculator.getResult());
     calculator = calculator.input('=');
-    Assert.assertEquals("25", calculator.getResult());
+    Assert.assertEquals("41", calculator.getResult());
   }
 
   @Test
