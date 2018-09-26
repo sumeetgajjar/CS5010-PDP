@@ -10,14 +10,13 @@ import java.util.Set;
 
 import calculator.SmartCalculator;
 import calculator.bean.CommandName;
-import calculator.command.AbstractCommand;
 import calculator.command.Command;
 import calculator.command.simplecalculator.SimpleCalculatorOperatorInputCommand;
 import calculator.util.Utils;
 
 /**
  * This class represents Operator Input {@link Command} for {@link SmartCalculator}. It extends
- * {@link AbstractCommand}.
+ * {@link SimpleCalculatorOperatorInputCommand}.
  */
 public class SmartCalculatorOperatorInputCommand extends SimpleCalculatorOperatorInputCommand {
 
