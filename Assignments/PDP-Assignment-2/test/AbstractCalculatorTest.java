@@ -5,6 +5,11 @@ import java.util.Random;
 
 import calculator.Calculator;
 
+/**
+ * This class represents common tests that applies to both Simple And Smart Calculator. In order to
+ * use this class the programmer needs to extend this and implement method
+ * <tt>getCalculatorInstance</tt>.
+ */
 public abstract class AbstractCalculatorTest {
 
   protected abstract Calculator getCalculatorInstance();
