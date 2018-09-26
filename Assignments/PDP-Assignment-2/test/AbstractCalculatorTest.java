@@ -258,14 +258,46 @@ public abstract class AbstractCalculatorTest {
     calculator = calculator.input('1').input('0').input('-').input('2').input('0').input('=');
     Assert.assertEquals("-10", calculator.getResult());
 
-    calculator = calculator
+    calculator = calculator.input('+');
+    Assert.assertEquals("-10+", calculator.getResult());
+
+    calculator = calculator.input('1');
+    Assert.assertEquals("-10+1", calculator.getResult());
+
+    calculator = calculator.input('=');
+    Assert.assertEquals("-9", calculator.getResult());
+
+    calculator = calculator.input('*');
+    Assert.assertEquals("-9*", calculator.getResult());
+
+    calculator = calculator.input('3');
+    Assert.assertEquals("-9*3", calculator.getResult());
+
+    calculator = calculator.input('=');
+    Assert.assertEquals("-27", calculator.getResult());
+
+
+    Calculator calculatorSub = calculator
             .input('-')
             .input('2').input('1').input('4').input('7')
             .input('4').input('8').input('3').input('6')
             .input('4').input('7');
 
-    calculator = calculator.input('+').input('1').input('=');
-    Assert.assertEquals("1", calculator.getResult());
+    Assert.assertEquals("-27-2147483647", calculatorSub.getResult());
+
+    calculatorSub = calculatorSub.input('=');
+    Assert.assertEquals("0", calculatorSub.getResult());
+
+    Calculator calculatorMul = calculator
+            .input('*')
+            .input('2').input('1').input('4').input('7')
+            .input('4').input('8').input('3').input('6')
+            .input('4').input('7');
+
+    Assert.assertEquals("-27*2147483647", calculatorMul.getResult());
+
+    calculatorMul = calculatorMul.input('=');
+    Assert.assertEquals("0", calculatorMul.getResult());
   }
 
   @Test
