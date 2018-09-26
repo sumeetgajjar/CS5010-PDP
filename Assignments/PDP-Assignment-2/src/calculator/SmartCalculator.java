@@ -69,12 +69,12 @@ public class SmartCalculator extends AbstractCalculator {
           ));
 
   /**
-   * last operation in the previous algebraic expression
+   * last operation in the previous algebraic expression.
    */
   private final Operation lastOperation;
 
   /**
-   * last operand in the previous algebraic expression
+   * last operand in the previous algebraic expression.
    */
   private final int lastOperand;
 

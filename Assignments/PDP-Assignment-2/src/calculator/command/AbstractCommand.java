@@ -32,6 +32,12 @@ public abstract class AbstractCommand implements Command {
     this.supportedCharacters = Collections.unmodifiableSet(supportCharacters);
   }
 
+  /**
+   * Checks if the given character is present the supportedCharacters {@link Set}
+   *
+   * @param input input character
+   * @return if the given character is present the supportedCharacters {@link Set}
+   */
   @Override
   public boolean doesInputCharacterBelongToCommand(char input) {
     return this.supportedCharacters.contains(input);
