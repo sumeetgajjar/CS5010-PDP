@@ -18,11 +18,34 @@ import static calculator.bean.CommandName.OPERAND;
 
 /**
  * This class represents a SimpleCalculator. It extends {@link AbstractCalculator} and it can only
- * work with 32-bit whole numbers. The SimpleCalculator does not support negative numbers as input,
- * although it can handle negative results. The input method throws an IllegalArgumentException for
- * all invalid inputs and sequences, and a RuntimeException if a valid input causes an operand to
- * overflow. If the result of the arithmetic overflows, then the result is reported as 0. For e.g.,
- * p + q - 1 0 will result in -10 if p+q overflows.
+ * work with 32-bit whole numbers.
+ *
+ * The valid operand characters are 0-9.
+ *
+ * The valid operators are +, - and *.
+ *
+ * The SimpleCalculator does not support negative numbers as input, although it can handle negative
+ * results.
+ *
+ * The {@link SimpleCalculator} does not “infer” any missing inputs. For e.g.,11+=, will reported as
+ * an error.
+ *
+ * The calculator does allow inputting “=” multiple times
+ *
+ * The input ’C’ will clear the calculator inputs.
+ *
+ * The input method throws an IllegalArgumentException for all invalid inputs and sequences, and a
+ * RuntimeException if a valid input causes an operand to overflow. If the result of the arithmetic
+ * overflows, then the result is reported as 0. For e.g., p + q - 1 0 will result in -10 if p+q
+ * overflows.
+ *
+ * Following is the list of valid input sequences for {@link SimpleCalculator}.
+ * <ul>
+ * <li>12+20=</li>
+ * <li>12+20-40=</li>
+ * <li>12+20=-40=</li>
+ * <li>12+20=-40=====</li>
+ * </ul>
  */
 public class SimpleCalculator extends AbstractCalculator {
 
