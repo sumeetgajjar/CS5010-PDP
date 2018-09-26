@@ -33,7 +33,7 @@ public abstract class AbstractCommand implements Command {
   }
 
   /**
-   * Checks if the given character is present the supportedCharacters {@link Set}
+   * Checks if the given character is present the supportedCharacters {@link Set}.
    *
    * @param input input character
    * @return if the given character is present the supportedCharacters {@link Set}

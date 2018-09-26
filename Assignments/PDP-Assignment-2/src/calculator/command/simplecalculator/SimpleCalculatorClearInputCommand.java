@@ -7,10 +7,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import calculator.SimpleCalculator;
 import calculator.bean.CommandName;
 import calculator.command.AbstractCommand;
+import calculator.command.Command;
 import calculator.util.Utils;
 
+/**
+ * This class represents ClearInput {@link Command} for {@link SimpleCalculator}.
+ */
 public class SimpleCalculatorClearInputCommand extends AbstractCommand {
 
   public SimpleCalculatorClearInputCommand(List<String> expression,
