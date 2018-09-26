@@ -15,7 +15,7 @@ public interface Calculator {
   Calculator input(char input);
 
   /**
-   * Returns the current result of the {@link Calculator }as {@link String} object.
+   * Returns the current result of the {@link Calculator } as {@link String} object.
    *
    * @return the current result of the {@link Calculator}
    */

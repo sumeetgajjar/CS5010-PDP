@@ -9,18 +9,71 @@ import java.util.Set;
 import calculator.bean.InputCategoryName;
 import calculator.inputcategory.InputCategoryInterface;
 
+/**
+ * This class provides a skeletal implementation of the {@link Calculator} interface. It minimize
+ * the effort required to implement this interface. It has following protected fields.
+ *
+ * <ul>
+ * <li><code>currentExpression</code> : It stores the current algebraic expression as {@link
+ * List}</li>
+ * <li><code>anticipatedInputCategoryNames</code> : It is a {@link Set} of valid {@link
+ * InputCategoryName} the next Input can have</li>
+ * <li><code>result</code> : It stores the result of the calculator as {@link String}</li>
+ * </ul>
+ *
+ * To implement a {@link Calculator} the programmer needs to extend this class and provide
+ * implementations for following methods.
+ *
+ * <ul>
+ * <li>getSupportedOperators</li>
+ * <li>getSupportedDigits</li>
+ * <li>getSupportedInputCategoryInterface</li>
+ * <li>getCalculatorInstance</li>
+ * </ul>
+ *
+ * The programmer should also provide a constructor, of following signature
+ * <code>Calculator({@link List<String>} currentExpression, {@link Set<InputCategoryName>}
+ * anticipatedInputCategoryNames, {@link String} result)</code>
+ */
 public abstract class AbstractCalculator implements Calculator {
 
+  /**
+   * Set of valid characters for "Clear Input" command.
+   */
   protected static final Set<Character> CLEAR_CHARACTER_SET = Collections.singleton('C');
+
+  /**
+   * Set of valid characters for "Equal To" command.
+   */
   protected static final Set<Character> EQUAL_TO_CHARACTER_SET = Collections.singleton('=');
+
+  /**
+   * Set of default supported Digits.
+   */
   protected static final Set<Character> SUPPORTED_DIGITS = Collections.unmodifiableSet(
           new LinkedHashSet<>(
                   Arrays.asList('1', '2', '3', '4', '5', '6', '7', '8', '9', '0'
                   )));
+
+  /**
+   * Set of default supported operators.
+   */
   protected static final Set<Character> SUPPORTED_OPERATOR = Collections.unmodifiableSet(
           new LinkedHashSet<>(Arrays.asList('+', '-', '*')));
+
+  /**
+   * stores the current algebraic expression.
+   */
   protected final List<String> currentExpression;
+
+  /**
+   * stores the valid InputCategoryName, the next input can have.
+   */
   protected final Set<InputCategoryName> anticipatedInputCategoryNames;
+
+  /**
+   * stores the current result of the calculator.
+   */
   protected final String result;
 
   protected AbstractCalculator(List<String> currentExpression,
@@ -32,7 +85,6 @@ public abstract class AbstractCalculator implements Calculator {
     this.result = result;
   }
 
-  //todo check usages and need of abstract methods
   protected abstract Set<Character> getSupportedOperators();
 
   protected abstract Set<Character> getSupportedDigits();
