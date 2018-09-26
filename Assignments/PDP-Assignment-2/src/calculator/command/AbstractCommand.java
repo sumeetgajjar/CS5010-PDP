@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import calculator.bean.CommandName;
+
 /**
  * This class provides a skeletal implementation of the {@link Command} interface. It minimize the
  * effort required to implement this interface. It has following protected fields.
@@ -26,15 +28,18 @@ public abstract class AbstractCommand implements Command {
 
   protected final List<String> expression;
   protected final Set<Character> supportedCharacters;
+  protected final CommandName commandName;
 
   /**
    * Protected Constructor for invocation by subclass constructors. It initializes the fields to
    * given values. This values once initialized cannot be modified.
    *
-   * @param expression        current algebraic expression
+   * @param commandName       the name of the command
    * @param supportCharacters set of characters supported by the command
+   * @param expression        current algebraic expression
    */
-  protected AbstractCommand(List<String> expression, Set<Character> supportCharacters) {
+  protected AbstractCommand(CommandName commandName, Set<Character> supportCharacters, List<String> expression) {
+    this.commandName = commandName;
     this.expression = Collections.unmodifiableList(expression);
     this.supportedCharacters = Collections.unmodifiableSet(supportCharacters);
   }
@@ -48,5 +53,15 @@ public abstract class AbstractCommand implements Command {
   @Override
   public boolean doesInputCharacterBelongToCommand(char input) {
     return this.supportedCharacters.contains(input);
+  }
+
+  /**
+   * returns the command name.
+   *
+   * @return the command name
+   */
+  @Override
+  public CommandName getCommandName() {
+    return this.commandName;
   }
 }
