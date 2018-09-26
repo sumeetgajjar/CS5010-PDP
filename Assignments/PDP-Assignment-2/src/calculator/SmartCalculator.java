@@ -19,22 +19,35 @@ import calculator.util.Utils;
 public class SmartCalculator extends AbstractCalculator {
 
   private static final Set<InputCategoryName> INITIAL_VALID_INPUT_CATEGORY_SET =
-          Collections.unmodifiableSet(new HashSet<>(
-                  Arrays.asList(InputCategoryName.CLEAR, InputCategoryName.OPERATOR, InputCategoryName.OPERAND)
+          Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
+                  InputCategoryName.CLEAR,
+                  InputCategoryName.OPERATOR,
+                  InputCategoryName.OPERAND)
           ));
 
   private final Operation lastOperation;
   private final int lastOperand;
 
 
-  private SmartCalculator(List<String> newExpression, Set<InputCategoryName> nextAnticipatedInputCategoryNames, String result, Operation lastOperation, int lastOperand) {
+  private SmartCalculator(
+          List<String> newExpression,
+          Set<InputCategoryName> nextAnticipatedInputCategoryNames,
+          String result,
+          Operation lastOperation,
+          int lastOperand) {
+
     super(newExpression, nextAnticipatedInputCategoryNames, result);
     this.lastOperand = lastOperand;
     this.lastOperation = lastOperation;
   }
 
   public SmartCalculator() {
-    this(Collections.emptyList(), INITIAL_VALID_INPUT_CATEGORY_SET, "", Operation.ADD, 0);
+    this(
+            Collections.emptyList(),
+            INITIAL_VALID_INPUT_CATEGORY_SET,
+            "",
+            Operation.ADD,
+            0);
   }
 
   @Override
@@ -50,18 +63,43 @@ public class SmartCalculator extends AbstractCalculator {
   @Override
   protected List<InputCategoryInterface> getSupportedInputCategoryInterface() {
     return Arrays.asList(
-            new SmartCalculatorOperandInputCategory(this.currentExpression, getSupportedDigits(), getSupportedOperators()),
-            new SmartCalculatorOperatorInputCategory(this.currentExpression, getSupportedOperators(), getSupportedDigits()),
-            new SmartCalculatorEqualToInputCategory(this.currentExpression, EQUAL_TO_CHARACTER_SET, lastOperation, lastOperand),
-            new SmartCalculatorClearInputCategory(this.currentExpression, CLEAR_CHARACTER_SET)
+            new SmartCalculatorOperandInputCategory(
+                    this.currentExpression,
+                    getSupportedDigits(),
+                    getSupportedOperators()),
+
+            new SmartCalculatorOperatorInputCategory(
+                    this.currentExpression,
+                    getSupportedOperators(),
+                    getSupportedDigits()),
+
+            new SmartCalculatorEqualToInputCategory(
+                    this.currentExpression,
+                    EQUAL_TO_CHARACTER_SET,
+                    lastOperation,
+                    lastOperand),
+
+            new SmartCalculatorClearInputCategory(
+                    this.currentExpression,
+                    CLEAR_CHARACTER_SET)
     );
   }
 
   @Override
-  protected Calculator getCalculatorInstance(List<String> expression, String result, Set<InputCategoryName> anticipatedInputCategoryNames) {
+  protected Calculator getCalculatorInstance(
+          List<String> expression,
+          String result,
+          Set<InputCategoryName> anticipatedInputCategoryNames) {
+
     int newLastOperand = getLastOperand();
     Operation newLastOperator = getLastOperator();
-    return new SmartCalculator(expression, anticipatedInputCategoryNames, result, newLastOperator, newLastOperand);
+
+    return new SmartCalculator(
+            expression,
+            anticipatedInputCategoryNames,
+            result,
+            newLastOperator,
+            newLastOperand);
   }
 
   private Operation getLastOperator() {
