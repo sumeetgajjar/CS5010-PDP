@@ -77,7 +77,8 @@ public abstract class AbstractCalculator implements Calculator {
   protected final String result;
 
   /**
-   * Constructs a Object of the caller Class and initializes the fields to given values.
+   * Protected Constructor for invocation by subclass constructors. It initializes the fields to
+   * given values.
    *
    * @param currentExpression       current algebraic expression
    * @param anticipatedCommandNames set of valid command names next input can have
@@ -92,12 +93,35 @@ public abstract class AbstractCalculator implements Calculator {
     this.result = result;
   }
 
+  /**
+   * Returns a {@link Set} of operators as character, which this Calculator supports.
+   *
+   * @return a {@link Set} of operators as character, which this Calculator supports
+   */
   protected abstract Set<Character> getSupportedOperators();
 
+  /**
+   * Returns a {@link Set} of digits as characters, which this Calculator supports.
+   *
+   * @return a {@link Set} of digits as characters, which this Calculator supports
+   */
   protected abstract Set<Character> getSupportedDigits();
 
+  /**
+   * Returns a {@link List} of {@link Command}, which this Calculator supports.
+   *
+   * @return a {@link List} of {@link Command}, which this Calculator supports
+   */
   protected abstract List<Command> getSupportedCommands();
 
+  /**
+   * Returns a new Calculator Object with the given values.
+   *
+   * @param expression              current algebraic expression
+   * @param result                  the current result of calculator
+   * @param anticipatedCommandNames set of valid command names next input can have
+   * @return a new Calculator Object with the given values
+   */
   protected abstract Calculator getCalculatorInstance(
           List<String> expression,
           String result,
