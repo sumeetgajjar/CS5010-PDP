@@ -31,7 +31,8 @@ public abstract class AbstractCalculatorTest {
           Assert.assertEquals(String.format("%s%s", input1, operator), calculator.getResult());
 
           calculator = calculator.input(input2);
-          Assert.assertEquals(String.format("%s%s%s", input1, operator, input2), calculator.getResult());
+          Assert.assertEquals(String.format("%s%s%s", input1, operator, input2),
+                  calculator.getResult());
 
         }
       }

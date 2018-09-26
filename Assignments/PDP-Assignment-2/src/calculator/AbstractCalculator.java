@@ -12,7 +12,6 @@ import calculator.command.Command;
 /**
  * This class provides a skeletal implementation of the {@link Calculator} interface. It minimize
  * the effort required to implement this interface. It has following protected fields.
- *
  * <ul>
  * <li><code>currentExpression</code> : It stores the current algebraic expression as {@link
  * List}</li>
@@ -21,7 +20,7 @@ import calculator.command.Command;
  * <li><code>result</code> : It stores the result of the calculator as {@link String}</li>
  * </ul>
  *
- * To implement a {@link Calculator} the programmer needs to extend this class and provide
+ * <p>To implement a {@link Calculator} the programmer needs to extend this class and provide
  * implementations for following methods.
  *
  * <ul>
@@ -29,11 +28,11 @@ import calculator.command.Command;
  * <li>getSupportedDigits</li>
  * <li>getSupportedCommands</li>
  * <li>getCalculatorInstance</li>
- * </ul>
+ * </ul></p>
  *
- * The programmer should also provide a constructor, of following signature
+ * <p>The programmer should also provide a constructor, of following signature
  * <code>Calculator({@link List} currentExpression, {@link Set}
- * anticipatedCommandNames, {@link String} result)</code>
+ * anticipatedCommandNames, {@link String} result)</code></p>
  */
 public abstract class AbstractCalculator implements Calculator {
 
