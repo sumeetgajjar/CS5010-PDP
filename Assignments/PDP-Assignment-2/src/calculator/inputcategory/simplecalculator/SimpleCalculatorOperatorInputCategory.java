@@ -25,7 +25,7 @@ public class SimpleCalculatorOperatorInputCategory extends AbstractInputCategory
   }
 
   @Override
-  public List<String> performAction(char input) {
+  public List<String> performAction(char input) throws RuntimeException {
     Deque<String> expressionDeque = Utils.getExpressionDeque(this.expression);
     expressionDeque.addLast(String.valueOf(input));
     return Utils.getExpressionList(expressionDeque);

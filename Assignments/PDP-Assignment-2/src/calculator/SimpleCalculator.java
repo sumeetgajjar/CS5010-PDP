@@ -16,6 +16,9 @@ import calculator.inputcategory.simplecalculator.SimpleCalculatorOperatorInputCa
 import static calculator.bean.InputCategoryName.CLEAR;
 import static calculator.bean.InputCategoryName.OPERAND;
 
+/**
+ * This class represents a SimpleCalculator. It can only work with 32-bit whole numbers.
+ */
 public class SimpleCalculator extends AbstractCalculator {
 
   private static final Set<InputCategoryName> INITIAL_VALID_INPUT_CATEGORY_SET =

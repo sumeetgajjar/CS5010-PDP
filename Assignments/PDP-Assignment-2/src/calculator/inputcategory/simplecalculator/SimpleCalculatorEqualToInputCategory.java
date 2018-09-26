@@ -26,7 +26,7 @@ public class SimpleCalculatorEqualToInputCategory extends AbstractInputCategory 
   }
 
   @Override
-  public List<String> performAction(char input) {
+  public List<String> performAction(char input) throws RuntimeException {
     return evaluateExpression(this.expression);
   }
 

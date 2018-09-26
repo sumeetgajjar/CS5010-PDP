@@ -25,7 +25,7 @@ public class SmartCalculatorOperatorInputCategory extends SimpleCalculatorOperat
   }
 
   @Override
-  public List<String> performAction(char input) {
+  public List<String> performAction(char input) throws RuntimeException {
     Deque<String> expressionDeque = Utils.getExpressionDeque(this.expression);
 
     String lastElement = expressionDeque.peekLast();

@@ -24,7 +24,7 @@ public class SmartCalculatorEqualToInputCategory extends SimpleCalculatorEqualTo
   }
 
   @Override
-  public List<String> performAction(char input) {
+  public List<String> performAction(char input) throws RuntimeException {
     Deque<String> expressionDeque = Utils.getExpressionDeque(this.expression);
 
     if (expressionDeque.size() == 1) {

@@ -11,7 +11,7 @@ public interface InputCategoryInterface {
 
   InputCategoryName getInputCategory();
 
-  List<String> performAction(char input);
+  List<String> performAction(char input) throws RuntimeException;
 
   Set<InputCategoryName> getNextValidInputCategorySet();
 }

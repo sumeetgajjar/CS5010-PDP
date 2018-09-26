@@ -45,7 +45,7 @@ public abstract class AbstractCalculator implements Calculator {
           Set<InputCategoryName> anticipatedInputCategoryNames);
 
   @Override
-  public Calculator input(char input) throws IllegalArgumentException {
+  public Calculator input(char input) throws IllegalArgumentException, RuntimeException {
     InputCategoryInterface currentInputCategoryInterface = getInputCategoryInterface(input);
 
     isCurrentInputValid(input, currentInputCategoryInterface.getInputCategory());

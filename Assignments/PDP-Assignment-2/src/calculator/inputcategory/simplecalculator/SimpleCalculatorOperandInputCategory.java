@@ -31,7 +31,7 @@ public class SimpleCalculatorOperandInputCategory extends AbstractInputCategory 
   }
 
   @Override
-  public List<String> performAction(char input) {
+  public List<String> performAction(char input) throws RuntimeException {
     Deque<String> expressionDeque = Utils.getExpressionDeque(this.expression);
 
     String lastElement = expressionDeque.peekLast();
@@ -55,7 +55,7 @@ public class SimpleCalculatorOperandInputCategory extends AbstractInputCategory 
     return Utils.getExpressionList(expressionDeque);
   }
 
-  private String appendDigit(String numberString, char digitToAppend) {
+  private String appendDigit(String numberString, char digitToAppend) throws RuntimeException {
     try {
       int currentNumber = Integer.parseInt(numberString);
       int newNumber = Math.addExact(Math.multiplyExact(currentNumber, 10), digitToAppend - '0');
