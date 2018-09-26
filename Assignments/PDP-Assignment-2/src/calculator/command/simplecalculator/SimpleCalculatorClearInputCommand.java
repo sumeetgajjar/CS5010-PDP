@@ -14,7 +14,8 @@ import calculator.command.Command;
 import calculator.util.Utils;
 
 /**
- * This class represents ClearInput {@link Command} for {@link SimpleCalculator}.
+ * This class represents ClearInput {@link Command} for {@link SimpleCalculator}. It extends {@link
+ * AbstractCommand}.
  */
 public class SimpleCalculatorClearInputCommand extends AbstractCommand {
 

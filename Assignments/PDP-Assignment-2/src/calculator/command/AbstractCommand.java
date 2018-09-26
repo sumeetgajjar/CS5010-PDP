@@ -27,6 +27,13 @@ public abstract class AbstractCommand implements Command {
   protected final List<String> expression;
   protected final Set<Character> supportedCharacters;
 
+  /**
+   * Protected Constructor for invocation by subclass constructors. It initializes the fields to
+   * given values.
+   *
+   * @param expression        current algebraic expression
+   * @param supportCharacters set of characters supported by the command
+   */
   protected AbstractCommand(List<String> expression, Set<Character> supportCharacters) {
     this.expression = Collections.unmodifiableList(expression);
     this.supportedCharacters = Collections.unmodifiableSet(supportCharacters);
