@@ -56,7 +56,6 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
     calculatorTwoOperand = calculatorTwoOperand.input('=');
     Assert.assertEquals("11", calculatorTwoOperand.getResult());
 
-
     calculator = calculator.input('-');
     Assert.assertEquals("10+1-", calculator.getResult());
     calculator = calculator.input('2');
@@ -67,7 +66,6 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
     Assert.assertEquals("9", calculatorThreeOperand.getResult());
     calculatorThreeOperand = calculatorThreeOperand.input('=');
     Assert.assertEquals("9", calculatorThreeOperand.getResult());
-
 
     Calculator calculatorFourOperand = calculator.input('*');
     Assert.assertEquals("10+1-2*", calculatorFourOperand.getResult());
