@@ -98,7 +98,7 @@ public abstract class AbstractCalculator implements Calculator {
 
   @Override
   public Calculator input(char input) throws IllegalArgumentException, RuntimeException {
-    Command currentCommand = getInputCategoryInterface(input);
+    Command currentCommand = mapInputToCommand(input);
 
     isCurrentInputValid(input, currentCommand.getCommandName());
 
@@ -129,7 +129,7 @@ public abstract class AbstractCalculator implements Calculator {
     return String.join("", expression);
   }
 
-  private Command getInputCategoryInterface(char input)
+  private Command mapInputToCommand(char input)
           throws IllegalArgumentException {
 
     for (Command command : getSupportedCommands()) {
