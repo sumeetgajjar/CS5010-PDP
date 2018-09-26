@@ -16,7 +16,11 @@ public class SimpleCalculatorOperandInputCategory extends AbstractInputCategory 
 
   private final Set<Character> supportedOperators;
 
-  public SimpleCalculatorOperandInputCategory(List<String> expression, Set<Character> supportCharacters, Set<Character> supportedOperators) {
+  public SimpleCalculatorOperandInputCategory(
+          List<String> expression,
+          Set<Character> supportCharacters,
+          Set<Character> supportedOperators) {
+
     super(expression, supportCharacters);
     this.supportedOperators = Collections.unmodifiableSet(supportedOperators);
   }
