@@ -1,7 +1,9 @@
 package calculator;
 
 /**
- * This interface represents a Single Calculator. It takes input as One character at a time.
+ * This interface represents a Calculator. It takes input as One character at a time. The input is
+ * given using <tt>input(char input)</tt> method. To get the current result of the Calculator
+ * <tt>getResult()</tt> should be used, which returns a String Object.
  */
 public interface Calculator {
 
