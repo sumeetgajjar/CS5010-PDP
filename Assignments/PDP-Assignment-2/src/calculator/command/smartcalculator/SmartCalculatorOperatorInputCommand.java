@@ -54,6 +54,12 @@ public class SmartCalculatorOperatorInputCommand extends SimpleCalculatorOperato
     String lastElement = expressionDeque.peekLast();
     if (Objects.nonNull(lastElement)) {
 
+      /* If last element in the expression is operator then
+       * ignore the operator by remove it from the expression.
+       * If last element in the expression is operand then
+       * append the operator in the expression.
+       */
+
       char ch = lastElement.charAt(lastElement.length() - 1);
       if (this.supportedDigits.contains(ch)) {
         expressionDeque.addLast(String.valueOf(input));
