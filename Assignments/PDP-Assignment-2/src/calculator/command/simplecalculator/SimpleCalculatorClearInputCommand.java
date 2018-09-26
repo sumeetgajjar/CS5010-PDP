@@ -29,17 +29,7 @@ public class SimpleCalculatorClearInputCommand extends AbstractCommand {
   public SimpleCalculatorClearInputCommand(List<String> expression,
                                            Set<Character> clearInputCharacterSet) {
 
-    super(expression, clearInputCharacterSet);
-  }
-
-  /**
-   * returns the command name.
-   *
-   * @return the command name
-   */
-  @Override
-  public CommandName getCommandName() {
-    return CommandName.CLEAR;
+    super(CommandName.CLEAR, clearInputCharacterSet, expression);
   }
 
   /**

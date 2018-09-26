@@ -36,18 +36,8 @@ public class SimpleCalculatorOperandInputCommand extends AbstractCommand {
           Set<Character> supportOperands,
           Set<Character> supportedOperators) {
 
-    super(expression, supportOperands);
+    super(CommandName.OPERAND, supportOperands, expression);
     this.supportedOperators = Collections.unmodifiableSet(supportedOperators);
-  }
-
-  /**
-   * returns the command name.
-   *
-   * @return the command name
-   */
-  @Override
-  public CommandName getCommandName() {
-    return CommandName.OPERAND;
   }
 
   /**

@@ -29,17 +29,7 @@ public class SimpleCalculatorOperatorInputCommand extends AbstractCommand {
   public SimpleCalculatorOperatorInputCommand(List<String> expression,
                                               Set<Character> supportOperators) {
 
-    super(expression, supportOperators);
-  }
-
-  /**
-   * returns the command name.
-   *
-   * @return the command name
-   */
-  @Override
-  public CommandName getCommandName() {
-    return CommandName.OPERATOR;
+    super(CommandName.OPERATOR, supportOperators, expression);
   }
 
   /**

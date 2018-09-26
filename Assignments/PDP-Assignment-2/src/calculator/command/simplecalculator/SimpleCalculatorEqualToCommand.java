@@ -30,17 +30,7 @@ public class SimpleCalculatorEqualToCommand extends AbstractCommand {
   public SimpleCalculatorEqualToCommand(List<String> expression,
                                         Set<Character> supportCharacters) {
 
-    super(expression, supportCharacters);
-  }
-
-  /**
-   * returns the command name.
-   *
-   * @return the command name
-   */
-  @Override
-  public CommandName getCommandName() {
-    return CommandName.EQUAL_TO;
+    super(CommandName.EQUAL_TO, supportCharacters, expression);
   }
 
   /**
