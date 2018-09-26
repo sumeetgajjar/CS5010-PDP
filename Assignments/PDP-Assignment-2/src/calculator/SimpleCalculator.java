@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Set;
 
 import calculator.bean.InputCategoryName;
+import calculator.inputcategory.InputCategoryInterface;
 import calculator.inputcategory.simplecalculator.SimpleCalculatorClearInputCategory;
 import calculator.inputcategory.simplecalculator.SimpleCalculatorEqualToInputCategory;
-import calculator.inputcategory.InputCategoryInterface;
 import calculator.inputcategory.simplecalculator.SimpleCalculatorOperandInputCategory;
 import calculator.inputcategory.simplecalculator.SimpleCalculatorOperatorInputCategory;
 
