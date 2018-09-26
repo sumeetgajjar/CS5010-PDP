@@ -8,13 +8,12 @@ import java.util.Set;
 
 import calculator.SmartCalculator;
 import calculator.bean.CommandName;
-import calculator.command.AbstractCommand;
 import calculator.command.Command;
 import calculator.command.simplecalculator.SimpleCalculatorClearInputCommand;
 
 /**
  * This class represents ClearInput {@link Command} for {@link SmartCalculator}. It extends {@link
- * AbstractCommand}.
+ * SimpleCalculatorClearInputCommand}.
  */
 public class SmartCalculatorClearInputCommand extends SimpleCalculatorClearInputCommand {
 
