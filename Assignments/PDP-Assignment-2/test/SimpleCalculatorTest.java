@@ -4,6 +4,11 @@ import org.junit.Test;
 import calculator.Calculator;
 import calculator.SimpleCalculator;
 
+/**
+ * A junit class to test SimpleCalculator. It extends {@link AbstractCalculatorTest} and overrides
+ *
+ * <tt>getCalculatorInstance()</tt>.
+ */
 public class SimpleCalculatorTest extends AbstractCalculatorTest {
 
   @Override

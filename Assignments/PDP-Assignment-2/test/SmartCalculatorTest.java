@@ -5,7 +5,7 @@ import calculator.Calculator;
 import calculator.SmartCalculator;
 
 /**
- * A Junit class to test SmartCalculator. It extends AbstractCalculatorTest and overrides
+ * A Junit class to test SmartCalculator. It extends {@link AbstractCalculatorTest} and overrides
  * <tt>getCalculatorInstance()</tt>.
  */
 public class SmartCalculatorTest extends AbstractCalculatorTest {
