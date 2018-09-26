@@ -38,7 +38,7 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
   }
 
   @Test
-  public void testMultipleEqualAfterThreeOperands() {
+  public void testMultipleEqualAfterMultipleOperands() {
     Calculator calculator = getCalculatorInstance();
     calculator = calculator.input('1');
     Assert.assertEquals("1", calculator.getResult());
@@ -82,7 +82,7 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
   }
 
   @Test
-  public void testInputSequenceBeginsWithOperator() {
+  public void testInputBeginsWithOperator() {
     for (char input : new char[]{'=', '+', '-', '*'}) {
       Calculator calculator = getCalculatorInstance();
       try {
@@ -99,7 +99,7 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
   }
 
   @Test
-  public void testAddition() {
+  public void testAdditionForMultipleInputs() {
     Calculator calculator = getCalculatorInstance();
     calculator = calculator.input('1').input('+').input('2');
     Assert.assertEquals("1+2", calculator.getResult());
@@ -119,7 +119,7 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
 
 
   @Test
-  public void testSubtraction() {
+  public void testSubtractionForMultipleInputs() {
     Calculator calculator = getCalculatorInstance();
 
     calculator = calculator.input('1').input('0').input('-').input('2');
@@ -140,7 +140,7 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
 
 
   @Test
-  public void testMultiplication() {
+  public void testMultiplicationForMultipleInputs() {
     Calculator calculator = getCalculatorInstance();
     calculator = calculator.input('6').input('*').input('7');
     Assert.assertEquals("6*7", calculator.getResult());
@@ -251,7 +251,7 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
   }
 
   @Test
-  public void testValidInputSequence() {
+  public void testOperatorOperandAfterResultForAllOperators() {
     Calculator calculator = getCalculatorInstance();
 
     calculator = calculator.input('9');
@@ -283,7 +283,7 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
   }
 
   @Test
-  public void testOperandAfterEqual() {
+  public void testOperandAfterEqualForAllOperators() {
     Calculator calculator = getCalculatorInstance();
 
     calculator = calculator.input('9').input('+').input('1');
