@@ -45,16 +45,41 @@ public abstract class AbstractCalculatorTest {
     Assert.assertEquals("", calculator.getResult());
     calculator = calculator.input('C');
     Assert.assertEquals("", calculator.getResult());
+
     calculator = calculator.input('1');
     Assert.assertEquals("1", calculator.getResult());
     calculator = calculator.input('C');
     Assert.assertEquals("", calculator.getResult());
+    calculator = calculator.input('C');
+    Assert.assertEquals("", calculator.getResult());
+    calculator = calculator.input('C');
+    Assert.assertEquals("", calculator.getResult());
+
     calculator = calculator.input('1');
     Assert.assertEquals("1", calculator.getResult());
     calculator = calculator.input('-');
     Assert.assertEquals("1-", calculator.getResult());
     calculator = calculator.input('C');
     Assert.assertEquals("", calculator.getResult());
+    calculator = calculator.input('C');
+    Assert.assertEquals("", calculator.getResult());
+    calculator = calculator.input('C');
+    Assert.assertEquals("", calculator.getResult());
+
+    calculator = calculator.input('4');
+    Assert.assertEquals("4", calculator.getResult());
+    calculator = calculator.input('-');
+    Assert.assertEquals("4-", calculator.getResult());
+    calculator = calculator.input('2');
+    Assert.assertEquals("4-2", calculator.getResult());
+    calculator = calculator.input('C');
+    Assert.assertEquals("", calculator.getResult());
+    calculator = calculator.input('C');
+    Assert.assertEquals("", calculator.getResult());
+    calculator = calculator.input('C');
+    Assert.assertEquals("", calculator.getResult());
+
+
     calculator = calculator.input('4');
     Assert.assertEquals("4", calculator.getResult());
     calculator = calculator.input('-');
@@ -63,8 +88,6 @@ public abstract class AbstractCalculatorTest {
     Assert.assertEquals("4-2", calculator.getResult());
     calculator = calculator.input('=');
     Assert.assertEquals("2", calculator.getResult());
-    calculator = calculator.input('C');
-    Assert.assertEquals("", calculator.getResult());
     calculator = calculator.input('C');
     Assert.assertEquals("", calculator.getResult());
     calculator = calculator.input('C');
