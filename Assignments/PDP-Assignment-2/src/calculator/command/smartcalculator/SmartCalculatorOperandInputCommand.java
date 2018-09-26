@@ -8,13 +8,12 @@ import java.util.Set;
 
 import calculator.SmartCalculator;
 import calculator.bean.CommandName;
-import calculator.command.AbstractCommand;
 import calculator.command.Command;
 import calculator.command.simplecalculator.SimpleCalculatorOperandInputCommand;
 
 /**
  * This class represents Operand Input {@link Command} for {@link SmartCalculator}. It extends
- * {@link AbstractCommand}. It throws an Runtime exception if the given input causes a Operand
+ * {@link SimpleCalculatorOperandInputCommand}. It throws an Runtime exception if the given input causes a Operand
  * Overflow.
  */
 public class SmartCalculatorOperandInputCommand extends SimpleCalculatorOperandInputCommand {
