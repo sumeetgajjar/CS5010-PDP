@@ -11,11 +11,11 @@ import java.util.Set;
 import calculator.bean.InputCategoryName;
 import calculator.util.Utils;
 
-public class SmartOperatorInputCategory extends SimpleOperatorInputCategory {
+public class SmartCalculatorOperatorInputCategory extends SimpleCalculatorOperatorInputCategory {
 
   private final Set<Character> supportedDigits;
 
-  public SmartOperatorInputCategory(List<String> expression, Set<Character> supportedOperators, Set<Character> supportedDigits) {
+  public SmartCalculatorOperatorInputCategory(List<String> expression, Set<Character> supportedOperators, Set<Character> supportedDigits) {
     super(expression, supportedOperators);
     this.supportedDigits = supportedDigits;
   }

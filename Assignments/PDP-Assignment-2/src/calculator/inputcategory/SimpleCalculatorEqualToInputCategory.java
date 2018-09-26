@@ -11,9 +11,9 @@ import calculator.bean.InputCategoryName;
 import calculator.bean.Operation;
 import calculator.util.Utils;
 
-public class SimpleEqualToInputCategory extends AbstractInputCategory {
+public class SimpleCalculatorEqualToInputCategory extends AbstractInputCategory {
 
-  public SimpleEqualToInputCategory(List<String> expression, Set<Character> supportCharacters) {
+  public SimpleCalculatorEqualToInputCategory(List<String> expression, Set<Character> supportCharacters) {
     super(expression, supportCharacters);
   }
 

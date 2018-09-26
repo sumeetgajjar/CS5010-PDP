@@ -10,9 +10,9 @@ import java.util.Set;
 import calculator.bean.InputCategoryName;
 import calculator.util.Utils;
 
-public class SimpleOperatorInputCategory extends AbstractInputCategory {
+public class SimpleCalculatorOperatorInputCategory extends AbstractInputCategory {
 
-  public SimpleOperatorInputCategory(List<String> expression, Set<Character> supportCharacters) {
+  public SimpleCalculatorOperatorInputCategory(List<String> expression, Set<Character> supportCharacters) {
     super(expression, supportCharacters);
   }
 

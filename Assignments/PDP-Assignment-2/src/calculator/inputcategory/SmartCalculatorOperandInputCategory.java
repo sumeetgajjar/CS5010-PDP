@@ -8,10 +8,10 @@ import java.util.Set;
 
 import calculator.bean.InputCategoryName;
 
-public class SmartOperandInputCategory extends SimpleOperandInputCategory {
+public class SmartCalculatorOperandInputCategory extends SimpleCalculatorOperandInputCategory {
 
 
-  public SmartOperandInputCategory(List<String> expression, Set<Character> supportedOperands, Set<Character> supportedOperators) {
+  public SmartCalculatorOperandInputCategory(List<String> expression, Set<Character> supportedOperands, Set<Character> supportedOperators) {
     super(expression, supportedOperands, supportedOperators);
   }
 

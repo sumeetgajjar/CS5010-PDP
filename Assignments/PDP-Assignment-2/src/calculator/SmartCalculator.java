@@ -10,10 +10,10 @@ import java.util.Set;
 import calculator.bean.InputCategoryName;
 import calculator.bean.Operation;
 import calculator.inputcategory.InputCategoryInterface;
-import calculator.inputcategory.SmartClearInputCategory;
-import calculator.inputcategory.SmartEqualToInputCategory;
-import calculator.inputcategory.SmartOperandInputCategory;
-import calculator.inputcategory.SmartOperatorInputCategory;
+import calculator.inputcategory.SmartCalculatorClearInputCategory;
+import calculator.inputcategory.SmartCalculatorEqualToInputCategory;
+import calculator.inputcategory.SmartCalculatorOperandInputCategory;
+import calculator.inputcategory.SmartCalculatorOperatorInputCategory;
 import calculator.util.Utils;
 
 public class SmartCalculator extends AbstractCalculator {
@@ -50,10 +50,10 @@ public class SmartCalculator extends AbstractCalculator {
   @Override
   protected List<InputCategoryInterface> getSupportedInputCategoryInterface() {
     return Arrays.asList(
-            new SmartOperandInputCategory(this.currentExpression, getSupportedDigits(), getSupportedOperators()),
-            new SmartOperatorInputCategory(this.currentExpression, getSupportedOperators(), getSupportedDigits()),
-            new SmartEqualToInputCategory(this.currentExpression, EQUAL_TO_CHARACTER_SET, lastOperation, lastOperand),
-            new SmartClearInputCategory(this.currentExpression, CLEAR_CHARACTER_SET)
+            new SmartCalculatorOperandInputCategory(this.currentExpression, getSupportedDigits(), getSupportedOperators()),
+            new SmartCalculatorOperatorInputCategory(this.currentExpression, getSupportedOperators(), getSupportedDigits()),
+            new SmartCalculatorEqualToInputCategory(this.currentExpression, EQUAL_TO_CHARACTER_SET, lastOperation, lastOperand),
+            new SmartCalculatorClearInputCategory(this.currentExpression, CLEAR_CHARACTER_SET)
     );
   }
 

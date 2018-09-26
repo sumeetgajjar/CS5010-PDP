@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Set;
 
 import calculator.bean.InputCategoryName;
-import calculator.inputcategory.SimpleClearInputCategory;
-import calculator.inputcategory.SimpleEqualToInputCategory;
+import calculator.inputcategory.SimpleCalculatorClearInputCategory;
+import calculator.inputcategory.SimpleCalculatorEqualToInputCategory;
 import calculator.inputcategory.InputCategoryInterface;
-import calculator.inputcategory.SimpleOperandInputCategory;
-import calculator.inputcategory.SimpleOperatorInputCategory;
+import calculator.inputcategory.SimpleCalculatorOperandInputCategory;
+import calculator.inputcategory.SimpleCalculatorOperatorInputCategory;
 
 import static calculator.bean.InputCategoryName.CLEAR;
 import static calculator.bean.InputCategoryName.OPERAND;
@@ -41,10 +41,10 @@ public class SimpleCalculator extends AbstractCalculator {
   @Override
   protected List<InputCategoryInterface> getSupportedInputCategoryInterface() {
     return Arrays.asList(
-            new SimpleOperandInputCategory(this.currentExpression, getSupportedDigits(), getSupportedOperators()),
-            new SimpleOperatorInputCategory(this.currentExpression, getSupportedOperators()),
-            new SimpleEqualToInputCategory(this.currentExpression, EQUAL_TO_CHARACTER_SET),
-            new SimpleClearInputCategory(this.currentExpression, CLEAR_CHARACTER_SET)
+            new SimpleCalculatorOperandInputCategory(this.currentExpression, getSupportedDigits(), getSupportedOperators()),
+            new SimpleCalculatorOperatorInputCategory(this.currentExpression, getSupportedOperators()),
+            new SimpleCalculatorEqualToInputCategory(this.currentExpression, EQUAL_TO_CHARACTER_SET),
+            new SimpleCalculatorClearInputCategory(this.currentExpression, CLEAR_CHARACTER_SET)
     );
   }
 
