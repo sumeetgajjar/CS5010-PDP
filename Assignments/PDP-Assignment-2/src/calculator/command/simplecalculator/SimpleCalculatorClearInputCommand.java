@@ -33,7 +33,7 @@ public class SimpleCalculatorClearInputCommand extends AbstractCommand {
   }
 
   /**
-   * Performs the action by returning an empty list.
+   * Performs the clear input action by returning an empty list.
    *
    * @param input input character
    * @return the algebraic expression generated as result of performing action on the given input
