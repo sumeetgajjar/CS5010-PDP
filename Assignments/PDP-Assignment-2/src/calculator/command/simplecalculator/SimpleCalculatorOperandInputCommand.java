@@ -122,9 +122,18 @@ public class SimpleCalculatorOperandInputCommand extends AbstractCommand {
     Set<CommandName> validCommandNames = new HashSet<>(Arrays.asList(
             CommandName.OPERAND, CommandName.OPERATOR, CommandName.CLEAR));
 
-    if (this.expression.size() >= 2) {
+    if (isEqualToCommandValidAfterOperandInput()) {
       validCommandNames.add(CommandName.EQUAL_TO);
     }
     return Collections.unmodifiableSet(validCommandNames);
+  }
+
+  /**
+   * checks if equal to command is valid after operand input.
+   *
+   * @return if equal to command is valid after operand input
+   */
+  private boolean isEqualToCommandValidAfterOperandInput() {
+    return this.expression.size() >= 2;
   }
 }
