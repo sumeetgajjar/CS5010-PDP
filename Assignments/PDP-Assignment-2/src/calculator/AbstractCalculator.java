@@ -148,6 +148,14 @@ public abstract class AbstractCalculator implements Calculator {
     return this.result;
   }
 
+  /**
+   * Checks if current command is a valid anticipated command of the calculator.
+   *
+   * @param input              the character for which command is to be checked
+   * @param currentCommandName name of the command associated with the given character
+   * @throws IllegalArgumentException if current command is not a valid anticipated command of the
+   *                                  calculator
+   */
   private void isCurrentInputValid(char input, CommandName currentCommandName)
           throws IllegalArgumentException {
 
@@ -156,10 +164,23 @@ public abstract class AbstractCalculator implements Calculator {
     }
   }
 
+  /**
+   * Returns the concatenated String of given algebraic expression.
+   *
+   * @param expression algebraic expression
+   * @return the concatenated String of given algebraic expression
+   */
   private String generateResultString(List<String> expression) {
     return String.join("", expression);
   }
 
+  /**
+   * Return the Command which maps to given input character.
+   *
+   * @param input character for which command is to be mapped
+   * @return the Command which maps to given input character
+   * @throws IllegalArgumentException if the Command corresponding to given input is not found
+   */
   private Command mapInputToCommand(char input)
           throws IllegalArgumentException {
 
