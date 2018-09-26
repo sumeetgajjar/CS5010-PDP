@@ -84,8 +84,8 @@ public class SmartCalculator extends AbstractCalculator {
    * @param newExpression               current algebraic expression
    * @param nextAnticipatedCommandNames the current result of calculator
    * @param result                      set of valid command names next input can have
-   * @param lastOperation               last operation in the previous algebraic expression
-   * @param lastOperand                 last operand in the previous algebraic expression
+   * @param lastOperation               last operation of the previous algebraic expression
+   * @param lastOperand                 last operand of the previous algebraic expression
    */
   private SmartCalculator(List<String> newExpression,
                           Set<CommandName> nextAnticipatedCommandNames,
