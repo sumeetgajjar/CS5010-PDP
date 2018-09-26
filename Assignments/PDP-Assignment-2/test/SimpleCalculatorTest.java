@@ -21,6 +21,20 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
       Assert.assertEquals(e.getMessage(), "Input: '-' is illegal");
     }
     Assert.assertEquals("", calculator.getResult());
+
+    calculator = calculator.input('1');
+    Assert.assertEquals("1", calculator.getResult());
+
+    calculator = calculator.input('+');
+    Assert.assertEquals("1+", calculator.getResult());
+
+    try {
+      calculator = calculator.input('-');
+      Assert.fail("Should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals(e.getMessage(), "Input: '-' is illegal");
+    }
+    Assert.assertEquals("1+", calculator.getResult());
   }
 
   @Test
