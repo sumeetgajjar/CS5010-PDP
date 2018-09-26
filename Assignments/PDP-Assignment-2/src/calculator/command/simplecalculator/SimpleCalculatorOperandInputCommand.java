@@ -16,7 +16,8 @@ import calculator.util.Utils;
 
 /**
  * This class represents Operand Input {@link Command} for {@link SimpleCalculator}. It extends
- * {@link AbstractCommand}. It throws an exception if the given input causes a Operand Overflow.
+ * {@link AbstractCommand}. It throws an Runtime exception if the given input causes a Operand
+ * Overflow.
  */
 public class SimpleCalculatorOperandInputCommand extends AbstractCommand {
 
@@ -50,14 +51,16 @@ public class SimpleCalculatorOperandInputCommand extends AbstractCommand {
   }
 
   /**
-   * Appends the input character digit to the expression and returns the new expression.
+   * Appends the input character digit to the expression and returns the new expression. It throws
+   * RuntimeException if the given input causes an operand overflow. It throws IllegalStateException
+   * if the last element in the expression is neither a operand nor a operator.
    *
-   * @param input inputcharacter
+   * @param input input character
    * @return the new expression after appending the input character digit
    * @throws RuntimeException if the input character causes an operand overflow
    */
   @Override
-  public List<String> performAction(char input) {
+  public List<String> performAction(char input) throws RuntimeException, IllegalStateException {
     Deque<String> expressionDeque = Utils.getExpressionDeque(this.expression);
 
     String lastElement = expressionDeque.peekLast();
@@ -65,6 +68,13 @@ public class SimpleCalculatorOperandInputCommand extends AbstractCommand {
 
       char lastInput = lastElement.charAt(lastElement.length() - 1);
 
+      /*
+        checks if the last element is the operand or operator.
+        If it is operand then appends the given input digit to the operand and
+        then appends it to the expression.
+        If it is operator the appends the given input digit directly to the expression.
+        If it is neither operand nor operator then is throws IllegalStateException.
+       */
       if (this.supportedCharacters.contains(lastInput)) {
         lastElement = expressionDeque.pollLast();
         String newNumber = appendDigit(lastElement, input);
