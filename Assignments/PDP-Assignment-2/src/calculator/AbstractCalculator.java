@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import calculator.bean.CommandName;
-import calculator.inputcategory.Command;
+import calculator.command.Command;
 
 /**
  * This class provides a skeletal implementation of the {@link Calculator} interface. It minimize

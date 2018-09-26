@@ -1,4 +1,4 @@
-package calculator.inputcategory.simplecalculator;
+package calculator.command.simplecalculator;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -9,7 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import calculator.bean.CommandName;
-import calculator.inputcategory.AbstractCommand;
+import calculator.command.AbstractCommand;
 import calculator.util.Utils;
 
 public class SimpleCalculatorOperandInputCommand extends AbstractCommand {

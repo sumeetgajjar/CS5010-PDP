@@ -1,4 +1,4 @@
-package calculator.inputcategory.smartcalculator;
+package calculator.command.smartcalculator;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import calculator.bean.CommandName;
-import calculator.inputcategory.simplecalculator.SimpleCalculatorOperandInputCommand;
+import calculator.command.simplecalculator.SimpleCalculatorOperandInputCommand;
 
 public class SmartCalculatorOperandInputCommand extends SimpleCalculatorOperandInputCommand {
 

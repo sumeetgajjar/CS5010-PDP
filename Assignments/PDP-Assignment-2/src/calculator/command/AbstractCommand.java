@@ -1,4 +1,4 @@
-package calculator.inputcategory;
+package calculator.command;
 
 import java.util.Collections;
 import java.util.List;

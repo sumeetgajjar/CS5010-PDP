@@ -9,11 +9,11 @@ import java.util.Set;
 
 import calculator.bean.CommandName;
 import calculator.bean.Operation;
-import calculator.inputcategory.Command;
-import calculator.inputcategory.smartcalculator.SmartCalculatorClearInputCommand;
-import calculator.inputcategory.smartcalculator.SmartCalculatorEqualToCommand;
-import calculator.inputcategory.smartcalculator.SmartCalculatorOperandInputCommand;
-import calculator.inputcategory.smartcalculator.SmartCalculatorOperatorInputCommand;
+import calculator.command.Command;
+import calculator.command.smartcalculator.SmartCalculatorClearInputCommand;
+import calculator.command.smartcalculator.SmartCalculatorEqualToCommand;
+import calculator.command.smartcalculator.SmartCalculatorOperandInputCommand;
+import calculator.command.smartcalculator.SmartCalculatorOperatorInputCommand;
 import calculator.util.Utils;
 
 public class SmartCalculator extends AbstractCalculator {
