@@ -10,11 +10,11 @@ public enum Operation {
    */
   ADD('+') {
     /**
-     * Returns the sum of given numbers and throws exception if overflow occurs.
+     * Returns the addition of given numbers and throws ArithmeticException if overflow occurs.
      *
      * @param n1 number 1
      * @param n2 number 2
-     * @return the sum of given numbers
+     * @return the addition of given numbers
      * @throws ArithmeticException if operation results in 32-bit overflow
      */
     @Override
@@ -28,11 +28,11 @@ public enum Operation {
    */
   SUBTRACT('-') {
     /**
-     * Returns the difference of given numbers and throws exception if overflow occurs.
+     * Returns the subtraction of given numbers and throws ArithmeticException if overflow occurs.
      *
      * @param n1 number1
      * @param n2 number2
-     * @return the difference of given numbers
+     * @return the subtraction of given numbers
      * @throws ArithmeticException if operation results in 32-bit overflow
      */
     @Override
@@ -46,11 +46,11 @@ public enum Operation {
    */
   MULTIPLY('*') {
     /**
-     * Returns the product of given numbers and throws exception if overflow occurs.
+     * Returns the multiplication of given numbers and throws ArithmeticException if overflow occurs.
      *
      * @param n1 number1
      * @param n2 number2
-     * @return the producr of given numbers
+     * @return the multiplication of given numbers
      * @throws ArithmeticException if operation results in 32-bit overflow
      */
     @Override
@@ -89,8 +89,9 @@ public enum Operation {
    *
    * @param symbol symbol
    * @return the Operation associated with the symbol
+   * @throws IllegalArgumentException if no Operation is associated with the given symbol
    */
-  public static Operation getOperation(char symbol) {
+  public static Operation getOperation(char symbol) throws IllegalArgumentException {
     for (Operation operation : Operation.values()) {
       if (operation.getSymbol() == symbol) {
         return operation;
