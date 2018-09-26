@@ -163,9 +163,15 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
     Calculator calculator = getCalculatorInstance();
 
     try {
+      calculator = calculator.input('=');
+      Assert.fail("Should have failed");
+    } catch (IllegalArgumentException ignored) {
+    }
+    Assert.assertEquals("32", calculator.getResult());
+
+    try {
       calculator = calculator.input('3').input('2');
       calculator = calculator.input('=');
-
       Assert.fail("Should have failed");
     } catch (IllegalArgumentException ignored) {
     }
@@ -174,7 +180,6 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
     try {
       calculator = calculator.input('-');
       calculator = calculator.input('+');
-
       Assert.fail("Should have failed");
     } catch (IllegalArgumentException ignored) {
     }
@@ -199,7 +204,6 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
 
     try {
       calculator = calculator.input('*');
-
       calculator = calculator.input('+');
       Assert.fail("Should have failed");
     } catch (IllegalArgumentException ignored) {
@@ -226,7 +230,6 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
     try {
       calculator = calculator.input('+');
       calculator = calculator.input('-');
-
       Assert.fail("Should have failed");
     } catch (IllegalArgumentException ignored) {
     }
@@ -234,7 +237,6 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
 
     try {
       calculator = calculator.input('=');
-
       Assert.fail("Should have failed");
     } catch (IllegalArgumentException ignored) {
     }
@@ -249,29 +251,33 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
   }
 
   @Test
-  public void testMultipleOperators() {
+  public void testValidInputSequence() {
     Calculator calculator = getCalculatorInstance();
 
+    calculator = calculator.input('9');
+    Assert.assertEquals("9", calculator.getResult());
+    calculator = calculator.input('+');
+    Assert.assertEquals("9+", calculator.getResult());
     calculator = calculator.input('1');
-    Assert.assertEquals("1", calculator.getResult());
-    calculator = calculator.input('0');
+    Assert.assertEquals("9+1", calculator.getResult());
+    calculator = calculator.input('=');
     Assert.assertEquals("10", calculator.getResult());
-    calculator = calculator.input('+');
-    Assert.assertEquals("10+", calculator.getResult());
-    calculator = calculator.input('2');
-    Assert.assertEquals("10+2", calculator.getResult());
     calculator = calculator.input('-');
-    Assert.assertEquals("10+2-", calculator.getResult());
+    Assert.assertEquals("10-", calculator.getResult());
     calculator = calculator.input('4');
-    Assert.assertEquals("10+2-4", calculator.getResult());
+    Assert.assertEquals("10-4", calculator.getResult());
+    calculator = calculator.input('=');
+    Assert.assertEquals("6", calculator.getResult());
     calculator = calculator.input('*');
-    Assert.assertEquals("10+2-4*", calculator.getResult());
-    calculator = calculator.input('3');
-    Assert.assertEquals("10+2-4*3", calculator.getResult());
-    calculator = calculator.input('+');
-    Assert.assertEquals("10+2-4*3+", calculator.getResult());
-    calculator = calculator.input('1');
-    Assert.assertEquals("10+2-4*3+1", calculator.getResult());
+    Assert.assertEquals("4*", calculator.getResult());
+    calculator = calculator.input('8');
+    Assert.assertEquals("4*8", calculator.getResult());
+    calculator = calculator.input('=');
+    Assert.assertEquals("32", calculator.getResult());
+    calculator = calculator.input('-');
+    Assert.assertEquals("32-", calculator.getResult());
+    calculator = calculator.input('7');
+    Assert.assertEquals("32-7", calculator.getResult());
     calculator = calculator.input('=');
     Assert.assertEquals("25", calculator.getResult());
   }
