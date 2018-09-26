@@ -25,7 +25,7 @@ public class SmartCalculatorOperatorInputCommand extends SimpleCalculatorOperato
   }
 
   @Override
-  public List<String> performAction(char input) throws RuntimeException {
+  public List<String> performAction(char input) {
     Deque<String> expressionDeque = Utils.getExpressionDeque(this.expression);
 
     String lastElement = expressionDeque.peekLast();
@@ -45,6 +45,13 @@ public class SmartCalculatorOperatorInputCommand extends SimpleCalculatorOperato
     return Utils.getExpressionList(expressionDeque);
   }
 
+  /**
+   * Returns a {@link Set} of valid {@link CommandName} that the next input character can represent
+   * after successful execution of the current command.
+   *
+   * @return a set of valid commandName that the next input character can represent after successful
+   * execution of the current command.
+   */
   @Override
   public Set<CommandName> getNextValidCommands() {
     return Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
