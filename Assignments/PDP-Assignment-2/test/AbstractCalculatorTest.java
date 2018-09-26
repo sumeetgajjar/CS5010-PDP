@@ -118,6 +118,20 @@ public abstract class AbstractCalculatorTest {
     calculator = calculator.input('1');
     Assert.assertEquals("1", calculator.getResult());
 
+    try {
+      calculator = calculator.input('/');
+    } catch (Exception e) {
+      Assert.assertEquals(e.getMessage(), "Input: '/' is illegal");
+    }
+    Assert.assertEquals("1", calculator.getResult());
+
+    try {
+      calculator = calculator.input('a');
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals(e.getMessage(), "Input: 'a' is illegal");
+    }
+    Assert.assertEquals("1", calculator.getResult());
+
     calculator = calculator.input('+');
     Assert.assertEquals("1+", calculator.getResult());
 
@@ -138,15 +152,29 @@ public abstract class AbstractCalculatorTest {
     calculator = calculator.input('1');
     Assert.assertEquals("1+1", calculator.getResult());
 
+    try {
+      calculator = calculator.input('a');
+    } catch (Exception e) {
+      Assert.assertEquals(e.getMessage(), "Input: 'a' is illegal");
+    }
+    Assert.assertEquals("1+1", calculator.getResult());
+
+    try {
+      calculator = calculator.input('/');
+    } catch (Exception e) {
+      Assert.assertEquals(e.getMessage(), "Input: '/' is illegal");
+    }
+    Assert.assertEquals("1+1", calculator.getResult());
+
     calculator = calculator.input('=');
     Assert.assertEquals("2", calculator.getResult());
   }
 
   @Test
   public void testOperandGreaterThan32Bit() {
+    Calculator calculator = getCalculatorInstance();
     try {
-      String input = String.valueOf((1L + Integer.MAX_VALUE));
-      Calculator calculator = getCalculatorInstance();
+      String input = String.valueOf(("2147483648"));
 
       for (int i = 0; i < input.length(); i++) {
         calculator = calculator.input(input.charAt(i));
@@ -156,21 +184,24 @@ public abstract class AbstractCalculatorTest {
     } catch (RuntimeException e) {
       Assert.assertEquals("Operand overflow: operand is greater than 32 bits", e.getMessage());
     }
+    Assert.assertEquals("214748364", calculator.getResult());
 
+    Calculator calculator1 = getCalculatorInstance();
     try {
-      Calculator calculator = getCalculatorInstance();
-      calculator = calculator.input('1').input('+');
+      calculator1 = calculator1.input('1').input('+');
 
-      String input = String.valueOf((1L + Integer.MAX_VALUE));
+      String input = String.valueOf(("2147483648"));
 
       for (int i = 0; i < input.length(); i++) {
-        calculator = calculator.input(input.charAt(i));
+        calculator1 = calculator1.input(input.charAt(i));
       }
 
       Assert.fail("Test passed for input greater than 32 bits");
     } catch (RuntimeException e) {
       Assert.assertEquals("Operand overflow: operand is greater than 32 bits", e.getMessage());
     }
+    Assert.assertEquals("1+214748364", calculator1.getResult());
+
   }
 
   @Test
