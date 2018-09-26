@@ -127,6 +127,18 @@ public abstract class AbstractCalculator implements Calculator {
           String result,
           Set<CommandName> anticipatedCommandNames);
 
+  /**
+   * Takes an input char and returns a new {@link Calculator} object. The new {@link Calculator} is
+   * result of successful processing of the given char. It throws an IllegalArgumentException for
+   * all invalid inputs and sequences, and a RuntimeException if a valid input causes an operand to
+   * overflow.
+   *
+   * @param input the input for the {@link Calculator}
+   * @return a new {@link Calculator} object as a result of correct processing of given input
+   * @throws IllegalArgumentException if the given character is invalid or leads to an invalid input
+   *                                  sequence
+   * @throws RuntimeException         if a valid input causes an operand to overflow
+   */
   @Override
   public Calculator input(char input) throws IllegalArgumentException, RuntimeException {
     Command currentCommand = mapInputToCommand(input);
