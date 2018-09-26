@@ -16,6 +16,46 @@ import calculator.command.smartcalculator.SmartCalculatorOperandInputCommand;
 import calculator.command.smartcalculator.SmartCalculatorOperatorInputCommand;
 import calculator.util.Utils;
 
+/**
+ * This class represents a SmartCalculator. It extends {@link AbstractCalculator} and it can only
+ * work with 32-bit whole numbers.
+ *
+ * The valid operand characters are 0-9.
+ *
+ * The valid operators are +, - and *.
+ *
+ * The SmartCalculator does not support negative numbers as input, although it can handle negative
+ * results.
+ *
+ * The {@link SmartCalculator} does “infer” second missing operand. For e.g. the input 12+= produces
+ * 24. The input 12+== produces 36, and so on. The state at the end of each “=” is the result of the
+ * computation thus far.
+ *
+ * The calculator does allow inputting “=” multiple times. For e.g., 12+10 = produces 22. However
+ * 12+10== and 12+10=== will produce 80 and 104 respectively.
+ *
+ * For Input beginning with operator, the operator will be ignored. For e.g. +12-10= will ignore "+"
+ * and result into 2.
+ *
+ * For Input with 2 consecutive operator will ignore the first operator. For e.g. 12-+10= will
+ * ignore "-" and produce 22.
+ *
+ * The input ’C’ will clear the calculator inputs.
+ *
+ * The input method throws an IllegalArgumentException for all invalid inputs and sequences, and a
+ * RuntimeException if a valid input causes an operand to overflow. If the result of the arithmetic
+ * overflows, then the result is reported as 0. For e.g., p + q - 1 0 will result in -10 if p+q
+ * overflows.
+ *
+ * Following is the list of valid input sequences for {@link SmartCalculator}.
+ * <ul>
+ * <li>12+20=</li>
+ * <li>12-+20=</li>
+ * <li>+12+20-40=</li>
+ * <li>12+20=-40=</li>
+ * <li>12+==</li>
+ * </ul>
+ */
 public class SmartCalculator extends AbstractCalculator {
 
   /**

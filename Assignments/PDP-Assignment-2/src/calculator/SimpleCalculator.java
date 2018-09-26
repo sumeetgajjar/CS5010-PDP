@@ -30,7 +30,8 @@ import static calculator.bean.CommandName.OPERAND;
  * The {@link SimpleCalculator} does not “infer” any missing inputs. For e.g.,11+=, will reported as
  * an error.
  *
- * The calculator does allow inputting “=” multiple times
+ * The calculator does allow inputting “=” multiple times and the operation will return same result
+ * every time.
  *
  * The input ’C’ will clear the calculator inputs.
  *
