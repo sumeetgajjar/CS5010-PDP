@@ -14,6 +14,9 @@ public abstract class AbstractCalculatorTest {
 
   protected abstract Calculator getCalculatorInstance();
 
+  /**
+   * test of check if the Object is initialized with proper initial values.
+   */
   @Test
   public void testInitialization() {
     Calculator calculator = getCalculatorInstance();
