@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-public abstract class AbstractInputCategory implements InputCategoryInterface {
+public abstract class AbstractInputCategory implements Command {
 
   protected final List<String> expression;
   protected final Set<Character> supportedCharacters;

@@ -9,7 +9,7 @@ import java.util.Set;
 
 import calculator.bean.CommandName;
 import calculator.bean.Operation;
-import calculator.inputcategory.InputCategoryInterface;
+import calculator.inputcategory.Command;
 import calculator.inputcategory.smartcalculator.SmartCalculatorClearInputCategory;
 import calculator.inputcategory.smartcalculator.SmartCalculatorEqualToInputCategory;
 import calculator.inputcategory.smartcalculator.SmartCalculatorOperandInputCategory;
@@ -60,7 +60,7 @@ public class SmartCalculator extends AbstractCalculator {
   }
 
   @Override
-  protected List<InputCategoryInterface> getSupportedInputCategoryInterface() {
+  protected List<Command> getSupportedInputCategoryInterface() {
     return Arrays.asList(
             new SmartCalculatorOperandInputCategory(
                     this.currentExpression,

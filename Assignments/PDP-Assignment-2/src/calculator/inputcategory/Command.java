@@ -5,7 +5,7 @@ import java.util.Set;
 
 import calculator.bean.CommandName;
 
-public interface InputCategoryInterface {
+public interface Command {
 
   boolean belongToInputCategory(char input);
 

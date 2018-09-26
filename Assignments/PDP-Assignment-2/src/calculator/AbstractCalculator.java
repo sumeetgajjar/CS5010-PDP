@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import calculator.bean.CommandName;
-import calculator.inputcategory.InputCategoryInterface;
+import calculator.inputcategory.Command;
 
 /**
  * This class provides a skeletal implementation of the {@link Calculator} interface. It minimize
@@ -89,7 +89,7 @@ public abstract class AbstractCalculator implements Calculator {
 
   protected abstract Set<Character> getSupportedDigits();
 
-  protected abstract List<InputCategoryInterface> getSupportedInputCategoryInterface();
+  protected abstract List<Command> getSupportedInputCategoryInterface();
 
   protected abstract Calculator getCalculatorInstance(
           List<String> expression,
@@ -98,16 +98,16 @@ public abstract class AbstractCalculator implements Calculator {
 
   @Override
   public Calculator input(char input) throws IllegalArgumentException, RuntimeException {
-    InputCategoryInterface currentInputCategoryInterface = getInputCategoryInterface(input);
+    Command currentCommand = getInputCategoryInterface(input);
 
-    isCurrentInputValid(input, currentInputCategoryInterface.getInputCategory());
+    isCurrentInputValid(input, currentCommand.getInputCategory());
 
-    List<String> newExpression = currentInputCategoryInterface.performAction(input);
+    List<String> newExpression = currentCommand.performAction(input);
 
     String newResult = generateResultString(newExpression);
 
     Set<CommandName> nextAnticipatedCommandNames =
-            currentInputCategoryInterface.getNextValidInputCategorySet();
+            currentCommand.getNextValidInputCategorySet();
 
     return getCalculatorInstance(newExpression, newResult, nextAnticipatedCommandNames);
   }
@@ -129,12 +129,12 @@ public abstract class AbstractCalculator implements Calculator {
     return String.join("", expression);
   }
 
-  private InputCategoryInterface getInputCategoryInterface(char input)
+  private Command getInputCategoryInterface(char input)
           throws IllegalArgumentException {
 
-    for (InputCategoryInterface inputCategoryInterface : getSupportedInputCategoryInterface()) {
-      if (inputCategoryInterface.belongToInputCategory(input)) {
-        return inputCategoryInterface;
+    for (Command command : getSupportedInputCategoryInterface()) {
+      if (command.belongToInputCategory(input)) {
+        return command;
       }
     }
     throw new IllegalArgumentException(String.format("Input: '%s' is illegal", input));

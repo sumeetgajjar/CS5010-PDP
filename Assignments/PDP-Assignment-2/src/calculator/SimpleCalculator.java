@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import calculator.bean.CommandName;
-import calculator.inputcategory.InputCategoryInterface;
+import calculator.inputcategory.Command;
 import calculator.inputcategory.simplecalculator.SimpleCalculatorClearInputCategory;
 import calculator.inputcategory.simplecalculator.SimpleCalculatorEqualToInputCategory;
 import calculator.inputcategory.simplecalculator.SimpleCalculatorOperandInputCategory;
@@ -45,7 +45,7 @@ public class SimpleCalculator extends AbstractCalculator {
   }
 
   @Override
-  protected List<InputCategoryInterface> getSupportedInputCategoryInterface() {
+  protected List<Command> getSupportedInputCategoryInterface() {
     return Arrays.asList(
             new SimpleCalculatorOperandInputCategory(
                     this.currentExpression,
