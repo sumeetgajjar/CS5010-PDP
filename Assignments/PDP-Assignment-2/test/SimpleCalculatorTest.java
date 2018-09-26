@@ -157,95 +157,35 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
   }
 
   @Test
-  public void testIncorrectInputSequence() {
-    Calculator calculator = getCalculatorInstance();
+  public void testOperatorFailureAfterOperandOperator() {
+    char[] validOperands = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+    char[] validOperators1 = new char[]{'+', '-', '*'};
+    char[] validOperators2 = new char[]{'=', '+', '-', '*'};
 
-    try {
-      calculator = calculator.input('=');
-      Assert.fail("Should have failed");
-    } catch (IllegalArgumentException ignored) {
+    for (char operand : validOperands) {
+      for (char operator1 : validOperators1) {
+        Calculator calculator = getCalculatorInstance();
+        calculator = calculator.input(operand).input(operator1);
+        Assert.assertEquals(String.format("%s%s", operand, operator1), calculator.getResult());
+
+        try {
+          calculator = calculator.input('a');
+          Assert.fail("should have failed");
+        } catch (IllegalArgumentException e) {
+          Assert.assertEquals(String.format("Input: '%s' is illegal", 'a'), e.getMessage());
+        }
+
+        for (char operator2 : validOperators2) {
+          try {
+            calculator = calculator.input(operator2);
+            Assert.fail("should have failed");
+          } catch (IllegalArgumentException e) {
+            Assert.assertEquals(String.format("Input: '%s' is illegal", operator2), e.getMessage());
+          }
+        }
+        Assert.assertEquals(String.format("%s%s", operand, operator1), calculator.getResult());
+      }
     }
-    Assert.assertEquals("", calculator.getResult());
-
-    try {
-      calculator = calculator.input('3').input('2');
-      calculator = calculator.input('=');
-      Assert.fail("Should have failed");
-    } catch (IllegalArgumentException ignored) {
-    }
-    Assert.assertEquals("32", calculator.getResult());
-
-    try {
-      calculator = calculator.input('-');
-      calculator = calculator.input('+');
-      Assert.fail("Should have failed");
-    } catch (IllegalArgumentException ignored) {
-    }
-    Assert.assertEquals("32-", calculator.getResult());
-
-    try {
-      calculator = calculator.input('=');
-      Assert.fail("Should have failed");
-    } catch (IllegalArgumentException ignored) {
-    }
-    Assert.assertEquals("32-", calculator.getResult());
-
-    try {
-      calculator = calculator.input('*');
-      Assert.fail("Should have failed");
-    } catch (IllegalArgumentException ignored) {
-    }
-    Assert.assertEquals("32-", calculator.getResult());
-
-    calculator = calculator.input('2').input('=');
-    Assert.assertEquals("30", calculator.getResult());
-
-    try {
-      calculator = calculator.input('*');
-      calculator = calculator.input('+');
-      Assert.fail("Should have failed");
-    } catch (IllegalArgumentException ignored) {
-    }
-    Assert.assertEquals("30*", calculator.getResult());
-
-    try {
-      calculator = calculator.input('=');
-      Assert.fail("Should have failed");
-    } catch (IllegalArgumentException ignored) {
-    }
-    Assert.assertEquals("30*", calculator.getResult());
-
-    try {
-      calculator = calculator.input('-');
-      Assert.fail("Should have failed");
-    } catch (IllegalArgumentException ignored) {
-    }
-    Assert.assertEquals("30*", calculator.getResult());
-
-    calculator = calculator.input('1').input('=');
-    Assert.assertEquals("30", calculator.getResult());
-
-    try {
-      calculator = calculator.input('+');
-      calculator = calculator.input('-');
-      Assert.fail("Should have failed");
-    } catch (IllegalArgumentException ignored) {
-    }
-    Assert.assertEquals("30+", calculator.getResult());
-
-    try {
-      calculator = calculator.input('=');
-      Assert.fail("Should have failed");
-    } catch (IllegalArgumentException ignored) {
-    }
-    Assert.assertEquals("30+", calculator.getResult());
-
-    try {
-      calculator = calculator.input('*');
-      Assert.fail("Should have failed");
-    } catch (IllegalArgumentException ignored) {
-    }
-    Assert.assertEquals("30+", calculator.getResult());
   }
 
   @Test
@@ -316,5 +256,16 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
     } catch (IllegalArgumentException ignored) {
     }
     Assert.assertEquals("28", calculator.getResult());
+
+    calculator = calculator.input('+').input('4');
+    Assert.assertEquals("28+4", calculator.getResult());
+    calculator = calculator.input('=');
+    Assert.assertEquals("32", calculator.getResult());
+    try {
+      calculator = calculator.input('7');
+      Assert.fail("Should have failed");
+    } catch (IllegalArgumentException ignored) {
+    }
+    Assert.assertEquals("32", calculator.getResult());
   }
 }

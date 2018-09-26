@@ -1,6 +1,8 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Random;
+
 import calculator.Calculator;
 
 public abstract class AbstractCalculatorTest {
@@ -132,113 +134,37 @@ public abstract class AbstractCalculatorTest {
   }
 
   @Test
-  public void testInvalidInput() {
+  public void testIllegalInputAfterNthOperand() {
+    char[] validOperands = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+    char[] validOperators1 = new char[]{'+', '-', '*'};
 
     Calculator calculator = getCalculatorInstance();
+    String expectedResult = "";
+    Random random = new Random(1);
+    for (int i = 0; i < 4; i++) {
+      char operand = validOperands[random.nextInt(validOperands.length)];
+      calculator = calculator.input(operand);
+      expectedResult += operand;
 
-    try {
-      calculator = calculator.input('a');
-    } catch (IllegalArgumentException e) {
-      Assert.assertEquals(e.getMessage(), "Input: 'a' is illegal");
+      try {
+        calculator = calculator.input('/');
+        Assert.fail("should have failed");
+      } catch (IllegalArgumentException e) {
+        Assert.assertEquals("Input: '/' is illegal", e.getMessage());
+      }
+
+      try {
+        calculator = calculator.input('a');
+        Assert.fail("should have failed");
+      } catch (IllegalArgumentException e) {
+        Assert.assertEquals("Input: 'a' is illegal", e.getMessage());
+      }
+      Assert.assertEquals(expectedResult, calculator.getResult());
+
+      char operator = validOperators1[random.nextInt(validOperators1.length)];
+      calculator = calculator.input(operator);
+      expectedResult += operator;
     }
-    Assert.assertEquals("", calculator.getResult());
-
-    try {
-      calculator = calculator.input('/');
-    } catch (Exception e) {
-      Assert.assertEquals(e.getMessage(), "Input: '/' is illegal");
-    }
-    Assert.assertEquals("", calculator.getResult());
-
-    calculator = calculator.input('1');
-    Assert.assertEquals("1", calculator.getResult());
-
-    try {
-      calculator = calculator.input('/');
-    } catch (Exception e) {
-      Assert.assertEquals(e.getMessage(), "Input: '/' is illegal");
-    }
-    Assert.assertEquals("1", calculator.getResult());
-
-    try {
-      calculator = calculator.input('b');
-    } catch (IllegalArgumentException e) {
-      Assert.assertEquals(e.getMessage(), "Input: 'b' is illegal");
-    }
-    Assert.assertEquals("1", calculator.getResult());
-
-    calculator = calculator.input('+');
-    Assert.assertEquals("1+", calculator.getResult());
-
-    try {
-      calculator = calculator.input('c');
-    } catch (Exception e) {
-      Assert.assertEquals(e.getMessage(), "Input: 'c' is illegal");
-    }
-    Assert.assertEquals("1+", calculator.getResult());
-
-    try {
-      calculator = calculator.input('/');
-    } catch (Exception e) {
-      Assert.assertEquals(e.getMessage(), "Input: '/' is illegal");
-    }
-    Assert.assertEquals("1+", calculator.getResult());
-
-    calculator = calculator.input('2');
-    Assert.assertEquals("1+2", calculator.getResult());
-
-    try {
-      calculator = calculator.input('d');
-    } catch (Exception e) {
-      Assert.assertEquals(e.getMessage(), "Input: 'd' is illegal");
-    }
-    Assert.assertEquals("1+2", calculator.getResult());
-
-    try {
-      calculator = calculator.input('/');
-    } catch (Exception e) {
-      Assert.assertEquals(e.getMessage(), "Input: '/' is illegal");
-    }
-    Assert.assertEquals("1+2", calculator.getResult());
-
-
-    calculator = calculator.input('*');
-    Assert.assertEquals("1+2*", calculator.getResult());
-
-    try {
-      calculator = calculator.input('e');
-    } catch (Exception e) {
-      Assert.assertEquals(e.getMessage(), "Input: 'e' is illegal");
-    }
-    Assert.assertEquals("1+2*", calculator.getResult());
-
-    try {
-      calculator = calculator.input('/');
-    } catch (Exception e) {
-      Assert.assertEquals(e.getMessage(), "Input: '/' is illegal");
-    }
-    Assert.assertEquals("1+2*", calculator.getResult());
-
-    calculator = calculator.input('3');
-    Assert.assertEquals("1+2*3", calculator.getResult());
-
-    try {
-      calculator = calculator.input('f');
-    } catch (Exception e) {
-      Assert.assertEquals(e.getMessage(), "Input: 'f' is illegal");
-    }
-    Assert.assertEquals("1+2*3", calculator.getResult());
-
-    try {
-      calculator = calculator.input('/');
-    } catch (Exception e) {
-      Assert.assertEquals(e.getMessage(), "Input: '/' is illegal");
-    }
-    Assert.assertEquals("1+2*3", calculator.getResult());
-
-
-    calculator = calculator.input('=');
-    Assert.assertEquals("9", calculator.getResult());
   }
 
   @Test
