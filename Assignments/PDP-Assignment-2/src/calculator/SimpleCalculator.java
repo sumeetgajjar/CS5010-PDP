@@ -31,7 +31,8 @@ import static calculator.bean.CommandName.OPERAND;
  * reported as an error.</p>
  *
  * <p>The calculator does allow inputting “=” multiple times and the operation will return same
- * result every time.</p>
+ * result every time. For e.g., 1+2= will produce 3, 1+2== will produce 3, 1+2=== will also produce
+ * 3</p>
  *
  * <p>The input ’C’ will clear the calculator inputs.</p>
  *
@@ -51,7 +52,7 @@ import static calculator.bean.CommandName.OPERAND;
 public class SimpleCalculator extends AbstractCalculator {
 
   /**
-   * Initial Set of Commands that are supported by the {@link SimpleCalculator}.
+   * Initial Set of Command Names that are supported by the {@link SimpleCalculator}.
    */
   private static final Set<CommandName> INITIAL_VALID_INPUT_CATEGORY_SET =
           Collections.unmodifiableSet(
