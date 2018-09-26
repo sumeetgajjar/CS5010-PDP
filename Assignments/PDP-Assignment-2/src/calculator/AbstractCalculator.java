@@ -23,7 +23,11 @@ public abstract class AbstractCalculator implements Calculator {
   protected final Set<InputCategoryName> anticipatedInputCategoryNames;
   protected final String result;
 
-  protected AbstractCalculator(List<String> currentExpression, Set<InputCategoryName> anticipatedInputCategoryNames, String result) {
+  protected AbstractCalculator(
+          List<String> currentExpression,
+          Set<InputCategoryName> anticipatedInputCategoryNames,
+          String result) {
+
     this.currentExpression = currentExpression;
     this.anticipatedInputCategoryNames = anticipatedInputCategoryNames;
     this.result = result;
@@ -36,15 +40,24 @@ public abstract class AbstractCalculator implements Calculator {
 
   protected abstract List<InputCategoryInterface> getSupportedInputCategoryInterface();
 
-  protected abstract Calculator getCalculatorInstance(List<String> expression, String result, Set<InputCategoryName> anticipatedInputCategoryNames);
+  protected abstract Calculator getCalculatorInstance(
+          List<String> expression,
+          String result,
+          Set<InputCategoryName> anticipatedInputCategoryNames);
 
   @Override
   public Calculator input(char input) throws IllegalArgumentException {
     InputCategoryInterface currentInputCategoryInterface = getInputCategoryInterface(input);
+
     isCurrentInputValid(input, currentInputCategoryInterface.getInputCategory());
+
     List<String> newExpression = currentInputCategoryInterface.performAction(input);
+
     String newResult = generateResultString(newExpression);
-    Set<InputCategoryName> nextAnticipatedInputCategoryNames = currentInputCategoryInterface.getNextValidInputCategorySet();
+
+    Set<InputCategoryName> nextAnticipatedInputCategoryNames =
+            currentInputCategoryInterface.getNextValidInputCategorySet();
+
     return getCalculatorInstance(newExpression, newResult, nextAnticipatedInputCategoryNames);
   }
 
@@ -53,7 +66,9 @@ public abstract class AbstractCalculator implements Calculator {
     return this.result;
   }
 
-  private void isCurrentInputValid(char input, InputCategoryName currentInputCategoryName) throws IllegalArgumentException {
+  private void isCurrentInputValid(char input, InputCategoryName currentInputCategoryName)
+          throws IllegalArgumentException {
+
     if (!this.anticipatedInputCategoryNames.contains(currentInputCategoryName)) {
       throw new IllegalArgumentException(String.format("Input: '%s' is illegal", input));
     }
@@ -63,7 +78,9 @@ public abstract class AbstractCalculator implements Calculator {
     return String.join("", expression);
   }
 
-  private InputCategoryInterface getInputCategoryInterface(char input) throws IllegalArgumentException {
+  private InputCategoryInterface getInputCategoryInterface(char input)
+          throws IllegalArgumentException {
+
     for (InputCategoryInterface inputCategoryInterface : getSupportedInputCategoryInterface()) {
       if (inputCategoryInterface.belongToInputCategory(input)) {
         return inputCategoryInterface;
