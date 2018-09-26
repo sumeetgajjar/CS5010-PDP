@@ -48,7 +48,6 @@ public class SimpleCalculatorEqualToCommand extends AbstractCommand {
    *
    * @param input input character
    * @return the algebraic expression generated after evaluating the current expression
-   * @throws RuntimeException if the input character causes operand overflow
    */
   @Override
   public List<String> performAction(char input) {
