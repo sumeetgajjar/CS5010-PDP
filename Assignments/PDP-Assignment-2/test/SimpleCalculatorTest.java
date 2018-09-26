@@ -92,7 +92,70 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
       } catch (IllegalArgumentException ignored) {
       }
       Assert.assertEquals("", calculator.getResult());
+
+      calculator = calculator.input('1');
+      Assert.assertEquals("1", calculator.getResult());
     }
+  }
+
+  @Test
+  public void testAddition() {
+    Calculator calculator = getCalculatorInstance();
+    calculator = calculator.input('1').input('+').input('2');
+    Assert.assertEquals("1+2", calculator.getResult());
+    Calculator calculator1 = calculator.input('=');
+    Assert.assertEquals("3", calculator1.getResult());
+
+    calculator = calculator.input('+').input('3');
+    Assert.assertEquals("1+2+3", calculator.getResult());
+    Calculator calculator2 = calculator.input('=');
+    Assert.assertEquals("6", calculator2.getResult());
+
+    calculator = calculator.input('+').input('4');
+    Assert.assertEquals("1+2+3+4", calculator.getResult());
+    Calculator calculator3 = calculator.input('=');
+    Assert.assertEquals("10", calculator3.getResult());
+  }
+
+
+  @Test
+  public void testSubtraction() {
+    Calculator calculator = getCalculatorInstance();
+
+    calculator = calculator.input('1').input('0').input('-').input('2');
+    Assert.assertEquals("10-2", calculator.getResult());
+    Calculator calculator1 = calculator.input('=');
+    Assert.assertEquals("8", calculator1.getResult());
+
+    calculator = calculator.input('-').input('3');
+    Assert.assertEquals("10-2-3", calculator.getResult());
+    Calculator calculator2 = calculator.input('=');
+    Assert.assertEquals("5", calculator2.getResult());
+
+    calculator = calculator.input('-').input('4');
+    Assert.assertEquals("10-2-3-4", calculator.getResult());
+    Calculator calculator3 = calculator.input('=');
+    Assert.assertEquals("1", calculator3.getResult());
+  }
+
+
+  @Test
+  public void testMultiplication() {
+    Calculator calculator = getCalculatorInstance();
+    calculator = calculator.input('6').input('*').input('7');
+    Assert.assertEquals("6*7", calculator.getResult());
+    Calculator calculator1 = calculator.input('=');
+    Assert.assertEquals("42", calculator1.getResult());
+
+    calculator = calculator.input('*').input('3');
+    Assert.assertEquals("6*7*3", calculator.getResult());
+    Calculator calculator2 = calculator.input('=');
+    Assert.assertEquals("126", calculator2.getResult());
+
+    calculator = calculator.input('*').input('4');
+    Assert.assertEquals("6*7*3*4", calculator.getResult());
+    Calculator calculator3 = calculator.input('=');
+    Assert.assertEquals("504", calculator3.getResult());
   }
 
   @Test
