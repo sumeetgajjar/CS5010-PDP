@@ -6,12 +6,27 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import calculator.SmartCalculator;
 import calculator.bean.CommandName;
+import calculator.command.AbstractCommand;
+import calculator.command.Command;
 import calculator.command.simplecalculator.SimpleCalculatorOperandInputCommand;
 
+/**
+ * This class represents Operand Input {@link Command} for {@link SmartCalculator}. It extends
+ * {@link AbstractCommand}. It throws an Runtime exception if the given input causes a Operand
+ * Overflow.
+ */
 public class SmartCalculatorOperandInputCommand extends SimpleCalculatorOperandInputCommand {
 
-
+  /**
+   * Constructs the object of {@link SmartCalculatorOperandInputCommand}. Its initializes it to the
+   * given values
+   *
+   * @param expression         current algebraic expression
+   * @param supportedOperands  set of characters supported by the command
+   * @param supportedOperators set of supported operators by the command
+   */
   public SmartCalculatorOperandInputCommand(List<String> expression,
                                             Set<Character> supportedOperands,
                                             Set<Character> supportedOperators) {

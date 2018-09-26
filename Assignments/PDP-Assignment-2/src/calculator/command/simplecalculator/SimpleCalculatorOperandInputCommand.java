@@ -28,15 +28,15 @@ public class SimpleCalculatorOperandInputCommand extends AbstractCommand {
    * given values
    *
    * @param expression         current algebraic expression
-   * @param supportCharacters  set of characters supported by the command
+   * @param supportOperands    set of characters supported by the command
    * @param supportedOperators set of supported operators by the command
    */
   public SimpleCalculatorOperandInputCommand(
           List<String> expression,
-          Set<Character> supportCharacters,
+          Set<Character> supportOperands,
           Set<Character> supportedOperators) {
 
-    super(expression, supportCharacters);
+    super(expression, supportOperands);
     this.supportedOperators = Collections.unmodifiableSet(supportedOperators);
   }
 
