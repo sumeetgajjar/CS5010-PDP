@@ -3,15 +3,15 @@ package calculator.inputcategory;
 import java.util.List;
 import java.util.Set;
 
-import calculator.bean.InputCategoryName;
+import calculator.bean.CommandName;
 
 public interface InputCategoryInterface {
 
   boolean belongToInputCategory(char input);
 
-  InputCategoryName getInputCategory();
+  CommandName getInputCategory();
 
   List<String> performAction(char input) throws RuntimeException;
 
-  Set<InputCategoryName> getNextValidInputCategorySet();
+  Set<CommandName> getNextValidInputCategorySet();
 }

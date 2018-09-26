@@ -6,30 +6,30 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import calculator.bean.InputCategoryName;
+import calculator.bean.CommandName;
 import calculator.inputcategory.InputCategoryInterface;
 import calculator.inputcategory.simplecalculator.SimpleCalculatorClearInputCategory;
 import calculator.inputcategory.simplecalculator.SimpleCalculatorEqualToInputCategory;
 import calculator.inputcategory.simplecalculator.SimpleCalculatorOperandInputCategory;
 import calculator.inputcategory.simplecalculator.SimpleCalculatorOperatorInputCategory;
 
-import static calculator.bean.InputCategoryName.CLEAR;
-import static calculator.bean.InputCategoryName.OPERAND;
+import static calculator.bean.CommandName.CLEAR;
+import static calculator.bean.CommandName.OPERAND;
 
 /**
  * This class represents a SimpleCalculator. It can only work with 32-bit whole numbers.
  */
 public class SimpleCalculator extends AbstractCalculator {
 
-  private static final Set<InputCategoryName> INITIAL_VALID_INPUT_CATEGORY_SET =
+  private static final Set<CommandName> INITIAL_VALID_INPUT_CATEGORY_SET =
           Collections.unmodifiableSet(
                   new HashSet<>(Arrays.asList(OPERAND, CLEAR
                   )));
 
   private SimpleCalculator(List<String> currentExpression,
-                           Set<InputCategoryName> anticipatedInputCategoryNames,
+                           Set<CommandName> anticipatedCommandNames,
                            String result) {
-    super(currentExpression, anticipatedInputCategoryNames, result);
+    super(currentExpression, anticipatedCommandNames, result);
   }
 
   public SimpleCalculator() {
@@ -40,8 +40,8 @@ public class SimpleCalculator extends AbstractCalculator {
   protected Calculator getCalculatorInstance(
           List<String> expression,
           String result,
-          Set<InputCategoryName> anticipatedInputCategoryNames) {
-    return new SimpleCalculator(expression, anticipatedInputCategoryNames, result);
+          Set<CommandName> anticipatedCommandNames) {
+    return new SimpleCalculator(expression, anticipatedCommandNames, result);
   }
 
   @Override

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import calculator.bean.InputCategoryName;
+import calculator.bean.CommandName;
 import calculator.inputcategory.simplecalculator.SimpleCalculatorOperatorInputCategory;
 import calculator.util.Utils;
 
@@ -46,11 +46,11 @@ public class SmartCalculatorOperatorInputCategory extends SimpleCalculatorOperat
   }
 
   @Override
-  public Set<InputCategoryName> getNextValidInputCategorySet() {
+  public Set<CommandName> getNextValidInputCategorySet() {
     return Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
-            InputCategoryName.OPERAND,
-            InputCategoryName.OPERATOR,
-            InputCategoryName.EQUAL_TO,
-            InputCategoryName.CLEAR)));
+            CommandName.OPERAND,
+            CommandName.OPERATOR,
+            CommandName.EQUAL_TO,
+            CommandName.CLEAR)));
   }
 }

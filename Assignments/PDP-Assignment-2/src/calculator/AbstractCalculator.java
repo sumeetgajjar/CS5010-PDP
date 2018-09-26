@@ -6,7 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import calculator.bean.InputCategoryName;
+import calculator.bean.CommandName;
 import calculator.inputcategory.InputCategoryInterface;
 
 /**
@@ -16,8 +16,8 @@ import calculator.inputcategory.InputCategoryInterface;
  * <ul>
  * <li><code>currentExpression</code> : It stores the current algebraic expression as {@link
  * List}</li>
- * <li><code>anticipatedInputCategoryNames</code> : It is a {@link Set} of valid {@link
- * InputCategoryName} the next Input can have</li>
+ * <li><code>anticipatedCommandNames</code> : It is a {@link Set} of valid {@link
+ * CommandName} the next Input can have</li>
  * <li><code>result</code> : It stores the result of the calculator as {@link String}</li>
  * </ul>
  *
@@ -32,8 +32,8 @@ import calculator.inputcategory.InputCategoryInterface;
  * </ul>
  *
  * The programmer should also provide a constructor, of following signature
- * <code>Calculator({@link List<String>} currentExpression, {@link Set<InputCategoryName>}
- * anticipatedInputCategoryNames, {@link String} result)</code>
+ * <code>Calculator({@link List<String>} currentExpression, {@link Set<CommandName>}
+ * anticipatedCommandNames, {@link String} result)</code>
  */
 public abstract class AbstractCalculator implements Calculator {
 
@@ -67,9 +67,9 @@ public abstract class AbstractCalculator implements Calculator {
   protected final List<String> currentExpression;
 
   /**
-   * stores the valid InputCategoryName, the next input can have.
+   * stores the valid CommandName, the next input can have.
    */
-  protected final Set<InputCategoryName> anticipatedInputCategoryNames;
+  protected final Set<CommandName> anticipatedCommandNames;
 
   /**
    * stores the current result of the calculator.
@@ -77,11 +77,11 @@ public abstract class AbstractCalculator implements Calculator {
   protected final String result;
 
   protected AbstractCalculator(List<String> currentExpression,
-                               Set<InputCategoryName> anticipatedInputCategoryNames,
+                               Set<CommandName> anticipatedCommandNames,
                                String result) {
 
     this.currentExpression = currentExpression;
-    this.anticipatedInputCategoryNames = anticipatedInputCategoryNames;
+    this.anticipatedCommandNames = anticipatedCommandNames;
     this.result = result;
   }
 
@@ -94,7 +94,7 @@ public abstract class AbstractCalculator implements Calculator {
   protected abstract Calculator getCalculatorInstance(
           List<String> expression,
           String result,
-          Set<InputCategoryName> anticipatedInputCategoryNames);
+          Set<CommandName> anticipatedCommandNames);
 
   @Override
   public Calculator input(char input) throws IllegalArgumentException, RuntimeException {
@@ -106,10 +106,10 @@ public abstract class AbstractCalculator implements Calculator {
 
     String newResult = generateResultString(newExpression);
 
-    Set<InputCategoryName> nextAnticipatedInputCategoryNames =
+    Set<CommandName> nextAnticipatedCommandNames =
             currentInputCategoryInterface.getNextValidInputCategorySet();
 
-    return getCalculatorInstance(newExpression, newResult, nextAnticipatedInputCategoryNames);
+    return getCalculatorInstance(newExpression, newResult, nextAnticipatedCommandNames);
   }
 
   @Override
@@ -117,10 +117,10 @@ public abstract class AbstractCalculator implements Calculator {
     return this.result;
   }
 
-  private void isCurrentInputValid(char input, InputCategoryName currentInputCategoryName)
+  private void isCurrentInputValid(char input, CommandName currentCommandName)
           throws IllegalArgumentException {
 
-    if (!this.anticipatedInputCategoryNames.contains(currentInputCategoryName)) {
+    if (!this.anticipatedCommandNames.contains(currentCommandName)) {
       throw new IllegalArgumentException(String.format("Input: '%s' is illegal", input));
     }
   }

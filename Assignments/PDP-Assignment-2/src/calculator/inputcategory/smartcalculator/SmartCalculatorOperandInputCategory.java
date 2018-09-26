@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import calculator.bean.InputCategoryName;
+import calculator.bean.CommandName;
 import calculator.inputcategory.simplecalculator.SimpleCalculatorOperandInputCategory;
 
 public class SmartCalculatorOperandInputCategory extends SimpleCalculatorOperandInputCategory {
@@ -20,11 +20,11 @@ public class SmartCalculatorOperandInputCategory extends SimpleCalculatorOperand
   }
 
   @Override
-  public Set<InputCategoryName> getNextValidInputCategorySet() {
+  public Set<CommandName> getNextValidInputCategorySet() {
     return Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
-            InputCategoryName.OPERAND,
-            InputCategoryName.OPERATOR,
-            InputCategoryName.EQUAL_TO,
-            InputCategoryName.CLEAR)));
+            CommandName.OPERAND,
+            CommandName.OPERATOR,
+            CommandName.EQUAL_TO,
+            CommandName.CLEAR)));
   }
 }
