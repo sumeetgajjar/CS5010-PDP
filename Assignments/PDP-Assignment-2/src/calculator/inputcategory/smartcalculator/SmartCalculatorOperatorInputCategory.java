@@ -16,7 +16,11 @@ public class SmartCalculatorOperatorInputCategory extends SimpleCalculatorOperat
 
   private final Set<Character> supportedDigits;
 
-  public SmartCalculatorOperatorInputCategory(List<String> expression, Set<Character> supportedOperators, Set<Character> supportedDigits) {
+  public SmartCalculatorOperatorInputCategory(
+          List<String> expression,
+          Set<Character> supportedOperators,
+          Set<Character> supportedDigits) {
+
     super(expression, supportedOperators);
     this.supportedDigits = supportedDigits;
   }
