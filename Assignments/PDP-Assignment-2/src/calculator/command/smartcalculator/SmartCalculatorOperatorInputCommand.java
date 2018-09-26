@@ -8,14 +8,29 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import calculator.SmartCalculator;
 import calculator.bean.CommandName;
+import calculator.command.AbstractCommand;
+import calculator.command.Command;
 import calculator.command.simplecalculator.SimpleCalculatorOperatorInputCommand;
 import calculator.util.Utils;
 
+/**
+ * This class represents Operator Input {@link Command} for {@link SmartCalculator}. It extends
+ * {@link AbstractCommand}.
+ */
 public class SmartCalculatorOperatorInputCommand extends SimpleCalculatorOperatorInputCommand {
 
   private final Set<Character> supportedDigits;
 
+  /**
+   * Constructs the object of {@link SimpleCalculatorOperatorInputCommand}. Its initializes it to
+   * the given values
+   *
+   * @param expression         current algebraic expression
+   * @param supportedOperators set of operators supported by the command
+   * @param supportedDigits    set of digits  supported by the command
+   */
   public SmartCalculatorOperatorInputCommand(List<String> expression,
                                              Set<Character> supportedOperators,
                                              Set<Character> supportedDigits) {
@@ -24,6 +39,15 @@ public class SmartCalculatorOperatorInputCommand extends SimpleCalculatorOperato
     this.supportedDigits = supportedDigits;
   }
 
+  /**
+   * Appends the input character operator to the expression if the last element of the expression is
+   * operand and returns the new expression. If the last element of the expression is operator then
+   * it removes the lastElement from the expression, appends the given operator character to the
+   * expression and returns the new expression.
+   *
+   * @param input input character
+   * @return the new expression after appending the input character operator
+   */
   @Override
   public List<String> performAction(char input) {
     Deque<String> expressionDeque = Utils.getExpressionDeque(this.expression);

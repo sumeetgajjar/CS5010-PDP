@@ -23,13 +23,13 @@ public class SimpleCalculatorOperatorInputCommand extends AbstractCommand {
    * Constructs the object of {@link SimpleCalculatorOperatorInputCommand}. Its initializes it to
    * the given values
    *
-   * @param expression        current algebraic expression
-   * @param supportCharacters set of characters supported by the command
+   * @param expression       current algebraic expression
+   * @param supportOperators set of operators supported by the command
    */
   public SimpleCalculatorOperatorInputCommand(List<String> expression,
-                                              Set<Character> supportCharacters) {
+                                              Set<Character> supportOperators) {
 
-    super(expression, supportCharacters);
+    super(expression, supportOperators);
   }
 
   /**
