@@ -12,10 +12,9 @@ import calculator.inputcategory.simplecalculator.SimpleCalculatorOperandInputCat
 public class SmartCalculatorOperandInputCategory extends SimpleCalculatorOperandInputCategory {
 
 
-  public SmartCalculatorOperandInputCategory(
-          List<String> expression,
-          Set<Character> supportedOperands,
-          Set<Character> supportedOperators) {
+  public SmartCalculatorOperandInputCategory(List<String> expression,
+                                             Set<Character> supportedOperands,
+                                             Set<Character> supportedOperators) {
 
     super(expression, supportedOperands, supportedOperators);
   }
@@ -23,6 +22,9 @@ public class SmartCalculatorOperandInputCategory extends SimpleCalculatorOperand
   @Override
   public Set<InputCategoryName> getNextValidInputCategorySet() {
     return Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
-            InputCategoryName.OPERAND, InputCategoryName.OPERATOR, InputCategoryName.EQUAL_TO, InputCategoryName.CLEAR)));
+            InputCategoryName.OPERAND,
+            InputCategoryName.OPERATOR,
+            InputCategoryName.EQUAL_TO,
+            InputCategoryName.CLEAR)));
   }
 }

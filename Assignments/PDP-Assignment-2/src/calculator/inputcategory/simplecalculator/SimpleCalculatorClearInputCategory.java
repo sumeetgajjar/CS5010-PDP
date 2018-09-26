@@ -13,7 +13,9 @@ import calculator.util.Utils;
 
 public class SimpleCalculatorClearInputCategory extends AbstractInputCategory {
 
-  public SimpleCalculatorClearInputCategory(List<String> expression, Set<Character> clearInputCharacterSet) {
+  public SimpleCalculatorClearInputCategory(List<String> expression,
+                                            Set<Character> clearInputCharacterSet) {
+
     super(expression, clearInputCharacterSet);
   }
 

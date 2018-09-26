@@ -14,7 +14,9 @@ import calculator.util.Utils;
 
 public class SimpleCalculatorEqualToInputCategory extends AbstractInputCategory {
 
-  public SimpleCalculatorEqualToInputCategory(List<String> expression, Set<Character> supportCharacters) {
+  public SimpleCalculatorEqualToInputCategory(List<String> expression,
+                                              Set<Character> supportCharacters) {
+
     super(expression, supportCharacters);
   }
 

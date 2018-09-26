@@ -23,10 +23,9 @@ public abstract class AbstractCalculator implements Calculator {
   protected final Set<InputCategoryName> anticipatedInputCategoryNames;
   protected final String result;
 
-  protected AbstractCalculator(
-          List<String> currentExpression,
-          Set<InputCategoryName> anticipatedInputCategoryNames,
-          String result) {
+  protected AbstractCalculator(List<String> currentExpression,
+                               Set<InputCategoryName> anticipatedInputCategoryNames,
+                               String result) {
 
     this.currentExpression = currentExpression;
     this.anticipatedInputCategoryNames = anticipatedInputCategoryNames;

@@ -11,7 +11,9 @@ import calculator.inputcategory.simplecalculator.SimpleCalculatorClearInputCateg
 
 public class SmartCalculatorClearInputCategory extends SimpleCalculatorClearInputCategory {
 
-  public SmartCalculatorClearInputCategory(List<String> expression, Set<Character> clearInputCharacterSet) {
+  public SmartCalculatorClearInputCategory(List<String> expression,
+                                           Set<Character> clearInputCharacterSet) {
+
     super(expression, clearInputCharacterSet);
   }
 

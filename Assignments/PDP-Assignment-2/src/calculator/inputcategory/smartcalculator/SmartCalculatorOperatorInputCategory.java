@@ -16,10 +16,9 @@ public class SmartCalculatorOperatorInputCategory extends SimpleCalculatorOperat
 
   private final Set<Character> supportedDigits;
 
-  public SmartCalculatorOperatorInputCategory(
-          List<String> expression,
-          Set<Character> supportedOperators,
-          Set<Character> supportedDigits) {
+  public SmartCalculatorOperatorInputCategory(List<String> expression,
+                                              Set<Character> supportedOperators,
+                                              Set<Character> supportedDigits) {
 
     super(expression, supportedOperators);
     this.supportedDigits = supportedDigits;
@@ -49,6 +48,9 @@ public class SmartCalculatorOperatorInputCategory extends SimpleCalculatorOperat
   @Override
   public Set<InputCategoryName> getNextValidInputCategorySet() {
     return Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
-            InputCategoryName.OPERAND, InputCategoryName.OPERATOR, InputCategoryName.EQUAL_TO, InputCategoryName.CLEAR)));
+            InputCategoryName.OPERAND,
+            InputCategoryName.OPERATOR,
+            InputCategoryName.EQUAL_TO,
+            InputCategoryName.CLEAR)));
   }
 }

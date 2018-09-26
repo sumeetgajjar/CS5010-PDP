@@ -29,12 +29,11 @@ public class SmartCalculator extends AbstractCalculator {
   private final int lastOperand;
 
 
-  private SmartCalculator(
-          List<String> newExpression,
-          Set<InputCategoryName> nextAnticipatedInputCategoryNames,
-          String result,
-          Operation lastOperation,
-          int lastOperand) {
+  private SmartCalculator(List<String> newExpression,
+                          Set<InputCategoryName> nextAnticipatedInputCategoryNames,
+                          String result,
+                          Operation lastOperation,
+                          int lastOperand) {
 
     super(newExpression, nextAnticipatedInputCategoryNames, result);
     this.lastOperand = lastOperand;

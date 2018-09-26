@@ -13,11 +13,10 @@ public class SmartCalculatorEqualToInputCategory extends SimpleCalculatorEqualTo
   private final Operation lastOperation;
   private final int lastOperand;
 
-  public SmartCalculatorEqualToInputCategory(
-          List<String> expression,
-          Set<Character> supportedEqualToCharacters,
-          Operation lastOperation,
-          int lastOperand) {
+  public SmartCalculatorEqualToInputCategory(List<String> expression,
+                                             Set<Character> supportedEqualToCharacters,
+                                             Operation lastOperation,
+                                             int lastOperand) {
 
     super(expression, supportedEqualToCharacters);
     this.lastOperation = lastOperation;
