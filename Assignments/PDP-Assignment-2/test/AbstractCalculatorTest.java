@@ -14,7 +14,7 @@ public abstract class AbstractCalculatorTest {
   }
 
   @Test
-  public void testValidOperands() {
+  public void testAllValidOperandOperatorCombinations() {
     char[] validOperands = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
     char[] validOperators = new char[]{'+', '-', '*'};
 
@@ -37,7 +37,7 @@ public abstract class AbstractCalculatorTest {
   }
 
   @Test
-  public void testOnlyClearInput() {
+  public void testMultipleClearInput() {
     Calculator calculator = getCalculatorInstance();
     calculator = calculator.input('C');
     Assert.assertEquals("", calculator.getResult());
@@ -112,7 +112,7 @@ public abstract class AbstractCalculatorTest {
   }
 
   @Test
-  public void testClearInputExpression() {
+  public void testClearInputAfterEqualTo() {
     Calculator calculator = getCalculatorInstance();
 
     calculator = calculator.input('4');
@@ -290,7 +290,7 @@ public abstract class AbstractCalculatorTest {
   }
 
   @Test
-  public void test32BitOperand() {
+  public void testMultiple32BitOperand() {
     String input = String.valueOf(Integer.MAX_VALUE);
     Calculator calculator = getCalculatorInstance();
 
@@ -309,8 +309,20 @@ public abstract class AbstractCalculatorTest {
     }
     Assert.assertEquals("2147483647+2147483647", calculator.getResult());
 
-    calculator = calculator.input('=');
-    Assert.assertEquals("0", calculator.getResult());
+    Calculator calculator1 = calculator.input('=');
+    Assert.assertEquals("0", calculator1.getResult());
+
+    calculator = calculator.input('+');
+    Assert.assertEquals("2147483647+2147483647+", calculator.getResult());
+
+    for (int i = 0; i < input.length(); i++) {
+      calculator = calculator.input(input.charAt(i));
+      Assert.assertEquals("2147483647+2147483647+" + input.substring(0, i + 1), calculator.getResult());
+    }
+    Assert.assertEquals("2147483647+2147483647+2147483647", calculator.getResult());
+
+    Calculator calculator2 = calculator.input('=');
+    Assert.assertEquals("2147483647", calculator2.getResult());
   }
 
   @Test
