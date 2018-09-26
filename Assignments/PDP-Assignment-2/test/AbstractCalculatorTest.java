@@ -100,7 +100,7 @@ public abstract class AbstractCalculatorTest {
     Calculator calculator1 = calculator.input('+');
     Assert.assertEquals("4-2+", calculator1.getResult());
 
-    calculator1 = calculator.input('3');
+    calculator1 = calculator1.input('3');
     Assert.assertEquals("4-2+3", calculator1.getResult());
 
     Calculator calculatorClear2 = calculator1.input('C');
