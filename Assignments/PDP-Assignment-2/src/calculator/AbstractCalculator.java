@@ -76,6 +76,13 @@ public abstract class AbstractCalculator implements Calculator {
    */
   protected final String result;
 
+  /**
+   * Constructs a Object of the caller Class and initializes the fields to given values.
+   *
+   * @param currentExpression       current algebraic expression
+   * @param anticipatedCommandNames set of valid command names next input can have
+   * @param result                  current result of the calculator
+   */
   protected AbstractCalculator(List<String> currentExpression,
                                Set<CommandName> anticipatedCommandNames,
                                String result) {
