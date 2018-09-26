@@ -180,7 +180,8 @@ public abstract class AbstractCalculatorTest {
 
       Assert.fail("Test passed for input greater than 32 bits");
     } catch (RuntimeException e) {
-      Assert.assertEquals("Operand overflow: operand is greater than 32 bits", e.getMessage());
+      Assert.assertEquals("Operand overflow: operand is greater than 32 bits",
+              e.getMessage());
     }
     Assert.assertEquals("214748364", calculator.getResult());
 
@@ -208,7 +209,8 @@ public abstract class AbstractCalculatorTest {
 
       Assert.fail("Test passed for input greater than 32 bits");
     } catch (RuntimeException e) {
-      Assert.assertEquals("Operand overflow: operand is greater than 32 bits", e.getMessage());
+      Assert.assertEquals("Operand overflow: operand is greater than 32 bits",
+              e.getMessage());
     }
     Assert.assertEquals("1+214748364", calculator1.getResult());
 
@@ -232,7 +234,8 @@ public abstract class AbstractCalculatorTest {
 
     for (int i = 0; i < input.length(); i++) {
       calculator = calculator.input(input.charAt(i));
-      Assert.assertEquals("2147483647+" + input.substring(0, i + 1), calculator.getResult());
+      Assert.assertEquals("2147483647+" + input.substring(0, i + 1),
+              calculator.getResult());
     }
     Assert.assertEquals("2147483647+2147483647", calculator.getResult());
     Calculator calculator1 = calculator.input('=');
@@ -242,7 +245,8 @@ public abstract class AbstractCalculatorTest {
     Assert.assertEquals("2147483647+2147483647+", calculator.getResult());
     for (int i = 0; i < input.length(); i++) {
       calculator = calculator.input(input.charAt(i));
-      Assert.assertEquals("2147483647+2147483647+" + input.substring(0, i + 1), calculator.getResult());
+      Assert.assertEquals("2147483647+2147483647+" + input.substring(0, i + 1),
+              calculator.getResult());
     }
     Assert.assertEquals("2147483647+2147483647+2147483647", calculator.getResult());
     Calculator calculator2 = calculator.input('=');
