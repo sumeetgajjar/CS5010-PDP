@@ -1,26 +1,28 @@
 package calculator.bean;
 
 /**
- * This enum represents the Name of the Command an input can have.
+ * This enum represents the Name of a Command that a Calculator can perform.
  */
 public enum CommandName {
   /**
-   * If the input is operand. e.g. "0", "1" and so on.
+   * Indicates the operand input command i.e. if the input character is operand. e.g. "0", "1" and
+   * so on.
    */
   OPERAND,
 
   /**
-   * If the input is operator. e.g. "+", "-" and so on.
+   * Indicates the operator input command i.e. if the input character is operator. e.g. "+", "-" and
+   * so on.
    */
   OPERATOR,
 
   /**
-   * If the input is equal to. e.g. "=".
+   * Indicates the "Equal To" input command i.e. If the input character is "=".
    */
   EQUAL_TO,
 
   /**
-   * If the input is clear. e.g. "C".
+   * Indicates the "Clear Input" command i.e. If the input character is "C".
    */
   CLEAR
 }
