@@ -40,6 +40,12 @@ public enum Operation {
     this.symbol = symbol;
   }
 
+  public abstract int perform(int n1, int n2) throws ArithmeticException;
+
+  public char getSymbol() {
+    return symbol;
+  }
+
   public static Operation getOperation(char symbol) {
     Operation operation = Operation.SYMBOL_OPERATION_MAPPING.get(symbol);
     if (Objects.isNull(operation)) {
@@ -47,11 +53,5 @@ public enum Operation {
     } else {
       return operation;
     }
-  }
-
-  public abstract int perform(int n1, int n2) throws ArithmeticException;
-
-  public char getSymbol() {
-    return symbol;
   }
 }
