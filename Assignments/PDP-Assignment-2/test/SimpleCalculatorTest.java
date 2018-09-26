@@ -38,43 +38,47 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
   }
 
   @Test
-  public void name() {
+  public void testMultipleEqualAfterThreeOperands() {
     Calculator calculator = getCalculatorInstance();
     calculator = calculator.input('1');
     Assert.assertEquals("1", calculator.getResult());
-
     calculator = calculator.input('0');
     Assert.assertEquals("10", calculator.getResult());
-
     calculator = calculator.input('+');
     Assert.assertEquals("10+", calculator.getResult());
-
     calculator = calculator.input('1');
     Assert.assertEquals("10+1", calculator.getResult());
 
+    Calculator calculatorTwoOperand = calculator.input('=');
+    Assert.assertEquals("11", calculatorTwoOperand.getResult());
+    calculatorTwoOperand = calculatorTwoOperand.input('=');
+    Assert.assertEquals("11", calculatorTwoOperand.getResult());
+    calculatorTwoOperand = calculatorTwoOperand.input('=');
+    Assert.assertEquals("11", calculatorTwoOperand.getResult());
+
+
     calculator = calculator.input('-');
     Assert.assertEquals("10+1-", calculator.getResult());
-
-    calculator = calculator.input('1');
-    Assert.assertEquals("10+1-1", calculator.getResult());
-
-    calculator = calculator.input('*');
-    Assert.assertEquals("10+1-1*", calculator.getResult());
-
     calculator = calculator.input('2');
-    Assert.assertEquals("10+1-1*2", calculator.getResult());
+    Assert.assertEquals("10+1-2", calculator.getResult());
+    Calculator calculatorThreeOperand = calculator.input('=');
+    Assert.assertEquals("9", calculatorThreeOperand.getResult());
+    calculatorThreeOperand = calculatorThreeOperand.input('=');
+    Assert.assertEquals("9", calculatorThreeOperand.getResult());
+    calculatorThreeOperand = calculatorThreeOperand.input('=');
+    Assert.assertEquals("9", calculatorThreeOperand.getResult());
 
-    calculator = calculator.input('=');
-    Assert.assertEquals("20", calculator.getResult());
 
-    calculator = calculator.input('=');
-    Assert.assertEquals("20", calculator.getResult());
-
-    calculator = calculator.input('=');
-    Assert.assertEquals("20", calculator.getResult());
-
-    calculator = calculator.input('=');
-    Assert.assertEquals("20", calculator.getResult());
+    Calculator calculatorFourOperand = calculator.input('*');
+    Assert.assertEquals("10+1-2*", calculatorFourOperand.getResult());
+    calculatorFourOperand = calculatorFourOperand.input('3');
+    Assert.assertEquals("10+1-2*3", calculatorFourOperand.getResult());
+    calculatorFourOperand = calculatorFourOperand.input('=');
+    Assert.assertEquals("27", calculatorFourOperand.getResult());
+    calculatorFourOperand = calculatorFourOperand.input('=');
+    Assert.assertEquals("27", calculatorFourOperand.getResult());
+    calculatorFourOperand = calculatorFourOperand.input('=');
+    Assert.assertEquals("27", calculatorFourOperand.getResult());
   }
 
   @Test
@@ -181,4 +185,31 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
     Assert.assertEquals("30+", calculator.getResult());
   }
 
+  @Test
+  public void testMultipleOperators() {
+    Calculator calculator = getCalculatorInstance();
+
+    calculator = calculator.input('1');
+    Assert.assertEquals("1", calculator.getResult());
+    calculator = calculator.input('0');
+    Assert.assertEquals("10", calculator.getResult());
+    calculator = calculator.input('+');
+    Assert.assertEquals("10+", calculator.getResult());
+    calculator = calculator.input('2');
+    Assert.assertEquals("10+2", calculator.getResult());
+    calculator = calculator.input('-');
+    Assert.assertEquals("10+2-", calculator.getResult());
+    calculator = calculator.input('4');
+    Assert.assertEquals("10+2-4", calculator.getResult());
+    calculator = calculator.input('*');
+    Assert.assertEquals("10+2-4*", calculator.getResult());
+    calculator = calculator.input('3');
+    Assert.assertEquals("10+2-4*3", calculator.getResult());
+    calculator = calculator.input('+');
+    Assert.assertEquals("10+2-4*3+", calculator.getResult());
+    calculator = calculator.input('1');
+    Assert.assertEquals("10+2-4*3+1", calculator.getResult());
+    calculator = calculator.input('=');
+    Assert.assertEquals("25", calculator.getResult());
+  }
 }
