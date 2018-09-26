@@ -26,7 +26,7 @@ public class SimpleCalculatorOperandInputCommand extends AbstractCommand {
   }
 
   @Override
-  public CommandName getInputCategory() {
+  public CommandName getCommandName() {
     return CommandName.OPERAND;
   }
 
@@ -66,7 +66,7 @@ public class SimpleCalculatorOperandInputCommand extends AbstractCommand {
   }
 
   @Override
-  public Set<CommandName> getNextValidInputCategorySet() {
+  public Set<CommandName> getNextValidCommands() {
     Set<CommandName> validCommandNames = new HashSet<>(Arrays.asList(
             CommandName.OPERAND, CommandName.OPERATOR, CommandName.CLEAR));
 

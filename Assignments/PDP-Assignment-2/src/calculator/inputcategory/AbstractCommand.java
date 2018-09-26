@@ -15,7 +15,7 @@ public abstract class AbstractCommand implements Command {
   }
 
   @Override
-  public boolean belongToInputCategory(char input) {
+  public boolean doesInputCharacterBelongToCommand(char input) {
     return this.supportedCharacters.contains(input);
   }
 }

@@ -100,14 +100,14 @@ public abstract class AbstractCalculator implements Calculator {
   public Calculator input(char input) throws IllegalArgumentException, RuntimeException {
     Command currentCommand = getInputCategoryInterface(input);
 
-    isCurrentInputValid(input, currentCommand.getInputCategory());
+    isCurrentInputValid(input, currentCommand.getCommandName());
 
     List<String> newExpression = currentCommand.performAction(input);
 
     String newResult = generateResultString(newExpression);
 
     Set<CommandName> nextAnticipatedCommandNames =
-            currentCommand.getNextValidInputCategorySet();
+            currentCommand.getNextValidCommands();
 
     return getCalculatorInstance(newExpression, newResult, nextAnticipatedCommandNames);
   }
@@ -133,7 +133,7 @@ public abstract class AbstractCalculator implements Calculator {
           throws IllegalArgumentException {
 
     for (Command command : getSupportedInputCategoryInterface()) {
-      if (command.belongToInputCategory(input)) {
+      if (command.doesInputCharacterBelongToCommand(input)) {
         return command;
       }
     }

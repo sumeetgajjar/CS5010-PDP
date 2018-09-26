@@ -21,7 +21,7 @@ public class SimpleCalculatorEqualToCommand extends AbstractCommand {
   }
 
   @Override
-  public CommandName getInputCategory() {
+  public CommandName getCommandName() {
     return CommandName.EQUAL_TO;
   }
 
@@ -31,7 +31,7 @@ public class SimpleCalculatorEqualToCommand extends AbstractCommand {
   }
 
   @Override
-  public Set<CommandName> getNextValidInputCategorySet() {
+  public Set<CommandName> getNextValidCommands() {
     return Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
             CommandName.OPERATOR, CommandName.EQUAL_TO, CommandName.CLEAR)));
   }

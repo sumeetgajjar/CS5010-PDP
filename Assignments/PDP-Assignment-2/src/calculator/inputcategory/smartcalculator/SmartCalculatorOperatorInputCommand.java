@@ -46,7 +46,7 @@ public class SmartCalculatorOperatorInputCommand extends SimpleCalculatorOperato
   }
 
   @Override
-  public Set<CommandName> getNextValidInputCategorySet() {
+  public Set<CommandName> getNextValidCommands() {
     return Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
             CommandName.OPERAND,
             CommandName.OPERATOR,
