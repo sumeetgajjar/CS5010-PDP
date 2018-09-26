@@ -425,34 +425,6 @@ public abstract class AbstractCalculatorTest {
   }
 
   @Test
-  public void testMultipleOperators() {
-    Calculator calculator = getCalculatorInstance();
-
-    calculator = calculator.input('1');
-    Assert.assertEquals("1", calculator.getResult());
-    calculator = calculator.input('0');
-    Assert.assertEquals("10", calculator.getResult());
-    calculator = calculator.input('+');
-    Assert.assertEquals("10+", calculator.getResult());
-    calculator = calculator.input('2');
-    Assert.assertEquals("10+2", calculator.getResult());
-    calculator = calculator.input('-');
-    Assert.assertEquals("10+2-", calculator.getResult());
-    calculator = calculator.input('4');
-    Assert.assertEquals("10+2-4", calculator.getResult());
-    calculator = calculator.input('*');
-    Assert.assertEquals("10+2-4*", calculator.getResult());
-    calculator = calculator.input('3');
-    Assert.assertEquals("10+2-4*3", calculator.getResult());
-    calculator = calculator.input('+');
-    Assert.assertEquals("10+2-4*3+", calculator.getResult());
-    calculator = calculator.input('1');
-    Assert.assertEquals("10+2-4*3+1", calculator.getResult());
-    calculator = calculator.input('=');
-    Assert.assertEquals("25", calculator.getResult());
-  }
-
-  @Test
   public void test1DigitOperations() {
     Calculator calculator = getCalculatorInstance();
     calculator = calculator.input('8');
