@@ -6,11 +6,25 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import calculator.SmartCalculator;
 import calculator.bean.CommandName;
+import calculator.command.AbstractCommand;
+import calculator.command.Command;
 import calculator.command.simplecalculator.SimpleCalculatorClearInputCommand;
 
+/**
+ * This class represents ClearInput {@link Command} for {@link SmartCalculator}. It extends {@link
+ * AbstractCommand}.
+ */
 public class SmartCalculatorClearInputCommand extends SimpleCalculatorClearInputCommand {
 
+  /**
+   * Constructs the object of {@link SmartCalculatorClearInputCommand}. Its initializes it to the
+   * given values.
+   *
+   * @param expression             current algebraic expression
+   * @param clearInputCharacterSet set of characters supported by the command
+   */
   public SmartCalculatorClearInputCommand(List<String> expression,
                                           Set<Character> clearInputCharacterSet) {
 
