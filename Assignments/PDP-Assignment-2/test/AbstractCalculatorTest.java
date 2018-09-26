@@ -308,19 +308,16 @@ public abstract class AbstractCalculatorTest {
       Assert.assertEquals("2147483647+" + input.substring(0, i + 1), calculator.getResult());
     }
     Assert.assertEquals("2147483647+2147483647", calculator.getResult());
-
     Calculator calculator1 = calculator.input('=');
     Assert.assertEquals("0", calculator1.getResult());
 
     calculator = calculator.input('+');
     Assert.assertEquals("2147483647+2147483647+", calculator.getResult());
-
     for (int i = 0; i < input.length(); i++) {
       calculator = calculator.input(input.charAt(i));
       Assert.assertEquals("2147483647+2147483647+" + input.substring(0, i + 1), calculator.getResult());
     }
     Assert.assertEquals("2147483647+2147483647+2147483647", calculator.getResult());
-
     Calculator calculator2 = calculator.input('=');
     Assert.assertEquals("2147483647", calculator2.getResult());
   }
