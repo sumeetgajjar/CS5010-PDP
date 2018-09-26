@@ -240,17 +240,6 @@ public abstract class AbstractCalculatorTest {
   }
 
   @Test
-  public void testNegativeOperand() {
-    Calculator calculator = getCalculatorInstance();
-    try {
-      calculator = calculator.input('-');
-    } catch (IllegalArgumentException e) {
-      Assert.assertEquals(e.getMessage(), "Input: '-' is illegal");
-    }
-    Assert.assertEquals("", calculator.getResult());
-  }
-
-  @Test
   public void testMultipleOperationsOnSameObject() {
     Calculator calculator = getCalculatorInstance();
     calculator = calculator.input('1').input('+').input('9');

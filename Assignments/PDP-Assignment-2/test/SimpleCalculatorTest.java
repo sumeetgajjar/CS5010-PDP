@@ -12,6 +12,18 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
   }
 
   @Test
+  public void testNegativeOperand() {
+    Calculator calculator = getCalculatorInstance();
+    try {
+      calculator = calculator.input('-');
+      Assert.fail("Should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals(e.getMessage(), "Input: '-' is illegal");
+    }
+    Assert.assertEquals("", calculator.getResult());
+  }
+
+  @Test
   public void name() {
     Calculator calculator = getCalculatorInstance();
     calculator = calculator.input('1');
