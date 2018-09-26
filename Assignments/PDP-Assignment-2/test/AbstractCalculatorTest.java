@@ -66,22 +66,46 @@ public abstract class AbstractCalculatorTest {
   public void testInvalidInput() {
 
     Calculator calculator = getCalculatorInstance();
-    calculator = calculator.input('1');
-    Assert.assertEquals("1", calculator.getResult());
 
     try {
       calculator = calculator.input('a');
     } catch (IllegalArgumentException e) {
       Assert.assertEquals(e.getMessage(), "Input: 'a' is illegal");
     }
-    Assert.assertEquals("1", calculator.getResult());
+    Assert.assertEquals("", calculator.getResult());
 
     try {
       calculator = calculator.input('/');
     } catch (Exception e) {
       Assert.assertEquals(e.getMessage(), "Input: '/' is illegal");
     }
+    Assert.assertEquals("", calculator.getResult());
+
+    calculator = calculator.input('1');
     Assert.assertEquals("1", calculator.getResult());
+
+    calculator = calculator.input('+');
+    Assert.assertEquals("1+", calculator.getResult());
+
+    try {
+      calculator = calculator.input('a');
+    } catch (Exception e) {
+      Assert.assertEquals(e.getMessage(), "Input: 'a' is illegal");
+    }
+    Assert.assertEquals("1+", calculator.getResult());
+
+    try {
+      calculator = calculator.input('/');
+    } catch (Exception e) {
+      Assert.assertEquals(e.getMessage(), "Input: '/' is illegal");
+    }
+    Assert.assertEquals("1+", calculator.getResult());
+
+    calculator = calculator.input('1');
+    Assert.assertEquals("1+1", calculator.getResult());
+
+    calculator = calculator.input('=');
+    Assert.assertEquals("2", calculator.getResult());
   }
 
   @Test
