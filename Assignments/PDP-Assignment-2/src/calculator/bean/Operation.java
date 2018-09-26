@@ -15,7 +15,7 @@ public enum Operation {
      * @param n1 number 1
      * @param n2 number 2
      * @return the sum of given numbers
-     * @throws ArithmeticException if operation results in 32-bit overflow occurs
+     * @throws ArithmeticException if operation results in 32-bit overflow
      */
     @Override
     public int perform(int n1, int n2) throws ArithmeticException {
@@ -33,7 +33,7 @@ public enum Operation {
      * @param n1 number1
      * @param n2 number2
      * @return the difference of given numbers
-     * @throws ArithmeticException if operation results in 32-bit overflow occurs
+     * @throws ArithmeticException if operation results in 32-bit overflow
      */
     @Override
     public int perform(int n1, int n2) throws ArithmeticException {
@@ -51,7 +51,7 @@ public enum Operation {
      * @param n1 number1
      * @param n2 number2
      * @return the producr of given numbers
-     * @throws ArithmeticException if operation results in 32-bit overflow occurs
+     * @throws ArithmeticException if operation results in 32-bit overflow
      */
     @Override
     public int perform(int n1, int n2) throws ArithmeticException {
@@ -71,7 +71,7 @@ public enum Operation {
    * @param n1 number1
    * @param n2 number2
    * @return the result of arithmetic operation on given numbers
-   * @throws ArithmeticException if operation results in 32-bit overflow occurs
+   * @throws ArithmeticException if operation results in 32-bit overflow
    */
   public abstract int perform(int n1, int n2) throws ArithmeticException;
 
