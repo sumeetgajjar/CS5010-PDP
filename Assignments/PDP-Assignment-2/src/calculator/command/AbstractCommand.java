@@ -17,7 +17,6 @@ import calculator.bean.CommandName;
  * <p>To implement a {@link Command} the programmer needs to extend this class and provide
  * implementations for following methods.
  * <ul>
- * <li>getCommandName</li>
  * <li>performAction</li>
  * <li>getNextValidCommands</li>
  * </ul>
