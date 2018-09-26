@@ -32,7 +32,7 @@ import calculator.command.Command;
  * </ul>
  *
  * The programmer should also provide a constructor, of following signature
- * <code>Calculator({@link List<String>} currentExpression, {@link Set<CommandName>}
+ * <code>Calculator({@link List>} currentExpression, {@link Set}
  * anticipatedCommandNames, {@link String} result)</code>
  */
 public abstract class AbstractCalculator implements Calculator {
