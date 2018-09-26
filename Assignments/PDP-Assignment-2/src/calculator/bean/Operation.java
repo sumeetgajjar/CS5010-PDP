@@ -26,13 +26,11 @@ public enum Operation {
   };
 
   private static final Map<Character, Operation> SYMBOL_OPERATION_MAPPING =
-          new HashMap<Character, Operation>() {
-            {
-              for (Operation operation : Operation.values()) {
-                this.put(operation.getSymbol(), operation);
-              }
+          new HashMap<Character, Operation>() {{
+            for (Operation operation : Operation.values()) {
+              this.put(operation.getSymbol(), operation);
             }
-          };
+          }};
 
   private final char symbol;
 
