@@ -34,17 +34,32 @@ public class SimpleCalculator extends AbstractCalculator {
   }
 
   @Override
-  protected Calculator getCalculatorInstance(List<String> expression, String result, Set<InputCategoryName> anticipatedInputCategoryNames) {
+  protected Calculator getCalculatorInstance(
+          List<String> expression,
+          String result,
+          Set<InputCategoryName> anticipatedInputCategoryNames) {
     return new SimpleCalculator(expression, anticipatedInputCategoryNames, result);
   }
 
   @Override
   protected List<InputCategoryInterface> getSupportedInputCategoryInterface() {
     return Arrays.asList(
-            new SimpleCalculatorOperandInputCategory(this.currentExpression, getSupportedDigits(), getSupportedOperators()),
-            new SimpleCalculatorOperatorInputCategory(this.currentExpression, getSupportedOperators()),
-            new SimpleCalculatorEqualToInputCategory(this.currentExpression, EQUAL_TO_CHARACTER_SET),
-            new SimpleCalculatorClearInputCategory(this.currentExpression, CLEAR_CHARACTER_SET)
+            new SimpleCalculatorOperandInputCategory(
+                    this.currentExpression,
+                    getSupportedDigits(),
+                    getSupportedOperators()),
+
+            new SimpleCalculatorOperatorInputCategory(
+                    this.currentExpression,
+                    getSupportedOperators()),
+
+            new SimpleCalculatorEqualToInputCategory(
+                    this.currentExpression,
+                    EQUAL_TO_CHARACTER_SET),
+
+            new SimpleCalculatorClearInputCategory(
+                    this.currentExpression,
+                    CLEAR_CHARACTER_SET)
     );
   }
 
