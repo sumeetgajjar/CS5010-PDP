@@ -1,9 +1,5 @@
 package calculator.bean;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-
 public enum Operation {
 
   ADD('+') {
@@ -25,13 +21,6 @@ public enum Operation {
     }
   };
 
-  private static final Map<Character, Operation> SYMBOL_OPERATION_MAPPING =
-          new HashMap<Character, Operation>() {{
-            for (Operation operation : Operation.values()) {
-              this.put(operation.getSymbol(), operation);
-            }
-          }};
-
   private final char symbol;
 
   Operation(char symbol) {
@@ -45,11 +34,11 @@ public enum Operation {
   }
 
   public static Operation getOperation(char symbol) {
-    Operation operation = Operation.SYMBOL_OPERATION_MAPPING.get(symbol);
-    if (Objects.isNull(operation)) {
-      throw new IllegalArgumentException(String.format("Operation not found: %s", symbol));
-    } else {
-      return operation;
+    for (Operation operation : Operation.values()) {
+      if (operation.getSymbol() == symbol) {
+        return operation;
+      }
     }
+    throw new IllegalArgumentException(String.format("Operation not found: %s", symbol));
   }
 }
