@@ -7,9 +7,7 @@ import calculator.bean.CommandName;
 
 /**
  * This interface represents a Command that a Calculator can perform. The command can be just a
- * simple action of accepting an input or a complex task of evaluating the expression. The
- * <tt>performAction(char input)</tt> throws an RuntimeException if the given input causes an
- * operand overflow for the calculator.
+ * simple action of accepting an input or a complex task of evaluating the expression.
  */
 public interface Command {
 
@@ -34,12 +32,14 @@ public interface Command {
    *
    * @param input input character
    * @return the algebraic expression generated as result of performing action on the given input
-   * @throws RuntimeException if the input character causes operand overflow
    */
-  List<String> performAction(char input) throws RuntimeException;
+  List<String> performAction(char input);
 
   /**
    * Returns a {@link Set} of valid {@link CommandName} that the next input character can represent
+   * after successful execution of the current command.
+   *
+   * @return a {@link Set} of valid {@link CommandName} that the next input character can represent
    * after successful execution of the current command.
    */
   Set<CommandName> getNextValidCommands();

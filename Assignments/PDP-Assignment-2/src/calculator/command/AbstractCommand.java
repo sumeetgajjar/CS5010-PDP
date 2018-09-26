@@ -29,7 +29,7 @@ public abstract class AbstractCommand implements Command {
 
   /**
    * Protected Constructor for invocation by subclass constructors. It initializes the fields to
-   * given values.
+   * given values. This values once initialized cannot be modified.
    *
    * @param expression        current algebraic expression
    * @param supportCharacters set of characters supported by the command
