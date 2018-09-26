@@ -6,14 +6,13 @@ import java.util.Set;
 
 import calculator.SmartCalculator;
 import calculator.bean.Operation;
-import calculator.command.AbstractCommand;
 import calculator.command.Command;
 import calculator.command.simplecalculator.SimpleCalculatorEqualToCommand;
 import calculator.util.Utils;
 
 /**
  * This class represents ClearInput {@link Command} for {@link SmartCalculator}. It extends {@link
- * AbstractCommand}.
+ * SimpleCalculatorEqualToCommand}.
  */
 public class SmartCalculatorEqualToCommand extends SimpleCalculatorEqualToCommand {
 
@@ -24,17 +23,17 @@ public class SmartCalculatorEqualToCommand extends SimpleCalculatorEqualToComman
    * Constructs the object of {@link SmartCalculatorEqualToCommand}. Its initializes it to the given
    * values.
    *
-   * @param expression                 current algebraic expression
-   * @param supportedEqualToCharacters set of characters supported by the command
-   * @param lastOperation              last operation in the previous algebraic expression
-   * @param lastOperand                last operand in the previous algebraic expression
+   * @param expression               current algebraic expression
+   * @param equalToInputCharacterSet set of characters supported by the command
+   * @param lastOperation            last operation in the previous algebraic expression
+   * @param lastOperand              last operand in the previous algebraic expression
    */
   public SmartCalculatorEqualToCommand(List<String> expression,
-                                       Set<Character> supportedEqualToCharacters,
+                                       Set<Character> equalToInputCharacterSet,
                                        Operation lastOperation,
                                        int lastOperand) {
 
-    super(expression, supportedEqualToCharacters);
+    super(expression, equalToInputCharacterSet);
     this.lastOperation = lastOperation;
     this.lastOperand = lastOperand;
   }
@@ -49,6 +48,11 @@ public class SmartCalculatorEqualToCommand extends SimpleCalculatorEqualToComman
   public List<String> performAction(char input) {
     Deque<String> expressionDeque = Utils.getExpressionDeque(this.expression);
 
+    /* If the expression size is 1 it means,
+     * it needs to infer the operator and operand as lastOperator and lastOperand resp.
+     * If the expression size is 2 it means,
+     * it needs to infer the operand as the lastOperand.
+     */
     if (expressionDeque.size() == 1) {
       expressionDeque.addLast(String.valueOf(this.lastOperation.getSymbol()));
       expressionDeque.addLast(String.valueOf(this.lastOperand));

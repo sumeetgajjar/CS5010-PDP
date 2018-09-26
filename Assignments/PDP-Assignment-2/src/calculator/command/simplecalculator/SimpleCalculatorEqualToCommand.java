@@ -25,12 +25,12 @@ public class SimpleCalculatorEqualToCommand extends AbstractCommand {
    * given values
    *
    * @param expression        current algebraic expression
-   * @param supportCharacters set of characters supported by the command
+   * @param equalToInputCharacterSet set of characters supported by the command
    */
   public SimpleCalculatorEqualToCommand(List<String> expression,
-                                        Set<Character> supportCharacters) {
+                                        Set<Character> equalToInputCharacterSet) {
 
-    super(CommandName.EQUAL_TO, supportCharacters, expression);
+    super(CommandName.EQUAL_TO, equalToInputCharacterSet, expression);
   }
 
   /**
