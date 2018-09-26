@@ -212,7 +212,7 @@ public abstract class AbstractCalculatorTest {
     Assert.assertEquals("1+214748364", calculator1.getResult());
 
     calculator1 = calculator1.input('=');
-    Assert.assertEquals("214748365", calculator.getResult());
+    Assert.assertEquals("214748365", calculator1.getResult());
   }
 
   @Test
