@@ -15,13 +15,24 @@ public abstract class AbstractCalculatorTest {
 
   @Test
   public void testValidOperands() {
-    char[] validInput = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+    char[] validOperands = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+    char[] validOperators = new char[]{'+', '-', '*'};
 
-    for (char input : validInput) {
-      Calculator calculator = getCalculatorInstance();
-      calculator = calculator.input(input);
+    for (char input1 : validOperands) {
+      for (char operator : validOperators) {
+        for (char input2 : validOperands) {
+          Calculator calculator = getCalculatorInstance();
+          calculator = calculator.input(input1);
+          Assert.assertEquals(String.format("%s", input1), calculator.getResult());
 
-      Assert.assertEquals(String.valueOf(input), calculator.getResult());
+          calculator = calculator.input(operator);
+          Assert.assertEquals(String.format("%s%s", input1, operator), calculator.getResult());
+
+          calculator = calculator.input(input2);
+          Assert.assertEquals(String.format("%s%s%s", input1, operator, input2), calculator.getResult());
+
+        }
+      }
     }
   }
 
