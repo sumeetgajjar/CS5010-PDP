@@ -6,7 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import calculator.bean.InputCategory;
+import calculator.bean.InputCategoryName;
 import calculator.inputcategory.InputCategoryInterface;
 
 public abstract class AbstractCalculator implements Calculator {
@@ -20,12 +20,12 @@ public abstract class AbstractCalculator implements Calculator {
   protected static final Set<Character> SUPPORTED_OPERATOR = Collections.unmodifiableSet(
           new LinkedHashSet<>(Arrays.asList('+', '-', '*')));
   protected final List<String> currentExpression;
-  protected final Set<InputCategory> anticipatedInputCategorySet;
+  protected final Set<InputCategoryName> anticipatedInputCategoryNames;
   protected final String result;
 
-  protected AbstractCalculator(List<String> currentExpression, Set<InputCategory> anticipatedInputCategorySet, String result) {
+  protected AbstractCalculator(List<String> currentExpression, Set<InputCategoryName> anticipatedInputCategoryNames, String result) {
     this.currentExpression = currentExpression;
-    this.anticipatedInputCategorySet = anticipatedInputCategorySet;
+    this.anticipatedInputCategoryNames = anticipatedInputCategoryNames;
     this.result = result;
   }
 
@@ -36,7 +36,7 @@ public abstract class AbstractCalculator implements Calculator {
 
   protected abstract List<InputCategoryInterface> getSupportedInputCategoryInterface();
 
-  protected abstract Calculator getCalculatorInstance(List<String> expression, String result, Set<InputCategory> anticipatedInputCategory);
+  protected abstract Calculator getCalculatorInstance(List<String> expression, String result, Set<InputCategoryName> anticipatedInputCategoryNames);
 
   @Override
   public Calculator input(char input) throws IllegalArgumentException {
@@ -44,8 +44,8 @@ public abstract class AbstractCalculator implements Calculator {
     isCurrentInputValid(input, currentInputCategoryInterface.getInputCategory());
     List<String> newExpression = currentInputCategoryInterface.performAction(input);
     String newResult = generateResultString(newExpression);
-    Set<InputCategory> nextAnticipatedInputCategory = currentInputCategoryInterface.getNextValidInputCategorySet();
-    return getCalculatorInstance(newExpression, newResult, nextAnticipatedInputCategory);
+    Set<InputCategoryName> nextAnticipatedInputCategoryNames = currentInputCategoryInterface.getNextValidInputCategorySet();
+    return getCalculatorInstance(newExpression, newResult, nextAnticipatedInputCategoryNames);
   }
 
   @Override
@@ -53,8 +53,8 @@ public abstract class AbstractCalculator implements Calculator {
     return this.result;
   }
 
-  private void isCurrentInputValid(char input, InputCategory currentInputCategory) throws IllegalArgumentException {
-    if (!this.anticipatedInputCategorySet.contains(currentInputCategory)) {
+  private void isCurrentInputValid(char input, InputCategoryName currentInputCategoryName) throws IllegalArgumentException {
+    if (!this.anticipatedInputCategoryNames.contains(currentInputCategoryName)) {
       throw new IllegalArgumentException(String.format("Input: '%s' is illegal", input));
     }
   }

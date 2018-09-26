@@ -6,27 +6,27 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import calculator.bean.InputCategory;
+import calculator.bean.InputCategoryName;
 import calculator.inputcategory.SimpleClearInputCategory;
 import calculator.inputcategory.SimpleEqualToInputCategory;
 import calculator.inputcategory.InputCategoryInterface;
 import calculator.inputcategory.SimpleOperandInputCategory;
 import calculator.inputcategory.SimpleOperatorInputCategory;
 
-import static calculator.bean.InputCategory.CLEAR;
-import static calculator.bean.InputCategory.OPERAND;
+import static calculator.bean.InputCategoryName.CLEAR;
+import static calculator.bean.InputCategoryName.OPERAND;
 
 public class SimpleCalculator extends AbstractCalculator {
 
-  private static final Set<InputCategory> INITIAL_VALID_INPUT_CATEGORY_SET =
+  private static final Set<InputCategoryName> INITIAL_VALID_INPUT_CATEGORY_SET =
           Collections.unmodifiableSet(
                   new HashSet<>(Arrays.asList(OPERAND, CLEAR
                   )));
 
   private SimpleCalculator(List<String> currentExpression,
-                           Set<InputCategory> anticipatedInputCategorySet,
+                           Set<InputCategoryName> anticipatedInputCategoryNames,
                            String result) {
-    super(currentExpression, anticipatedInputCategorySet, result);
+    super(currentExpression, anticipatedInputCategoryNames, result);
   }
 
   public SimpleCalculator() {
@@ -34,8 +34,8 @@ public class SimpleCalculator extends AbstractCalculator {
   }
 
   @Override
-  protected Calculator getCalculatorInstance(List<String> expression, String result, Set<InputCategory> anticipatedInputCategory) {
-    return new SimpleCalculator(expression, anticipatedInputCategory, result);
+  protected Calculator getCalculatorInstance(List<String> expression, String result, Set<InputCategoryName> anticipatedInputCategoryNames) {
+    return new SimpleCalculator(expression, anticipatedInputCategoryNames, result);
   }
 
   @Override

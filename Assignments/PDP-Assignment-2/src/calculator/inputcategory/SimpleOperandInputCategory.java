@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import calculator.bean.InputCategory;
+import calculator.bean.InputCategoryName;
 import calculator.util.Utils;
 
 public class SimpleOperandInputCategory extends AbstractInputCategory {
@@ -21,8 +21,8 @@ public class SimpleOperandInputCategory extends AbstractInputCategory {
   }
 
   @Override
-  public InputCategory getInputCategory() {
-    return InputCategory.OPERAND;
+  public InputCategoryName getInputCategory() {
+    return InputCategoryName.OPERAND;
   }
 
   @Override
@@ -61,13 +61,13 @@ public class SimpleOperandInputCategory extends AbstractInputCategory {
   }
 
   @Override
-  public Set<InputCategory> getNextValidInputCategorySet() {
-    Set<InputCategory> validInputCategorySet = new HashSet<>(Arrays.asList(
-            InputCategory.OPERAND, InputCategory.OPERATOR, InputCategory.CLEAR));
+  public Set<InputCategoryName> getNextValidInputCategorySet() {
+    Set<InputCategoryName> validInputCategoryNames = new HashSet<>(Arrays.asList(
+            InputCategoryName.OPERAND, InputCategoryName.OPERATOR, InputCategoryName.CLEAR));
 
     if (this.expression.size() >= 2) {
-      validInputCategorySet.add(InputCategory.EQUAL_TO);
+      validInputCategoryNames.add(InputCategoryName.EQUAL_TO);
     }
-    return Collections.unmodifiableSet(validInputCategorySet);
+    return Collections.unmodifiableSet(validInputCategoryNames);
   }
 }

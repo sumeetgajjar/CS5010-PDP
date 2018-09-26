@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import calculator.bean.InputCategory;
+import calculator.bean.InputCategoryName;
 
 public class SmartClearInputCategory extends SimpleClearInputCategory {
 
@@ -15,8 +15,8 @@ public class SmartClearInputCategory extends SimpleClearInputCategory {
   }
 
   @Override
-  public Set<InputCategory> getNextValidInputCategorySet() {
+  public Set<InputCategoryName> getNextValidInputCategorySet() {
     return Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
-            InputCategory.CLEAR, InputCategory.OPERATOR, InputCategory.OPERAND)));
+            InputCategoryName.CLEAR, InputCategoryName.OPERATOR, InputCategoryName.OPERAND)));
   }
 }

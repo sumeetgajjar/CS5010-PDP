@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import calculator.bean.InputCategory;
+import calculator.bean.InputCategoryName;
 import calculator.bean.Operation;
 import calculator.inputcategory.InputCategoryInterface;
 import calculator.inputcategory.SmartClearInputCategory;
@@ -18,17 +18,17 @@ import calculator.util.Utils;
 
 public class SmartCalculator extends AbstractCalculator {
 
-  private static final Set<InputCategory> INITIAL_VALID_INPUT_CATEGORY_SET =
+  private static final Set<InputCategoryName> INITIAL_VALID_INPUT_CATEGORY_SET =
           Collections.unmodifiableSet(new HashSet<>(
-                  Arrays.asList(InputCategory.CLEAR, InputCategory.OPERATOR, InputCategory.OPERAND)
+                  Arrays.asList(InputCategoryName.CLEAR, InputCategoryName.OPERATOR, InputCategoryName.OPERAND)
           ));
 
   private final Operation lastOperation;
   private final int lastOperand;
 
 
-  private SmartCalculator(List<String> newExpression, Set<InputCategory> nextAnticipatedInputCategory, String result, Operation lastOperation, int lastOperand) {
-    super(newExpression, nextAnticipatedInputCategory, result);
+  private SmartCalculator(List<String> newExpression, Set<InputCategoryName> nextAnticipatedInputCategoryNames, String result, Operation lastOperation, int lastOperand) {
+    super(newExpression, nextAnticipatedInputCategoryNames, result);
     this.lastOperand = lastOperand;
     this.lastOperation = lastOperation;
   }
@@ -58,10 +58,10 @@ public class SmartCalculator extends AbstractCalculator {
   }
 
   @Override
-  protected Calculator getCalculatorInstance(List<String> expression, String result, Set<InputCategory> anticipatedInputCategory) {
+  protected Calculator getCalculatorInstance(List<String> expression, String result, Set<InputCategoryName> anticipatedInputCategoryNames) {
     int newLastOperand = getLastOperand();
     Operation newLastOperator = getLastOperator();
-    return new SmartCalculator(expression, anticipatedInputCategory, result, newLastOperator, newLastOperand);
+    return new SmartCalculator(expression, anticipatedInputCategoryNames, result, newLastOperator, newLastOperand);
   }
 
   private Operation getLastOperator() {
