@@ -26,7 +26,6 @@ public class SmartCalculatorTest extends AbstractCalculatorTest {
         calculator = calculator.input(operator).input(operand);
         Assert.assertEquals(String.valueOf(operand), calculator.getResult());
       }
-
     }
   }
 
