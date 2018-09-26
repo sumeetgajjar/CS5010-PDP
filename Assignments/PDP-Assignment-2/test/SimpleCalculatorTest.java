@@ -48,8 +48,27 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
     Assert.assertEquals("1", calculator.getResult());
     calculator = calculator.input('0');
     Assert.assertEquals("10", calculator.getResult());
+
+    try {
+      calculator = calculator.input('=');
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Input: '=' is illegal", e.getMessage());
+    }
+    Assert.assertEquals("10", calculator.getResult());
+
     calculator = calculator.input('+');
     Assert.assertEquals("10+", calculator.getResult());
+
+    try {
+      calculator = calculator.input('=');
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Input: '=' is illegal", e.getMessage());
+    }
+    Assert.assertEquals("10+", calculator.getResult());
+
+
     calculator = calculator.input('1');
     Assert.assertEquals("10+1", calculator.getResult());
 
