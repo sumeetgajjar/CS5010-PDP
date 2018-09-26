@@ -12,7 +12,11 @@ import calculator.inputcategory.simplecalculator.SimpleCalculatorOperandInputCat
 public class SmartCalculatorOperandInputCategory extends SimpleCalculatorOperandInputCategory {
 
 
-  public SmartCalculatorOperandInputCategory(List<String> expression, Set<Character> supportedOperands, Set<Character> supportedOperators) {
+  public SmartCalculatorOperandInputCategory(
+          List<String> expression,
+          Set<Character> supportedOperands,
+          Set<Character> supportedOperators) {
+
     super(expression, supportedOperands, supportedOperators);
   }
 
