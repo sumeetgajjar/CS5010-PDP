@@ -12,14 +12,21 @@ public class SmartCalculatorTest extends AbstractCalculatorTest {
   }
 
   @Test
-  public void testInputSequenceBeginsWithOperator() {
-    for (char input : new char[]{'+', '-', '*'}) {
-      Calculator calculator = getCalculatorInstance();
-      calculator = calculator.input(input);
-      Assert.assertEquals("", calculator.getResult());
+  public void testStartWithOperatorOperand() {
 
-      calculator = calculator.input(input).input('2');
-      Assert.assertEquals("2", calculator.getResult());
+    char[] validOperands = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+    char[] validOperators = new char[]{'+', '-', '*'};
+
+    for (char operator : validOperators) {
+      for (char operand : validOperands) {
+        Calculator calculator = getCalculatorInstance();
+        calculator = calculator.input(operator);
+        Assert.assertEquals("", calculator.getResult());
+
+        calculator = calculator.input(operator).input(operand);
+        Assert.assertEquals(String.valueOf(operand), calculator.getResult());
+      }
+
     }
   }
 
