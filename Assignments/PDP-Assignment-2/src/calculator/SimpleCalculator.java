@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Set;
 
 import calculator.bean.InputCategoryName;
-import calculator.inputcategory.SimpleCalculatorClearInputCategory;
-import calculator.inputcategory.SimpleCalculatorEqualToInputCategory;
+import calculator.inputcategory.simplecalculator.SimpleCalculatorClearInputCategory;
+import calculator.inputcategory.simplecalculator.SimpleCalculatorEqualToInputCategory;
 import calculator.inputcategory.InputCategoryInterface;
-import calculator.inputcategory.SimpleCalculatorOperandInputCategory;
-import calculator.inputcategory.SimpleCalculatorOperatorInputCategory;
+import calculator.inputcategory.simplecalculator.SimpleCalculatorOperandInputCategory;
+import calculator.inputcategory.simplecalculator.SimpleCalculatorOperatorInputCategory;
 
 import static calculator.bean.InputCategoryName.CLEAR;
 import static calculator.bean.InputCategoryName.OPERAND;

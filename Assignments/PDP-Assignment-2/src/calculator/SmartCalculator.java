@@ -10,10 +10,10 @@ import java.util.Set;
 import calculator.bean.InputCategoryName;
 import calculator.bean.Operation;
 import calculator.inputcategory.InputCategoryInterface;
-import calculator.inputcategory.SmartCalculatorClearInputCategory;
-import calculator.inputcategory.SmartCalculatorEqualToInputCategory;
-import calculator.inputcategory.SmartCalculatorOperandInputCategory;
-import calculator.inputcategory.SmartCalculatorOperatorInputCategory;
+import calculator.inputcategory.smartcalculator.SmartCalculatorClearInputCategory;
+import calculator.inputcategory.smartcalculator.SmartCalculatorEqualToInputCategory;
+import calculator.inputcategory.smartcalculator.SmartCalculatorOperandInputCategory;
+import calculator.inputcategory.smartcalculator.SmartCalculatorOperatorInputCategory;
 import calculator.util.Utils;
 
 public class SmartCalculator extends AbstractCalculator {

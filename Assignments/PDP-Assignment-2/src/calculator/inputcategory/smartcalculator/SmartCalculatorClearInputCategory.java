@@ -1,4 +1,4 @@
-package calculator.inputcategory;
+package calculator.inputcategory.smartcalculator;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import calculator.bean.InputCategoryName;
+import calculator.inputcategory.simplecalculator.SimpleCalculatorClearInputCategory;
 
 public class SmartCalculatorClearInputCategory extends SimpleCalculatorClearInputCategory {
 

@@ -1,10 +1,11 @@
-package calculator.inputcategory;
+package calculator.inputcategory.smartcalculator;
 
 import java.util.Deque;
 import java.util.List;
 import java.util.Set;
 
 import calculator.bean.Operation;
+import calculator.inputcategory.simplecalculator.SimpleCalculatorEqualToInputCategory;
 import calculator.util.Utils;
 
 public class SmartCalculatorEqualToInputCategory extends SimpleCalculatorEqualToInputCategory {
