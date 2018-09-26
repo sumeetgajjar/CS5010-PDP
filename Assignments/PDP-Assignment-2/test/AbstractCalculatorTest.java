@@ -37,7 +37,7 @@ public abstract class AbstractCalculatorTest {
   }
 
   @Test
-  public void testClearInput() {
+  public void testOnlyClearInput() {
     Calculator calculator = getCalculatorInstance();
     calculator = calculator.input('C');
     Assert.assertEquals("", calculator.getResult());
@@ -45,6 +45,12 @@ public abstract class AbstractCalculatorTest {
     Assert.assertEquals("", calculator.getResult());
     calculator = calculator.input('C');
     Assert.assertEquals("", calculator.getResult());
+
+  }
+
+  @Test
+  public void testClearInputWithFirstOperand() {
+    Calculator calculator = getCalculatorInstance();
 
     calculator = calculator.input('1');
     Assert.assertEquals("1", calculator.getResult());
@@ -54,6 +60,11 @@ public abstract class AbstractCalculatorTest {
     Assert.assertEquals("", calculator.getResult());
     calculator = calculator.input('C');
     Assert.assertEquals("", calculator.getResult());
+  }
+
+  @Test
+  public void testClearInputWithFirstOperandOperator() {
+    Calculator calculator = getCalculatorInstance();
 
     calculator = calculator.input('1');
     Assert.assertEquals("1", calculator.getResult());
@@ -66,19 +77,43 @@ public abstract class AbstractCalculatorTest {
     calculator = calculator.input('C');
     Assert.assertEquals("", calculator.getResult());
 
+  }
+
+  @Test
+  public void testClearInputWithMultipleOperands() {
+    Calculator calculator = getCalculatorInstance();
+
     calculator = calculator.input('4');
     Assert.assertEquals("4", calculator.getResult());
     calculator = calculator.input('-');
     Assert.assertEquals("4-", calculator.getResult());
     calculator = calculator.input('2');
     Assert.assertEquals("4-2", calculator.getResult());
-    calculator = calculator.input('C');
-    Assert.assertEquals("", calculator.getResult());
-    calculator = calculator.input('C');
-    Assert.assertEquals("", calculator.getResult());
-    calculator = calculator.input('C');
-    Assert.assertEquals("", calculator.getResult());
 
+    Calculator calculatorClear = calculator.input('C');
+    Assert.assertEquals("", calculatorClear.getResult());
+    calculatorClear = calculatorClear.input('C');
+    Assert.assertEquals("", calculatorClear.getResult());
+    calculatorClear = calculatorClear.input('C');
+    Assert.assertEquals("", calculatorClear.getResult());
+
+    Calculator calculator1 = calculator.input('+');
+    Assert.assertEquals("4-2+", calculator1.getResult());
+
+    calculator1 = calculator.input('3');
+    Assert.assertEquals("4-2+3", calculator1.getResult());
+
+    Calculator calculatorClear2 = calculator1.input('C');
+    Assert.assertEquals("", calculatorClear2.getResult());
+    calculatorClear2 = calculatorClear2.input('C');
+    Assert.assertEquals("", calculatorClear2.getResult());
+    calculatorClear2 = calculatorClear2.input('C');
+    Assert.assertEquals("", calculatorClear2.getResult());
+  }
+
+  @Test
+  public void testClearInputExpression() {
+    Calculator calculator = getCalculatorInstance();
 
     calculator = calculator.input('4');
     Assert.assertEquals("4", calculator.getResult());
@@ -171,7 +206,7 @@ public abstract class AbstractCalculatorTest {
   }
 
   @Test
-  public void testOperandGreaterThan32Bit() {
+  public void testFirstOperandGreaterThan32Bit() {
     Calculator calculator = getCalculatorInstance();
     try {
       String input = String.valueOf(("2147483648"));
@@ -194,7 +229,10 @@ public abstract class AbstractCalculatorTest {
 
     calculator = calculator.input('=');
     Assert.assertEquals("214748365", calculator.getResult());
+  }
 
+  @Test
+  public void testSecondOperandGreaterThan32Bit() {
     Calculator calculator1 = getCalculatorInstance();
     try {
       calculator1 = calculator1.input('1').input('+');
@@ -301,33 +339,53 @@ public abstract class AbstractCalculatorTest {
   }
 
   @Test
-  public void testResultOverflow() {
+  public void testResultOverflowFirstOperand() {
     Calculator calculator = getCalculatorInstance();
     calculator = calculator
             .input('2').input('1').input('4').input('7')
             .input('4').input('8').input('3').input('6')
             .input('4').input('7');
 
-    calculator = calculator
-            .input('+').input('1').input('0').input('=');
-    Assert.assertEquals("0", calculator.getResult());
-
-    calculator = calculator
+    Calculator calculatorAdd = calculator
             .input('+').input('1').input('0');
-    Assert.assertEquals("0+10", calculator.getResult());
+    Assert.assertEquals("2147483647+10", calculatorAdd.getResult());
 
-    calculator = calculator.input('+')
+    calculatorAdd = calculatorAdd.input('=');
+    Assert.assertEquals("0", calculatorAdd.getResult());
+
+    Calculator calculatorMul = calculator
+            .input('*').input('2').input('0');
+    Assert.assertEquals("2147483647*20", calculatorMul.getResult());
+
+    calculatorMul = calculatorMul.input('=');
+    Assert.assertEquals("0", calculatorMul.getResult());
+  }
+
+  @Test
+  public void testResultOverflowSecondOperand() {
+    Calculator calculator2 = getCalculatorInstance();
+
+    Calculator calculator2Add = calculator2.input('1').input('+');
+    Assert.assertEquals("1+", calculator2Add.getResult());
+
+    calculator2Add = calculator2Add
             .input('2').input('1').input('4').input('7')
             .input('4').input('8').input('3').input('6')
             .input('4').input('7');
-    Assert.assertEquals("0+10+2147483647", calculator.getResult());
+    Assert.assertEquals("1+2147483647", calculator2Add.getResult());
 
-    calculator = calculator.input('+').input('8');
-    Assert.assertEquals("0+10+2147483647+8", calculator.getResult());
+    calculator2Add = calculator2Add.input('=');
+    Assert.assertEquals("0", calculator2Add.getResult());
 
+    Calculator calculator2Mul = calculator2.input('2').input('*');
+    calculator2Mul = calculator2Mul
+            .input('2').input('1').input('4').input('7')
+            .input('4').input('8').input('3').input('6')
+            .input('4').input('7');
+    Assert.assertEquals("2*2147483647", calculator2Mul.getResult());
 
-    calculator = calculator.input('=');
-    Assert.assertEquals("8", calculator.getResult());
+    calculator2Mul = calculator2Mul.input('=');
+    Assert.assertEquals("0", calculator2Mul.getResult());
   }
 
   @Test
