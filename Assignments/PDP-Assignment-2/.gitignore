@@ -70,7 +70,7 @@ cmake-build-*/
 out/
 *.iml
 *.idea/*
-*/submissions/*
+submissions/*
 docs/*
 
 # mpeltonen/sbt-idea plugin
