@@ -34,34 +34,42 @@ public class SmartCalculatorTest extends AbstractCalculatorTest {
   }
 
   @Test
-  public void name() {
-    Calculator calculator = getCalculatorInstance();
-    calculator = calculator.input('1').input('0').input('-').input('1');
-    Assert.assertEquals("10-1", calculator.getResult());
+  public void testMultipleEqualAfterSubtraction() {
+    Calculator calculatorSub = getCalculatorInstance();
+    calculatorSub = calculatorSub.input('1').input('0').input('-').input('1');
+    Assert.assertEquals("10-1", calculatorSub.getResult());
+    calculatorSub = calculatorSub.input('=');
+    Assert.assertEquals("9", calculatorSub.getResult());
+    calculatorSub = calculatorSub.input('=');
+    Assert.assertEquals("8", calculatorSub.getResult());
+    calculatorSub = calculatorSub.input('=');
+    Assert.assertEquals("7", calculatorSub.getResult());
+  }
 
-    calculator = calculator.input('=');
-    Assert.assertEquals("9", calculator.getResult());
+  @Test
+  public void testMultipleEqualAfterAddition() {
+    Calculator calculatorAdd = getCalculatorInstance();
+    calculatorAdd = calculatorAdd.input('1').input('0').input('+').input('1');
+    Assert.assertEquals("10+1", calculatorAdd.getResult());
+    calculatorAdd = calculatorAdd.input('=');
+    Assert.assertEquals("11", calculatorAdd.getResult());
+    calculatorAdd = calculatorAdd.input('=');
+    Assert.assertEquals("12", calculatorAdd.getResult());
+    calculatorAdd = calculatorAdd.input('=');
+    Assert.assertEquals("13", calculatorAdd.getResult());
+  }
 
-    calculator = calculator.input('=');
-    Assert.assertEquals("8", calculator.getResult());
-
-    calculator = calculator.input('=');
-    Assert.assertEquals("7", calculator.getResult());
-
-    calculator = calculator.input('=');
-    Assert.assertEquals("6", calculator.getResult());
-
-    calculator = calculator.input('=');
-    Assert.assertEquals("5", calculator.getResult());
-
-    calculator = calculator.input('=');
-    Assert.assertEquals("4", calculator.getResult());
-
-    calculator = calculator.input('=');
-    Assert.assertEquals("3", calculator.getResult());
-
-    calculator = calculator.input('=');
-    Assert.assertEquals("2", calculator.getResult());
+  @Test
+  public void testMultipleEqualAfterMultiplication() {
+    Calculator calculatorMul = getCalculatorInstance();
+    calculatorMul = calculatorMul.input('1').input('0').input('*').input('2');
+    Assert.assertEquals("10*2", calculatorMul.getResult());
+    calculatorMul = calculatorMul.input('=');
+    Assert.assertEquals("20", calculatorMul.getResult());
+    calculatorMul = calculatorMul.input('=');
+    Assert.assertEquals("40", calculatorMul.getResult());
+    calculatorMul = calculatorMul.input('=');
+    Assert.assertEquals("80", calculatorMul.getResult());
   }
 
   @Test
