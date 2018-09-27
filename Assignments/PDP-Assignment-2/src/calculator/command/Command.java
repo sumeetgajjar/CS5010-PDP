@@ -38,8 +38,8 @@ public interface Command {
    * Returns a {@link Set} of valid {@link CommandName} that the next input character can represent
    * after successful execution of the current command.
    *
-   * @return a {@link Set} of valid {@link CommandName} that the next input character can represent
-   * after successful execution of the current command.
+   * @return a Set of valid CommandName that the next input character can represent after successful
+   * execution of the current command.
    */
   Set<CommandName> getNextValidCommands();
 }
