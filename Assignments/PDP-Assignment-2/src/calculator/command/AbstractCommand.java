@@ -38,7 +38,9 @@ public abstract class AbstractCommand implements Command {
    * @param supportCharacters set of characters supported by the command
    * @param expression        current algebraic expression
    */
-  protected AbstractCommand(CommandName commandName, Set<Character> supportCharacters, List<String> expression) {
+  protected AbstractCommand(CommandName commandName,
+                            Set<Character> supportCharacters,
+                            List<String> expression) {
     this.commandName = commandName;
     this.expression = Collections.unmodifiableList(expression);
     this.supportedCharacters = Collections.unmodifiableSet(supportCharacters);
