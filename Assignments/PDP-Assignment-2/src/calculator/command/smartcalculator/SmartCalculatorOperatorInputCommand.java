@@ -23,8 +23,8 @@ public class SmartCalculatorOperatorInputCommand extends SimpleCalculatorOperato
   private final Set<Character> supportedDigits;
 
   /**
-   * Constructs the object of {@link SimpleCalculatorOperatorInputCommand}. Its initializes it to
-   * the given values
+   * Constructs the object of {@link SmartCalculatorOperatorInputCommand}. Its initializes it to the
+   * given values
    *
    * @param expression         current algebraic expression
    * @param supportedOperators set of operators supported by the command
