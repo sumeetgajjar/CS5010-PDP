@@ -46,7 +46,7 @@ public enum Operation {
    */
   MULTIPLY('*') {
     /**
-     * Returns the multiplication of given numbers and throws ArithmeticException if overflow occurs.
+     * Returns product of given numbers and throws ArithmeticException if overflow occurs.
      *
      * @param n1 number1
      * @param n2 number2
