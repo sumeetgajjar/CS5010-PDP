@@ -16,7 +16,7 @@ public class SimpleCalculatorTest extends AbstractCalculatorTest {
   }
 
   @Test
-  public void testNegativeOperand() {
+  public void testNegativeOperandInput() {
     Calculator calculator = getCalculatorInstance();
     try {
       calculator = calculator.input('-');
