@@ -76,10 +76,9 @@ public class SmartCalculatorOperatorInputCommand extends SimpleCalculatorOperato
 
   /**
    * Returns a {@link Set} of valid {@link CommandName} that the next input character can represent
-   * after successful execution of the current command.
+   * after execution of the current command.
    *
-   * @return a set of valid commandName that the next input character can represent after successful
-   * execution of the current command.
+   * @return a set of valid CommandName that the next input character can belong to
    */
   @Override
   public Set<CommandName> getNextValidCommands() {

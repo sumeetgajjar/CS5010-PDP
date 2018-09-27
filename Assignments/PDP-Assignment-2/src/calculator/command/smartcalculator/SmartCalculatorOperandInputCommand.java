@@ -13,8 +13,8 @@ import calculator.command.simplecalculator.SimpleCalculatorOperandInputCommand;
 
 /**
  * This class represents Operand Input {@link Command} for {@link SmartCalculator}. It extends
- * {@link SimpleCalculatorOperandInputCommand}. It throws an Runtime exception if the given input causes a Operand
- * Overflow.
+ * {@link SimpleCalculatorOperandInputCommand}. It throws an Runtime exception if the given input
+ * causes a Operand Overflow.
  */
 public class SmartCalculatorOperandInputCommand extends SimpleCalculatorOperandInputCommand {
 
@@ -35,10 +35,9 @@ public class SmartCalculatorOperandInputCommand extends SimpleCalculatorOperandI
 
   /**
    * Returns a {@link Set} of valid {@link CommandName} that the next input character can represent
-   * after successful execution of the current command.
+   * after execution of the current command.
    *
-   * @return a set of valid commandName that the next input character can represent after successful
-   * execution of the current command.
+   * @return a set of valid CommandName that the next input character can belong to
    */
   @Override
   public Set<CommandName> getNextValidCommands() {

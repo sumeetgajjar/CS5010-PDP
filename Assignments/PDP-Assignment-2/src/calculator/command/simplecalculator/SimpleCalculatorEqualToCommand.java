@@ -24,7 +24,7 @@ public class SimpleCalculatorEqualToCommand extends AbstractCommand {
    * Constructs the object of {@link SimpleCalculatorEqualToCommand}. Its initializes it to the
    * given values
    *
-   * @param expression        current algebraic expression
+   * @param expression               current algebraic expression
    * @param equalToInputCharacterSet set of characters supported by the command
    */
   public SimpleCalculatorEqualToCommand(List<String> expression,
@@ -46,10 +46,9 @@ public class SimpleCalculatorEqualToCommand extends AbstractCommand {
 
   /**
    * Returns a {@link Set} of valid {@link CommandName} that the next input character can represent
-   * after successful execution of the current command.
+   * after execution of the current command.
    *
-   * @return a set of valid commandName that the next input character can represent after successful
-   * execution of the current command.
+   * @return a set of valid CommandName that the next input character can belong to
    */
   @Override
   public Set<CommandName> getNextValidCommands() {
