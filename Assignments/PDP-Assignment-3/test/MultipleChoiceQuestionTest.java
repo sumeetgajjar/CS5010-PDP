@@ -2,6 +2,9 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import questionnaire.MultipleChoiceQuestion;
 import questionnaire.Question;
@@ -27,7 +30,7 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
   public void testInitializationOfQuestionObject() {
     Question question = getQuestionInstance();
     Assert.assertEquals("question-1?", question.getText());
-    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval("1"));
+    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(Option.ONE.getOptionString()));
   }
 
   @Test
@@ -111,19 +114,24 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
             Option.FIVE, Option.SIX, Option.SEVEN, Option.EIGHT,
     };
 
-    Question question1 = new MultipleChoiceQuestion("question-1?", Option.ONE, options);
-    Assert.assertEquals("question-1?", question1.getText());
-    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question1.eval("1"));
+    for (int i = 1; i <= 8; i++) {
+      Option correctOption = Option.getOption(String.valueOf(i));
+      Question question1 = new MultipleChoiceQuestion("question-1?", correctOption, options);
 
-    Option[] incorrectOptions = new Option[]{
-            Option.TWO, Option.THREE, Option.FOUR,
-            Option.FIVE, Option.SIX, Option.SEVEN, Option.EIGHT,
-    };
-    for (Option incorrectOption : incorrectOptions) {
-      Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question1.eval(incorrectOption.getOptionString()));
+      Assert.assertEquals("question-1?", question1.getText());
+      Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question1.eval(correctOption.getOptionString()));
+
+      List<Option> incorrectOptions = Arrays
+              .stream(Option.values())
+              .filter(o -> !Objects.equals(o, correctOption))
+              .collect(Collectors.toList());
+
+      for (Option incorrectOption : incorrectOptions) {
+        Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question1.eval(incorrectOption.getOptionString()));
+      }
+
+      Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question1.eval("random"));
     }
-
-    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question1.eval("random"));
   }
 
   @Test
