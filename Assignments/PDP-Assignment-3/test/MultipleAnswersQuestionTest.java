@@ -2,6 +2,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import questionnaire.MultipleAnswersQuestion;
 import questionnaire.Question;
@@ -70,7 +71,33 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
 
   @Override
   public void testCorrectAndIncorrectAnswer() {
+    Option[] options = Utils.getAllValidOptionsForMultipleAnswersQuestion();
 
+    for (int i = 1; i <= 8; i++) {
+      Option[] correctOptions = new Option[i];
+
+      for (int j = 1; j <= i; j++) {
+        correctOptions[j] = options[j];
+      }
+
+      String correctOptionString = Arrays.stream(correctOptions)
+              .map(Option::getOptionString)
+              .collect(Collectors.joining(" "));
+
+      Question question = new MultipleAnswersQuestion("question-1?", correctOptionString, options);
+
+      String answer = "";
+      Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question.eval(answer));
+
+      for (int j = 1; j < i; j++) {
+        answer += j;
+        Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question.eval(answer));
+        answer += " ";
+      }
+
+      answer += i;
+      Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(answer));
+    }
   }
 
   @Override
@@ -165,5 +192,7 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
     Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval("2 3 1"));
     Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval("3 1 2"));
     Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval("3 2 1"));
+
+    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval("3 2 1 4"));
   }
 }
