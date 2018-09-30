@@ -69,7 +69,7 @@ cmake-build-*/
 # IntelliJ
 out/
 *.iml
-*.idea/*
+.idea/*
 submissions/*
 docs/*
 
