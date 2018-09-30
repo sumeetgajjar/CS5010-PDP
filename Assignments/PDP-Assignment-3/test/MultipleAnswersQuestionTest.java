@@ -1,6 +1,8 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import questionnaire.MultipleAnswersQuestion;
 import questionnaire.Question;
 import questionnaire.bean.Option;
@@ -72,7 +74,25 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
 
   @Override
   public void testSameQuestionTypeSorting() {
+    Option[] options = Utils.getAllValidOptionsForMultipleAnswersQuestion();
 
+    Question question1 = new MultipleAnswersQuestion("question-5?", "1 2 3 4 5 6 7 8", options);
+    Question question2 = new MultipleAnswersQuestion("question-4?", "6 7 8", options);
+    Question question3 = new MultipleAnswersQuestion("question-3?", "1 2", options);
+    Question question4 = new MultipleAnswersQuestion("question-1?", "1 2", options);
+    Question question5 = new MultipleAnswersQuestion("question-2?", "2 3", options);
+    Question question6 = new MultipleAnswersQuestion("question-1?", "1 2", options);
+
+
+    Question[] questionArray = new Question[]{question1, question2, question3, question4, question5, question6};
+    Arrays.sort(questionArray);
+
+    Assert.assertEquals(questionArray[0], question6);
+    Assert.assertEquals(questionArray[1], question5);
+    Assert.assertEquals(questionArray[2], question4);
+    Assert.assertEquals(questionArray[3], question3);
+    Assert.assertEquals(questionArray[4], question2);
+    Assert.assertEquals(questionArray[5], question1);
   }
 
   @Override
@@ -123,6 +143,11 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
       Assert.assertEquals("Invalid correctionOption: 'random'", e.getMessage());
     }
     Assert.assertNull(question);
+
+  }
+
+  @Test
+  public void testCorrectAnswersInDifferentSequence() {
 
   }
 }
