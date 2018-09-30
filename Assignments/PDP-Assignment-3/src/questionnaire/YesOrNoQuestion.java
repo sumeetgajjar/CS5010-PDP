@@ -1,9 +1,14 @@
 package questionnaire;
 
+import questionnaire.bean.YesNoQuestionAnswer;
+
 public class YesOrNoQuestion extends AbstractQuestion {
 
-  public YesOrNoQuestion(String text) {
+  private final YesNoQuestionAnswer correctAnswer;
+
+  public YesOrNoQuestion(String text, YesNoQuestionAnswer correctAnswer) {
     super(text);
+    this.correctAnswer = correctAnswer;
   }
 
   @Override
