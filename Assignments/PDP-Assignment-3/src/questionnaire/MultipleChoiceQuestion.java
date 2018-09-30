@@ -5,12 +5,12 @@ import questionnaire.bean.Option;
 public class MultipleChoiceQuestion extends AbstractQuestion {
 
   private final Option correctOption;
-  private final Option[] choices;
+  private final Option[] validOptions;
 
-  public MultipleChoiceQuestion(String text, Option correctOption, Option[] choices) {
+  public MultipleChoiceQuestion(String text, Option correctOption, Option[] validOptions) {
     super(text);
     this.correctOption = correctOption;
-    this.choices = choices;
+    this.validOptions = validOptions;
   }
 
   @Override

@@ -1,8 +1,10 @@
 package questionnaire;
 
+import questionnaire.bean.Option;
+
 public class MultipleAnswersQuestion extends AbstractQuestion {
 
-  public MultipleAnswersQuestion(String text) {
+  public MultipleAnswersQuestion(String text, String correctOptionsString, Option[] validOptions) {
     super(text);
   }
 
