@@ -44,11 +44,14 @@ public class LikertQuestionTest extends AbstractQuestionTest {
   public void testCorrectAndIncorrectAnswer() {
     Question question = getQuestionInstance();
     for (LikertScale likertScale : LikertScale.values()) {
-      Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(likertScale.getLikerScaleString()));
+      Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(likertScale.getOptionNumber()));
     }
 
     Assert.assertNotEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval("random"));
     Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question.eval("random"));
+    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question.eval("0"));
+    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question.eval("12"));
+    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question.eval("-1"));
   }
 
   @Override

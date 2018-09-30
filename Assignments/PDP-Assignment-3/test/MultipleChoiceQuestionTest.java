@@ -131,6 +131,9 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
       }
 
       Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question1.eval("random"));
+      Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question1.eval("12"));
+      Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question1.eval("0"));
+      Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question1.eval("-1"));
     }
   }
 
