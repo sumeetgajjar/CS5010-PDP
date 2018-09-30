@@ -21,14 +21,6 @@ public class YesOrNoQuestionTest {
   }
 
   @Test
-  public void testCorrectAndIncorrectAnswer() {
-    Question question = new YesOrNoQuestion("Is Object Initialized?", YesNoQuestionAnswer.YES);
-    Assert.assertEquals("Is Object Initialized?", question.getText());
-    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval("Yes"));
-    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question.eval("No"));
-  }
-
-  @Test
   public void testInvalidConstructorArguments() {
     Question question = null;
     try {
@@ -61,20 +53,16 @@ public class YesOrNoQuestionTest {
   }
 
   @Test
-  public void testSameQuestionTypeSorting() {
+  public void testCorrectAndIncorrectAnswer() {
+    Question question1 = new YesOrNoQuestion("question-1?", YesNoQuestionAnswer.YES);
+    Assert.assertEquals("Is Object Initialized?", question1.getText());
+    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question1.eval("Yes"));
+    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question1.eval("No"));
 
-    Question question1 = new YesOrNoQuestion("Question-4?", YesNoQuestionAnswer.YES);
-    Question question2 = new YesOrNoQuestion("Question-3?", YesNoQuestionAnswer.NO);
-    Question question3 = new YesOrNoQuestion("Question-2?", YesNoQuestionAnswer.YES);
-    Question question4 = new YesOrNoQuestion("Question-1?", YesNoQuestionAnswer.YES);
-
-    Question[] questionArray = new Question[]{question1, question2, question3, question4};
-    Arrays.sort(questionArray);
-
-    Assert.assertEquals(questionArray[0], question4);
-    Assert.assertEquals(questionArray[1], question3);
-    Assert.assertEquals(questionArray[2], question2);
-    Assert.assertEquals(questionArray[3], question1);
+    Question question2 = new YesOrNoQuestion("question-2?", YesNoQuestionAnswer.NO);
+    Assert.assertEquals("question-2?", question2.getText());
+    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question2.eval("No"));
+    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question2.eval("Yes"));
   }
 
   @Test
@@ -106,5 +94,22 @@ public class YesOrNoQuestionTest {
 
     //checking different question different answer
     Assert.assertFalse(question1.equals(question6));
+  }
+
+  @Test
+  public void testSameQuestionTypeSorting() {
+
+    Question question1 = new YesOrNoQuestion("Question-4?", YesNoQuestionAnswer.YES);
+    Question question2 = new YesOrNoQuestion("Question-3?", YesNoQuestionAnswer.NO);
+    Question question3 = new YesOrNoQuestion("Question-2?", YesNoQuestionAnswer.YES);
+    Question question4 = new YesOrNoQuestion("Question-1?", YesNoQuestionAnswer.YES);
+
+    Question[] questionArray = new Question[]{question1, question2, question3, question4};
+    Arrays.sort(questionArray);
+
+    Assert.assertEquals(questionArray[0], question4);
+    Assert.assertEquals(questionArray[1], question3);
+    Assert.assertEquals(questionArray[2], question2);
+    Assert.assertEquals(questionArray[3], question1);
   }
 }
