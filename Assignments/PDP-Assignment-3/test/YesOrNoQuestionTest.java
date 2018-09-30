@@ -1,5 +1,4 @@
 import org.junit.Assert;
-import org.junit.Test;
 
 import java.util.Arrays;
 
@@ -18,14 +17,14 @@ public class YesOrNoQuestionTest extends AbstractQuestionTest {
   /**
    * Test to check the initialization of the Question Object.
    */
-  @Test
+  @Override
   public void testInitializationOfQuestionObject() {
     Question question = getQuestionInstance();
     Assert.assertEquals("question-1?", question.getText());
     Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval("Yes"));
   }
 
-  @Test
+  @Override
   public void testInvalidConstructorArguments() {
     Question question = null;
     try {
@@ -61,7 +60,7 @@ public class YesOrNoQuestionTest extends AbstractQuestionTest {
     Assert.assertNull(question);
   }
 
-  @Test
+  @Override
   public void testCorrectAndIncorrectAnswer() {
     Question question1 = new YesOrNoQuestion("question-1?", YesNoQuestionAnswer.YES);
     Assert.assertEquals("Is Object Initialized?", question1.getText());
@@ -75,7 +74,7 @@ public class YesOrNoQuestionTest extends AbstractQuestionTest {
     Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question2.eval("Yes"));
   }
 
-  @Test
+  @Override
   public void testSameQuestionTypeSorting() {
 
     Question question1 = new YesOrNoQuestion("Question-4?", YesNoQuestionAnswer.YES);

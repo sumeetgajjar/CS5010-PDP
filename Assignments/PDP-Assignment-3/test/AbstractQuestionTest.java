@@ -8,6 +8,18 @@ public abstract class AbstractQuestionTest {
   protected abstract Question getQuestionInstance();
 
   @Test
+  public abstract void testInitializationOfQuestionObject();
+
+  @Test
+  public abstract void testInvalidConstructorArguments();
+
+  @Test
+  public abstract void testCorrectAndIncorrectAnswer();
+
+  @Test
+  public abstract void testSameQuestionTypeSorting();
+
+  @Test
   public void testQuestionEqualityAndInEquality() {
     Question question1 = getQuestionInstance();
     Question question2 = getQuestionInstance();
