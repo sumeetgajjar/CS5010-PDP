@@ -8,15 +8,20 @@ import questionnaire.YesOrNoQuestion;
 import questionnaire.bean.AnswerStatus;
 import questionnaire.bean.YesNoQuestionAnswer;
 
-public class YesOrNoQuestionTest {
+public class YesOrNoQuestionTest extends AbstractQuestionTest {
+
+  @Override
+  protected Question getQuestionInstance() {
+    return new YesOrNoQuestion("question-1?", YesNoQuestionAnswer.YES);
+  }
 
   /**
    * Test to check the initialization of the Question Object.
    */
   @Test
   public void testInitializationOfQuestionObject() {
-    Question question = new YesOrNoQuestion("Is Object Initialized?", YesNoQuestionAnswer.YES);
-    Assert.assertEquals("Is Object Initialized?", question.getText());
+    Question question = getQuestionInstance();
+    Assert.assertEquals("question-1?", question.getText());
     Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval("Yes"));
   }
 
@@ -25,29 +30,33 @@ public class YesOrNoQuestionTest {
     Question question = null;
     try {
       question = new YesOrNoQuestion("", YesNoQuestionAnswer.YES);
+      Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("Invalid Question Text: ", e.getMessage());
+      Assert.assertEquals("Invalid question text: ", e.getMessage());
     }
     Assert.assertNull(question);
 
     try {
       question = new YesOrNoQuestion(null, YesNoQuestionAnswer.YES);
+      Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("Invalid Question Text: null", e.getMessage());
+      Assert.assertEquals("Invalid question text: null", e.getMessage());
     }
     Assert.assertNull(question);
 
     try {
       question = new YesOrNoQuestion(null, null);
+      Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("Invalid Question Text: null", e.getMessage());
+      Assert.assertEquals("Invalid question text: null", e.getMessage());
     }
     Assert.assertNull(question);
 
     try {
       question = new YesOrNoQuestion("Question 1", null);
+      Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("Invalid Correct Answer: null", e.getMessage());
+      Assert.assertEquals("Invalid correct answer: null", e.getMessage());
     }
     Assert.assertNull(question);
   }
@@ -66,50 +75,21 @@ public class YesOrNoQuestionTest {
   }
 
   @Test
-  public void testQuestionEqualityAndInEquality() {
-    Question question1 = new YesOrNoQuestion("Question-1?", YesNoQuestionAnswer.YES);
-    Question question2 = new YesOrNoQuestion("Question-1?", YesNoQuestionAnswer.YES);
-    Question question3 = new YesOrNoQuestion("Question-1?", YesNoQuestionAnswer.YES);
-
-    Question question4 = new YesOrNoQuestion("Question-1?", YesNoQuestionAnswer.NO);
-    Question question5 = new YesOrNoQuestion("Question-2?", YesNoQuestionAnswer.YES);
-    Question question6 = new YesOrNoQuestion("Question-2?", YesNoQuestionAnswer.NO);
-
-    //Checking reflexivity
-    Assert.assertEquals(question1, question1);
-
-    //Checking symmetry
-    Assert.assertEquals(question1.equals(question2), question2.equals(question1));
-
-    //Checking transitivity
-    Assert.assertTrue(question1.equals(question2));
-    Assert.assertTrue(question2.equals(question3));
-    Assert.assertTrue(question1.equals(question3));
-
-    //checking same question different answer
-    Assert.assertFalse(question1.equals(question4));
-
-    //checking different question same answer
-    Assert.assertFalse(question1.equals(question5));
-
-    //checking different question different answer
-    Assert.assertFalse(question1.equals(question6));
-  }
-
-  @Test
   public void testSameQuestionTypeSorting() {
 
     Question question1 = new YesOrNoQuestion("Question-4?", YesNoQuestionAnswer.YES);
     Question question2 = new YesOrNoQuestion("Question-3?", YesNoQuestionAnswer.NO);
     Question question3 = new YesOrNoQuestion("Question-2?", YesNoQuestionAnswer.YES);
-    Question question4 = new YesOrNoQuestion("Question-1?", YesNoQuestionAnswer.YES);
+    Question question4 = new YesOrNoQuestion("Question-2?", YesNoQuestionAnswer.YES);
+    Question question5 = new YesOrNoQuestion("Question-1?", YesNoQuestionAnswer.NO);
 
-    Question[] questionArray = new Question[]{question1, question2, question3, question4};
+    Question[] questionArray = new Question[]{question1, question2, question3, question4, question5};
     Arrays.sort(questionArray);
 
-    Assert.assertEquals(questionArray[0], question4);
-    Assert.assertEquals(questionArray[1], question3);
-    Assert.assertEquals(questionArray[2], question2);
-    Assert.assertEquals(questionArray[3], question1);
+    Assert.assertEquals(questionArray[0], question5);
+    Assert.assertEquals(questionArray[1], question4);
+    Assert.assertEquals(questionArray[2], question3);
+    Assert.assertEquals(questionArray[3], question2);
+    Assert.assertEquals(questionArray[4], question1);
   }
 }
