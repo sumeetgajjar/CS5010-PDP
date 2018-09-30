@@ -20,4 +20,14 @@ public enum Option {
   public String getOptionString() {
     return optionString;
   }
+
+  public static Option getOption(String optionString) throws IllegalArgumentException {
+    for (Option option : Option.values()) {
+      if (option.getOptionString().equals(optionString)) {
+        return option;
+      }
+    }
+
+    throw new IllegalArgumentException(String.format("Invalid OptionString: %s", optionString));
+  }
 }
