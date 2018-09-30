@@ -10,16 +10,13 @@ import questionnaire.MultipleChoiceQuestion;
 import questionnaire.Question;
 import questionnaire.bean.AnswerStatus;
 import questionnaire.bean.Option;
+import util.Utils;
 
 public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
 
   @Override
   protected Question getQuestionInstance() {
-    Option[] options = new Option[]{
-            Option.ONE, Option.TWO, Option.THREE, Option.FOUR,
-            Option.FIVE, Option.SIX, Option.SEVEN, Option.EIGHT,
-    };
-
+    Option[] options = Utils.getAllValidOptionsForMultipleChoiceQuestion();
     return new MultipleChoiceQuestion("question-1?", Option.ONE, options);
   }
 
@@ -35,11 +32,7 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
 
   @Test
   public void testInvalidConstructorArguments() {
-    Option[] options = new Option[]{
-            Option.ONE, Option.TWO, Option.THREE, Option.FOUR,
-            Option.FIVE, Option.SIX, Option.SEVEN, Option.EIGHT,
-    };
-
+    Option[] options = Utils.getAllValidOptionsForMultipleChoiceQuestion();
     Question question = null;
     try {
       question = new MultipleChoiceQuestion("", Option.ONE, options);
@@ -109,10 +102,7 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
 
   @Test
   public void testCorrectAndIncorrectAnswer() {
-    Option[] options = new Option[]{
-            Option.ONE, Option.TWO, Option.THREE, Option.FOUR,
-            Option.FIVE, Option.SIX, Option.SEVEN, Option.EIGHT,
-    };
+    Option[] options = Utils.getAllValidOptionsForMultipleChoiceQuestion();
 
     for (int i = 1; i <= 8; i++) {
       Option correctOption = Option.getOption(String.valueOf(i));
@@ -139,10 +129,7 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
 
   @Test
   public void testSameQuestionTypeSorting() {
-    Option[] options = new Option[]{
-            Option.ONE, Option.TWO, Option.THREE, Option.FOUR,
-            Option.FIVE, Option.SIX, Option.SEVEN, Option.EIGHT,
-    };
+    Option[] options = Utils.getAllValidOptionsForMultipleChoiceQuestion();
 
     Question question1 = new MultipleChoiceQuestion("question-4?", Option.FOUR, options);
     Question question2 = new MultipleChoiceQuestion("question-3?", Option.THREE, options);
