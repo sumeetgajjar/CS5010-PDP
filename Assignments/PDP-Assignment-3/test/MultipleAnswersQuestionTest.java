@@ -158,6 +158,12 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
 
   @Test
   public void testCorrectAnswersInDifferentSequence() {
-
+    Question question = getQuestionInstance();
+    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval("1 2 3"));
+    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval("1 3 2"));
+    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval("2 1 3"));
+    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval("2 3 1"));
+    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval("3 1 2"));
+    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval("3 2 1"));
   }
 }
