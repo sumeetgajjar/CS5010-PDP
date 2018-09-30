@@ -67,6 +67,7 @@ public class YesOrNoQuestionTest extends AbstractQuestionTest {
     Assert.assertEquals("Is Object Initialized?", question1.getText());
     Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question1.eval("Yes"));
     Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question1.eval("No"));
+    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question1.eval("random"));
 
     Question question2 = new YesOrNoQuestion("question-2?", YesNoQuestionAnswer.NO);
     Assert.assertEquals("question-2?", question2.getText());

@@ -5,10 +5,8 @@ import java.util.Arrays;
 
 import questionnaire.MultipleChoiceQuestion;
 import questionnaire.Question;
-import questionnaire.YesOrNoQuestion;
 import questionnaire.bean.AnswerStatus;
 import questionnaire.bean.Option;
-import questionnaire.bean.YesNoQuestionAnswer;
 
 public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
 
@@ -29,7 +27,7 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
   public void testInitializationOfQuestionObject() {
     Question question = getQuestionInstance();
     Assert.assertEquals("question-1?", question.getText());
-    Assert.assertEquals(Option.ONE.getOptionString(), question.eval("1"));
+    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval("1"));
   }
 
   @Test
@@ -108,15 +106,24 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
 
   @Test
   public void testCorrectAndIncorrectAnswer() {
-    Question question1 = new MultipleChoiceQuestion("question-1?", Option.FOUR, Option.values());
-    Assert.assertEquals("Is Object Initialized?", question1.getText());
-    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question1.eval("Yes"));
-    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question1.eval("No"));
+    Option[] options = new Option[]{
+            Option.ONE, Option.TWO, Option.THREE, Option.FOUR,
+            Option.FIVE, Option.SIX, Option.SEVEN, Option.EIGHT,
+    };
 
-    Question question2 = new YesOrNoQuestion("question-2?", YesNoQuestionAnswer.NO);
-    Assert.assertEquals("question-2?", question2.getText());
-    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question2.eval("No"));
-    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question2.eval("Yes"));
+    Question question1 = new MultipleChoiceQuestion("question-1?", Option.ONE, options);
+    Assert.assertEquals("question-1?", question1.getText());
+    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question1.eval("1"));
+
+    Option[] incorrectOptions = new Option[]{
+            Option.TWO, Option.THREE, Option.FOUR,
+            Option.FIVE, Option.SIX, Option.SEVEN, Option.EIGHT,
+    };
+    for (Option incorrectOption : incorrectOptions) {
+      Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question1.eval(incorrectOption.getOptionString()));
+    }
+
+    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question1.eval("random"));
   }
 
   @Test
