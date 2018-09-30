@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import questionnaire.MultipleAnswersQuestion;
 import questionnaire.Question;
+import questionnaire.bean.AnswerStatus;
 import questionnaire.bean.Option;
 import util.Utils;
 
@@ -97,7 +98,16 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
 
   @Override
   public void testOperationOnSameObjectMultipleTimes() {
+    Question question = getQuestionInstance();
+    String answer = String.format("%s %s %s",
+            Option.ONE.getOptionString(),
+            Option.TWO.getOptionString(),
+            Option.THREE.getOptionString());
 
+    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(answer));
+    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(answer));
+    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(answer));
+    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(answer));
   }
 
   @Test
