@@ -7,7 +7,7 @@ public enum AnswerStatus {
 
   private final String answerStatusString;
 
-  private AnswerStatus(String answerStatusString) {
+  AnswerStatus(String answerStatusString) {
     this.answerStatusString = answerStatusString;
   }
 
