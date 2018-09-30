@@ -157,4 +157,13 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
     Assert.assertEquals(questionArray[3], question2);
     Assert.assertEquals(questionArray[4], question1);
   }
+
+  @Override
+  public void testOperationOnSameObjectMultipleTimes() {
+    Question question = getQuestionInstance();
+    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(Option.ONE.getOptionString()));
+    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(Option.ONE.getOptionString()));
+    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(Option.ONE.getOptionString()));
+    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(Option.ONE.getOptionString()));
+  }
 }

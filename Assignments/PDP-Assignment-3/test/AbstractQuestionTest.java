@@ -20,6 +20,9 @@ public abstract class AbstractQuestionTest {
   public abstract void testSameQuestionTypeSorting();
 
   @Test
+  public abstract void testOperationOnSameObjectMultipleTimes();
+
+  @Test
   public void testQuestionEqualityAndInEquality() {
     Question question1 = getQuestionInstance();
     Question question2 = getQuestionInstance();
