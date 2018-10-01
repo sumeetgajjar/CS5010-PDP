@@ -129,9 +129,7 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
   @Override
   public void testQuestionObjectInequalityUsingEquals() {
     Option[] options = getOptions(8);
-
     Question question1 = new MultipleChoiceQuestion("mcq question-3?", "3", options);
-
     Question question2 = new MultipleChoiceQuestion("mcq question-2?", "2", options);
 
     Assert.assertFalse(question1.equals(question2));
@@ -182,6 +180,8 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
                 question1.evaluateAnswer(incorrectNumericChoice.getStringValue()));
       }
 
+      Assert.assertEquals(Result.INCORRECT.getResultString(), question1.evaluateAnswer(" "));
+      Assert.assertEquals(Result.INCORRECT.getResultString(), question1.evaluateAnswer(" 1 2 3"));
       Assert.assertEquals(Result.INCORRECT.getResultString(), question1.evaluateAnswer("1 2 3"));
       Assert.assertEquals(Result.INCORRECT.getResultString(), question1.evaluateAnswer("random"));
       Assert.assertEquals(Result.INCORRECT.getResultString(), question1.evaluateAnswer("12"));
@@ -236,6 +236,11 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
               e.getMessage());
     }
     Assert.assertNull(question2);
+
+    Option[] options = getOptions(3);
+    question2 = new MultipleChoiceQuestion("question-2?", "1", options);
+    Assert.assertEquals(Result.CORRECT.getResultString(), question2.evaluateAnswer("1"));
+    Assert.assertEquals(Result.INCORRECT.getResultString(), question2.evaluateAnswer("2"));
   }
 
   @Test
@@ -272,6 +277,9 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
     Question question = new MultipleChoiceQuestion("question-1?", "1  ", getOptions(3));
     Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer("1"));
     Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer("1  "));
+
+    Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer("2"));
+    Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer("1  2"));
   }
 
   public static Option[] getOptions(int n) {
