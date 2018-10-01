@@ -46,11 +46,11 @@ public class MultipleAnswersQuestion extends AbstractQuestionWithDynamicOptions 
       throw new IllegalArgumentException("correct options cannot be greater than total options");
     }
 
-    for (int i = 0; i < correctNumericChoices.length; i++) {
-      if (correctNumericChoices[i].getValue() > options.length) {
+    for (NumericChoice correctNumericChoice : correctNumericChoices) {
+      if (correctNumericChoice.getValue() > options.length) {
         throw new IllegalArgumentException(String.format(
                 "correct answer choice not found in given options, correctAnswerChoice: %d",
-                correctNumericChoices[i].getValue())
+                correctNumericChoice.getValue())
         );
       }
     }
