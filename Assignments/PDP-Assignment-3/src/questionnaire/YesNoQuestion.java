@@ -38,7 +38,7 @@ public class YesNoQuestion extends AbstractQuestion {
 
   private void performSanityCheckForInput(YesNoQuestionAnswer yesNoQuestionAnswer) throws IllegalArgumentException {
     if (Objects.isNull(yesNoQuestionAnswer)) {
-      throw new IllegalArgumentException(String.format("Invalid correct answer: %s", yesNoQuestionAnswer));
+      throw new IllegalArgumentException("Invalid correct answer: null");
     }
   }
 }
