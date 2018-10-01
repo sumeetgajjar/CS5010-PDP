@@ -31,6 +31,20 @@ public class LikertQuestion extends AbstractQuestion {
   }
 
   @Override
+  protected boolean equalsLikertQuestion(LikertQuestion likertQuestion) {
+    return this.text.equals(likertQuestion.text);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    if (other instanceof AbstractQuestion) {
+      AbstractQuestion otherAbstractQuestion = (AbstractQuestion) other;
+      return otherAbstractQuestion.equalsLikertQuestion(this);
+    }
+    return false;
+  }
+
+  @Override
   public int hashCode() {
     return Objects.hash(Utils.merge(VALID_OPTIONS, this.text));
   }

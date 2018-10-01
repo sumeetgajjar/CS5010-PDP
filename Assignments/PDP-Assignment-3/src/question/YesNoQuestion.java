@@ -22,6 +22,22 @@ public class YesNoQuestion extends AbstractQuestion {
   }
 
   @Override
+  protected boolean equalsYesNoQuestion(YesNoQuestion yesNoQuestion) {
+    return
+            this.text.equals(yesNoQuestion.text) &&
+                    this.correctAnswer.equals(yesNoQuestion.correctAnswer);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    if (other instanceof AbstractQuestion) {
+      AbstractQuestion otherAbstractQuestion = (AbstractQuestion) other;
+      return otherAbstractQuestion.equalsYesNoQuestion(this);
+    }
+    return false;
+  }
+
+  @Override
   public int hashCode() {
     return Objects.hash(this.text, this.correctAnswer);
   }

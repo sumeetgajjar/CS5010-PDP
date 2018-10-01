@@ -1,5 +1,6 @@
 package question;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 import question.bean.NumericChoice;
@@ -7,36 +8,39 @@ import question.bean.Option;
 import question.bean.Result;
 import util.Utils;
 
-public class MultipleAnswersQuestion extends AbstractQuestionWithDynamicOptions {
+public class MultipleAnswersQuestion extends AbstractQuestion {
 
   private static final int MINIMUM_OPTIONS = 3;
   private static final int MAXIMUM_OPTIONS = 8;
 
-  private final NumericChoice[] correctNumericChoices;
+  protected final NumericChoice[] correctNumericChoices;
+  protected final Option[] options;
 
   public MultipleAnswersQuestion(String text, String correctOptionsString, Option[] options)
           throws IllegalArgumentException {
 
-    super(text, options);
+    super(text);
     this.correctNumericChoices = this.parseNumberChoices(correctOptionsString);
+    this.options = options;
+
     this.performSanityCheckForInput(this.correctNumericChoices, this.options);
   }
 
   @Override
   protected Result eval(String answer) throws IllegalArgumentException {
     NumericChoice[] givenNumericChoices = parseNumberChoices(answer);
-    this.checkForDuplicateChoices(givenNumericChoices);
+    checkIfNumericChoicesContainsDuplicate(givenNumericChoices);
 
     if (correctNumericChoices.length != givenNumericChoices.length) {
       return Result.INCORRECT;
     }
 
     boolean isOptionMissing;
-    for (int i = 0; i < correctNumericChoices.length; i++) {
+    for (NumericChoice correctNumericChoice : correctNumericChoices) {
       isOptionMissing = true;
 
-      for (int j = 0; j < givenNumericChoices.length; j++) {
-        if (correctNumericChoices[i].equals(givenNumericChoices[j])) {
+      for (NumericChoice givenNumericChoice : givenNumericChoices) {
+        if (correctNumericChoice.equals(givenNumericChoice)) {
           isOptionMissing = false;
         }
       }
@@ -47,6 +51,22 @@ public class MultipleAnswersQuestion extends AbstractQuestionWithDynamicOptions 
     }
 
     return Result.CORRECT;
+  }
+
+  @Override
+  protected boolean equalMultipleAnswersQuestion(MultipleAnswersQuestion multipleAnswersQuestion) {
+    return this.text.equals(multipleAnswersQuestion.text) &&
+            Arrays.equals(this.options, multipleAnswersQuestion.options) &&
+            Arrays.equals(this.correctNumericChoices, multipleAnswersQuestion.correctNumericChoices);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    if (other instanceof AbstractQuestion) {
+      AbstractQuestion otherAbstractQuestion = (AbstractQuestion) other;
+      return otherAbstractQuestion.equalMultipleAnswersQuestion(this);
+    }
+    return false;
   }
 
   @Override
@@ -64,12 +84,10 @@ public class MultipleAnswersQuestion extends AbstractQuestionWithDynamicOptions 
     return Objects.hash(mergedArray);
   }
 
-  @Override
   protected int getMaximumOptionThreshold() {
     return MAXIMUM_OPTIONS;
   }
 
-  @Override
   protected int getMinimumOptionThreshold() {
     return MINIMUM_OPTIONS;
   }
@@ -77,10 +95,28 @@ public class MultipleAnswersQuestion extends AbstractQuestionWithDynamicOptions 
   private void performSanityCheckForInput(NumericChoice[] correctNumericChoices, Option[] options)
           throws IllegalArgumentException {
 
-    if (correctNumericChoices.length > options.length) {
-      throw new IllegalArgumentException("correct options cannot be greater than total options");
-    }
+    checkIfAnyOptionIsNull(options);
+    checkOptionsSizeIsLessThanMinimumThreshold(options);
+    checkOptionsSizeIsGreaterThanMaximumThreshold(options);
+    checkIfNumericChoicesContainsDuplicate(correctNumericChoices);
+    checkIfOptionsContainsDuplicate(options);
+    checkIfCorrectChoicesAreGreaterThanOptions(correctNumericChoices, options);
+    checkIfCorrectChoicesAreNotPresentInOptions(correctNumericChoices, options);
+  }
 
+  private void checkIfOptionsContainsDuplicate(Option[] options) throws IllegalArgumentException {
+    if (Utils.checkForDuplicatesInArray(options)) {
+      throw new IllegalArgumentException("cannot contain duplicate options");
+    }
+  }
+
+  private void checkIfNumericChoicesContainsDuplicate(NumericChoice[] correctNumericChoices) throws IllegalArgumentException {
+    if (Utils.checkForDuplicatesInArray(correctNumericChoices)) {
+      throw new IllegalArgumentException("cannot contain duplicate choices");
+    }
+  }
+
+  private void checkIfCorrectChoicesAreNotPresentInOptions(NumericChoice[] correctNumericChoices, Option[] options) throws IllegalArgumentException {
     for (NumericChoice correctNumericChoice : correctNumericChoices) {
       if (correctNumericChoice.getValue() > options.length) {
         throw new IllegalArgumentException(String.format(
@@ -89,8 +125,40 @@ public class MultipleAnswersQuestion extends AbstractQuestionWithDynamicOptions 
         );
       }
     }
+  }
 
-    this.checkForDuplicateChoices(correctNumericChoices);
+  private void checkIfCorrectChoicesAreGreaterThanOptions(NumericChoice[] correctNumericChoices, Option[] options) throws IllegalArgumentException {
+    if (correctNumericChoices.length > options.length) {
+      throw new IllegalArgumentException("correct options cannot be greater than total options");
+    }
+  }
+
+  private void checkIfAnyOptionIsNull(Option[] options) {
+    if (Objects.isNull(options)) {
+      throw new IllegalArgumentException("options cannot be null");
+    }
+
+    for (Option option : options) {
+      if (Objects.isNull(option)) {
+        throw new IllegalArgumentException("option cannot be null");
+      }
+    }
+  }
+
+  private void checkOptionsSizeIsLessThanMinimumThreshold(Option[] options) {
+    if (options.length < getMinimumOptionThreshold()) {
+      throw new IllegalArgumentException(
+              String.format("Question should have at least %d options, found: %d",
+                      getMinimumOptionThreshold(), options.length));
+    }
+  }
+
+  private void checkOptionsSizeIsGreaterThanMaximumThreshold(Option[] options) {
+    if (options.length > getMaximumOptionThreshold()) {
+      throw new IllegalArgumentException(
+              String.format("Question can have no more than %d options, found: %d",
+                      getMaximumOptionThreshold(), options.length));
+    }
   }
 
   private NumericChoice[] parseNumberChoices(String choiceString)
@@ -107,15 +175,5 @@ public class MultipleAnswersQuestion extends AbstractQuestionWithDynamicOptions 
     }
 
     return numericChoices;
-  }
-
-  private void checkForDuplicateChoices(NumericChoice[] numericChoices) {
-    for (int i = 0; i < numericChoices.length; i++) {
-      for (int j = i + 1; j < numericChoices.length; j++) {
-        if (numericChoices[i] == numericChoices[j]) {
-          throw new IllegalArgumentException("cannot contain duplicate choices");
-        }
-      }
-    }
   }
 }

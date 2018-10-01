@@ -1,23 +1,24 @@
 package question;
 
-import java.util.Objects;
+import java.util.Arrays;
 
 import question.bean.NumericChoice;
 import question.bean.Option;
-import question.bean.Result;
-import util.Utils;
 
-public class MultipleChoiceQuestion extends AbstractQuestionWithDynamicOptions {
+public class MultipleChoiceQuestion extends MultipleAnswersQuestion {
 
   private static final int MINIMUM_OPTIONS = 3;
   private static final int MAXIMUM_OPTIONS = 8;
 
-  private final NumericChoice correctNumericChoice;
+  public MultipleChoiceQuestion(String text, String correctOptionsString, Option[] options) throws IllegalArgumentException {
+    super(text, correctOptionsString, options);
+    this.performSanityCheckForInput(this.correctNumericChoices);
+  }
 
-  public MultipleChoiceQuestion(String text, NumericChoice correctNumericChoice, Option[] options) {
-    super(text, options);
-    this.performSanityCheckForInput(correctNumericChoice, options);
-    this.correctNumericChoice = correctNumericChoice;
+  private void performSanityCheckForInput(NumericChoice[] correctNumericChoices) {
+    if (correctNumericChoices.length != 1) {
+      throw new IllegalArgumentException("cannot have more than 1 correct option");
+    }
   }
 
   @Override
@@ -31,34 +32,23 @@ public class MultipleChoiceQuestion extends AbstractQuestionWithDynamicOptions {
   }
 
   @Override
-  protected Result eval(String answer) throws IllegalArgumentException {
-    NumericChoice givenNumericChoice = NumericChoice.getChoice(answer);
-    return correctNumericChoice.equals(givenNumericChoice) ? Result.CORRECT : Result.INCORRECT;
+  protected boolean equalMultipleChoiceQuestion(MultipleChoiceQuestion multipleChoiceQuestion) {
+    return this.text.equals(multipleChoiceQuestion.text) &&
+            Arrays.equals(this.options, multipleChoiceQuestion.options) &&
+            Arrays.equals(this.correctNumericChoices, multipleChoiceQuestion.correctNumericChoices);
   }
 
   @Override
-  public int hashCode() {
-    return Objects.hash(Utils.merge(this.options, this.text, this.correctNumericChoice));
+  public boolean equals(Object other) {
+    if (other instanceof AbstractQuestion) {
+      AbstractQuestion otherAbstractQuestion = (AbstractQuestion) other;
+      return otherAbstractQuestion.equalMultipleChoiceQuestion(this);
+    }
+    return false;
   }
 
   @Override
   public int compareTo(Question o) {
     return 0;
-  }
-
-  private void performSanityCheckForInput(NumericChoice correctAnswerChoice, Option[] options)
-          throws IllegalArgumentException {
-
-    if (Objects.isNull(correctAnswerChoice)) {
-      throw new IllegalArgumentException("correct answer cannot be null");
-    }
-
-    if (correctAnswerChoice.getValue() > options.length) {
-      throw new IllegalArgumentException(
-              String.format(
-                      "correct answer choice not found in given options, correctAnswerChoice: %d",
-                      correctAnswerChoice.getValue())
-      );
-    }
   }
 }

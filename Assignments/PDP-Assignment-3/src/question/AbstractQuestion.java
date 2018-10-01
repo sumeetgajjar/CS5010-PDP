@@ -15,15 +15,19 @@ public abstract class AbstractQuestion implements Question {
 
   protected abstract Result eval(String answer) throws IllegalArgumentException;
 
-  protected boolean equalsAbstractQuestionWithDynamicOptions() {
+  protected boolean equalsYesNoQuestion(YesNoQuestion yesNoQuestion) {
     return false;
   }
 
-  protected boolean equalsYesNoQuestion() {
+  protected boolean equalsLikertQuestion(LikertQuestion likertQuestion) {
     return false;
   }
 
-  protected boolean equalsLikertQuestion() {
+  protected boolean equalMultipleChoiceQuestion(MultipleChoiceQuestion multipleChoiceQuestion) {
+    return false;
+  }
+
+  protected boolean equalMultipleAnswersQuestion(MultipleAnswersQuestion multipleAnswersQuestion) {
     return false;
   }
 

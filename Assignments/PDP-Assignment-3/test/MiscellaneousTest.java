@@ -8,7 +8,6 @@ import question.MultipleAnswersQuestion;
 import question.MultipleChoiceQuestion;
 import question.Question;
 import question.YesNoQuestion;
-import question.bean.NumericChoice;
 import question.bean.Option;
 import question.bean.YesNoQuestionAnswer;
 
@@ -69,10 +68,10 @@ public class MiscellaneousTest {
     Question question5 = new MultipleAnswersQuestion("maq question-1?", "1 2 3", multipleAnswersQuestionNumericOptions);
 
     Option[] multipleChoiceQuestionNumericOptions = MultipleChoiceQuestionTest.getOptions(8);
-    Question question4 = new MultipleChoiceQuestion("mcq question-3?", NumericChoice.THREE, multipleChoiceQuestionNumericOptions);
-    Question question3 = new MultipleChoiceQuestion("mcq question-2?", NumericChoice.TWO, multipleChoiceQuestionNumericOptions);
-    Question question2 = new MultipleChoiceQuestion("mcq question-2?", NumericChoice.TWO, multipleChoiceQuestionNumericOptions);
-    Question question1 = new MultipleChoiceQuestion("mcq question-1?", NumericChoice.ONE, multipleChoiceQuestionNumericOptions);
+    Question question4 = new MultipleChoiceQuestion("mcq question-3?", "3", multipleChoiceQuestionNumericOptions);
+    Question question3 = new MultipleChoiceQuestion("mcq question-2?", "2", multipleChoiceQuestionNumericOptions);
+    Question question2 = new MultipleChoiceQuestion("mcq question-2?", "2", multipleChoiceQuestionNumericOptions);
+    Question question1 = new MultipleChoiceQuestion("mcq question-1?", "1", multipleChoiceQuestionNumericOptions);
 
     Question[] questions = new Question[]{
             question4, question3, question2, question1,
@@ -95,10 +94,10 @@ public class MiscellaneousTest {
   @Test
   public void testSortLikertQuestionAndMultipleChoiceQuestion() {
     Option[] multipleChoiceQuestionNumericOptions = MultipleChoiceQuestionTest.getOptions(8);
-    Question question8 = new MultipleChoiceQuestion("mcq question-3?", NumericChoice.THREE, multipleChoiceQuestionNumericOptions);
-    Question question7 = new MultipleChoiceQuestion("mcq question-2?", NumericChoice.TWO, multipleChoiceQuestionNumericOptions);
-    Question question6 = new MultipleChoiceQuestion("mcq question-2?", NumericChoice.TWO, multipleChoiceQuestionNumericOptions);
-    Question question5 = new MultipleChoiceQuestion("mcq question-1?", NumericChoice.ONE, multipleChoiceQuestionNumericOptions);
+    Question question8 = new MultipleChoiceQuestion("mcq question-3?", "3", multipleChoiceQuestionNumericOptions);
+    Question question7 = new MultipleChoiceQuestion("mcq question-2?", "2", multipleChoiceQuestionNumericOptions);
+    Question question6 = new MultipleChoiceQuestion("mcq question-2?", "2", multipleChoiceQuestionNumericOptions);
+    Question question5 = new MultipleChoiceQuestion("mcq question-1?", "1", multipleChoiceQuestionNumericOptions);
 
     Question question4 = new LikertQuestion("likert question-3?");
     Question question3 = new LikertQuestion("likert question-2?");
@@ -132,10 +131,10 @@ public class MiscellaneousTest {
     Question question13 = new MultipleAnswersQuestion("maq question-1?", "1 2 3", multipleAnswersQuestionNumericOptions);
 
     Option[] multipleChoiceQuestionNumericOptions = MultipleChoiceQuestionTest.getOptions(8);
-    Question question12 = new MultipleChoiceQuestion("mcq question-3?", NumericChoice.THREE, multipleChoiceQuestionNumericOptions);
-    Question question11 = new MultipleChoiceQuestion("mcq question-2?", NumericChoice.TWO, multipleChoiceQuestionNumericOptions);
-    Question question10 = new MultipleChoiceQuestion("mcq question-2?", NumericChoice.TWO, multipleChoiceQuestionNumericOptions);
-    Question question9 = new MultipleChoiceQuestion("mcq question-1?", NumericChoice.ONE, multipleChoiceQuestionNumericOptions);
+    Question question12 = new MultipleChoiceQuestion("mcq question-3?", "3", multipleChoiceQuestionNumericOptions);
+    Question question11 = new MultipleChoiceQuestion("mcq question-2?", "2", multipleChoiceQuestionNumericOptions);
+    Question question10 = new MultipleChoiceQuestion("mcq question-2?", "2", multipleChoiceQuestionNumericOptions);
+    Question question9 = new MultipleChoiceQuestion("mcq question-1?", "1", multipleChoiceQuestionNumericOptions);
 
     Question question8 = new LikertQuestion("likert question-3?");
     Question question7 = new LikertQuestion("likert question-2?");

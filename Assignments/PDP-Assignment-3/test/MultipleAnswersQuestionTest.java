@@ -5,9 +5,9 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import question.MultipleAnswersQuestion;
-import question.bean.Option;
 import question.Question;
 import question.bean.NumericChoice;
+import question.bean.Option;
 import question.bean.Result;
 
 public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
@@ -22,6 +22,13 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
   public void testInitializationOfQuestionObject() {
     Question question = getQuestionInstance();
     Assert.assertEquals("question-1?", question.getText());
+  }
+
+  @Test
+  public void testTrailingSpacesInCorrectOptionAndAnswer() {
+    Question question = new MultipleAnswersQuestion("question-1?", "1 2 3  ", getOptions(3));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer("1 2 3"));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer("1 2 3  "));
   }
 
   @Override
@@ -72,16 +79,6 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
   @Override
   public void testCorrectAndIncorrectAnswer() {
     Option[] options = getOptions(8);
-    NumericChoice[] allNumericChoices = new NumericChoice[]{
-            NumericChoice.ONE,
-            NumericChoice.TWO,
-            NumericChoice.THREE,
-            NumericChoice.FOUR,
-            NumericChoice.FIVE,
-            NumericChoice.SIX,
-            NumericChoice.SEVEN,
-            NumericChoice.EIGHT
-    };
 
     for (int i = 1; i < 8; i++) {
       NumericChoice[] correctOptions = new NumericChoice[i];
@@ -184,6 +181,14 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
       Assert.assertEquals("Invalid NumericChoice value: 12", e.getMessage());
+    }
+    Assert.assertNull(question);
+
+    try {
+      question = new MultipleAnswersQuestion("question-1?", " 1", options);
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid NumericChoice value: ", e.getMessage());
     }
     Assert.assertNull(question);
 
