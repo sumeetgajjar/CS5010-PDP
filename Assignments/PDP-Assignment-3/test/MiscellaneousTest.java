@@ -6,13 +6,29 @@ import java.util.Arrays;
 import question.LikertQuestion;
 import question.MultipleAnswersQuestion;
 import question.MultipleChoiceQuestion;
-import question.bean.Option;
 import question.Question;
 import question.YesNoQuestion;
 import question.bean.NumericChoice;
+import question.bean.Option;
 import question.bean.YesNoQuestionAnswer;
 
 public class MiscellaneousTest {
+
+  //todo using equals to and hashcode
+  @Test
+  public void testYesNoQuestionAndLikertQuestionEquality() {
+
+  }
+
+  @Test
+  public void testLikertQuestionAndMultipleChoiceQuestionEquality() {
+
+  }
+
+  @Test
+  public void testMultipleChoiceQuestionAndMultipleAnswersQuestionEquality() {
+
+  }
 
   @Test
   public void testSortYesNoQuestionAndLikertQuestion() {

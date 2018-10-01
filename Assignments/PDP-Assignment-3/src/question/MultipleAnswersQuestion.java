@@ -49,16 +49,6 @@ public class MultipleAnswersQuestion extends AbstractQuestionWithDynamicOptions 
     return Result.CORRECT;
   }
 
-  private void checkForDuplicateChoices(NumericChoice[] numericChoices) {
-    for (int i = 0; i < numericChoices.length; i++) {
-      for (int j = i + 1; j < numericChoices.length; j++) {
-        if (numericChoices[i] == numericChoices[j]) {
-          throw new IllegalArgumentException("cannot contain duplicate choices");
-        }
-      }
-    }
-  }
-
   @Override
   public int compareTo(Question o) {
     return 0;
@@ -117,5 +107,15 @@ public class MultipleAnswersQuestion extends AbstractQuestionWithDynamicOptions 
     }
 
     return numericChoices;
+  }
+
+  private void checkForDuplicateChoices(NumericChoice[] numericChoices) {
+    for (int i = 0; i < numericChoices.length; i++) {
+      for (int j = i + 1; j < numericChoices.length; j++) {
+        if (numericChoices[i] == numericChoices[j]) {
+          throw new IllegalArgumentException("cannot contain duplicate choices");
+        }
+      }
+    }
   }
 }

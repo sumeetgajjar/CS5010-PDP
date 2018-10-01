@@ -13,13 +13,19 @@ public abstract class AbstractQuestion implements Question {
     this.text = text;
   }
 
-  protected void performSanityCheckForInput(String text) throws IllegalArgumentException {
-    if (Utils.isStringNotSet(text)) {
-      throw new IllegalArgumentException(String.format("Invalid question text: %s", text));
-    }
+  protected abstract Result eval(String answer) throws IllegalArgumentException;
+
+  protected boolean equalsAbstractQuestionWithDynamicOptions() {
+    return false;
   }
 
-  protected abstract Result eval(String answer) throws IllegalArgumentException;
+  protected boolean equalsYesNoQuestion() {
+    return false;
+  }
+
+  protected boolean equalsLikertQuestion() {
+    return false;
+  }
 
   @Override
   public String getText() {
@@ -37,6 +43,12 @@ public abstract class AbstractQuestion implements Question {
       return result.getResultString();
     } catch (IllegalArgumentException e) {
       return Result.INCORRECT.getResultString();
+    }
+  }
+
+  protected void performSanityCheckForInput(String text) throws IllegalArgumentException {
+    if (Utils.isStringNotSet(text)) {
+      throw new IllegalArgumentException(String.format("Invalid question text: %s", text));
     }
   }
 }
