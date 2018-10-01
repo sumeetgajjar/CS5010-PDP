@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import questionnaire.Question;
 import questionnaire.YesOrNoQuestion;
-import questionnaire.bean.AnswerStatus;
+import questionnaire.bean.Result;
 import questionnaire.bean.YesNoQuestionAnswer;
 
 public class YesOrNoQuestionTest extends AbstractQuestionTest {
@@ -21,7 +21,7 @@ public class YesOrNoQuestionTest extends AbstractQuestionTest {
   public void testInitializationOfQuestionObject() {
     Question question = getQuestionInstance();
     Assert.assertEquals("question-1?", question.getText());
-    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(YesNoQuestionAnswer.YES.getAnswerString()));
+    Assert.assertEquals(Result.CORRECT.getAnswerStatusString(), question.eval(YesNoQuestionAnswer.YES.getAnswerString()));
   }
 
   @Override
@@ -64,16 +64,16 @@ public class YesOrNoQuestionTest extends AbstractQuestionTest {
   public void testCorrectAndIncorrectAnswer() {
     Question question1 = new YesOrNoQuestion("question-1?", YesNoQuestionAnswer.YES);
     Assert.assertEquals("Is Object Initialized?", question1.getText());
-    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question1.eval(YesNoQuestionAnswer.YES.getAnswerString()));
-    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question1.eval(YesNoQuestionAnswer.NO.getAnswerString()));
+    Assert.assertEquals(Result.CORRECT.getAnswerStatusString(), question1.eval(YesNoQuestionAnswer.YES.getAnswerString()));
+    Assert.assertEquals(Result.INCORRECT.getAnswerStatusString(), question1.eval(YesNoQuestionAnswer.NO.getAnswerString()));
 
-    Assert.assertNotEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question1.eval("random"));
-    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question1.eval("random"));
+    Assert.assertNotEquals(Result.CORRECT.getAnswerStatusString(), question1.eval("random"));
+    Assert.assertEquals(Result.INCORRECT.getAnswerStatusString(), question1.eval("random"));
 
     Question question2 = new YesOrNoQuestion("question-2?", YesNoQuestionAnswer.NO);
     Assert.assertEquals("question-2?", question2.getText());
-    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question2.eval(YesNoQuestionAnswer.NO.getAnswerString()));
-    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question2.eval(YesNoQuestionAnswer.YES.getAnswerString()));
+    Assert.assertEquals(Result.CORRECT.getAnswerStatusString(), question2.eval(YesNoQuestionAnswer.NO.getAnswerString()));
+    Assert.assertEquals(Result.INCORRECT.getAnswerStatusString(), question2.eval(YesNoQuestionAnswer.YES.getAnswerString()));
   }
 
   @Override
@@ -98,10 +98,10 @@ public class YesOrNoQuestionTest extends AbstractQuestionTest {
   @Override
   public void testOperationOnSameObjectMultipleTimes() {
     Question question = getQuestionInstance();
-    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(YesNoQuestionAnswer.YES.getAnswerString()));
-    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(YesNoQuestionAnswer.YES.getAnswerString()));
-    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(YesNoQuestionAnswer.YES.getAnswerString()));
-    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(YesNoQuestionAnswer.YES.getAnswerString()));
+    Assert.assertEquals(Result.CORRECT.getAnswerStatusString(), question.eval(YesNoQuestionAnswer.YES.getAnswerString()));
+    Assert.assertEquals(Result.CORRECT.getAnswerStatusString(), question.eval(YesNoQuestionAnswer.YES.getAnswerString()));
+    Assert.assertEquals(Result.CORRECT.getAnswerStatusString(), question.eval(YesNoQuestionAnswer.YES.getAnswerString()));
+    Assert.assertEquals(Result.CORRECT.getAnswerStatusString(), question.eval(YesNoQuestionAnswer.YES.getAnswerString()));
   }
 
   @Override

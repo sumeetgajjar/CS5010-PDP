@@ -1,13 +1,13 @@
 package questionnaire.bean;
 
-public enum AnswerStatus {
+public enum Result {
 
   CORRECT("Correct"),
   INCORRECT("Incorrect");
 
   private final String answerStatusString;
 
-  AnswerStatus(String answerStatusString) {
+  Result(String answerStatusString) {
     this.answerStatusString = answerStatusString;
   }
 
@@ -15,12 +15,12 @@ public enum AnswerStatus {
     return answerStatusString;
   }
 
-  public static AnswerStatus getAnswerStatus(String answerStatusString)
+  public static Result getAnswerStatus(String answerStatusString)
           throws IllegalArgumentException {
 
-    for (AnswerStatus answerStatus : AnswerStatus.values()) {
-      if (answerStatus.getAnswerStatusString().equals(answerStatusString)) {
-        return answerStatus;
+    for (Result result : Result.values()) {
+      if (result.getAnswerStatusString().equals(answerStatusString)) {
+        return result;
       }
     }
 

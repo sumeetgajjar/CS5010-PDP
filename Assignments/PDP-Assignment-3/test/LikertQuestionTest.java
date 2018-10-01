@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import questionnaire.LikertQuestion;
 import questionnaire.Question;
-import questionnaire.bean.AnswerStatus;
+import questionnaire.bean.Result;
 import questionnaire.bean.LikertScale;
 
 public class LikertQuestionTest extends AbstractQuestionTest {
@@ -44,14 +44,14 @@ public class LikertQuestionTest extends AbstractQuestionTest {
   public void testCorrectAndIncorrectAnswer() {
     Question question = getQuestionInstance();
     for (LikertScale likertScale : LikertScale.values()) {
-      Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(likertScale.getOptionNumber()));
+      Assert.assertEquals(Result.CORRECT.getAnswerStatusString(), question.eval(likertScale.getOptionNumber()));
     }
 
-    Assert.assertNotEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval("random"));
-    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question.eval("random"));
-    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question.eval("0"));
-    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question.eval("12"));
-    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question.eval("-1"));
+    Assert.assertNotEquals(Result.CORRECT.getAnswerStatusString(), question.eval("random"));
+    Assert.assertEquals(Result.INCORRECT.getAnswerStatusString(), question.eval("random"));
+    Assert.assertEquals(Result.INCORRECT.getAnswerStatusString(), question.eval("0"));
+    Assert.assertEquals(Result.INCORRECT.getAnswerStatusString(), question.eval("12"));
+    Assert.assertEquals(Result.INCORRECT.getAnswerStatusString(), question.eval("-1"));
   }
 
   @Override
@@ -75,10 +75,10 @@ public class LikertQuestionTest extends AbstractQuestionTest {
   @Override
   public void testOperationOnSameObjectMultipleTimes() {
     Question question = getQuestionInstance();
-    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(LikertScale.AGREE.getLikerScaleString()));
-    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(LikertScale.AGREE.getLikerScaleString()));
-    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(LikertScale.AGREE.getLikerScaleString()));
-    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(LikertScale.AGREE.getLikerScaleString()));
+    Assert.assertEquals(Result.CORRECT.getAnswerStatusString(), question.eval(LikertScale.AGREE.getLikerScaleString()));
+    Assert.assertEquals(Result.CORRECT.getAnswerStatusString(), question.eval(LikertScale.AGREE.getLikerScaleString()));
+    Assert.assertEquals(Result.CORRECT.getAnswerStatusString(), question.eval(LikertScale.AGREE.getLikerScaleString()));
+    Assert.assertEquals(Result.CORRECT.getAnswerStatusString(), question.eval(LikertScale.AGREE.getLikerScaleString()));
   }
 
   @Override
