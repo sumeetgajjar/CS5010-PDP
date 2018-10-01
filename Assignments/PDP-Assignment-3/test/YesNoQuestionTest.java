@@ -120,4 +120,13 @@ public class YesNoQuestionTest extends AbstractQuestionTest {
 
     Assert.assertNotEquals(question1.hashCode(), question2.hashCode());
   }
+
+  @Override
+  public void testQuestionObjectInequalityUsingCompareTo() {
+    Question question1 = new YesNoQuestion("yes no question-2?", YesNoQuestionAnswer.NO);
+    Question question2 = new YesNoQuestion("yes no question-1?", YesNoQuestionAnswer.NO);
+
+    Assert.assertEquals(1, question1.compareTo(question2));
+    Assert.assertEquals(-1, question2.compareTo(question1));
+  }
 }

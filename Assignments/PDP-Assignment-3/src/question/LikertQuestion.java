@@ -23,7 +23,7 @@ public class LikertQuestion extends AbstractQuestion {
   @Override
   protected Result eval(String answer) throws IllegalArgumentException {
     try {
-      int givenOptionNumber = Integer.parseInt(answer) - 1;
+      int givenOptionNumber = Integer.parseInt(answer);
       return this.isOptionValid(givenOptionNumber) ? Result.CORRECT : Result.INCORRECT;
     } catch (NumberFormatException e) {
       return Result.INCORRECT;
@@ -55,6 +55,6 @@ public class LikertQuestion extends AbstractQuestion {
   }
 
   private boolean isOptionValid(int givenOptionNumber) {
-    return givenOptionNumber >= 0 && givenOptionNumber < VALID_OPTIONS.length;
+    return givenOptionNumber >= 1 && givenOptionNumber <= VALID_OPTIONS.length;
   }
 }

@@ -96,4 +96,13 @@ public class LikertQuestionTest extends AbstractQuestionTest {
 
     Assert.assertNotEquals(question1.hashCode(), question2.hashCode());
   }
+
+  @Override
+  public void testQuestionObjectInequalityUsingCompareTo() {
+    Question question1 = new LikertQuestion("question-2?");
+    Question question2 = new LikertQuestion("question-1?");
+
+    Assert.assertEquals(1, question1.compareTo(question2));
+    Assert.assertEquals(-1, question2.compareTo(question1));
+  }
 }

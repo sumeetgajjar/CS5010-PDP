@@ -30,6 +30,9 @@ public abstract class AbstractQuestionTest {
   public abstract void testQuestionObjectInequalityUsingHashcode();
 
   @Test
+  public abstract void testQuestionObjectInequalityUsingCompareTo();
+
+  @Test
   public void testEvaluatingNullResult() {
     Question question = getQuestionInstance();
     Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer(null));

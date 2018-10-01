@@ -164,6 +164,16 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
     Assert.assertNotEquals(question1.hashCode(), question2.hashCode());
   }
 
+  @Override
+  public void testQuestionObjectInequalityUsingCompareTo() {
+    Option[] options = getOptions(8);
+    Question question1 = new MultipleAnswersQuestion("maq question-3?", "3", options);
+    Question question2 = new MultipleAnswersQuestion("maq question-2?", "2 3", options);
+
+    Assert.assertEquals(1, question1.compareTo(question2));
+    Assert.assertEquals(-1, question2.compareTo(question1));
+  }
+
   @Test
   public void testInvalidAnswerFormat() {
     Question question = null;

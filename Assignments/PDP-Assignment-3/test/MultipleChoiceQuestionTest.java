@@ -141,12 +141,20 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
   @Override
   public void testQuestionObjectInequalityUsingHashcode() {
     Option[] options = getOptions(8);
-
     Question question1 = new MultipleChoiceQuestion("mcq question-3?", "3", options);
-
     Question question2 = new MultipleChoiceQuestion("mcq question-2?", "2", options);
 
     Assert.assertNotEquals(question1.hashCode(), question2.hashCode());
+  }
+
+  @Override
+  public void testQuestionObjectInequalityUsingCompareTo() {
+    Option[] options = getOptions(8);
+    Question question1 = new MultipleChoiceQuestion("mcq question-3?", "3", options);
+    Question question2 = new MultipleChoiceQuestion("mcq question-2?", "2", options);
+
+    Assert.assertEquals(1, question1.compareTo(question2));
+    Assert.assertEquals(-1, question2.compareTo(question1));
   }
 
   @Test
