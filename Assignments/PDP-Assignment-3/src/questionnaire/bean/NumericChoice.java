@@ -25,7 +25,7 @@ public enum NumericChoice {
     return String.valueOf(this.value);
   }
 
-  public static NumericChoice getOption(String stringValue) throws IllegalArgumentException {
+  public static NumericChoice getChoice(String stringValue) throws IllegalArgumentException {
     for (NumericChoice numericChoice : NumericChoice.values()) {
       if (numericChoice.getStringValue().equals(stringValue)) {
         return numericChoice;
@@ -35,7 +35,7 @@ public enum NumericChoice {
     throw new IllegalArgumentException(String.format("Invalid NumericChoice value: %s", stringValue));
   }
 
-  public static NumericChoice getOption(int value) throws IllegalArgumentException {
+  public static NumericChoice getChoice(int value) throws IllegalArgumentException {
     for (NumericChoice numericChoice : NumericChoice.values()) {
       if (numericChoice.getValue() == value) {
         return numericChoice;

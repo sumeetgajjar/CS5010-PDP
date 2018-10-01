@@ -6,11 +6,11 @@ import java.util.Arrays;
 import questionnaire.LikertQuestion;
 import questionnaire.MultipleAnswersQuestion;
 import questionnaire.MultipleChoiceQuestion;
+import questionnaire.Option;
 import questionnaire.Question;
 import questionnaire.YesNoQuestion;
-import questionnaire.bean.OptionNumber;
+import questionnaire.bean.NumericChoice;
 import questionnaire.bean.YesNoQuestionAnswer;
-import util.Utils;
 
 public class QuestionBankTest {
 
@@ -46,17 +46,17 @@ public class QuestionBankTest {
 
   @Test
   public void testSortMultipleChoiceQuestionAndMultipleAnswersQuestion() {
-    OptionNumber[] multipleAnswersQuestionOptionNumbers = Utils.getAllValidOptionsForMultipleAnswersQuestion();
-    Question question8 = new MultipleAnswersQuestion("maq question-3?", "3", multipleAnswersQuestionOptionNumbers);
-    Question question7 = new MultipleAnswersQuestion("maq question-2?", "2 3", multipleAnswersQuestionOptionNumbers);
-    Question question6 = new MultipleAnswersQuestion("maq question-1?", "1 2 3", multipleAnswersQuestionOptionNumbers);
-    Question question5 = new MultipleAnswersQuestion("maq question-1?", "1 2 3", multipleAnswersQuestionOptionNumbers);
+    Option[] multipleAnswersQuestionNumericOptions = MultipleAnswersQuestionTest.getOptions(8);
+    Question question8 = new MultipleAnswersQuestion("maq question-3?", "3", multipleAnswersQuestionNumericOptions);
+    Question question7 = new MultipleAnswersQuestion("maq question-2?", "2 3", multipleAnswersQuestionNumericOptions);
+    Question question6 = new MultipleAnswersQuestion("maq question-1?", "1 2 3", multipleAnswersQuestionNumericOptions);
+    Question question5 = new MultipleAnswersQuestion("maq question-1?", "1 2 3", multipleAnswersQuestionNumericOptions);
 
-    OptionNumber[] multipleChoiceQuestionOptionNumbers = Utils.getAllValidOptionsForMultipleChoiceQuestion();
-    Question question4 = new MultipleChoiceQuestion("mcq question-3?", OptionNumber.THREE, multipleChoiceQuestionOptionNumbers);
-    Question question3 = new MultipleChoiceQuestion("mcq question-2?", OptionNumber.TWO, multipleChoiceQuestionOptionNumbers);
-    Question question2 = new MultipleChoiceQuestion("mcq question-2?", OptionNumber.TWO, multipleChoiceQuestionOptionNumbers);
-    Question question1 = new MultipleChoiceQuestion("mcq question-1?", OptionNumber.ONE, multipleChoiceQuestionOptionNumbers);
+    Option[] multipleChoiceQuestionNumericOptions = MultipleChoiceQuestionTest.getOptions(8);
+    Question question4 = new MultipleChoiceQuestion("mcq question-3?", NumericChoice.THREE, multipleChoiceQuestionNumericOptions);
+    Question question3 = new MultipleChoiceQuestion("mcq question-2?", NumericChoice.TWO, multipleChoiceQuestionNumericOptions);
+    Question question2 = new MultipleChoiceQuestion("mcq question-2?", NumericChoice.TWO, multipleChoiceQuestionNumericOptions);
+    Question question1 = new MultipleChoiceQuestion("mcq question-1?", NumericChoice.ONE, multipleChoiceQuestionNumericOptions);
 
     Question[] questions = new Question[]{
             question4, question3, question2, question1,
@@ -78,11 +78,11 @@ public class QuestionBankTest {
 
   @Test
   public void testSortLikertQuestionAndMultipleChoiceQuestion() {
-    OptionNumber[] multipleChoiceQuestionOptionNumbers = Utils.getAllValidOptionsForMultipleChoiceQuestion();
-    Question question8 = new MultipleChoiceQuestion("mcq question-3?", OptionNumber.THREE, multipleChoiceQuestionOptionNumbers);
-    Question question7 = new MultipleChoiceQuestion("mcq question-2?", OptionNumber.TWO, multipleChoiceQuestionOptionNumbers);
-    Question question6 = new MultipleChoiceQuestion("mcq question-2?", OptionNumber.TWO, multipleChoiceQuestionOptionNumbers);
-    Question question5 = new MultipleChoiceQuestion("mcq question-1?", OptionNumber.ONE, multipleChoiceQuestionOptionNumbers);
+    Option[] multipleChoiceQuestionNumericOptions = MultipleChoiceQuestionTest.getOptions(8);
+    Question question8 = new MultipleChoiceQuestion("mcq question-3?", NumericChoice.THREE, multipleChoiceQuestionNumericOptions);
+    Question question7 = new MultipleChoiceQuestion("mcq question-2?", NumericChoice.TWO, multipleChoiceQuestionNumericOptions);
+    Question question6 = new MultipleChoiceQuestion("mcq question-2?", NumericChoice.TWO, multipleChoiceQuestionNumericOptions);
+    Question question5 = new MultipleChoiceQuestion("mcq question-1?", NumericChoice.ONE, multipleChoiceQuestionNumericOptions);
 
     Question question4 = new LikertQuestion("likert question-3?");
     Question question3 = new LikertQuestion("likert question-2?");
@@ -109,17 +109,17 @@ public class QuestionBankTest {
 
   @Test
   public void sortQuestionsOfAllType() {
-    OptionNumber[] multipleAnswersQuestionOptionNumbers = Utils.getAllValidOptionsForMultipleAnswersQuestion();
-    Question question16 = new MultipleAnswersQuestion("maq question-3?", "3", multipleAnswersQuestionOptionNumbers);
-    Question question15 = new MultipleAnswersQuestion("maq question-2?", "2 3", multipleAnswersQuestionOptionNumbers);
-    Question question14 = new MultipleAnswersQuestion("maq question-1?", "1 2 3", multipleAnswersQuestionOptionNumbers);
-    Question question13 = new MultipleAnswersQuestion("maq question-1?", "1 2 3", multipleAnswersQuestionOptionNumbers);
+    Option[] multipleAnswersQuestionNumericOptions = MultipleAnswersQuestionTest.getOptions(8);
+    Question question16 = new MultipleAnswersQuestion("maq question-3?", "3", multipleAnswersQuestionNumericOptions);
+    Question question15 = new MultipleAnswersQuestion("maq question-2?", "2 3", multipleAnswersQuestionNumericOptions);
+    Question question14 = new MultipleAnswersQuestion("maq question-1?", "1 2 3", multipleAnswersQuestionNumericOptions);
+    Question question13 = new MultipleAnswersQuestion("maq question-1?", "1 2 3", multipleAnswersQuestionNumericOptions);
 
-    OptionNumber[] multipleChoiceQuestionOptionNumbers = Utils.getAllValidOptionsForMultipleChoiceQuestion();
-    Question question12 = new MultipleChoiceQuestion("mcq question-3?", OptionNumber.THREE, multipleChoiceQuestionOptionNumbers);
-    Question question11 = new MultipleChoiceQuestion("mcq question-2?", OptionNumber.TWO, multipleChoiceQuestionOptionNumbers);
-    Question question10 = new MultipleChoiceQuestion("mcq question-2?", OptionNumber.TWO, multipleChoiceQuestionOptionNumbers);
-    Question question9 = new MultipleChoiceQuestion("mcq question-1?", OptionNumber.ONE, multipleChoiceQuestionOptionNumbers);
+    Option[] multipleChoiceQuestionNumericOptions = MultipleChoiceQuestionTest.getOptions(8);
+    Question question12 = new MultipleChoiceQuestion("mcq question-3?", NumericChoice.THREE, multipleChoiceQuestionNumericOptions);
+    Question question11 = new MultipleChoiceQuestion("mcq question-2?", NumericChoice.TWO, multipleChoiceQuestionNumericOptions);
+    Question question10 = new MultipleChoiceQuestion("mcq question-2?", NumericChoice.TWO, multipleChoiceQuestionNumericOptions);
+    Question question9 = new MultipleChoiceQuestion("mcq question-1?", NumericChoice.ONE, multipleChoiceQuestionNumericOptions);
 
     Question question8 = new LikertQuestion("likert question-3?");
     Question question7 = new LikertQuestion("likert question-2?");

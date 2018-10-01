@@ -2,55 +2,78 @@ package questionnaire;
 
 import java.util.Objects;
 
-import questionnaire.bean.OptionNumber;
+import questionnaire.bean.NumericChoice;
 import questionnaire.bean.Result;
+import util.Utils;
 
 public class MultipleChoiceQuestion extends AbstractQuestion {
 
-  private final OptionNumber correctOptionNumber;
-  private final OptionNumber[] validOptionNumbers;
+  private static final int MINIMUM_OPTIONS = 3;
+  private static final int MAXIMUM_OPTIONS = 8;
 
-  public MultipleChoiceQuestion(String text, OptionNumber correctOptionNumber, OptionNumber[] validOptionNumbers) {
+  private final NumericChoice correctNumericChoice;
+  private final Option[] options;
+
+  public MultipleChoiceQuestion(String text, NumericChoice correctNumericChoice, Option[] options) {
     super(text);
 
-    this.performSanityCheckForInput(correctOptionNumber, validOptionNumbers);
+    this.performSanityCheckForInput(correctNumericChoice, options);
 
-    this.correctOptionNumber = correctOptionNumber;
-    this.validOptionNumbers = validOptionNumbers;
+    this.correctNumericChoice = correctNumericChoice;
+    this.options = options;
   }
 
-  private void performSanityCheckForInput(OptionNumber correctOptionNumber, OptionNumber[] validOptionNumbers) throws IllegalArgumentException {
-    if (Objects.isNull(correctOptionNumber)) {
-      throw new IllegalArgumentException("Invalid correct answer: null");
-    }
-
-    if (Objects.isNull(validOptionNumbers)) {
-      throw new IllegalArgumentException("Invalid answer options: null");
-    }
-
-    for (OptionNumber validOptionNumber : validOptionNumbers) {
-      if (Objects.isNull(validOptionNumber)) {
-        throw new IllegalArgumentException("Invalid correct answer: null");
-      }
-    }
-
-    if (validOptionNumbers.length < 3) {
-      throw new IllegalArgumentException(String.format("Question should have at least 3 options, found: %d", validOptionNumbers.length));
-    }
-
-    if (validOptionNumbers.length > 8) {
-      throw new IllegalArgumentException(String.format("Question can have no more than 8 options, found: %d", validOptionNumbers.length));
-    }
+  @Override
+  protected Result eval(String answer) throws IllegalArgumentException {
+    NumericChoice givenNumericChoice = NumericChoice.getChoice(answer);
+    return correctNumericChoice.equals(givenNumericChoice) ? Result.CORRECT : Result.INCORRECT;
   }
 
+  @Override
+  public int hashCode() {
+    return Objects.hash(Utils.merge(options, this.text, this.correctNumericChoice));
+  }
 
   @Override
   public int compareTo(Question o) {
     return 0;
   }
 
-  @Override
-  protected Result eval(String answer) {
-    return null;
+  private void performSanityCheckForInput(NumericChoice correctAnswerChoice, Option[] options)
+          throws IllegalArgumentException {
+
+    if (Objects.isNull(correctAnswerChoice)) {
+      throw new IllegalArgumentException("correct answer cannot be null");
+    }
+
+    if (Objects.isNull(options)) {
+      throw new IllegalArgumentException("options cannot be null");
+    }
+
+    for (Option option : options) {
+      if (Objects.isNull(option)) {
+        throw new IllegalArgumentException("option cannot be null");
+      }
+    }
+
+    if (options.length < MINIMUM_OPTIONS) {
+      throw new IllegalArgumentException(
+              String.format("Question should have at least %d options, found: %d",
+                      MINIMUM_OPTIONS, options.length));
+    }
+
+    if (options.length > MAXIMUM_OPTIONS) {
+      throw new IllegalArgumentException(
+              String.format("Question can have no more than %d options, found: %d",
+                      MAXIMUM_OPTIONS, options.length));
+    }
+
+    if (correctAnswerChoice.getValue() > options.length) {
+      throw new IllegalArgumentException(
+              String.format(
+                      "correct answer choice not found in given options, correctAnswerChoice: %d",
+                      correctAnswerChoice.getValue())
+      );
+    }
   }
 }

@@ -19,7 +19,7 @@ public abstract class AbstractQuestion implements Question {
     }
   }
 
-  protected abstract Result eval(String answer);
+  protected abstract Result eval(String answer) throws IllegalArgumentException;
 
   @Override
   public String getText() {

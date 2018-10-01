@@ -27,7 +27,9 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
   public void testInitializationOfQuestionObject() {
     Question question = getQuestionInstance();
     Assert.assertEquals("question-1?", question.getText());
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(NumericChoice.ONE.getStringValue()));
+    Assert.assertEquals(
+            Result.CORRECT.getResultString(),
+            question.evaluateAnswer(NumericChoice.ONE.getStringValue()));
   }
 
   @Override
@@ -99,17 +101,32 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
   @Override
   public void testOperationOnSameObjectMultipleTimes() {
     Question question = getQuestionInstance();
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(NumericChoice.ONE.getStringValue()));
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(NumericChoice.ONE.getStringValue()));
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(NumericChoice.ONE.getStringValue()));
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(NumericChoice.ONE.getStringValue()));
+    Assert.assertEquals(
+            Result.CORRECT.getResultString(),
+            question.evaluateAnswer(NumericChoice.ONE.getStringValue()));
+
+    Assert.assertEquals(
+            Result.CORRECT.getResultString(),
+            question.evaluateAnswer(NumericChoice.ONE.getStringValue()));
+
+    Assert.assertEquals(
+            Result.CORRECT.getResultString(),
+            question.evaluateAnswer(NumericChoice.ONE.getStringValue()));
+
+    Assert.assertEquals(
+            Result.CORRECT.getResultString(),
+            question.evaluateAnswer(NumericChoice.ONE.getStringValue()));
   }
 
   @Override
   public void testQuestionObjectInequalityUsingEquals() {
     Option[] options = getOptions(8);
-    Question question1 = new MultipleChoiceQuestion("mcq question-3?", NumericChoice.THREE, options);
-    Question question2 = new MultipleChoiceQuestion("mcq question-2?", NumericChoice.TWO, options);
+
+    Question question1 = new MultipleChoiceQuestion("mcq question-3?",
+            NumericChoice.THREE, options);
+
+    Question question2 = new MultipleChoiceQuestion("mcq question-2?",
+            NumericChoice.TWO, options);
 
     Assert.assertFalse(question1.equals(question2));
     Assert.assertFalse(question2.equals(question1));
@@ -118,8 +135,12 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
   @Override
   public void testQuestionObjectInequalityUsingHashcode() {
     Option[] options = getOptions(8);
-    Question question1 = new MultipleChoiceQuestion("mcq question-3?", NumericChoice.THREE, options);
-    Question question2 = new MultipleChoiceQuestion("mcq question-2?", NumericChoice.TWO, options);
+
+    Question question1 = new MultipleChoiceQuestion("mcq question-3?",
+            NumericChoice.THREE, options);
+
+    Question question2 = new MultipleChoiceQuestion("mcq question-2?",
+            NumericChoice.TWO, options);
 
     Assert.assertNotEquals(question1.hashCode(), question2.hashCode());
   }
@@ -129,11 +150,14 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
     Option[] options = getOptions(8);
 
     for (int i = 1; i <= 8; i++) {
-      NumericChoice correctNumericChoice = NumericChoice.getOption(String.valueOf(i));
-      Question question1 = new MultipleChoiceQuestion("question-1?", correctNumericChoice, options);
+      NumericChoice correctNumericChoice = NumericChoice.getChoice(String.valueOf(i));
+      Question question1 = new MultipleChoiceQuestion("question-1?",
+              correctNumericChoice, options);
 
       Assert.assertEquals("question-1?", question1.getText());
-      Assert.assertEquals(Result.CORRECT.getResultString(), question1.evaluateAnswer(correctNumericChoice.getStringValue()));
+      Assert.assertEquals(
+              Result.CORRECT.getResultString(),
+              question1.evaluateAnswer(correctNumericChoice.getStringValue()));
 
       List<NumericChoice> incorrectNumericOptions = Arrays
               .stream(NumericChoice.values())
@@ -141,7 +165,9 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
               .collect(Collectors.toList());
 
       for (NumericChoice incorrectNumericChoice : incorrectNumericOptions) {
-        Assert.assertEquals(Result.INCORRECT.getResultString(), question1.evaluateAnswer(incorrectNumericChoice.getStringValue()));
+        Assert.assertEquals(
+                Result.INCORRECT.getResultString(),
+                question1.evaluateAnswer(incorrectNumericChoice.getStringValue()));
       }
 
       Assert.assertEquals(Result.INCORRECT.getResultString(), question1.evaluateAnswer("random"));
@@ -159,7 +185,9 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
       question2 = new MultipleChoiceQuestion("question-2?", NumericChoice.ONE, options);
       Assert.fail("should have failed");
     } catch (Exception e) {
-      Assert.assertEquals("Question should have at least 3 options, found: 1", e.getMessage());
+      Assert.assertEquals(
+              "Question should have at least 3 options, found: 1",
+              e.getMessage());
     }
     Assert.assertNull(question2);
 
@@ -168,7 +196,9 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
       question2 = new MultipleChoiceQuestion("question-2?", NumericChoice.ONE, options);
       Assert.fail("should have failed");
     } catch (Exception e) {
-      Assert.assertEquals("Question should have at least 3 options, found: 2", e.getMessage());
+      Assert.assertEquals(
+              "Question should have at least 3 options, found: 2",
+              e.getMessage());
     }
     Assert.assertNull(question2);
 
@@ -177,7 +207,9 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
       question2 = new MultipleChoiceQuestion("question-2?", NumericChoice.ONE, options);
       Assert.fail("should have failed");
     } catch (Exception e) {
-      Assert.assertEquals("Question can have no more than 8 options, found: 9", e.getMessage());
+      Assert.assertEquals(
+              "Question can have no more than 8 options, found: 9",
+              e.getMessage());
     }
     Assert.assertNull(question2);
 
@@ -186,14 +218,40 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
       question2 = new MultipleChoiceQuestion("question-2?", NumericChoice.ONE, options);
       Assert.fail("should have failed");
     } catch (Exception e) {
-      Assert.assertEquals("Question can have no more than 8 options, found: 10", e.getMessage());
+      Assert.assertEquals(
+              "Question can have no more than 8 options, found: 10",
+              e.getMessage());
     }
     Assert.assertNull(question2);
   }
 
   @Test
   public void testCorrectAnswerNotFoundInGivenOptions() {
-    //todo:asd
+    try {
+      Option[] options = getOptions(5);
+      Question question = new MultipleChoiceQuestion("question-1?", NumericChoice.EIGHT, options);
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals(
+              "correct answer choice not found in given options, correctAnswerChoice: 8",
+              e.getMessage());
+    }
+  }
+
+  @Test
+  public void testNullOptionInOptionsArray() {
+    try {
+      Option[] options = new Option[]{
+              new Option("option-1"),
+              null,
+              new Option("option-2")
+      };
+
+      Question question = new MultipleChoiceQuestion("question-1?", NumericChoice.ONE, options);
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("option cannot be null", e.getMessage());
+    }
   }
 
   public static Option[] getOptions(int n) {

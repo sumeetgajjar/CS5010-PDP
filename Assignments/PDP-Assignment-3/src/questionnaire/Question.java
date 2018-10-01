@@ -22,4 +22,6 @@ public interface Question extends Comparable<Question> {
    * "Incorrect"
    */
   String evaluateAnswer(String answer);
+
+  //todo do we need getOptions
 }

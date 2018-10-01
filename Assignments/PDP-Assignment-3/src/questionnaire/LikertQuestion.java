@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import questionnaire.bean.LikertScale;
 import questionnaire.bean.Result;
+import util.Utils;
 
 public class LikertQuestion extends AbstractQuestion {
 
@@ -20,7 +21,7 @@ public class LikertQuestion extends AbstractQuestion {
   }
 
   @Override
-  protected Result eval(String answer) {
+  protected Result eval(String answer) throws IllegalArgumentException {
     try {
       int givenOptionNumber = Integer.parseInt(answer) - 1;
       return this.isOptionValid(givenOptionNumber) ? Result.CORRECT : Result.INCORRECT;
@@ -31,7 +32,7 @@ public class LikertQuestion extends AbstractQuestion {
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.text);
+    return Objects.hash(Utils.merge(VALID_OPTIONS, this, text));
   }
 
   @Override

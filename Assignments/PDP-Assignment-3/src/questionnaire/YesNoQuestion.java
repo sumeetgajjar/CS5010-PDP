@@ -16,7 +16,7 @@ public class YesNoQuestion extends AbstractQuestion {
   }
 
   @Override
-  protected Result eval(String answer) {
+  protected Result eval(String answer) throws IllegalArgumentException {
     YesNoQuestionAnswer givenAnswer = YesNoQuestionAnswer.getYesNoQuestionAnswer(answer);
     return this.correctAnswer.equals(givenAnswer) ? Result.CORRECT : Result.INCORRECT;
   }
@@ -33,7 +33,7 @@ public class YesNoQuestion extends AbstractQuestion {
 
   private void performSanityCheckForInput(YesNoQuestionAnswer yesNoQuestionAnswer) throws IllegalArgumentException {
     if (Objects.isNull(yesNoQuestionAnswer)) {
-      throw new IllegalArgumentException("Invalid correct answer: null");
+      throw new IllegalArgumentException("correct answer cannot be null");
     }
   }
 }
