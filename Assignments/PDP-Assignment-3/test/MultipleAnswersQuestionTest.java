@@ -85,6 +85,7 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
               .collect(Collectors.joining(" "));
 
       Question question = new MultipleAnswersQuestion("question-1?", correctOptionString, options);
+      Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(correctOptionString));
 
       String answer = "";
       Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question.eval(answer));
@@ -193,6 +194,30 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
     Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval("3 1 2"));
     Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval("3 2 1"));
 
-    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval("3 2 1 4"));
+    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question.eval("3 2 1 4"));
+  }
+
+  @Test
+  public void testAnswerOptionRepetition() {
+    Question question = getQuestionInstance();
+    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval("1 2 3"));
+
+    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question.eval("1 1 1"));
+    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question.eval("2 2 2"));
+    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question.eval("3 3 3"));
+    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question.eval("1 2 2"));
+    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question.eval("2 3 3"));
+    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question.eval("3 1 1"));
+  }
+
+  @Test
+  public void testIncorrectAnswerContainingInvalidOptions() {
+    Question question = getQuestionInstance();
+    Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval("1 2 3"));
+
+    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question.eval("1 2 5"));
+    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question.eval("8"));
+    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question.eval("8 9"));
+    Assert.assertEquals(AnswerStatus.INCORRECT.getAnswerStatusString(), question.eval("7 6 5"));
   }
 }
