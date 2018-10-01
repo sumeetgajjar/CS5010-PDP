@@ -31,7 +31,7 @@ public class MultipleChoiceQuestion extends AbstractQuestion {
 
   @Override
   public int hashCode() {
-    return Objects.hash(Utils.merge(options, this.text, this.correctNumericChoice));
+    return Objects.hash(Utils.merge(this.options, this.text, this.correctNumericChoice));
   }
 
   @Override

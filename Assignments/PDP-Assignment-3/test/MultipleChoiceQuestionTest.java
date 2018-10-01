@@ -56,7 +56,7 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
       question = new MultipleChoiceQuestion("question-1?", null, options);
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("Invalid correctOption: null", e.getMessage());
+      Assert.assertEquals("correct answer cannot be null", e.getMessage());
     }
     Assert.assertNull(question);
 
@@ -64,7 +64,7 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
       question = new MultipleChoiceQuestion("question-1?", NumericChoice.ONE, null);
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("Invalid answer options: null", e.getMessage());
+      Assert.assertEquals("options cannot be null", e.getMessage());
     }
     Assert.assertNull(question);
 
@@ -214,7 +214,7 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
     Assert.assertNull(question2);
 
     try {
-      Option[] options = getOptions(9);
+      Option[] options = getOptions(10);
       question2 = new MultipleChoiceQuestion("question-2?", NumericChoice.ONE, options);
       Assert.fail("should have failed");
     } catch (Exception e) {

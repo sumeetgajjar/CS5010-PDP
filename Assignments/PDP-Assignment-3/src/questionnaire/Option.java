@@ -1,5 +1,7 @@
 package questionnaire;
 
+import java.util.Objects;
+
 public class Option {
 
   private final String text;
@@ -10,5 +12,10 @@ public class Option {
 
   public String getText() {
     return text;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.text);
   }
 }
