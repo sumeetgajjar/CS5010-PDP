@@ -35,7 +35,7 @@ public class MultipleChoiceQuestion extends MultipleAnswersQuestion {
   protected boolean equalsMultipleChoiceQuestion(MultipleChoiceQuestion multipleChoiceQuestion) {
     return this.text.equals(multipleChoiceQuestion.text) &&
             Arrays.equals(this.options, multipleChoiceQuestion.options) &&
-            Arrays.equals(this.correctNumericChoices, multipleChoiceQuestion.correctNumericChoices);
+            this.correctNumericChoices[0].equals(multipleChoiceQuestion.correctNumericChoices[0]);
   }
 
   @Override
