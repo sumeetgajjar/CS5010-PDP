@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import question.bean.Result;
 import question.bean.YesNoQuestionAnswer;
+import util.Utils;
 
 public class YesNoQuestion extends AbstractQuestion {
 
@@ -13,6 +14,11 @@ public class YesNoQuestion extends AbstractQuestion {
     super(text);
     this.performSanityCheckForInput(correctAnswer);
     this.correctAnswer = correctAnswer;
+  }
+
+  @Override
+  public String[] getOptions() {
+    return Utils.mapToStringArray(YesNoQuestionAnswer::getAnswerString, YesNoQuestionAnswer.values());
   }
 
   @Override

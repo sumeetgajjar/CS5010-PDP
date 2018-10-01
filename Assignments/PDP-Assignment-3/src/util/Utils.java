@@ -1,6 +1,7 @@
 package util;
 
 import java.util.Objects;
+import java.util.function.Function;
 
 public class Utils {
 
@@ -35,5 +36,13 @@ public class Utils {
       }
     }
     return false;
+  }
+
+  public static <T> String[] mapToStringArray(Function<T, String> mapper, T... objects) {
+    String[] strings = new String[objects.length];
+    for (int i = 0; i < objects.length; i++) {
+      strings[i] = mapper.apply(objects[i]);
+    }
+    return strings;
   }
 }

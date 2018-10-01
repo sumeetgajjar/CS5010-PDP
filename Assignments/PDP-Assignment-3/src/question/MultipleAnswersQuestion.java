@@ -27,6 +27,11 @@ public class MultipleAnswersQuestion extends AbstractQuestion {
   }
 
   @Override
+  public String[] getOptions() {
+    return Utils.mapToStringArray(Option::getText, this.options);
+  }
+
+  @Override
   protected Result eval(String answer) throws IllegalArgumentException {
     NumericChoice[] givenNumericChoices = parseNumberChoices(answer);
     checkIfNumericChoicesContainsDuplicate(givenNumericChoices);

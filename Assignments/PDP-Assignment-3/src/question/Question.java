@@ -8,18 +8,25 @@ package question;
 public interface Question extends Comparable<Question> {
 
   /**
-   * Return the text of the Question as String.
+   * Returns the text of the Question as String.
    *
    * @return the text of the {@link Question} as {@link String}
    */
   String getText();
 
   /**
-   * Return String "Correct" if the given answer is correct, else return "Incorrect".
+   * Returns the String "Correct" if the given answer is correct, else returns "Incorrect".
    *
    * @param answer answer for the given {@link Question}
    * @return the {@link String} "Correct" if given answer is correct, else return {@link String}
    * "Incorrect"
    */
   String evaluateAnswer(String answer);
+
+  /**
+   * Returns the options associated with the question.
+   *
+   * @return the option associated with the question
+   */
+  String[] getOptions();
 }

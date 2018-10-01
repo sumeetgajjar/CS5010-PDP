@@ -21,6 +21,11 @@ public class LikertQuestion extends AbstractQuestion {
   }
 
   @Override
+  public String[] getOptions() {
+    return Utils.mapToStringArray(LikertScale::getLikerScaleString, VALID_OPTIONS);
+  }
+
+  @Override
   protected Result eval(String answer) throws IllegalArgumentException {
     try {
       int givenOptionNumber = Integer.parseInt(answer);
