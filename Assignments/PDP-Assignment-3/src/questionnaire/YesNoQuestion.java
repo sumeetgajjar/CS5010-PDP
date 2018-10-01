@@ -5,11 +5,11 @@ import java.util.Objects;
 import questionnaire.bean.Result;
 import questionnaire.bean.YesNoQuestionAnswer;
 
-public class YesOrNoQuestion extends AbstractQuestion {
+public class YesNoQuestion extends AbstractQuestion {
 
   private final YesNoQuestionAnswer correctAnswer;
 
-  public YesOrNoQuestion(String text, YesNoQuestionAnswer correctAnswer) {
+  public YesNoQuestion(String text, YesNoQuestionAnswer correctAnswer) {
     super(text);
     this.performSanityCheckForInput(correctAnswer);
     this.correctAnswer = correctAnswer;

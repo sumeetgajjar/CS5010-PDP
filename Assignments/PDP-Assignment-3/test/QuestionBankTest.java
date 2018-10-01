@@ -7,7 +7,7 @@ import questionnaire.LikertQuestion;
 import questionnaire.MultipleAnswersQuestion;
 import questionnaire.MultipleChoiceQuestion;
 import questionnaire.Question;
-import questionnaire.YesOrNoQuestion;
+import questionnaire.YesNoQuestion;
 import questionnaire.bean.Option;
 import questionnaire.bean.YesNoQuestionAnswer;
 import util.Utils;
@@ -21,10 +21,10 @@ public class QuestionBankTest {
     Question question6 = new LikertQuestion("likert question-1?");
     Question question5 = new LikertQuestion("likert question-1?");
 
-    Question question4 = new YesOrNoQuestion("yes no question-2?", YesNoQuestionAnswer.NO);
-    Question question3 = new YesOrNoQuestion("yes no question-1?", YesNoQuestionAnswer.NO);
-    Question question2 = new YesOrNoQuestion("yes no question-1?", YesNoQuestionAnswer.YES);
-    Question question1 = new YesOrNoQuestion("yes no question-1?", YesNoQuestionAnswer.YES);
+    Question question4 = new YesNoQuestion("yes no question-2?", YesNoQuestionAnswer.NO);
+    Question question3 = new YesNoQuestion("yes no question-1?", YesNoQuestionAnswer.NO);
+    Question question2 = new YesNoQuestion("yes no question-1?", YesNoQuestionAnswer.YES);
+    Question question1 = new YesNoQuestion("yes no question-1?", YesNoQuestionAnswer.YES);
 
     Question[] questions = new Question[]{
             question8, question7, question6, question5,
@@ -126,10 +126,10 @@ public class QuestionBankTest {
     Question question6 = new LikertQuestion("likert question-1?");
     Question question5 = new LikertQuestion("likert question-1?");
 
-    Question question4 = new YesOrNoQuestion("yes no question-2?", YesNoQuestionAnswer.NO);
-    Question question3 = new YesOrNoQuestion("yes no question-1?", YesNoQuestionAnswer.NO);
-    Question question2 = new YesOrNoQuestion("yes no question-1?", YesNoQuestionAnswer.YES);
-    Question question1 = new YesOrNoQuestion("yes no question-1?", YesNoQuestionAnswer.YES);
+    Question question4 = new YesNoQuestion("yes no question-2?", YesNoQuestionAnswer.NO);
+    Question question3 = new YesNoQuestion("yes no question-1?", YesNoQuestionAnswer.NO);
+    Question question2 = new YesNoQuestion("yes no question-1?", YesNoQuestionAnswer.YES);
+    Question question1 = new YesNoQuestion("yes no question-1?", YesNoQuestionAnswer.YES);
 
     Question[] questions = new Question[]{
             question16, question15, question14, question13,
