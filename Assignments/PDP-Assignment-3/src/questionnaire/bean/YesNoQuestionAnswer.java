@@ -14,4 +14,15 @@ public enum YesNoQuestionAnswer {
   public String getAnswerString() {
     return answerString;
   }
+
+  public static YesNoQuestionAnswer getYesNoQuestionAnswer(String answerString)
+          throws IllegalArgumentException {
+
+    for (YesNoQuestionAnswer yesNoQuestionAnswer : YesNoQuestionAnswer.values()) {
+      if (yesNoQuestionAnswer.getAnswerString().equals(answerString)) {
+        return yesNoQuestionAnswer;
+      }
+    }
+    throw new IllegalArgumentException(String.format("Invalid answerString: %s", answerString));
+  }
 }
