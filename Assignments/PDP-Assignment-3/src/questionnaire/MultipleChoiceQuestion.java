@@ -6,21 +6,27 @@ import questionnaire.bean.NumericChoice;
 import questionnaire.bean.Result;
 import util.Utils;
 
-public class MultipleChoiceQuestion extends AbstractQuestion {
+public class MultipleChoiceQuestion extends AbstractQuestionWithDynamicOptions {
 
   private static final int MINIMUM_OPTIONS = 3;
   private static final int MAXIMUM_OPTIONS = 8;
 
   private final NumericChoice correctNumericChoice;
-  private final Option[] options;
 
   public MultipleChoiceQuestion(String text, NumericChoice correctNumericChoice, Option[] options) {
-    super(text);
-
+    super(text, options);
     this.performSanityCheckForInput(correctNumericChoice, options);
-
     this.correctNumericChoice = correctNumericChoice;
-    this.options = options;
+  }
+
+  @Override
+  protected int getMaximumOptionThreshold() {
+    return MAXIMUM_OPTIONS;
+  }
+
+  @Override
+  protected int getMinimumOptionThreshold() {
+    return MINIMUM_OPTIONS;
   }
 
   @Override
@@ -44,28 +50,6 @@ public class MultipleChoiceQuestion extends AbstractQuestion {
 
     if (Objects.isNull(correctAnswerChoice)) {
       throw new IllegalArgumentException("correct answer cannot be null");
-    }
-
-    if (Objects.isNull(options)) {
-      throw new IllegalArgumentException("options cannot be null");
-    }
-
-    for (Option option : options) {
-      if (Objects.isNull(option)) {
-        throw new IllegalArgumentException("option cannot be null");
-      }
-    }
-
-    if (options.length < MINIMUM_OPTIONS) {
-      throw new IllegalArgumentException(
-              String.format("Question should have at least %d options, found: %d",
-                      MINIMUM_OPTIONS, options.length));
-    }
-
-    if (options.length > MAXIMUM_OPTIONS) {
-      throw new IllegalArgumentException(
-              String.format("Question can have no more than %d options, found: %d",
-                      MAXIMUM_OPTIONS, options.length));
     }
 
     if (correctAnswerChoice.getValue() > options.length) {
