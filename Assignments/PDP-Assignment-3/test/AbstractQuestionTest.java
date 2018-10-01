@@ -54,6 +54,24 @@ public abstract class AbstractQuestionTest {
   }
 
   @Test
+  public void testQuestionObjectEqualityUsingCompareTo() {
+    Question question1 = getQuestionInstance();
+    Question question2 = getQuestionInstance();
+    Question question3 = getQuestionInstance();
+
+    //Checking reflexivity
+    Assert.assertEquals(0, question1.compareTo(question1));
+
+    //Checking symmetry
+    Assert.assertEquals(question1.compareTo(question2), question2.compareTo(question1));
+
+    //Checking transitivity
+    Assert.assertEquals(0, question1.compareTo(question2));
+    Assert.assertEquals(0, question2.compareTo(question3));
+    Assert.assertEquals(0, question1.compareTo(question3));
+  }
+
+  @Test
   public void testQuestionObjectEqualityUsingHashCode() {
     Question question1 = getQuestionInstance();
     Question question2 = getQuestionInstance();
