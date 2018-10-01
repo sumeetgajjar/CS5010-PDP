@@ -23,11 +23,11 @@ public abstract class AbstractQuestion implements Question {
     return false;
   }
 
-  protected boolean equalMultipleChoiceQuestion(MultipleChoiceQuestion multipleChoiceQuestion) {
+  protected boolean equalsMultipleChoiceQuestion(MultipleChoiceQuestion multipleChoiceQuestion) {
     return false;
   }
 
-  protected boolean equalMultipleAnswersQuestion(MultipleAnswersQuestion multipleAnswersQuestion) {
+  protected boolean equalsMultipleAnswersQuestion(MultipleAnswersQuestion multipleAnswersQuestion) {
     return false;
   }
 

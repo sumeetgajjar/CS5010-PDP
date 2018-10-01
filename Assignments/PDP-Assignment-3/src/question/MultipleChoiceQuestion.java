@@ -32,7 +32,7 @@ public class MultipleChoiceQuestion extends MultipleAnswersQuestion {
   }
 
   @Override
-  protected boolean equalMultipleChoiceQuestion(MultipleChoiceQuestion multipleChoiceQuestion) {
+  protected boolean equalsMultipleChoiceQuestion(MultipleChoiceQuestion multipleChoiceQuestion) {
     return this.text.equals(multipleChoiceQuestion.text) &&
             Arrays.equals(this.options, multipleChoiceQuestion.options) &&
             Arrays.equals(this.correctNumericChoices, multipleChoiceQuestion.correctNumericChoices);
@@ -42,7 +42,7 @@ public class MultipleChoiceQuestion extends MultipleAnswersQuestion {
   public boolean equals(Object other) {
     if (other instanceof AbstractQuestion) {
       AbstractQuestion otherAbstractQuestion = (AbstractQuestion) other;
-      return otherAbstractQuestion.equalMultipleChoiceQuestion(this);
+      return otherAbstractQuestion.equalsMultipleChoiceQuestion(this);
     }
     return false;
   }
