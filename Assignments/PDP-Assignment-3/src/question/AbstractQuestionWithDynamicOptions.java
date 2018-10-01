@@ -2,6 +2,8 @@ package question;
 
 import java.util.Objects;
 
+import question.bean.Option;
+
 public abstract class AbstractQuestionWithDynamicOptions extends AbstractQuestion {
 
 

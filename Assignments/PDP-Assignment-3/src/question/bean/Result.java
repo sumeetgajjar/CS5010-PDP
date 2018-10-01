@@ -14,17 +14,4 @@ public enum Result {
   public String getResultString() {
     return resultString;
   }
-
-  public static Result getAnswerStatus(String answerStatusString)
-          throws IllegalArgumentException {
-
-    for (Result result : Result.values()) {
-      if (result.getResultString().equals(answerStatusString)) {
-        return result;
-      }
-    }
-
-    throw new IllegalArgumentException(
-            String.format("Invalid AnswerStatusString: %s", answerStatusString));
-  }
 }

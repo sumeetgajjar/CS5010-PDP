@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import question.MultipleAnswersQuestion;
-import question.Option;
+import question.bean.Option;
 import question.Question;
 import question.bean.NumericChoice;
 import question.bean.Result;

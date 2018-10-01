@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import question.MultipleChoiceQuestion;
-import question.Option;
+import question.bean.Option;
 import question.Question;
 import question.bean.NumericChoice;
 import question.bean.Result;

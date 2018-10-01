@@ -6,7 +6,7 @@ import java.util.Arrays;
 import question.LikertQuestion;
 import question.MultipleAnswersQuestion;
 import question.MultipleChoiceQuestion;
-import question.Option;
+import question.bean.Option;
 import question.Question;
 import question.YesNoQuestion;
 import question.bean.NumericChoice;

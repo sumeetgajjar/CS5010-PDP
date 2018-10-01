@@ -1,4 +1,4 @@
-package question;
+package question.bean;
 
 import java.util.Objects;
 
@@ -10,7 +10,7 @@ public class Option {
 
   public Option(String text) throws IllegalArgumentException {
     if (Utils.isStringNotSet(text)) {
-      throw new IllegalArgumentException("option text cannot be empty");
+      throw new IllegalArgumentException("Option text cannot be empty");
     }
 
     this.text = text;
