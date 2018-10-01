@@ -26,7 +26,7 @@ public interface Question extends Comparable<Question> {
   /**
    * Returns the options associated with the question.
    *
-   * @return the option associated with the question
+   * @return the option associated with the question as array of {@link String}
    */
   String[] getOptions();
 }
