@@ -3,6 +3,7 @@ package questionnaire;
 import questionnaire.bean.Result;
 import util.Utils;
 
+//todo: document every thing carefully, like valid input and output
 public abstract class AbstractQuestion implements Question {
 
   protected final String text;
