@@ -1,4 +1,4 @@
-package questionnaire.bean;
+package question.bean;
 
 public enum Result {
 

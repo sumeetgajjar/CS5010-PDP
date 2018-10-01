@@ -1,8 +1,8 @@
 import org.junit.Assert;
 import org.junit.Test;
 
-import questionnaire.Question;
-import questionnaire.bean.Result;
+import question.Question;
+import question.bean.Result;
 
 public abstract class AbstractQuestionTest {
 

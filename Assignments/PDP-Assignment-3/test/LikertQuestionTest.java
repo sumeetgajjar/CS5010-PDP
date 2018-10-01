@@ -2,10 +2,10 @@ import org.junit.Assert;
 
 import java.util.Arrays;
 
-import questionnaire.LikertQuestion;
-import questionnaire.Question;
-import questionnaire.bean.Result;
-import questionnaire.bean.LikertScale;
+import question.LikertQuestion;
+import question.Question;
+import question.bean.Result;
+import question.bean.LikertScale;
 
 public class LikertQuestionTest extends AbstractQuestionTest {
 

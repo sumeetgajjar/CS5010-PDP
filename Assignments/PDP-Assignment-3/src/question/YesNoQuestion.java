@@ -1,9 +1,9 @@
-package questionnaire;
+package question;
 
 import java.util.Objects;
 
-import questionnaire.bean.Result;
-import questionnaire.bean.YesNoQuestionAnswer;
+import question.bean.Result;
+import question.bean.YesNoQuestionAnswer;
 
 public class YesNoQuestion extends AbstractQuestion {
 

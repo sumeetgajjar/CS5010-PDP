@@ -1,9 +1,9 @@
-package questionnaire;
+package question;
 
 import java.util.Objects;
 
-import questionnaire.bean.NumericChoice;
-import questionnaire.bean.Result;
+import question.bean.NumericChoice;
+import question.bean.Result;
 import util.Utils;
 
 public class MultipleChoiceQuestion extends AbstractQuestionWithDynamicOptions {

@@ -1,4 +1,4 @@
-package questionnaire;
+package question;
 
 import java.util.Objects;
 

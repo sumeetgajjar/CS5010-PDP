@@ -2,10 +2,10 @@ import org.junit.Assert;
 
 import java.util.Arrays;
 
-import questionnaire.Question;
-import questionnaire.YesNoQuestion;
-import questionnaire.bean.Result;
-import questionnaire.bean.YesNoQuestionAnswer;
+import question.Question;
+import question.YesNoQuestion;
+import question.bean.Result;
+import question.bean.YesNoQuestionAnswer;
 
 public class YesNoQuestionTest extends AbstractQuestionTest {
 

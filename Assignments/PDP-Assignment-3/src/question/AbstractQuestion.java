@@ -1,6 +1,6 @@
-package questionnaire;
+package question;
 
-import questionnaire.bean.Result;
+import question.bean.Result;
 import util.Utils;
 
 //todo: document every thing carefully, like valid input and output

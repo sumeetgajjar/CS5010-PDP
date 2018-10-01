@@ -3,14 +3,14 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import questionnaire.LikertQuestion;
-import questionnaire.MultipleAnswersQuestion;
-import questionnaire.MultipleChoiceQuestion;
-import questionnaire.Option;
-import questionnaire.Question;
-import questionnaire.YesNoQuestion;
-import questionnaire.bean.NumericChoice;
-import questionnaire.bean.YesNoQuestionAnswer;
+import question.LikertQuestion;
+import question.MultipleAnswersQuestion;
+import question.MultipleChoiceQuestion;
+import question.Option;
+import question.Question;
+import question.YesNoQuestion;
+import question.bean.NumericChoice;
+import question.bean.YesNoQuestionAnswer;
 
 public class QuestionBankTest {
 

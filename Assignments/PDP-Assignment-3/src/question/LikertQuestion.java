@@ -1,9 +1,9 @@
-package questionnaire;
+package question;
 
 import java.util.Objects;
 
-import questionnaire.bean.LikertScale;
-import questionnaire.bean.Result;
+import question.bean.LikertScale;
+import question.bean.Result;
 import util.Utils;
 
 public class LikertQuestion extends AbstractQuestion {

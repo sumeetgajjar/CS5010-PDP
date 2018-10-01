@@ -4,11 +4,11 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import questionnaire.MultipleAnswersQuestion;
-import questionnaire.Option;
-import questionnaire.Question;
-import questionnaire.bean.NumericChoice;
-import questionnaire.bean.Result;
+import question.MultipleAnswersQuestion;
+import question.Option;
+import question.Question;
+import question.bean.NumericChoice;
+import question.bean.Result;
 
 public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
 

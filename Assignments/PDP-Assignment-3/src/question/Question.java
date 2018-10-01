@@ -1,4 +1,4 @@
-package questionnaire;
+package question;
 
 /**
  * This class represents a Question. A Question has its own text which can be retrieved using {@link

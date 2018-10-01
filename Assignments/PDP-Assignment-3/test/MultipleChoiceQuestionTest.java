@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import questionnaire.MultipleChoiceQuestion;
-import questionnaire.Option;
-import questionnaire.Question;
-import questionnaire.bean.NumericChoice;
-import questionnaire.bean.Result;
+import question.MultipleChoiceQuestion;
+import question.Option;
+import question.Question;
+import question.bean.NumericChoice;
+import question.bean.Result;
 
 public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
 
