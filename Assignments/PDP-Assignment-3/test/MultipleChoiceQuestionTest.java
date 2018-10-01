@@ -27,6 +27,15 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
   public void testInitializationOfQuestionObject() {
     Question question = getQuestionInstance();
     Assert.assertEquals("question-1?", question.getText());
+
+    String[] actualOptions = question.getOptions();
+    Option[] expectedOptions = getOptions(8);
+    Assert.assertEquals(expectedOptions.length, actualOptions.length);
+
+    for (int i = 0; i < expectedOptions.length; i++) {
+      Assert.assertEquals(expectedOptions[i].getText(), actualOptions[i]);
+    }
+
     Assert.assertEquals(
             Result.CORRECT.getResultString(),
             question.evaluateAnswer(NumericChoice.ONE.getStringValue()));

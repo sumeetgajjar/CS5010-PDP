@@ -22,7 +22,7 @@ public class LikertQuestion extends AbstractQuestion {
 
   @Override
   public String[] getOptions() {
-    return Utils.mapToStringArray(LikertScale::getLikerScaleString, VALID_OPTIONS);
+    return Utils.mapToStringArray(LikertScale::getLikertScaleString, VALID_OPTIONS);
   }
 
   @Override

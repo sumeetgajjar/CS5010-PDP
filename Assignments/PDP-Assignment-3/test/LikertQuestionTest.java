@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import question.LikertQuestion;
 import question.Question;
+import question.bean.LikertScale;
 import question.bean.Result;
 
 public class LikertQuestionTest extends AbstractQuestionTest {
@@ -17,6 +18,15 @@ public class LikertQuestionTest extends AbstractQuestionTest {
   public void testInitializationOfQuestionObject() {
     Question question = getQuestionInstance();
     Assert.assertEquals("question-1?", question.getText());
+
+    String[] options = question.getOptions();
+    Assert.assertEquals(LikertScale.STRONGLY_AGREE.getLikertScaleString(), options[0]);
+    Assert.assertEquals(LikertScale.AGREE.getLikertScaleString(), options[1]);
+    Assert.assertEquals(LikertScale.NEITHER_AGREE_NOR_DISAGREE.getLikertScaleString(), options[2]);
+    Assert.assertEquals(LikertScale.DISAGREE.getLikertScaleString(), options[3]);
+    Assert.assertEquals(LikertScale.STRONGLY_DISAGREE.getLikertScaleString(), options[4]);
+
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer("1"));
   }
 
   @Override

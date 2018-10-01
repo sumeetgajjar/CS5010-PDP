@@ -22,6 +22,16 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
   public void testInitializationOfQuestionObject() {
     Question question = getQuestionInstance();
     Assert.assertEquals("question-1?", question.getText());
+
+    String[] actualOptions = question.getOptions();
+    Option[] expectedOptions = getOptions(8);
+    Assert.assertEquals(expectedOptions.length, actualOptions.length);
+
+    for (int i = 0; i < expectedOptions.length; i++) {
+      Assert.assertEquals(expectedOptions[i].getText(), actualOptions[i]);
+    }
+
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer("1 2 3"));
   }
 
   @Test
@@ -268,6 +278,16 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
   @Test
   public void testCardinalityOfAnswerOptions() {
     Question question2 = null;
+
+    try {
+      Option[] options = getOptions(0);
+      question2 = new MultipleAnswersQuestion("question-1?", "1 2 3", options);
+      Assert.fail("should have failed");
+    } catch (Exception e) {
+      Assert.assertEquals("Question should have at least 3 options, found: 0", e.getMessage());
+    }
+    Assert.assertNull(question2);
+
     try {
       Option[] options = getOptions(1);
       question2 = new MultipleAnswersQuestion("question-1?", "1 2 3", options);

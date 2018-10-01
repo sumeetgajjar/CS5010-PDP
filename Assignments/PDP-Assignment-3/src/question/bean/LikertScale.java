@@ -8,13 +8,13 @@ public enum LikertScale {
   DISAGREE("Disagree"),
   STRONGLY_DISAGREE("Strongly Disagree");
 
-  private final String likerScaleString;
+  private final String likertScaleString;
 
-  LikertScale(String likerScaleString) {
-    this.likerScaleString = likerScaleString;
+  LikertScale(String likertScaleString) {
+    this.likertScaleString = likertScaleString;
   }
 
-  public String getLikerScaleString() {
-    return likerScaleString;
+  public String getLikertScaleString() {
+    return likertScaleString;
   }
 }

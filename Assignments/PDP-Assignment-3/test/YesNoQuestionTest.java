@@ -21,6 +21,11 @@ public class YesNoQuestionTest extends AbstractQuestionTest {
   public void testInitializationOfQuestionObject() {
     Question question = getQuestionInstance();
     Assert.assertEquals("question-1?", question.getText());
+
+    String[] options = question.getOptions();
+    Assert.assertEquals(YesNoQuestionAnswer.YES.getAnswerString(), options[0]);
+    Assert.assertEquals(YesNoQuestionAnswer.NO.getAnswerString(), options[1]);
+
     Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(YesNoQuestionAnswer.YES.getAnswerString()));
   }
 
