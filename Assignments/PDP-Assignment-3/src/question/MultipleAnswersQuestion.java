@@ -70,8 +70,8 @@ public class MultipleAnswersQuestion extends AbstractQuestion {
   }
 
   @Override
-  protected int getWeight() {
-    return 4;
+  protected int getRankForOrdering() {
+    return 401;
   }
 
   @Override

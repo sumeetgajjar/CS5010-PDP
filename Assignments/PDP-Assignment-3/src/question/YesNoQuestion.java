@@ -29,8 +29,8 @@ public class YesNoQuestion extends AbstractQuestion {
   }
 
   @Override
-  protected int getWeight() {
-    return 1;
+  protected int getRankForOrdering() {
+    return 101;
   }
 
   @Override

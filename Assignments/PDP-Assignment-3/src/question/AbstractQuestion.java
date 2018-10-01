@@ -15,9 +15,7 @@ public abstract class AbstractQuestion implements Question {
 
   protected abstract Result eval(String answer) throws IllegalArgumentException;
 
-  protected int getWeight() {
-    return 0;
-  }
+  protected abstract int getRankForOrdering();
 
   protected boolean equalsYesNoQuestion(YesNoQuestion yesNoQuestion) {
     return false;
@@ -55,12 +53,12 @@ public abstract class AbstractQuestion implements Question {
   }
 
   @Override
-  public int compareTo(Question question) {
-    if (question instanceof AbstractQuestion) {
-      AbstractQuestion abstractQuestion = (AbstractQuestion) question;
-      int diff = this.getWeight() - abstractQuestion.getWeight();
+  public int compareTo(Question otherQuestion) {
+    if (otherQuestion instanceof AbstractQuestion) {
+      AbstractQuestion otherAbstractQuestion = (AbstractQuestion) otherQuestion;
+      int diff = this.getRankForOrdering() - otherAbstractQuestion.getRankForOrdering();
       if (diff == 0) {
-        return this.text.compareTo(abstractQuestion.text);
+        return this.text.compareTo(otherAbstractQuestion.text);
       } else {
         return diff;
       }

@@ -48,7 +48,7 @@ public class MultipleChoiceQuestion extends MultipleAnswersQuestion {
   }
 
   @Override
-  protected int getWeight() {
-    return 3;
+  protected int getRankForOrdering() {
+    return 301;
   }
 }
