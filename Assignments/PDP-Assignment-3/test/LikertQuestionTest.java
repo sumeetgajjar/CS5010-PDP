@@ -5,7 +5,6 @@ import java.util.Arrays;
 import question.LikertQuestion;
 import question.Question;
 import question.bean.Result;
-import question.bean.LikertScale;
 
 public class LikertQuestionTest extends AbstractQuestionTest {
 
@@ -43,8 +42,8 @@ public class LikertQuestionTest extends AbstractQuestionTest {
   @Override
   public void testCorrectAndIncorrectAnswer() {
     Question question = getQuestionInstance();
-    for (LikertScale likertScale : LikertScale.values()) {
-      Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(likertScale.getOptionNumber()));
+    for (int i = 1; i <= 5; i++) {
+      Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(String.valueOf(i)));
     }
 
     Assert.assertNotEquals(Result.CORRECT.getResultString(), question.evaluateAnswer("random"));
@@ -75,10 +74,10 @@ public class LikertQuestionTest extends AbstractQuestionTest {
   @Override
   public void testOperationOnSameObjectMultipleTimes() {
     Question question = getQuestionInstance();
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(LikertScale.AGREE.getOptionNumber()));
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(LikertScale.AGREE.getOptionNumber()));
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(LikertScale.AGREE.getOptionNumber()));
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(LikertScale.AGREE.getOptionNumber()));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer("1"));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer("1"));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer("1"));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer("1"));
   }
 
   @Override

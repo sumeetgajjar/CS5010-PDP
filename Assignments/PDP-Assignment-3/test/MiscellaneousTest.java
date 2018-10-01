@@ -12,7 +12,7 @@ import question.YesNoQuestion;
 import question.bean.NumericChoice;
 import question.bean.YesNoQuestionAnswer;
 
-public class QuestionBankTest {
+public class MiscellaneousTest {
 
   @Test
   public void testSortYesNoQuestionAndLikertQuestion() {
