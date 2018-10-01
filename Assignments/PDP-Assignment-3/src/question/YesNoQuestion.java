@@ -29,6 +29,11 @@ public class YesNoQuestion extends AbstractQuestion {
   }
 
   @Override
+  protected int getWeight() {
+    return 1;
+  }
+
+  @Override
   public boolean equals(Object other) {
     if (other instanceof AbstractQuestion) {
       AbstractQuestion otherAbstractQuestion = (AbstractQuestion) other;
@@ -40,11 +45,6 @@ public class YesNoQuestion extends AbstractQuestion {
   @Override
   public int hashCode() {
     return Objects.hash(this.text, this.correctAnswer);
-  }
-
-  @Override
-  public int compareTo(Question o) {
-    return 0;
   }
 
   private void performSanityCheckForInput(YesNoQuestionAnswer yesNoQuestionAnswer) throws IllegalArgumentException {

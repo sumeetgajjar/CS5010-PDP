@@ -48,9 +48,9 @@ public class MiscellaneousTest {
 
     Arrays.sort(questions);
 
-    Assert.assertEquals(questions[0], question1);
+    Assert.assertEquals(questions[0], question3);
     Assert.assertEquals(questions[1], question2);
-    Assert.assertEquals(questions[2], question3);
+    Assert.assertEquals(questions[2], question1);
     Assert.assertEquals(questions[3], question4);
 
     Assert.assertEquals(questions[4], question5);
@@ -155,23 +155,23 @@ public class MiscellaneousTest {
 
     Arrays.sort(questions);
 
-    Assert.assertEquals(questions[0], question1);
+    Assert.assertEquals(questions[0], question3);
     Assert.assertEquals(questions[1], question2);
-    Assert.assertEquals(questions[2], question3);
+    Assert.assertEquals(questions[2], question1);
     Assert.assertEquals(questions[3], question4);
 
-    Assert.assertEquals(questions[4], question5);
-    Assert.assertEquals(questions[5], question6);
+    Assert.assertEquals(questions[4], question6);
+    Assert.assertEquals(questions[5], question5);
     Assert.assertEquals(questions[6], question7);
     Assert.assertEquals(questions[7], question8);
 
     Assert.assertEquals(questions[8], question9);
-    Assert.assertEquals(questions[9], question10);
-    Assert.assertEquals(questions[10], question11);
+    Assert.assertEquals(questions[9], question11);
+    Assert.assertEquals(questions[10], question10);
     Assert.assertEquals(questions[11], question12);
 
-    Assert.assertEquals(questions[12], question13);
-    Assert.assertEquals(questions[13], question14);
+    Assert.assertEquals(questions[12], question14);
+    Assert.assertEquals(questions[13], question13);
     Assert.assertEquals(questions[14], question15);
     Assert.assertEquals(questions[15], question16);
   }

@@ -123,9 +123,9 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
     Question[] questionArray = new Question[]{question1, question2, question3, question4, question5, question6};
     Arrays.sort(questionArray);
 
-    Assert.assertEquals(questionArray[0], question6);
-    Assert.assertEquals(questionArray[1], question5);
-    Assert.assertEquals(questionArray[2], question4);
+    Assert.assertEquals(questionArray[0], question4);
+    Assert.assertEquals(questionArray[1], question6);
+    Assert.assertEquals(questionArray[2], question5);
     Assert.assertEquals(questionArray[3], question3);
     Assert.assertEquals(questionArray[4], question2);
     Assert.assertEquals(questionArray[5], question1);

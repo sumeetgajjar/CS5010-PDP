@@ -50,8 +50,8 @@ public class LikertQuestion extends AbstractQuestion {
   }
 
   @Override
-  public int compareTo(Question o) {
-    return 0;
+  protected int getWeight() {
+    return 2;
   }
 
   private boolean isOptionValid(int givenOptionNumber) {

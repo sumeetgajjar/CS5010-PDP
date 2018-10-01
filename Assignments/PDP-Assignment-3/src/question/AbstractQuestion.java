@@ -15,6 +15,10 @@ public abstract class AbstractQuestion implements Question {
 
   protected abstract Result eval(String answer) throws IllegalArgumentException;
 
+  protected int getWeight() {
+    return 0;
+  }
+
   protected boolean equalsYesNoQuestion(YesNoQuestion yesNoQuestion) {
     return false;
   }
@@ -48,6 +52,20 @@ public abstract class AbstractQuestion implements Question {
     } catch (IllegalArgumentException e) {
       return Result.INCORRECT.getResultString();
     }
+  }
+
+  @Override
+  public int compareTo(Question question) {
+    if (question instanceof AbstractQuestion) {
+      AbstractQuestion abstractQuestion = (AbstractQuestion) question;
+      int diff = this.getWeight() - abstractQuestion.getWeight();
+      if (diff == 0) {
+        return this.text.compareTo(abstractQuestion.text);
+      } else {
+        return diff;
+      }
+    }
+    return 1;
   }
 
   protected void performSanityCheckForInput(String text) throws IllegalArgumentException {

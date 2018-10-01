@@ -48,7 +48,7 @@ public class MultipleChoiceQuestion extends MultipleAnswersQuestion {
   }
 
   @Override
-  public int compareTo(Question o) {
-    return 0;
+  protected int getWeight() {
+    return 3;
   }
 }
