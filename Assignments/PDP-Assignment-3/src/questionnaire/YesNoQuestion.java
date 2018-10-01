@@ -15,12 +15,6 @@ public class YesNoQuestion extends AbstractQuestion {
     this.correctAnswer = correctAnswer;
   }
 
-  private void performSanityCheckForInput(YesNoQuestionAnswer yesNoQuestionAnswer) throws IllegalArgumentException {
-    if (Objects.isNull(yesNoQuestionAnswer)) {
-      throw new IllegalArgumentException(String.format("Invalid correct answer: %s", yesNoQuestionAnswer));
-    }
-  }
-
   @Override
   public String eval(String answer) {
     try {
@@ -35,5 +29,16 @@ public class YesNoQuestion extends AbstractQuestion {
   @Override
   public int compareTo(Question o) {
     return 0;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.text, this.correctAnswer);
+  }
+
+  private void performSanityCheckForInput(YesNoQuestionAnswer yesNoQuestionAnswer) throws IllegalArgumentException {
+    if (Objects.isNull(yesNoQuestionAnswer)) {
+      throw new IllegalArgumentException(String.format("Invalid correct answer: %s", yesNoQuestionAnswer));
+    }
   }
 }
