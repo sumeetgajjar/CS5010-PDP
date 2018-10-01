@@ -4,11 +4,11 @@ import questionnaire.bean.Result;
 import util.Utils;
 
 //todo: document every thing carefully, like valid input and output
-public abstract class AbstractQuestion implements Question {
+public abstract class AbstractQuestionWithFixedOptions implements Question {
 
   protected final String text;
 
-  protected AbstractQuestion(String text) throws IllegalArgumentException {
+  protected AbstractQuestionWithFixedOptions(String text) throws IllegalArgumentException {
     this.performSanityCheckForInput(text);
     this.text = text;
   }
