@@ -1,5 +1,7 @@
 package questionnaire;
 
+import java.util.Objects;
+
 import questionnaire.bean.NumericChoice;
 import questionnaire.bean.Result;
 import util.Utils;
@@ -21,12 +23,54 @@ public class MultipleAnswersQuestion extends AbstractQuestionWithDynamicOptions 
 
   @Override
   protected Result eval(String answer) throws IllegalArgumentException {
-    return null;
+    NumericChoice[] givenNumericChoices = parseNumberChoices(answer);
+    this.checkForDuplicateChoices(givenNumericChoices);
+
+    if (correctNumericChoices.length != givenNumericChoices.length) {
+      return Result.INCORRECT;
+    }
+
+    boolean isOptionMissing;
+    for (int i = 0; i < correctNumericChoices.length; i++) {
+      isOptionMissing = true;
+
+      for (int j = 0; j < givenNumericChoices.length; j++) {
+        if (correctNumericChoices[i].equals(givenNumericChoices[j])) {
+          isOptionMissing = false;
+        }
+      }
+
+      if (isOptionMissing) {
+        return Result.INCORRECT;
+      }
+    }
+
+    return Result.CORRECT;
+  }
+
+  private void checkForDuplicateChoices(NumericChoice[] numericChoices) {
+    for (int i = 0; i < numericChoices.length; i++) {
+      for (int j = i + 1; j < numericChoices.length; j++) {
+        if (numericChoices[i] == numericChoices[j]) {
+          throw new IllegalArgumentException("cannot contain duplicate choices");
+        }
+      }
+    }
   }
 
   @Override
   public int compareTo(Question o) {
     return 0;
+  }
+
+  @Override
+  public int hashCode() {
+    Object[] mergedArray = Utils.merge(
+            Utils.merge(this.options, this.text),
+            (Object[]) this.correctNumericChoices
+    );
+
+    return Objects.hash(mergedArray);
   }
 
   @Override
@@ -54,16 +98,18 @@ public class MultipleAnswersQuestion extends AbstractQuestionWithDynamicOptions 
         );
       }
     }
+
+    this.checkForDuplicateChoices(correctNumericChoices);
   }
 
-  private NumericChoice[] parseNumberChoices(String correctOptionsString)
+  private NumericChoice[] parseNumberChoices(String choiceString)
           throws IllegalArgumentException {
 
-    if (Utils.isStringNotSet(correctOptionsString)) {
-      throw new IllegalArgumentException("invalid correct option");
+    if (Utils.isStringNotSet(choiceString)) {
+      throw new IllegalArgumentException("Invalid correctOption");
     }
 
-    String[] choices = correctOptionsString.split(" ");
+    String[] choices = choiceString.split(" ");
     NumericChoice[] numericChoices = new NumericChoice[choices.length];
     for (int i = 0; i < choices.length; i++) {
       numericChoices[i] = NumericChoice.getChoice(choices[i]);

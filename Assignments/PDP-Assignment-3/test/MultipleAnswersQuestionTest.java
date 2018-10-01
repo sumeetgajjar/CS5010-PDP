@@ -32,7 +32,7 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
       question = new MultipleAnswersQuestion("", "1 2 3", options);
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("Invalid question Text: ", e.getMessage());
+      Assert.assertEquals("Invalid question text: ", e.getMessage());
     }
     Assert.assertNull(question);
 
@@ -48,7 +48,7 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
       question = new MultipleAnswersQuestion("question-1?", "", options);
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("Invalid correctOption: ", e.getMessage());
+      Assert.assertEquals("Invalid correctOption", e.getMessage());
     }
     Assert.assertNull(question);
 
@@ -56,7 +56,7 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
       question = new MultipleAnswersQuestion("question-1?", null, options);
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("Invalid correctOption: 'null'", e.getMessage());
+      Assert.assertEquals("Invalid correctOption", e.getMessage());
     }
     Assert.assertNull(question);
 
@@ -64,7 +64,7 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
       question = new MultipleAnswersQuestion("question-1?", "1 2 3", null);
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("Invalid answer options: null", e.getMessage());
+      Assert.assertEquals("options cannot be null", e.getMessage());
     }
     Assert.assertNull(question);
   }
@@ -83,11 +83,11 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
             NumericChoice.EIGHT
     };
 
-    for (int i = 1; i <= 8; i++) {
+    for (int i = 1; i < 8; i++) {
       NumericChoice[] correctOptions = new NumericChoice[i];
 
-      for (int j = 1; j <= i; j++) {
-        correctOptions[j] = allNumericChoices[j];
+      for (int j = 0; j < i; j++) {
+        correctOptions[j] = NumericChoice.getChoice(j + 1);
       }
 
       String correctOptionString = Arrays.stream(correctOptions)
@@ -175,7 +175,7 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
       question = new MultipleAnswersQuestion("question-1?", "123", options);
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("Invalid correctionOption: '123'", e.getMessage());
+      Assert.assertEquals("Invalid NumericChoice value: 123", e.getMessage());
     }
     Assert.assertNull(question);
 
@@ -183,7 +183,7 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
       question = new MultipleAnswersQuestion("question-1?", "1 12", options);
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("Invalid correctionOption: '1 12'", e.getMessage());
+      Assert.assertEquals("Invalid NumericChoice value: 12", e.getMessage());
     }
     Assert.assertNull(question);
 
@@ -191,7 +191,7 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
       question = new MultipleAnswersQuestion("question-1?", "1 2 14", options);
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("Invalid correctionOption: '1 2 14'", e.getMessage());
+      Assert.assertEquals("Invalid NumericChoice value: 14", e.getMessage());
     }
     Assert.assertNull(question);
 
@@ -199,7 +199,7 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
       question = new MultipleAnswersQuestion("question-1?", "1 2 3 14", options);
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("Invalid correctionOption: '1 2 3 14'", e.getMessage());
+      Assert.assertEquals("Invalid NumericChoice value: 14", e.getMessage());
     }
     Assert.assertNull(question);
 
@@ -207,7 +207,7 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
       question = new MultipleAnswersQuestion("question-1?", "random", options);
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("Invalid correctionOption: 'random'", e.getMessage());
+      Assert.assertEquals("Invalid NumericChoice value: random", e.getMessage());
     }
     Assert.assertNull(question);
 
@@ -258,7 +258,7 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
       question2 = new MultipleAnswersQuestion("question-1?", "1 2 3", options);
       Assert.fail("should have failed");
     } catch (Exception e) {
-      Assert.assertEquals("Question should have at least 3 options", e.getMessage());
+      Assert.assertEquals("Question should have at least 3 options, found: 1", e.getMessage());
     }
     Assert.assertNull(question2);
 
@@ -267,7 +267,7 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
       question2 = new MultipleAnswersQuestion("question-1?", "1 2 3", options);
       Assert.fail("should have failed");
     } catch (Exception e) {
-      Assert.assertEquals("Question should have at least 3 options", e.getMessage());
+      Assert.assertEquals("Question should have at least 3 options, found: 2", e.getMessage());
     }
     Assert.assertNull(question2);
 
@@ -276,7 +276,7 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
       question2 = new MultipleAnswersQuestion("question-1?", "1 2 3", options);
       Assert.fail("should have failed");
     } catch (Exception e) {
-      Assert.assertEquals("Question can have no more than 8 options", e.getMessage());
+      Assert.assertEquals("Question can have no more than 8 options, found: 9", e.getMessage());
     }
     Assert.assertNull(question2);
 
@@ -285,7 +285,7 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
       question2 = new MultipleAnswersQuestion("question-1?", "1 2 3", options);
       Assert.fail("should have failed");
     } catch (Exception e) {
-      Assert.assertEquals("Question can have no more than 8 options", e.getMessage());
+      Assert.assertEquals("Question can have no more than 8 options, found: 10", e.getMessage());
     }
     Assert.assertNull(question2);
   }
@@ -299,7 +299,7 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
       Assert.assertEquals(
-              "correct answer choice not found in given options, correctAnswerChoice: 8",
+              "correct answer choice not found in given options, correctAnswerChoice: 6",
               e.getMessage());
     }
   }
