@@ -9,7 +9,7 @@ public class YesNoQuestion extends AbstractQuestion {
 
   private final YesNoQuestionAnswer correctAnswer;
 
-  public YesNoQuestion(String text, YesNoQuestionAnswer correctAnswer) {
+  public YesNoQuestion(String text, YesNoQuestionAnswer correctAnswer) throws IllegalArgumentException {
     super(text);
     this.performSanityCheckForInput(correctAnswer);
     this.correctAnswer = correctAnswer;

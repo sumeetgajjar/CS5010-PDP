@@ -16,7 +16,7 @@ public class LikertQuestion extends AbstractQuestion {
           LikertScale.STRONGLY_DISAGREE
   };
 
-  public LikertQuestion(String text) {
+  public LikertQuestion(String text) throws IllegalArgumentException {
     super(text);
   }
 
