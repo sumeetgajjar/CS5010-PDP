@@ -8,8 +8,6 @@ public abstract class AbstractQuestion implements Question {
 
   protected final String text;
 
-
-
   protected AbstractQuestion(String text) throws IllegalArgumentException {
     this.performSanityCheckForInput(text);
     this.text = text;
