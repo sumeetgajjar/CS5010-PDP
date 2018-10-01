@@ -55,7 +55,7 @@ public class YesNoQuestionTest extends AbstractQuestionTest {
       question = new YesNoQuestion("Question 1", null);
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("Invalid correct answer: null", e.getMessage());
+      Assert.assertEquals("correct answer cannot be null", e.getMessage());
     }
     Assert.assertNull(question);
   }
