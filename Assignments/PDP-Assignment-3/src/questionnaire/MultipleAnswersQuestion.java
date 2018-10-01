@@ -1,15 +1,16 @@
 package questionnaire;
 
-import questionnaire.bean.Option;
+import questionnaire.bean.OptionNumber;
+import questionnaire.bean.Result;
 
 public class MultipleAnswersQuestion extends AbstractQuestion {
 
-  public MultipleAnswersQuestion(String text, String correctOptionsString, Option[] validOptions) {
+  public MultipleAnswersQuestion(String text, String correctOptionsString, OptionNumber[] validOptionNumbers) {
     super(text);
   }
 
   @Override
-  public String eval(String answer) {
+  protected Result eval(String answer) {
     return null;
   }
 

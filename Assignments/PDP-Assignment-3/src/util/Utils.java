@@ -2,21 +2,21 @@ package util;
 
 import java.util.Objects;
 
-import questionnaire.bean.Option;
+import questionnaire.bean.OptionNumber;
 
 public class Utils {
 
-  public static Option[] getAllValidOptionsForMultipleAnswersQuestion() {
-    return new Option[]{
-            Option.ONE, Option.TWO, Option.THREE, Option.FOUR,
-            Option.FIVE, Option.SIX, Option.SEVEN, Option.EIGHT,
+  public static OptionNumber[] getAllValidOptionsForMultipleAnswersQuestion() {
+    return new OptionNumber[]{
+            OptionNumber.ONE, OptionNumber.TWO, OptionNumber.THREE, OptionNumber.FOUR,
+            OptionNumber.FIVE, OptionNumber.SIX, OptionNumber.SEVEN, OptionNumber.EIGHT,
     };
   }
 
-  public static Option[] getAllValidOptionsForMultipleChoiceQuestion() {
-    return new Option[]{
-            Option.ONE, Option.TWO, Option.THREE, Option.FOUR,
-            Option.FIVE, Option.SIX, Option.SEVEN, Option.EIGHT,
+  public static OptionNumber[] getAllValidOptionsForMultipleChoiceQuestion() {
+    return new OptionNumber[]{
+            OptionNumber.ONE, OptionNumber.TWO, OptionNumber.THREE, OptionNumber.FOUR,
+            OptionNumber.FIVE, OptionNumber.SIX, OptionNumber.SEVEN, OptionNumber.EIGHT,
     };
   }
 

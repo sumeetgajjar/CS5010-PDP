@@ -1,6 +1,6 @@
 package questionnaire.bean;
 
-public enum Option {
+public enum OptionNumber {
 
   ONE("1"),
   TWO("2"),
@@ -13,7 +13,7 @@ public enum Option {
 
   private final String optionString;
 
-  Option(String optionString) {
+  OptionNumber(String optionString) {
     this.optionString = optionString;
   }
 
@@ -21,10 +21,10 @@ public enum Option {
     return optionString;
   }
 
-  public static Option getOption(String optionString) throws IllegalArgumentException {
-    for (Option option : Option.values()) {
-      if (option.getOptionString().equals(optionString)) {
-        return option;
+  public static OptionNumber getOption(String optionString) throws IllegalArgumentException {
+    for (OptionNumber optionNumber : OptionNumber.values()) {
+      if (optionNumber.getOptionString().equals(optionString)) {
+        return optionNumber;
       }
     }
 
