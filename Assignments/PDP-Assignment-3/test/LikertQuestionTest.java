@@ -75,10 +75,10 @@ public class LikertQuestionTest extends AbstractQuestionTest {
   @Override
   public void testOperationOnSameObjectMultipleTimes() {
     Question question = getQuestionInstance();
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval(LikertScale.AGREE.getLikerScaleString()));
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval(LikertScale.AGREE.getLikerScaleString()));
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval(LikertScale.AGREE.getLikerScaleString()));
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval(LikertScale.AGREE.getLikerScaleString()));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval(LikertScale.AGREE.getOptionNumber()));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval(LikertScale.AGREE.getOptionNumber()));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval(LikertScale.AGREE.getOptionNumber()));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval(LikertScale.AGREE.getOptionNumber()));
   }
 
   @Override
