@@ -5,21 +5,21 @@ public enum Result {
   CORRECT("Correct"),
   INCORRECT("Incorrect");
 
-  private final String answerStatusString;
+  private final String resultString;
 
-  Result(String answerStatusString) {
-    this.answerStatusString = answerStatusString;
+  Result(String resultString) {
+    this.resultString = resultString;
   }
 
-  public String getAnswerStatusString() {
-    return answerStatusString;
+  public String getResultString() {
+    return resultString;
   }
 
   public static Result getAnswerStatus(String answerStatusString)
           throws IllegalArgumentException {
 
     for (Result result : Result.values()) {
-      if (result.getAnswerStatusString().equals(answerStatusString)) {
+      if (result.getResultString().equals(answerStatusString)) {
         return result;
       }
     }

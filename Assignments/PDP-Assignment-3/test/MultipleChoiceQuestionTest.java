@@ -27,7 +27,7 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
   public void testInitializationOfQuestionObject() {
     Question question = getQuestionInstance();
     Assert.assertEquals("question-1?", question.getText());
-    Assert.assertEquals(Result.CORRECT.getAnswerStatusString(), question.eval(Option.ONE.getOptionString()));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval(Option.ONE.getOptionString()));
   }
 
   @Test
@@ -109,7 +109,7 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
       Question question1 = new MultipleChoiceQuestion("question-1?", correctOption, options);
 
       Assert.assertEquals("question-1?", question1.getText());
-      Assert.assertEquals(Result.CORRECT.getAnswerStatusString(), question1.eval(correctOption.getOptionString()));
+      Assert.assertEquals(Result.CORRECT.getResultString(), question1.eval(correctOption.getOptionString()));
 
       List<Option> incorrectOptions = Arrays
               .stream(Option.values())
@@ -117,13 +117,13 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
               .collect(Collectors.toList());
 
       for (Option incorrectOption : incorrectOptions) {
-        Assert.assertEquals(Result.INCORRECT.getAnswerStatusString(), question1.eval(incorrectOption.getOptionString()));
+        Assert.assertEquals(Result.INCORRECT.getResultString(), question1.eval(incorrectOption.getOptionString()));
       }
 
-      Assert.assertEquals(Result.INCORRECT.getAnswerStatusString(), question1.eval("random"));
-      Assert.assertEquals(Result.INCORRECT.getAnswerStatusString(), question1.eval("12"));
-      Assert.assertEquals(Result.INCORRECT.getAnswerStatusString(), question1.eval("0"));
-      Assert.assertEquals(Result.INCORRECT.getAnswerStatusString(), question1.eval("-1"));
+      Assert.assertEquals(Result.INCORRECT.getResultString(), question1.eval("random"));
+      Assert.assertEquals(Result.INCORRECT.getResultString(), question1.eval("12"));
+      Assert.assertEquals(Result.INCORRECT.getResultString(), question1.eval("0"));
+      Assert.assertEquals(Result.INCORRECT.getResultString(), question1.eval("-1"));
     }
   }
 
@@ -151,10 +151,10 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
   @Override
   public void testOperationOnSameObjectMultipleTimes() {
     Question question = getQuestionInstance();
-    Assert.assertEquals(Result.CORRECT.getAnswerStatusString(), question.eval(Option.ONE.getOptionString()));
-    Assert.assertEquals(Result.CORRECT.getAnswerStatusString(), question.eval(Option.ONE.getOptionString()));
-    Assert.assertEquals(Result.CORRECT.getAnswerStatusString(), question.eval(Option.ONE.getOptionString()));
-    Assert.assertEquals(Result.CORRECT.getAnswerStatusString(), question.eval(Option.ONE.getOptionString()));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval(Option.ONE.getOptionString()));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval(Option.ONE.getOptionString()));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval(Option.ONE.getOptionString()));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval(Option.ONE.getOptionString()));
   }
 
   @Override

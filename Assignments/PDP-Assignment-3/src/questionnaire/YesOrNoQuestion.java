@@ -26,9 +26,9 @@ public class YesOrNoQuestion extends AbstractQuestion {
     try {
       YesNoQuestionAnswer givenAnswer = YesNoQuestionAnswer.getYesNoQuestionAnswer(answer);
       Result result = this.correctAnswer.equals(givenAnswer) ? Result.CORRECT : Result.INCORRECT;
-      return result.getAnswerStatusString();
+      return result.getResultString();
     } catch (IllegalArgumentException e) {
-      return Result.INCORRECT.getAnswerStatusString();
+      return Result.INCORRECT.getResultString();
     }
   }
 
