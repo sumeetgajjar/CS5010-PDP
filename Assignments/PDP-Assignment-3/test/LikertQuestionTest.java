@@ -80,4 +80,21 @@ public class LikertQuestionTest extends AbstractQuestionTest {
     Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(LikertScale.AGREE.getLikerScaleString()));
     Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(LikertScale.AGREE.getLikerScaleString()));
   }
+
+  @Override
+  public void testQuestionObjectInequalityUsingEquals() {
+    Question question1 = new LikertQuestion("question-1?");
+    Question question2 = new LikertQuestion("question-2?");
+
+    Assert.assertFalse(question1.equals(question2));
+    Assert.assertFalse(question2.equals(question1));
+  }
+
+  @Override
+  public void testQuestionObjectInequalityUsingHashcode() {
+    Question question1 = new LikertQuestion("question-1?");
+    Question question2 = new LikertQuestion("question-2?");
+
+    Assert.assertNotEquals(question1.hashCode(), question2.hashCode());
+  }
 }

@@ -23,10 +23,10 @@ public abstract class AbstractQuestionTest {
   public abstract void testOperationOnSameObjectMultipleTimes();
 
   @Test
-  public abstract void testQuestionObjectInEqualityUsingEquals();
+  public abstract void testQuestionObjectInequalityUsingEquals();
 
   @Test
-  public abstract void testQuestionObjectInEqualityUsingHashcode();
+  public abstract void testQuestionObjectInequalityUsingHashcode();
 
   @Test
   public void testQuestionObjectEqualityUsingEquals() {

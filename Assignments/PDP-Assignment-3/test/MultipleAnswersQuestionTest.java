@@ -138,6 +138,25 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
     Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(answer));
   }
 
+  @Override
+  public void testQuestionObjectInequalityUsingEquals() {
+    Option[] options = Utils.getAllValidOptionsForMultipleAnswersQuestion();
+    Question question1 = new MultipleAnswersQuestion("maq question-3?", "3", options);
+    Question question2 = new MultipleAnswersQuestion("maq question-2?", "2 3", options);
+
+    Assert.assertFalse(question1.equals(question2));
+    Assert.assertFalse(question2.equals(question1));
+  }
+
+  @Override
+  public void testQuestionObjectInequalityUsingHashcode() {
+    Option[] options = Utils.getAllValidOptionsForMultipleAnswersQuestion();
+    Question question1 = new MultipleAnswersQuestion("maq question-3?", "3", options);
+    Question question2 = new MultipleAnswersQuestion("maq question-2?", "2 3", options);
+
+    Assert.assertNotEquals(question1.hashCode(), question2.hashCode());
+  }
+
   @Test
   public void testInvalidAnswerFormat() {
     Question question = null;

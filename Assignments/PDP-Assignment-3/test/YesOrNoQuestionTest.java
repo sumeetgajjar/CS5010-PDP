@@ -103,4 +103,21 @@ public class YesOrNoQuestionTest extends AbstractQuestionTest {
     Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(YesNoQuestionAnswer.YES.getAnswerString()));
     Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(YesNoQuestionAnswer.YES.getAnswerString()));
   }
+
+  @Override
+  public void testQuestionObjectInequalityUsingEquals() {
+    Question question1 = new YesOrNoQuestion("yes no question-2?", YesNoQuestionAnswer.NO);
+    Question question2 = new YesOrNoQuestion("yes no question-1?", YesNoQuestionAnswer.NO);
+
+    Assert.assertFalse(question1.equals(question2));
+    Assert.assertFalse(question2.equals(question1));
+  }
+
+  @Override
+  public void testQuestionObjectInequalityUsingHashcode() {
+    Question question1 = new YesOrNoQuestion("yes no question-2?", YesNoQuestionAnswer.NO);
+    Question question2 = new YesOrNoQuestion("yes no question-1?", YesNoQuestionAnswer.NO);
+
+    Assert.assertNotEquals(question1.hashCode(), question2.hashCode());
+  }
 }

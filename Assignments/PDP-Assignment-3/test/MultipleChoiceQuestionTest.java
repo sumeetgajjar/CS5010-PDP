@@ -156,4 +156,23 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
     Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(Option.ONE.getOptionString()));
     Assert.assertEquals(AnswerStatus.CORRECT.getAnswerStatusString(), question.eval(Option.ONE.getOptionString()));
   }
+
+  @Override
+  public void testQuestionObjectInequalityUsingEquals() {
+    Option[] options = Utils.getAllValidOptionsForMultipleChoiceQuestion();
+    Question question1 = new MultipleChoiceQuestion("mcq question-3?", Option.THREE, options);
+    Question question2 = new MultipleChoiceQuestion("mcq question-2?", Option.TWO, options);
+
+    Assert.assertFalse(question1.equals(question2));
+    Assert.assertFalse(question2.equals(question1));
+  }
+
+  @Override
+  public void testQuestionObjectInequalityUsingHashcode() {
+    Option[] options = Utils.getAllValidOptionsForMultipleChoiceQuestion();
+    Question question1 = new MultipleChoiceQuestion("mcq question-3?", Option.THREE, options);
+    Question question2 = new MultipleChoiceQuestion("mcq question-2?", Option.TWO, options);
+
+    Assert.assertNotEquals(question1.hashCode(), question2.hashCode());
+  }
 }
