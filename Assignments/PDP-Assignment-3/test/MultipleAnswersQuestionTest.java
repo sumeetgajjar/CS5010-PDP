@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 
 import questionnaire.MultipleAnswersQuestion;
 import questionnaire.Question;
-import questionnaire.bean.Result;
 import questionnaire.bean.Option;
+import questionnaire.bean.Result;
 import util.Utils;
 
 public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
@@ -85,19 +85,19 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
               .collect(Collectors.joining(" "));
 
       Question question = new MultipleAnswersQuestion("question-1?", correctOptionString, options);
-      Assert.assertEquals(Result.CORRECT.getResultString(), question.eval(correctOptionString));
+      Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(correctOptionString));
 
       String answer = "";
-      Assert.assertEquals(Result.INCORRECT.getResultString(), question.eval(answer));
+      Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer(answer));
 
       for (int j = 1; j < i; j++) {
         answer += j;
-        Assert.assertEquals(Result.INCORRECT.getResultString(), question.eval(answer));
+        Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer(answer));
         answer += " ";
       }
 
       answer += i;
-      Assert.assertEquals(Result.CORRECT.getResultString(), question.eval(answer));
+      Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(answer));
     }
   }
 
@@ -132,10 +132,10 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
             Option.TWO.getOptionString(),
             Option.THREE.getOptionString());
 
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval(answer));
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval(answer));
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval(answer));
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval(answer));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(answer));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(answer));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(answer));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(answer));
   }
 
   @Override
@@ -206,37 +206,89 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
   @Test
   public void testCorrectAnswersInDifferentSequence() {
     Question question = getQuestionInstance();
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval("1 2 3"));
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval("1 3 2"));
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval("2 1 3"));
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval("2 3 1"));
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval("3 1 2"));
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval("3 2 1"));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer("1 2 3"));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer("1 3 2"));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer("2 1 3"));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer("2 3 1"));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer("3 1 2"));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer("3 2 1"));
 
-    Assert.assertEquals(Result.INCORRECT.getResultString(), question.eval("3 2 1 4"));
+    Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer("3 2 1 4"));
   }
 
   @Test
   public void testAnswerOptionRepetition() {
     Question question = getQuestionInstance();
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval("1 2 3"));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer("1 2 3"));
 
-    Assert.assertEquals(Result.INCORRECT.getResultString(), question.eval("1 1 1"));
-    Assert.assertEquals(Result.INCORRECT.getResultString(), question.eval("2 2 2"));
-    Assert.assertEquals(Result.INCORRECT.getResultString(), question.eval("3 3 3"));
-    Assert.assertEquals(Result.INCORRECT.getResultString(), question.eval("1 2 2"));
-    Assert.assertEquals(Result.INCORRECT.getResultString(), question.eval("2 3 3"));
-    Assert.assertEquals(Result.INCORRECT.getResultString(), question.eval("3 1 1"));
+    Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer("1 1 1"));
+    Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer("2 2 2"));
+    Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer("3 3 3"));
+    Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer("1 2 2"));
+    Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer("2 3 3"));
+    Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer("3 1 1"));
   }
 
   @Test
   public void testIncorrectAnswerContainingInvalidOptions() {
     Question question = getQuestionInstance();
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval("1 2 3"));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer("1 2 3"));
 
-    Assert.assertEquals(Result.INCORRECT.getResultString(), question.eval("1 2 5"));
-    Assert.assertEquals(Result.INCORRECT.getResultString(), question.eval("8"));
-    Assert.assertEquals(Result.INCORRECT.getResultString(), question.eval("8 9"));
-    Assert.assertEquals(Result.INCORRECT.getResultString(), question.eval("7 6 5"));
+    Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer("1 2 5"));
+    Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer("8"));
+    Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer("8 9"));
+    Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer("7 6 5"));
+  }
+
+  @Test
+  public void testCardinalityOfAnswerOptions() {
+    Question question2 = null;
+    try {
+      Option[] options = new Option[]{Option.ONE};
+      question2 = new MultipleAnswersQuestion("question-1?", "1 2 3", options);
+      Assert.fail("should have failed");
+    } catch (Exception e) {
+      Assert.assertEquals("Question should have at least 3 options", e.getMessage());
+    }
+    Assert.assertNull(question2);
+
+    try {
+      Option[] options = new Option[]{Option.ONE, Option.TWO};
+      question2 = new MultipleAnswersQuestion("question-1?", "1 2 3", options);
+      Assert.fail("should have failed");
+    } catch (Exception e) {
+      Assert.assertEquals("Question should have at least 3 options", e.getMessage());
+    }
+    Assert.assertNull(question2);
+
+    try {
+      Option[] options = new Option[]{
+              Option.ONE, Option.TWO, Option.THREE, Option.FOUR,
+              Option.FIVE, Option.SIX, Option.SEVEN, Option.EIGHT,
+              Option.ONE};
+      question2 = new MultipleAnswersQuestion("question-1?", "1 2 3", options);
+      Assert.fail("should have failed");
+    } catch (Exception e) {
+      Assert.assertEquals("Question can have no more than 8 options", e.getMessage());
+    }
+    Assert.assertNull(question2);
+
+    try {
+      Option[] options = new Option[]{
+              Option.ONE, Option.TWO, Option.THREE, Option.FOUR,
+              Option.FIVE, Option.SIX, Option.SEVEN, Option.EIGHT,
+              Option.ONE, Option.TWO};
+      question2 = new MultipleAnswersQuestion("question-1?", "1 2 3", options);
+      Assert.fail("should have failed");
+    } catch (Exception e) {
+      Assert.assertEquals("Question can have no more than 8 options", e.getMessage());
+    }
+    Assert.assertNull(question2);
+  }
+
+
+  @Test
+  public void testCorrectAnswerNotFoundInGivenOptions() {
+    //todo:asd
   }
 }

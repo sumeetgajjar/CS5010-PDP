@@ -2,6 +2,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import questionnaire.Question;
+import questionnaire.bean.Result;
 
 public abstract class AbstractQuestionTest {
 
@@ -27,6 +28,12 @@ public abstract class AbstractQuestionTest {
 
   @Test
   public abstract void testQuestionObjectInequalityUsingHashcode();
+
+  @Test
+  public void testEvaluatingNullResult() {
+    Question question = getQuestionInstance();
+    Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer(null));
+  }
 
   @Test
   public void testQuestionObjectEqualityUsingEquals() {

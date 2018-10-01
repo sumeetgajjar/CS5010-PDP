@@ -3,7 +3,7 @@ package questionnaire;
 /**
  * This class represents a Question. A Question has its own text which can be retrieved using {@link
  * Question#getText()} method. For a given {@link Question}, in order to check whether a given
- * answer is correct or incorrect, {@link Question#eval(String)} method can be used.
+ * answer is correct or incorrect, {@link Question#evaluateAnswer(String)} method can be used.
  */
 public interface Question extends Comparable<Question> {
 
@@ -21,5 +21,5 @@ public interface Question extends Comparable<Question> {
    * @return the {@link String} "Correct" if given answer is correct, else return {@link String}
    * "Incorrect"
    */
-  String eval(String answer);
+  String evaluateAnswer(String answer);
 }

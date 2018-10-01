@@ -1,5 +1,6 @@
 package questionnaire;
 
+import questionnaire.bean.Result;
 import util.Utils;
 
 public abstract class AbstractQuestion implements Question {
@@ -17,8 +18,24 @@ public abstract class AbstractQuestion implements Question {
     }
   }
 
+  protected abstract Result eval(String answer);
+
   @Override
   public String getText() {
     return this.text;
+  }
+
+  @Override
+  public String evaluateAnswer(String answer) {
+    if (Utils.isStringNotSet(answer)) {
+      return Result.INCORRECT.getResultString();
+    }
+
+    try {
+      Result result = eval(answer);
+      return result.getResultString();
+    } catch (IllegalArgumentException e) {
+      return Result.INCORRECT.getResultString();
+    }
   }
 }

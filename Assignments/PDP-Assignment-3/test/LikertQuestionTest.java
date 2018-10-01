@@ -44,14 +44,14 @@ public class LikertQuestionTest extends AbstractQuestionTest {
   public void testCorrectAndIncorrectAnswer() {
     Question question = getQuestionInstance();
     for (LikertScale likertScale : LikertScale.values()) {
-      Assert.assertEquals(Result.CORRECT.getResultString(), question.eval(likertScale.getOptionNumber()));
+      Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(likertScale.getOptionNumber()));
     }
 
-    Assert.assertNotEquals(Result.CORRECT.getResultString(), question.eval("random"));
-    Assert.assertEquals(Result.INCORRECT.getResultString(), question.eval("random"));
-    Assert.assertEquals(Result.INCORRECT.getResultString(), question.eval("0"));
-    Assert.assertEquals(Result.INCORRECT.getResultString(), question.eval("12"));
-    Assert.assertEquals(Result.INCORRECT.getResultString(), question.eval("-1"));
+    Assert.assertNotEquals(Result.CORRECT.getResultString(), question.evaluateAnswer("random"));
+    Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer("random"));
+    Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer("0"));
+    Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer("12"));
+    Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer("-1"));
   }
 
   @Override
@@ -75,10 +75,10 @@ public class LikertQuestionTest extends AbstractQuestionTest {
   @Override
   public void testOperationOnSameObjectMultipleTimes() {
     Question question = getQuestionInstance();
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval(LikertScale.AGREE.getOptionNumber()));
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval(LikertScale.AGREE.getOptionNumber()));
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval(LikertScale.AGREE.getOptionNumber()));
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.eval(LikertScale.AGREE.getOptionNumber()));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(LikertScale.AGREE.getOptionNumber()));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(LikertScale.AGREE.getOptionNumber()));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(LikertScale.AGREE.getOptionNumber()));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(LikertScale.AGREE.getOptionNumber()));
   }
 
   @Override
