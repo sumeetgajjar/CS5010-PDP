@@ -306,6 +306,16 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
     }
     Assert.assertNull(question2);
 
+
+    try {
+      Option[] options = getOptions(3);
+      question2 = new MultipleAnswersQuestion("question-1?", "1 2 3 4", options);
+      Assert.fail("should have failed");
+    } catch (Exception e) {
+      Assert.assertEquals("correct options cannot be greater than total options", e.getMessage());
+    }
+    Assert.assertNull(question2);
+
     try {
       Option[] options = getOptions(9);
       question2 = new MultipleAnswersQuestion("question-1?", "1 2 3", options);
