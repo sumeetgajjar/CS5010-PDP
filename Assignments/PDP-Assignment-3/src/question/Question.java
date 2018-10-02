@@ -3,7 +3,9 @@ package question;
 /**
  * This class represents a Question. A Question has its own text which can be retrieved using {@link
  * Question#getText()} method. For a given {@link Question}, in order to check whether a given
- * answer is correct or incorrect, {@link Question#evaluateAnswer(String)} method can be used.
+ * answer is correct or incorrect, {@link Question#evaluateAnswer(String)} method can be used. In
+ * order to get the answer choices for the {@link Question} <code>{@link
+ * Question#getOptions()}</code> method can be used.
  */
 public interface Question extends Comparable<Question> {
 
