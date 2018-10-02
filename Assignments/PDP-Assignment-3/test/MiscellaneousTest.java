@@ -14,10 +14,14 @@ import question.bean.YesNoQuestionAnswer;
 public class MiscellaneousTest {
 
   @Test
-  public void testYesNoQuestionAndLikertQuestionEquality() {
+  public void testYesNoQuestionAndLikertQuestionInequality() {
     Question question1 = new YesNoQuestion("yes no question-1?", YesNoQuestionAnswer.NO);
     Question question2 = new LikertQuestion("likert question-1?");
 
+    testQuestionsInequality(question1, question2);
+  }
+
+  private void testQuestionsInequality(Question question1, Question question2) {
     Assert.assertNotEquals(0, question1.compareTo(question2));
     Assert.assertNotEquals(0, question2.compareTo(question1));
 
@@ -28,36 +32,34 @@ public class MiscellaneousTest {
   }
 
   @Test
-  public void testLikertQuestionAndMultipleChoiceQuestionEquality() {
+  public void testLikertQuestionAndMultipleChoiceQuestionInequality() {
     Question question1 = new LikertQuestion("likert question-1?");
 
-    Option[] multipleChoiceQuestionNumericOptions = MultipleChoiceQuestionTest.getOptions(8);
-    Question question2 = new MultipleChoiceQuestion("mcq question-3?", "3", multipleChoiceQuestionNumericOptions);
+    Option[] multipleChoiceQuestionOptions = MultipleChoiceQuestionTest.getOptions(8);
+    Question question2 = new MultipleChoiceQuestion("mcq question-3?", "3", multipleChoiceQuestionOptions);
 
-    Assert.assertNotEquals(0, question1.compareTo(question2));
-    Assert.assertNotEquals(0, question2.compareTo(question1));
-
-    Assert.assertNotEquals(question1.hashCode(), question2.hashCode());
-
-    Assert.assertFalse(question1.equals(question2));
-    Assert.assertFalse(question2.equals(question1));
+    testQuestionsInequality(question1, question2);
   }
 
   @Test
-  public void testMultipleChoiceQuestionAndMultipleAnswersQuestionEquality() {
-    Option[] multipleChoiceQuestionNumericOptions = MultipleChoiceQuestionTest.getOptions(8);
-    Question question1 = new MultipleChoiceQuestion("mcq question-3?", "3", multipleChoiceQuestionNumericOptions);
+  public void testMultipleChoiceQuestionAndMultipleAnswersQuestionInequality() {
+    Option[] multipleChoiceQuestionOptions = MultipleChoiceQuestionTest.getOptions(8);
+    Question question1 = new MultipleChoiceQuestion("mcq question-3?", "3", multipleChoiceQuestionOptions);
 
-    Option[] multipleAnswersQuestionNumericOptions = MultipleAnswersQuestionTest.getOptions(8);
-    Question question2 = new MultipleAnswersQuestion("maq question-3?", "3", multipleAnswersQuestionNumericOptions);
+    Option[] multipleAnswersQuestionOptions = MultipleAnswersQuestionTest.getOptions(8);
+    Question question2 = new MultipleAnswersQuestion("maq question-3?", "3", multipleAnswersQuestionOptions);
 
-    Assert.assertNotEquals(0, question1.compareTo(question2));
-    Assert.assertNotEquals(0, question2.compareTo(question1));
+    testQuestionsInequality(question1, question2);
+  }
 
-    Assert.assertNotEquals(question1.hashCode(), question2.hashCode());
+  @Test
+  public void testYesNoQuestionAndMultipleAnswersQuestionInequality() {
+    Question question1 = new YesNoQuestion("yes no question-1?", YesNoQuestionAnswer.NO);
 
-    Assert.assertFalse(question1.equals(question2));
-    Assert.assertFalse(question2.equals(question1));
+    Option[] multipleAnswersQuestionOptions = MultipleAnswersQuestionTest.getOptions(8);
+    Question question2 = new MultipleAnswersQuestion("maq question-3?", "3", multipleAnswersQuestionOptions);
+
+    testQuestionsInequality(question1, question2);
   }
 
   @Test
@@ -92,17 +94,17 @@ public class MiscellaneousTest {
 
   @Test
   public void testSortMultipleChoiceQuestionAndMultipleAnswersQuestion() {
-    Option[] multipleAnswersQuestionNumericOptions = MultipleAnswersQuestionTest.getOptions(8);
-    Question question8 = new MultipleAnswersQuestion("maq question-3?", "3", multipleAnswersQuestionNumericOptions);
-    Question question7 = new MultipleAnswersQuestion("maq question-2?", "2 3", multipleAnswersQuestionNumericOptions);
-    Question question6 = new MultipleAnswersQuestion("maq question-1?", "1 2 3", multipleAnswersQuestionNumericOptions);
-    Question question5 = new MultipleAnswersQuestion("maq question-1?", "1 2 3", multipleAnswersQuestionNumericOptions);
+    Option[] multipleAnswersQuestionOptions = MultipleAnswersQuestionTest.getOptions(8);
+    Question question8 = new MultipleAnswersQuestion("maq question-3?", "3", multipleAnswersQuestionOptions);
+    Question question7 = new MultipleAnswersQuestion("maq question-2?", "2 3", multipleAnswersQuestionOptions);
+    Question question6 = new MultipleAnswersQuestion("maq question-1?", "1 2 3", multipleAnswersQuestionOptions);
+    Question question5 = new MultipleAnswersQuestion("maq question-1?", "1 2 3", multipleAnswersQuestionOptions);
 
-    Option[] multipleChoiceQuestionNumericOptions = MultipleChoiceQuestionTest.getOptions(8);
-    Question question4 = new MultipleChoiceQuestion("mcq question-3?", "3", multipleChoiceQuestionNumericOptions);
-    Question question3 = new MultipleChoiceQuestion("mcq question-2?", "2", multipleChoiceQuestionNumericOptions);
-    Question question2 = new MultipleChoiceQuestion("mcq question-2?", "2", multipleChoiceQuestionNumericOptions);
-    Question question1 = new MultipleChoiceQuestion("mcq question-1?", "1", multipleChoiceQuestionNumericOptions);
+    Option[] multipleChoiceQuestionOptions = MultipleChoiceQuestionTest.getOptions(8);
+    Question question4 = new MultipleChoiceQuestion("mcq question-3?", "3", multipleChoiceQuestionOptions);
+    Question question3 = new MultipleChoiceQuestion("mcq question-2?", "2", multipleChoiceQuestionOptions);
+    Question question2 = new MultipleChoiceQuestion("mcq question-2?", "2", multipleChoiceQuestionOptions);
+    Question question1 = new MultipleChoiceQuestion("mcq question-1?", "1", multipleChoiceQuestionOptions);
 
     Question[] questions = new Question[]{
             question8, question7, question6, question5,
@@ -124,11 +126,11 @@ public class MiscellaneousTest {
 
   @Test
   public void testSortLikertQuestionAndMultipleChoiceQuestion() {
-    Option[] multipleChoiceQuestionNumericOptions = MultipleChoiceQuestionTest.getOptions(8);
-    Question question8 = new MultipleChoiceQuestion("mcq question-3?", "3", multipleChoiceQuestionNumericOptions);
-    Question question7 = new MultipleChoiceQuestion("mcq question-2?", "2", multipleChoiceQuestionNumericOptions);
-    Question question6 = new MultipleChoiceQuestion("mcq question-2?", "2", multipleChoiceQuestionNumericOptions);
-    Question question5 = new MultipleChoiceQuestion("mcq question-1?", "1", multipleChoiceQuestionNumericOptions);
+    Option[] multipleChoiceQuestionOptions = MultipleChoiceQuestionTest.getOptions(8);
+    Question question8 = new MultipleChoiceQuestion("mcq question-3?", "3", multipleChoiceQuestionOptions);
+    Question question7 = new MultipleChoiceQuestion("mcq question-2?", "2", multipleChoiceQuestionOptions);
+    Question question6 = new MultipleChoiceQuestion("mcq question-2?", "2", multipleChoiceQuestionOptions);
+    Question question5 = new MultipleChoiceQuestion("mcq question-1?", "1", multipleChoiceQuestionOptions);
 
     Question question4 = new LikertQuestion("likert question-3?");
     Question question3 = new LikertQuestion("likert question-2?");
@@ -155,17 +157,17 @@ public class MiscellaneousTest {
 
   @Test
   public void sortQuestionsOfAllType() {
-    Option[] multipleAnswersQuestionNumericOptions = MultipleAnswersQuestionTest.getOptions(8);
-    Question question16 = new MultipleAnswersQuestion("maq question-3?", "3", multipleAnswersQuestionNumericOptions);
-    Question question15 = new MultipleAnswersQuestion("maq question-2?", "2 3", multipleAnswersQuestionNumericOptions);
-    Question question14 = new MultipleAnswersQuestion("maq question-1?", "1 2 3", multipleAnswersQuestionNumericOptions);
-    Question question13 = new MultipleAnswersQuestion("maq question-1?", "1 2 3", multipleAnswersQuestionNumericOptions);
+    Option[] multipleAnswersQuestionOptions = MultipleAnswersQuestionTest.getOptions(8);
+    Question question16 = new MultipleAnswersQuestion("maq question-3?", "3", multipleAnswersQuestionOptions);
+    Question question15 = new MultipleAnswersQuestion("maq question-2?", "2 3", multipleAnswersQuestionOptions);
+    Question question14 = new MultipleAnswersQuestion("maq question-1?", "1 2 3", multipleAnswersQuestionOptions);
+    Question question13 = new MultipleAnswersQuestion("maq question-1?", "1 2 3", multipleAnswersQuestionOptions);
 
-    Option[] multipleChoiceQuestionNumericOptions = MultipleChoiceQuestionTest.getOptions(8);
-    Question question12 = new MultipleChoiceQuestion("mcq question-3?", "3", multipleChoiceQuestionNumericOptions);
-    Question question11 = new MultipleChoiceQuestion("mcq question-2?", "2", multipleChoiceQuestionNumericOptions);
-    Question question10 = new MultipleChoiceQuestion("mcq question-2?", "2", multipleChoiceQuestionNumericOptions);
-    Question question9 = new MultipleChoiceQuestion("mcq question-1?", "1", multipleChoiceQuestionNumericOptions);
+    Option[] multipleChoiceQuestionOptions = MultipleChoiceQuestionTest.getOptions(8);
+    Question question12 = new MultipleChoiceQuestion("mcq question-3?", "3", multipleChoiceQuestionOptions);
+    Question question11 = new MultipleChoiceQuestion("mcq question-2?", "2", multipleChoiceQuestionOptions);
+    Question question10 = new MultipleChoiceQuestion("mcq question-2?", "2", multipleChoiceQuestionOptions);
+    Question question9 = new MultipleChoiceQuestion("mcq question-1?", "1", multipleChoiceQuestionOptions);
 
     Question question8 = new LikertQuestion("likert question-3?");
     Question question7 = new LikertQuestion("likert question-2?");

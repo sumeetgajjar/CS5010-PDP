@@ -266,6 +266,17 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
   }
 
   @Test
+  public void testMoreThanOneCorrectAnswer() {
+    try {
+      Option[] options = getOptions(5);
+      Question question = new MultipleChoiceQuestion("question-1?", "1 2", options);
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("cannot have more than 1 correct option", e.getMessage());
+    }
+  }
+
+  @Test
   public void testNullOptionInOptionsArray() {
     try {
       Option[] options = new Option[]{
