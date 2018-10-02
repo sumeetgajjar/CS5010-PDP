@@ -72,6 +72,8 @@ public class YesNoQuestionTest extends AbstractQuestionTest {
     Assert.assertEquals(Result.CORRECT.getResultString(), question1.evaluateAnswer(YesNoQuestionAnswer.YES.getAnswerString()));
     Assert.assertEquals(Result.INCORRECT.getResultString(), question1.evaluateAnswer(YesNoQuestionAnswer.NO.getAnswerString()));
 
+    Assert.assertEquals(Result.INCORRECT.getResultString(), question1.evaluateAnswer(null));
+
     Assert.assertNotEquals(Result.CORRECT.getResultString(), question1.evaluateAnswer("random"));
     Assert.assertEquals(Result.INCORRECT.getResultString(), question1.evaluateAnswer("random"));
 

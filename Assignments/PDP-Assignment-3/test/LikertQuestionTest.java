@@ -60,6 +60,8 @@ public class LikertQuestionTest extends AbstractQuestionTest {
     Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer("random"));
     Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer("0"));
     Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer("12"));
+    Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer("1 2"));
+    Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer(null));
     Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer("-1"));
   }
 

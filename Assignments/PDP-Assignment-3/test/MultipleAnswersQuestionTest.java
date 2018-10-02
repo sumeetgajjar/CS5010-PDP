@@ -106,6 +106,7 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
 
       String answer = "";
       Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer(answer));
+      Assert.assertEquals(Result.INCORRECT.getResultString(), question.evaluateAnswer(null));
 
       for (int j = 1; j < i; j++) {
         answer += j;

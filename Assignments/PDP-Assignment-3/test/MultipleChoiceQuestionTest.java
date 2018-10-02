@@ -189,6 +189,7 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
                 question1.evaluateAnswer(incorrectNumericChoice.getStringValue()));
       }
 
+      Assert.assertEquals(Result.INCORRECT.getResultString(), question1.evaluateAnswer(null));
       Assert.assertEquals(Result.INCORRECT.getResultString(), question1.evaluateAnswer(" "));
       Assert.assertEquals(Result.INCORRECT.getResultString(), question1.evaluateAnswer(" 1 2 3"));
       Assert.assertEquals(Result.INCORRECT.getResultString(), question1.evaluateAnswer("1 2 3"));
