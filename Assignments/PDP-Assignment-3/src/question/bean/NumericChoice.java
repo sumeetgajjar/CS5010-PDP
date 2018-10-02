@@ -1,7 +1,7 @@
 package question.bean;
 
 /**
- * This class represents the legal NumericChoices an Question can have.
+ * This class represents the legal NumericChoices an {@link question.Question}n can have.
  */
 public enum NumericChoice {
 
