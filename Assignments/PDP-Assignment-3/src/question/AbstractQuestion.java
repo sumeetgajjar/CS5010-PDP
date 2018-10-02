@@ -13,8 +13,8 @@ import util.Utils;
  * <p>To implement a {@link Question} the programmer needs to extend this class and provide
  * implementations for following methods.
  * <ul>
- * <li>eval</li>
- * <li>getRankForOrdering</li>
+ * <li>{@link AbstractQuestion#getResult(String)}</li>
+ * <li>{@link AbstractQuestion#getRankForOrdering()}</li>
  * </ul>
  *
  * <p>The programmer should also provide a constructor in the derived class whose signature matches
@@ -47,7 +47,7 @@ public abstract class AbstractQuestion implements Question {
    * @return the {@link Result} of the evaluation
    * @throws IllegalArgumentException if the given answer is illegal
    */
-  protected abstract Result eval(String answer) throws IllegalArgumentException;
+  protected abstract Result getResult(String answer) throws IllegalArgumentException;
 
   /**
    * Returns the rank for Ordering.
@@ -74,7 +74,7 @@ public abstract class AbstractQuestion implements Question {
     }
 
     try {
-      Result result = eval(answer);
+      Result result = getResult(answer);
       return result.getResultString();
     } catch (IllegalArgumentException e) {
       return Result.INCORRECT.getResultString();
@@ -82,17 +82,13 @@ public abstract class AbstractQuestion implements Question {
   }
 
   /**
-   * Compares the current {@link Question} with the given {@link Question}. If the given {@link
-   * Question} is an implementation of the {@link AbstractQuestion} then the ascending order for the
-   * implementations is as follows:  {@link YesNoQuestion}, {@link LikertQuestion}, {@link
-   * MultipleChoiceQuestion}, {@link MultipleAnswersQuestion}.
+   * Compares this {@link Question} with the given {@link Question}. The ascending order for the
+   * following implementations of {@link AbstractQuestion} is as follows:  {@link YesNoQuestion},
+   * {@link LikertQuestion}, {@link MultipleChoiceQuestion}, {@link MultipleAnswersQuestion}.
    *
    * <p>If this {@link Question} and the given {@link Question} belongs to  the same implementation
-   * type, then the comparison will be made on lexicographical (dictionary) order of their question
+   * type, then the comparison will be made on lexicographical (dictionary) order of the question
    * text.
-   *
-   * <p>If the given {@link Question} is not a subclass of {@link AbstractQuestion} then current
-   * {@link Question} is considered greater than the given {@link Question}.
    *
    * @param otherQuestion the Question to be compared with this Question
    * @return a negative integer, zero, or a positive integer as this object is less than, equal to,
@@ -100,27 +96,12 @@ public abstract class AbstractQuestion implements Question {
    */
   @Override
   public int compareTo(Question otherQuestion) {
-    if (otherQuestion instanceof AbstractQuestion) {
-      AbstractQuestion otherAbstractQuestion = (AbstractQuestion) otherQuestion;
-      int diff = this.getRankForOrdering() - otherAbstractQuestion.getRankForOrdering();
-      if (diff == 0) {
-        return this.text.compareTo(otherAbstractQuestion.text);
-      } else {
-        return diff;
-      }
-    }
-    return 1;
-  }
-
-  /**
-   * Checks if the given String is not null and not empty.
-   *
-   * @param text String to be checked
-   * @throws IllegalArgumentException if the given string is null or empty
-   */
-  protected void performSanityCheckForInput(String text) throws IllegalArgumentException {
-    if (Utils.isStringNotSet(text)) {
-      throw new IllegalArgumentException(String.format("Invalid question text: %s", text));
+    AbstractQuestion otherAbstractQuestion = (AbstractQuestion) otherQuestion;
+    int diff = this.getRankForOrdering() - otherAbstractQuestion.getRankForOrdering();
+    if (diff == 0) {
+      return this.text.compareTo(otherAbstractQuestion.text);
+    } else {
+      return diff;
     }
   }
 
@@ -131,7 +112,7 @@ public abstract class AbstractQuestion implements Question {
    * @return false by default, subclasses may override
    */
   protected boolean equalsYesNoQuestion(YesNoQuestion yesNoQuestion) {
-    return false;
+    return false; //by default "this" Question is not equal to a YesNoQuestion
   }
 
   /**
@@ -141,7 +122,7 @@ public abstract class AbstractQuestion implements Question {
    * @return false by default, subclasses may override
    */
   protected boolean equalsLikertQuestion(LikertQuestion likertQuestion) {
-    return false;
+    return false; //by default "this" Question is not equal to a LikertQuestion
   }
 
   /**
@@ -152,7 +133,7 @@ public abstract class AbstractQuestion implements Question {
    * @return false by default, subclasses may override
    */
   protected boolean equalsMultipleChoiceQuestion(MultipleChoiceQuestion multipleChoiceQuestion) {
-    return false;
+    return false; //by default "this" Question is not equal to a MultipleChoiceQuestion
   }
 
   /**
@@ -163,6 +144,18 @@ public abstract class AbstractQuestion implements Question {
    * @return false by default, subclasses may override
    */
   protected boolean equalsMultipleAnswersQuestion(MultipleAnswersQuestion multipleAnswersQuestion) {
-    return false;
+    return false; //by default "this" Question is not equal to a MultipleAnswersQuestion
+  }
+
+  /**
+   * Checks if the given String is not null and not empty.
+   *
+   * @param text String to be checked
+   * @throws IllegalArgumentException if the given string is null or empty
+   */
+  private void performSanityCheckForInput(String text) throws IllegalArgumentException {
+    if (Utils.isStringNotSet(text)) {
+      throw new IllegalArgumentException(String.format("Invalid question text: %s", text));
+    }
   }
 }

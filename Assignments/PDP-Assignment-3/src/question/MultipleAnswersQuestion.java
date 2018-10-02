@@ -32,7 +32,7 @@ public class MultipleAnswersQuestion extends AbstractQuestion {
   }
 
   @Override
-  protected Result eval(String answer) throws IllegalArgumentException {
+  protected Result getResult(String answer) throws IllegalArgumentException {
     NumericChoice[] givenNumericChoices = parseNumberChoices(answer);
     checkIfNumericChoicesContainsDuplicate(givenNumericChoices);
 

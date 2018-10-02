@@ -26,7 +26,7 @@ public class LikertQuestion extends AbstractQuestion {
   }
 
   @Override
-  protected Result eval(String answer) throws IllegalArgumentException {
+  protected Result getResult(String answer) throws IllegalArgumentException {
     try {
       int givenOptionNumber = Integer.parseInt(answer);
       return this.isOptionValid(givenOptionNumber) ? Result.CORRECT : Result.INCORRECT;

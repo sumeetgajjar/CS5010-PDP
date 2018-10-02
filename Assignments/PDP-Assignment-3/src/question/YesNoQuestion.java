@@ -22,7 +22,7 @@ public class YesNoQuestion extends AbstractQuestion {
   }
 
   @Override
-  protected Result eval(String answer) throws IllegalArgumentException {
+  protected Result getResult(String answer) throws IllegalArgumentException {
     YesNoQuestionAnswer givenAnswer = YesNoQuestionAnswer.getYesNoQuestionAnswer(answer);
     return this.correctAnswer.equals(givenAnswer) ? Result.CORRECT : Result.INCORRECT;
   }
