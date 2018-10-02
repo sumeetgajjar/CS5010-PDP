@@ -105,8 +105,8 @@ public class MiscellaneousTest {
     Question question1 = new MultipleChoiceQuestion("mcq question-1?", "1", multipleChoiceQuestionNumericOptions);
 
     Question[] questions = new Question[]{
-            question4, question3, question2, question1,
-            question8, question7, question6, question5
+            question8, question7, question6, question5,
+            question4, question3, question2, question1
     };
 
     Arrays.sort(questions);
