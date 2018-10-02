@@ -82,13 +82,17 @@ public abstract class AbstractQuestion implements Question {
   }
 
   /**
-   * Compares the current {@link Question} with the given {@link Question}. The ascending order for
-   * the implementations of {@link AbstractQuestion} is as follows:  {@link YesNoQuestion}, {@link
-   * LikertQuestion}, {@link MultipleChoiceQuestion}, {@link MultipleAnswersQuestion}.
+   * Compares the current {@link Question} with the given {@link Question}. If the given {@link
+   * Question} is an implementation of the {@link AbstractQuestion} then the ascending order for the
+   * implementations is as follows:  {@link YesNoQuestion}, {@link LikertQuestion}, {@link
+   * MultipleChoiceQuestion}, {@link MultipleAnswersQuestion}.
    *
    * <p>If this {@link Question} and the given {@link Question} belongs to  the same implementation
    * type, then the comparison will be made on lexicographical (dictionary) order of their question
    * text.
+   *
+   * <p>If the given {@link Question} is not a subclass of {@link AbstractQuestion} then current
+   * {@link Question} is considered greater than the given {@link Question}.
    *
    * @param otherQuestion the Question to be compared with this Question
    * @return a negative integer, zero, or a positive integer as this object is less than, equal to,
