@@ -104,24 +104,56 @@ public abstract class AbstractQuestion implements Question {
     return 1;
   }
 
+  /**
+   * Checks if the given String is not null and not empty.
+   *
+   * @param text String to be checked
+   * @throws IllegalArgumentException if the given string is null or empty
+   */
   protected void performSanityCheckForInput(String text) throws IllegalArgumentException {
     if (Utils.isStringNotSet(text)) {
       throw new IllegalArgumentException(String.format("Invalid question text: %s", text));
     }
   }
 
+  /**
+   * Determines whether this {@link Question} is equal to given {@link YesNoQuestion}.
+   *
+   * @param yesNoQuestion the YesNoQuestion object to which this Question must be compared
+   * @return false by default, subclasses may override
+   */
   protected boolean equalsYesNoQuestion(YesNoQuestion yesNoQuestion) {
     return false;
   }
 
+  /**
+   * Determines whether this {@link Question} is equal to given {@link LikertQuestion}.
+   *
+   * @param likertQuestion the LikertQuestion object to which this Question must be compared
+   * @return false by default, subclasses may override
+   */
   protected boolean equalsLikertQuestion(LikertQuestion likertQuestion) {
     return false;
   }
 
+  /**
+   * Determines whether this {@link Question} is equal to given {@link MultipleChoiceQuestion}.
+   *
+   * @param multipleChoiceQuestion the MultipleChoiceQuestion object to which this Question must be
+   *                               compared
+   * @return false by default, subclasses may override
+   */
   protected boolean equalsMultipleChoiceQuestion(MultipleChoiceQuestion multipleChoiceQuestion) {
     return false;
   }
 
+  /**
+   * Determines whether this {@link Question} is equal to given {@link MultipleAnswersQuestion}.
+   *
+   * @param multipleAnswersQuestion the MultipleAnswersQuestion object to which this Question must
+   *                                be compared
+   * @return false by default, subclasses may override
+   */
   protected boolean equalsMultipleAnswersQuestion(MultipleAnswersQuestion multipleAnswersQuestion) {
     return false;
   }
