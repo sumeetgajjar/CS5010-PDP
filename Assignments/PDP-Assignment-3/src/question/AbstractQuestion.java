@@ -92,7 +92,7 @@ public abstract class AbstractQuestion implements Question {
    *
    * @param otherQuestion the Question to be compared with this Question
    * @return a negative integer, zero, or a positive integer as this object is less than, equal to,
-   * or greater than the specified object
+   *         or greater than the specified object
    */
   @Override
   public int compareTo(Question otherQuestion) {
