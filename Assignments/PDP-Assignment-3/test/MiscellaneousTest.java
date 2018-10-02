@@ -13,20 +13,51 @@ import question.bean.YesNoQuestionAnswer;
 
 public class MiscellaneousTest {
 
-  //todo using equals to and hashcode
   @Test
   public void testYesNoQuestionAndLikertQuestionEquality() {
+    Question question1 = new YesNoQuestion("yes no question-1?", YesNoQuestionAnswer.NO);
+    Question question2 = new LikertQuestion("likert question-1?");
 
+    Assert.assertNotEquals(0, question1.compareTo(question2));
+    Assert.assertNotEquals(0, question2.compareTo(question1));
+
+    Assert.assertNotEquals(question1.hashCode(), question2.hashCode());
+
+    Assert.assertFalse(question1.equals(question2));
+    Assert.assertFalse(question2.equals(question1));
   }
 
   @Test
   public void testLikertQuestionAndMultipleChoiceQuestionEquality() {
+    Question question1 = new LikertQuestion("likert question-1?");
 
+    Option[] multipleChoiceQuestionNumericOptions = MultipleChoiceQuestionTest.getOptions(8);
+    Question question2 = new MultipleChoiceQuestion("mcq question-3?", "3", multipleChoiceQuestionNumericOptions);
+
+    Assert.assertNotEquals(0, question1.compareTo(question2));
+    Assert.assertNotEquals(0, question2.compareTo(question1));
+
+    Assert.assertNotEquals(question1.hashCode(), question2.hashCode());
+
+    Assert.assertFalse(question1.equals(question2));
+    Assert.assertFalse(question2.equals(question1));
   }
 
   @Test
   public void testMultipleChoiceQuestionAndMultipleAnswersQuestionEquality() {
+    Option[] multipleChoiceQuestionNumericOptions = MultipleChoiceQuestionTest.getOptions(8);
+    Question question1 = new MultipleChoiceQuestion("mcq question-3?", "3", multipleChoiceQuestionNumericOptions);
 
+    Option[] multipleAnswersQuestionNumericOptions = MultipleAnswersQuestionTest.getOptions(8);
+    Question question2 = new MultipleAnswersQuestion("maq question-3?", "3", multipleAnswersQuestionNumericOptions);
+
+    Assert.assertNotEquals(0, question1.compareTo(question2));
+    Assert.assertNotEquals(0, question2.compareTo(question1));
+
+    Assert.assertNotEquals(question1.hashCode(), question2.hashCode());
+
+    Assert.assertFalse(question1.equals(question2));
+    Assert.assertFalse(question2.equals(question1));
   }
 
   @Test
