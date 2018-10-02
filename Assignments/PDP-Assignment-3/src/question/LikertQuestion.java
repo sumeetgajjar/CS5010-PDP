@@ -6,15 +6,22 @@ import question.bean.LikertScale;
 import question.bean.Result;
 import util.Utils;
 
+/**
+ * This class represents a LikertQuestion. It extends {@link AbstractQuestion}. {@link
+ * LikertQuestion#evaluateAnswer(String)} will return "Correct" if the answer belongs to given
+ * list.
+ * <ul>
+ * <li>"Strongly Agree"</li>
+ * <li>"Agree"</li>
+ * <li>"Neither Agree nor Disagree"</li>
+ * <li>"Disagree"</li>
+ * <li>"Strongly Disagree"</li>
+ * </ul>
+ * If the answer does not belong to above list it will return "Incorrect".
+ */
 public class LikertQuestion extends AbstractQuestion {
 
-  private static final LikertScale[] VALID_OPTIONS = new LikertScale[]{
-          LikertScale.STRONGLY_AGREE,
-          LikertScale.AGREE,
-          LikertScale.NEITHER_AGREE_NOR_DISAGREE,
-          LikertScale.DISAGREE,
-          LikertScale.STRONGLY_DISAGREE
-  };
+  private static final LikertScale[] VALID_OPTIONS = LikertScale.values();
 
   public LikertQuestion(String text) throws IllegalArgumentException {
     super(text);

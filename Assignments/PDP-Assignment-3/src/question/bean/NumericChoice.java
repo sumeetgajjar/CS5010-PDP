@@ -52,7 +52,8 @@ public enum NumericChoice {
       }
     }
 
-    throw new IllegalArgumentException(String.format("Invalid NumericChoice value: %s", stringValue));
+    throw new IllegalArgumentException(
+            String.format("Invalid NumericChoice value: %s", stringValue));
   }
 
   /**

@@ -50,7 +50,8 @@ public abstract class AbstractQuestion implements Question {
   protected abstract Result getResult(String answer) throws IllegalArgumentException;
 
   /**
-   * Returns the rank for Ordering.
+   * Returns the rank for Ordering. The question with the least rank value will ranked 1st, the
+   * question 2nd least rank value will be ranked 2nd and so on and so forth.
    *
    * @return the rank for ordering
    */
@@ -87,12 +88,12 @@ public abstract class AbstractQuestion implements Question {
    * {@link LikertQuestion}, {@link MultipleChoiceQuestion}, {@link MultipleAnswersQuestion}.
    *
    * <p>If this {@link Question} and the given {@link Question} belongs to  the same implementation
-   * type, then the comparison will be made on lexicographical (dictionary) order of the question
-   * text.
+   * type, then the comparison will be made on lexicographical (dictionary) order of the entire
+   * question text. The case of the text question is also preserved while making the comparison.
    *
    * @param otherQuestion the Question to be compared with this Question
-   * @return a negative integer, zero, or a positive integer as this object is less than, equal to,
-   *         or greater than the specified object
+   * @return a negative number, zero or positive number as this object is less than, equal to, or
+   * greater than the specified object
    */
   @Override
   public int compareTo(Question otherQuestion) {

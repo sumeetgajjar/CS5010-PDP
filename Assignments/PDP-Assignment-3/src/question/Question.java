@@ -17,11 +17,12 @@ public interface Question extends Comparable<Question> {
   String getText();
 
   /**
-   * Returns the String "Correct" if the given answer is correct, else returns "Incorrect".
+   * Returns the String "Correct" if the given answer is correct, else returns "Incorrect". For all
+   * invalid answers it will return "Incorrect".
    *
    * @param answer answer for the given {@link Question}
    * @return the {@link String} "Correct" if given answer is correct, else return {@link String}
-   * "Incorrect"
+   * "Incorrect" for all incorrect and invalid answers
    */
   String evaluateAnswer(String answer);
 

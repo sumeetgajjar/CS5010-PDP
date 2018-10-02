@@ -6,10 +6,24 @@ import question.bean.Result;
 import question.bean.YesNoQuestionAnswer;
 import util.Utils;
 
+/**
+ * This question represents a Yes or No Question. It extends {@link AbstractQuestion}. The only
+ * valid answer to this question is a “Yes” or “No”, any other input is invalid. {@link
+ * YesNoQuestion#evaluateAnswer(String)} will return "Correct" if the given answer is equal to
+ * correct answer of this {@link YesNoQuestion}, else it will return "Incorrect" for all incorrect
+ * and invalid inputs.
+ */
 public class YesNoQuestion extends AbstractQuestion {
 
   private final YesNoQuestionAnswer correctAnswer;
 
+  /**
+   * Constructs a YesNoQuestion Object using the given question text and correctAnswer.
+   *
+   * @param text          the text of the question
+   * @param correctAnswer the correctAnswer of the question
+   * @throws IllegalArgumentException if the given correctAnswer is null
+   */
   public YesNoQuestion(String text, YesNoQuestionAnswer correctAnswer) throws IllegalArgumentException {
     super(text);
     this.performSanityCheckForInput(correctAnswer);
@@ -21,12 +35,26 @@ public class YesNoQuestion extends AbstractQuestion {
     return Utils.mapToStringArray(YesNoQuestionAnswer::getAnswerString, YesNoQuestionAnswer.values());
   }
 
+  /**
+   * Returns {@link Result#CORRECT} if the given answer is correct, else returns {@link
+   * Result#INCORRECT} for all incorrect and invalid answers.
+   *
+   * @param answer answer {@link String} to evaluate
+   * @return result of evaluation of the answer
+   * @throws IllegalArgumentException if the given answer is not "Yes" or "No"
+   */
   @Override
   protected Result getResult(String answer) throws IllegalArgumentException {
     YesNoQuestionAnswer givenAnswer = YesNoQuestionAnswer.getYesNoQuestionAnswer(answer);
     return this.correctAnswer.equals(givenAnswer) ? Result.CORRECT : Result.INCORRECT;
   }
 
+  /**
+   * Determines whether this {@link YesNoQuestion} is equal to given {@link YesNoQuestion}.
+   *
+   * @param yesNoQuestion the YesNoQuestion object to which this YesNoQuestion must be compared
+   * @return whether this {@link YesNoQuestion} is equal to given {@link YesNoQuestion}.
+   */
   @Override
   protected boolean equalsYesNoQuestion(YesNoQuestion yesNoQuestion) {
     return
@@ -34,6 +62,11 @@ public class YesNoQuestion extends AbstractQuestion {
                     this.correctAnswer.equals(yesNoQuestion.correctAnswer);
   }
 
+  /**
+   * Returns the rank of this {@link YesNoQuestion}
+   *
+   * @return the rank of this {@link YesNoQuestion}
+   */
   @Override
   protected int getRankForOrdering() {
     return 101;
@@ -48,11 +81,22 @@ public class YesNoQuestion extends AbstractQuestion {
     return false;
   }
 
+  /**
+   * Returns the hashCode which is generated based on the question text and correct answer.
+   *
+   * @return the hashCode which is generated based on the question text and correct answer
+   */
   @Override
   public int hashCode() {
     return Objects.hash(this.text, this.correctAnswer);
   }
 
+  /**
+   * Checks if the given {@link YesNoQuestionAnswer} is null.
+   *
+   * @param yesNoQuestionAnswer the {@link YesNoQuestionAnswer} object to check
+   * @throws IllegalArgumentException if the given {@link YesNoQuestionAnswer} is null
+   */
   private void performSanityCheckForInput(YesNoQuestionAnswer yesNoQuestionAnswer) throws IllegalArgumentException {
     if (Objects.isNull(yesNoQuestionAnswer)) {
       throw new IllegalArgumentException("correct answer cannot be null");
