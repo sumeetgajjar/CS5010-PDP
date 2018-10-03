@@ -92,9 +92,8 @@ public class MiscellaneousTest {
     Question question2 = new YesNoQuestion("yes no question-1?", YesNoQuestionAnswer.YES);
     Question question1 = new YesNoQuestion("yes no question-1?", YesNoQuestionAnswer.YES);
 
-    Question[] questions = new Question[]{
-    question8, question7, question6, question5,question4, question3, question2, question1
-    };
+    Question[] questions = new Question[]{question8, question7, question6, question5,question4,
+        question3, question2, question1};
 
     Arrays.sort(questions);
 
@@ -131,9 +130,8 @@ public class MiscellaneousTest {
     Question question1 = new MultipleChoiceQuestion("mcq question-1?", "1",
             multipleChoiceQuestionOptions);
 
-    Question[] questions = new Question[]{
-    question8, question7, question6, question5,question4, question3, question2, question1
-    };
+    Question[] questions = new Question[]{question8, question7, question6, question5,question4,
+        question3, question2, question1};
 
     Arrays.sort(questions);
 
@@ -165,9 +163,8 @@ public class MiscellaneousTest {
     Question question2 = new LikertQuestion("likert question-1?");
     Question question1 = new LikertQuestion("likert question-1?");
 
-    Question[] questions = new Question[]{
-    question8, question7, question6, question5,question4, question3, question2, question1,
-    };
+    Question[] questions = new Question[]{question8, question7, question6, question5,question4,
+        question3, question2, question1};
 
     Arrays.sort(questions);
 
@@ -214,9 +211,9 @@ public class MiscellaneousTest {
     Question question2 = new YesNoQuestion("yes no question-1?", YesNoQuestionAnswer.YES);
     Question question1 = new YesNoQuestion("yes no question-1?", YesNoQuestionAnswer.YES);
 
-    Question[] questions = new Question[]{
-    question16, question15, question14, question13,question12, question11, question10, question9,
-    question8, question7, question6, question5,question4, question3, question2, question1
+    Question[] questions = new Question[]{question16, question15, question14, question13,question12,
+        question11, question10, question9, question8, question7, question6, question5,question4,
+        question3, question2, question1
     };
 
     Arrays.sort(questions);

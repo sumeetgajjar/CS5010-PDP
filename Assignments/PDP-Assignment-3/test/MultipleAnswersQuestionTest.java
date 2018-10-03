@@ -383,8 +383,7 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
   public void testDuplicateOptionInOptionsArray() {
     try {
       Option[] options = new Option[]{new Option("option-1"), new Option("option-1"),
-      new Option("option-2")
-      };
+        new Option("option-2")};
 
       Question question = new MultipleAnswersQuestion("question-1?", "1 2",
               options);

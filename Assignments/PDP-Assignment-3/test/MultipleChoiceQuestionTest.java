@@ -294,12 +294,7 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
   @Test
   public void testNullOptionInOptionsArray() {
     try {
-      Option[] options = new Option[]{
-              new Option("option-1"),
-              null,
-              new Option("option-2")
-      };
-
+      Option[] options = new Option[]{new Option("option-1"),null,new Option("option-2")};
       Question question = new MultipleChoiceQuestion("question-1?", "1",
               options);
       Assert.fail("should have failed");
