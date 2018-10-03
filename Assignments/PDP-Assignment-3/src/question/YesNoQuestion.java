@@ -23,7 +23,8 @@ public class YesNoQuestion extends AbstractQuestion {
    *
    * @param text          the text of the question
    * @param correctAnswer the correctAnswer of the question
-   * @throws IllegalArgumentException if the given text or correctAnswer is null
+   * @throws IllegalArgumentException if the given text is null or empty, or if correctAnswer is
+   *         null
    */
   public YesNoQuestion(String text, YesNoQuestionAnswer correctAnswer)
           throws IllegalArgumentException {

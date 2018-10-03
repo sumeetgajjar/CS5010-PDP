@@ -29,7 +29,7 @@ public class LikertQuestion extends AbstractQuestion {
    * Constructs a LikerQuestion object with the given text.
    *
    * @param text the text of the question
-   * @throws IllegalArgumentException if the given text is null
+   * @throws IllegalArgumentException if the given text is null or empty
    */
   public LikertQuestion(String text) throws IllegalArgumentException {
     super(text);

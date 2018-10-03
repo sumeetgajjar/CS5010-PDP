@@ -10,9 +10,9 @@ import util.Utils;
 
 /**
  * This class represents a Multiple Answers Question. It extends {@link AbstractQuestion}. This
- * offers several options, and there are multiple correct answers. A {@link MultipleAnswersQuestion}
- * may have at least 3 options, but no more than 8. If this conditions are not satisfied it will
- * throw {@link IllegalArgumentException} while creating its object.
+ * question has offers several options, and there are multiple correct answers. A {@link
+ * MultipleAnswersQuestion} may have at least 3 options, but no more than 8. If this conditions are
+ * not satisfied it will throw {@link IllegalArgumentException} while creating its object.
  *
  * <p>Both the correct answer and the user’s answer are entered as the option numbers in a string.
  * For example, “1”, “1 3”, “4 1”, etc. Option numbers start at 1. An answer is correct if and only
@@ -46,8 +46,8 @@ public class MultipleAnswersQuestion extends AbstractQuestion {
    * @throws IllegalArgumentException if input params does not pass the Sanity tests. Sanity tests
    *                                  fall in following categories:
    *                                  <ul>
-   *                                  <li>Question text cannot be null or empty</li>
-   *                                  <li>correctOptionsString cannot be null or empty</li>
+   *                                  <li>Question text is be null or empty</li>
+   *                                  <li>correctOptionsString is be null or empty</li>
    *                                  <li>if correctOptionsString contains some invalid
    *                                  character</li>
    *                                  <li>Null is passed for Options or any option in the specified
@@ -151,8 +151,8 @@ public class MultipleAnswersQuestion extends AbstractQuestion {
   }
 
   /**
-   * Returns the hashCode for this {@link MultipleAnswersQuestion}. Hashcode is based on the
-   * question text, correct options and all options for this question.
+   * Returns the hashCode for this {@link MultipleAnswersQuestion}. Hashcode is generated based on
+   * the question text, correct options and all options for this question.
    *
    * @return the hashCode for this {@link MultipleAnswersQuestion}
    */

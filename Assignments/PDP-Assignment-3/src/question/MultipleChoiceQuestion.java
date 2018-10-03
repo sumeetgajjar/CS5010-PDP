@@ -30,8 +30,8 @@ public class MultipleChoiceQuestion extends MultipleAnswersQuestion {
    * @throws IllegalArgumentException if input params does not pass the Sanity tests. Sanity tests
    *                                  fall in following categories:
    *                                  <ul>
-   *                                  <li>Question text cannot be null or empty</li>
-   *                                  <li>correctOptionsString cannot be null or empty</li>
+   *                                  <li>Question text is null or empty</li>
+   *                                  <li>correctOptionsString is null or empty</li>
    *                                  <li>if correctOptionsString contains some invalid
    *                                  character</li>
    *                                  <li>Null is passed for Options or any option in the specified
@@ -103,10 +103,10 @@ public class MultipleChoiceQuestion extends MultipleAnswersQuestion {
   }
 
   /**
-   * Returns the hashCode for this {@link MultipleAnswersQuestion}. Hashcode is based on the
-   * question text, correct options and all options for this question.
+   * Returns the hashCode for this {@link MultipleChoiceQuestion}. Hashcode is generated based on
+   * the question text, correct options and all options for this question.
    *
-   * @return the hashCode for this {@link MultipleAnswersQuestion}
+   * @return the hashCode for this {@link MultipleChoiceQuestion}
    */
   @Override
   public int hashCode() {

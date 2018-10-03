@@ -89,7 +89,7 @@ public abstract class AbstractQuestion implements Question {
    *
    * <p>If this {@link Question} and the given {@link Question} belongs to  the same implementation
    * type, then the comparison will be made on lexicographical (dictionary) order of the entire
-   * question text. The case of the text question is also preserved while making the comparison.
+   * question text. The case of the question text is also considered while making the comparison.
    *
    * @param otherQuestion the Question to be compared with this Question
    * @return a negative number, zero or positive number as this object is less than, equal to, or
