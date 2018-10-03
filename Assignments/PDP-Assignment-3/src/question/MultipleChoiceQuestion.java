@@ -1,9 +1,11 @@
 package question;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import question.bean.NumericChoice;
 import question.bean.Option;
+import util.Utils;
 
 /**
  * This class represents a Multiple Choice Question. It extends {@link MultipleAnswersQuestion}.
@@ -93,6 +95,18 @@ public class MultipleChoiceQuestion extends MultipleAnswersQuestion {
             .equals(multipleChoiceQuestion.correctNumericChoices[0]);
   }
 
+  /**
+   * Determines whether this {@link MultipleChoiceQuestion} is equal to given {@link
+   * MultipleAnswersQuestion}.
+   *
+   * @param multipleAnswersQuestion the MultipleAnswersQuestion object to which this Question must
+   *                                be compared
+   */
+  @Override
+  protected boolean equalsMultipleAnswersQuestion(MultipleAnswersQuestion multipleAnswersQuestion) {
+    return false; //by default "this" Question is not equal to a MultipleAnswersQuestion
+  }
+
   @Override
   public boolean equals(Object other) {
     if (other instanceof AbstractQuestion) {
@@ -110,7 +124,15 @@ public class MultipleChoiceQuestion extends MultipleAnswersQuestion {
    */
   @Override
   public int hashCode() {
-    return super.hashCode();
+    /* adding String "MultipleChoiceQuestion"
+     * to reduce collisions with MultipleAnswersQuestion objects
+     */
+    Object[] mergedArray = Utils.mergeArray(
+            Utils.mergeArray(this.options, this.text), this.correctNumericChoices[0],
+            "MultipleChoiceQuestion"
+    );
+
+    return Objects.hash(mergedArray);
   }
 
   /**

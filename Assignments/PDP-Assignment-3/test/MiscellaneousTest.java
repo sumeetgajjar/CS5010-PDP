@@ -14,70 +14,41 @@ import question.bean.YesNoQuestionAnswer;
 public class MiscellaneousTest {
 
   @Test
-  public void testYesNoQuestionAndLikertQuestionInequality() {
-    Question question1 = new YesNoQuestion("yes no question-1?", YesNoQuestionAnswer.NO);
-    Question question2 = new LikertQuestion("likert question-1?");
+  public void testInequalityBetweenQuestionsOfVariousTypes() {
+    Question yesNoQuestion = new YesNoQuestion("Generic Question?", YesNoQuestionAnswer.NO);
 
-    Assert.assertNotEquals(0, question1.compareTo(question2));
-    Assert.assertNotEquals(0, question2.compareTo(question1));
-
-    Assert.assertNotEquals(question1.hashCode(), question2.hashCode());
-
-    Assert.assertFalse(question1.equals(question2));
-    Assert.assertFalse(question2.equals(question1));
-  }
-
-  @Test
-  public void testLikertQuestionAndMultipleChoiceQuestionInequality() {
-    Question question1 = new LikertQuestion("likert question-1?");
-
+    Question likertQuestion = new LikertQuestion("Generic Question?");
     Option[] multipleChoiceQuestionOptions = MultipleChoiceQuestionTest.getOptions(8);
-    Question question2 = new MultipleChoiceQuestion("mcq question-3?", "3",
-            multipleChoiceQuestionOptions);
 
-    Assert.assertNotEquals(0, question1.compareTo(question2));
-    Assert.assertNotEquals(0, question2.compareTo(question1));
+    Question multipleChoiceQuestion = new MultipleChoiceQuestion("Generic Question?", "3",
+            multipleChoiceQuestionOptions);Option[] multipleAnswersQuestionOptions = MultipleAnswersQuestionTest.getOptions(8);
 
-    Assert.assertNotEquals(question1.hashCode(), question2.hashCode());
-
-    Assert.assertFalse(question1.equals(question2));
-    Assert.assertFalse(question2.equals(question1));
-  }
-
-  @Test
-  public void testMultipleChoiceQuestionAndMultipleAnswersQuestionInequality() {
-    Option[] multipleChoiceQuestionOptions = MultipleChoiceQuestionTest.getOptions(8);
-    Question question1 = new MultipleChoiceQuestion("mcq question-3?", "3",
-            multipleChoiceQuestionOptions);
-
-    Option[] multipleAnswersQuestionOptions = MultipleAnswersQuestionTest.getOptions(8);
-    Question question2 = new MultipleAnswersQuestion("maq question-3?", "3",
+    Question multipleAnswersQuestion = new MultipleAnswersQuestion("Generic Question?", "3",
             multipleAnswersQuestionOptions);
 
-    Assert.assertNotEquals(0, question1.compareTo(question2));
-    Assert.assertNotEquals(0, question2.compareTo(question1));
 
-    Assert.assertNotEquals(question1.hashCode(), question2.hashCode());
+    Question[] questions = new Question[]{yesNoQuestion, likertQuestion, multipleChoiceQuestion,
+        multipleAnswersQuestion};
 
-    Assert.assertFalse(question1.equals(question2));
-    Assert.assertFalse(question2.equals(question1));
-  }
+    int numberOfComparisons = 0;
+    for (Question question1 : questions) {
+      for (Question question2 : questions) {
+        if(!question1.equals(question2)){
+          Assert.assertNotEquals(0, question1.compareTo(question2));
+          Assert.assertNotEquals(0, question2.compareTo(question1));
 
-  @Test
-  public void testYesNoQuestionAndMultipleAnswersQuestionInequality() {
-    Question question1 = new YesNoQuestion("yes no question-1?", YesNoQuestionAnswer.NO);
+          Assert.assertNotEquals(question1.hashCode(), question2.hashCode());
 
-    Option[] multipleAnswersQuestionOptions = MultipleAnswersQuestionTest.getOptions(8);
-    Question question2 = new MultipleAnswersQuestion("maq question-3?", "3",
-            multipleAnswersQuestionOptions);
+          Assert.assertFalse(question1.equals(question2));
+          Assert.assertFalse(question2.equals(question1));
 
-    Assert.assertNotEquals(0, question1.compareTo(question2));
-    Assert.assertNotEquals(0, question2.compareTo(question1));
+          numberOfComparisons++;
+        }
+      }
+    }
 
-    Assert.assertNotEquals(question1.hashCode(), question2.hashCode());
-
-    Assert.assertFalse(question1.equals(question2));
-    Assert.assertFalse(question2.equals(question1));
+    Assert.assertTrue("Test did not run successfully",
+            numberOfComparisons == questions.length*(questions.length-1));
   }
 
   @Test
