@@ -24,7 +24,8 @@ public enum YesNoQuestionAnswer {
   }
 
   /**
-   * Returns a {@link YesNoQuestionAnswer} associated with the given answerString.
+   * Returns a {@link YesNoQuestionAnswer} associated with the given answerString. The case of the
+   * given answerString is ignored while associating it with {@link YesNoQuestionAnswer}.
    *
    * @param answerString answerString of which {@link YesNoQuestionAnswer} is to be found
    * @return YesNoQuestionAnswer associated with the given string
@@ -34,7 +35,7 @@ public enum YesNoQuestionAnswer {
           throws IllegalArgumentException {
 
     for (YesNoQuestionAnswer yesNoQuestionAnswer : YesNoQuestionAnswer.values()) {
-      if (yesNoQuestionAnswer.getAnswerString().equals(answerString)) {
+      if (yesNoQuestionAnswer.getAnswerString().equalsIgnoreCase(answerString)) {
         return yesNoQuestionAnswer;
       }
     }

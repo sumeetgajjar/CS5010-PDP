@@ -10,6 +10,9 @@ import util.Utils;
  * This question represents a Yes or No Question. It extends {@link AbstractQuestion}. This question
  * can be answered in one of two ways: "Yes" or "No". The only valid answer to this type of question
  * is a “Yes” or “No”. If the given answer is not "Yes" or "No" it will considered as "Incorrect".
+ * While comparing the user given answer for this question with the correct answer of the question
+ * the case of the answer is ignored. E.g If the correct answer is "Yes" and the user calls {@link
+ * YesNoQuestion#evaluateAnswer(String)} with "yes", it will evaluated as "Correct".
  */
 public class YesNoQuestion extends AbstractQuestion {
 

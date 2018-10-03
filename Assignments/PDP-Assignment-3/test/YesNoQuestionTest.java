@@ -1,4 +1,5 @@
 import org.junit.Assert;
+import org.junit.Test;
 
 import java.util.Arrays;
 
@@ -64,6 +65,25 @@ public class YesNoQuestionTest extends AbstractQuestionTest {
       Assert.assertEquals("correct answer cannot be null", e.getMessage());
     }
     Assert.assertNull(question);
+  }
+
+  @Test
+  public void testCaseInsensitivityOfAnswers() {
+    Question question1 = getQuestionInstance();
+    Assert.assertEquals(Result.CORRECT.getResultString(), question1.evaluateAnswer("yes"));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question1.evaluateAnswer("Yes"));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question1.evaluateAnswer("yEs"));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question1.evaluateAnswer("yeS"));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question1.evaluateAnswer("YEs"));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question1.evaluateAnswer("yES"));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question1.evaluateAnswer("YeS"));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question1.evaluateAnswer("YES"));
+
+    Question question2 = new YesNoQuestion("Question-2?", YesNoQuestionAnswer.NO);
+    Assert.assertEquals(Result.CORRECT.getResultString(), question2.evaluateAnswer("no"));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question2.evaluateAnswer("No"));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question2.evaluateAnswer("nO"));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question2.evaluateAnswer("NO"));
   }
 
   @Override
