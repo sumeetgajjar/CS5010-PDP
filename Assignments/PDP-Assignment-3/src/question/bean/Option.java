@@ -5,9 +5,9 @@ import java.util.Objects;
 import util.Utils;
 
 /**
- * This class represents a container to store an answer choice for an question. It stores the text
- * of the choice and throws {@link IllegalArgumentException} if the given text for the choice is
- * null or empty.
+ * This class represents a container to store a option text for a question. It stores the text of
+ * the option and throws {@link IllegalArgumentException} if the given text for the option is null
+ * or empty.
  */
 public class Option {
 
@@ -16,7 +16,7 @@ public class Option {
   /**
    * Constructs a Option object with the given text.
    *
-   * @param text text for the Option choice
+   * @param text text for the Option
    * @throws IllegalArgumentException if text is null or empty
    */
   public Option(String text) throws IllegalArgumentException {
