@@ -127,7 +127,8 @@ public class MultipleAnswersQuestion extends AbstractQuestion {
   protected boolean equalsMultipleAnswersQuestion(MultipleAnswersQuestion multipleAnswersQuestion) {
     return this.text.equals(multipleAnswersQuestion.text)
             && Arrays.equals(this.options, multipleAnswersQuestion.options)
-            && Arrays.equals(this.correctNumericChoices, multipleAnswersQuestion.correctNumericChoices);
+            && Arrays.equals(
+            this.correctNumericChoices, multipleAnswersQuestion.correctNumericChoices);
   }
 
   @Override
@@ -200,6 +201,7 @@ public class MultipleAnswersQuestion extends AbstractQuestion {
    *                                  all Options</li>
    *                                  <li>If given correct Option is not present in all
    *                                  Options</li>
+   *                                  </ul>
    */
   private void performSanityCheckForInput(NumericChoice[] correctNumericChoices, Option[] options)
           throws IllegalArgumentException {
@@ -231,7 +233,9 @@ public class MultipleAnswersQuestion extends AbstractQuestion {
    * @param correctNumericChoices the numeric choice to check
    * @throws IllegalArgumentException if the given numeric choices contain duplicates
    */
-  private void checkIfNumericChoicesContainsDuplicate(NumericChoice[] correctNumericChoices) throws IllegalArgumentException {
+  private void checkIfNumericChoicesContainsDuplicate(NumericChoice[] correctNumericChoices)
+          throws IllegalArgumentException {
+
     if (Utils.checkForDuplicatesInArray(correctNumericChoices)) {
       throw new IllegalArgumentException("cannot contain duplicate choices");
     }
@@ -245,7 +249,9 @@ public class MultipleAnswersQuestion extends AbstractQuestion {
    * @throws IllegalArgumentException if the given numeric choice is not present in the given
    *                                  option
    */
-  private void checkIfCorrectChoicesAreNotPresentInOptions(NumericChoice[] correctNumericChoices, Option[] options) throws IllegalArgumentException {
+  private void checkIfCorrectChoicesAreNotPresentInOptions(
+          NumericChoice[] correctNumericChoices, Option[] options) throws IllegalArgumentException {
+
     for (NumericChoice correctNumericChoice : correctNumericChoices) {
       if (correctNumericChoice.getValue() > options.length) {
         throw new IllegalArgumentException(String.format(
@@ -263,7 +269,9 @@ public class MultipleAnswersQuestion extends AbstractQuestion {
    * @param options               the options to check
    * @throws IllegalArgumentException if there are more numeric choices than options
    */
-  private void checkIfCorrectChoicesAreGreaterThanOptions(NumericChoice[] correctNumericChoices, Option[] options) throws IllegalArgumentException {
+  private void checkIfCorrectChoicesAreGreaterThanOptions(
+          NumericChoice[] correctNumericChoices, Option[] options) throws IllegalArgumentException {
+
     if (correctNumericChoices.length > options.length) {
       throw new IllegalArgumentException("correct options cannot be greater than total options");
     }
@@ -293,7 +301,9 @@ public class MultipleAnswersQuestion extends AbstractQuestion {
    * @param options the option array to check
    * @throws IllegalArgumentException if the options size is less than the minimum threshold
    */
-  private void checkOptionsSizeIsLessThanMinimumThreshold(Option[] options) throws IllegalArgumentException {
+  private void checkOptionsSizeIsLessThanMinimumThreshold(Option[] options)
+          throws IllegalArgumentException {
+
     if (options.length < getMinimumOptionThreshold()) {
       throw new IllegalArgumentException(
               String.format("Question should have at least %d options, found: %d",
@@ -307,7 +317,9 @@ public class MultipleAnswersQuestion extends AbstractQuestion {
    * @param options the option array to check
    * @throws IllegalArgumentException if the options size is greater than the maximum threshold
    */
-  private void checkOptionsSizeIsGreaterThanMaximumThreshold(Option[] options) throws IllegalArgumentException {
+  private void checkOptionsSizeIsGreaterThanMaximumThreshold(Option[] options)
+          throws IllegalArgumentException {
+
     if (options.length > getMaximumOptionThreshold()) {
       throw new IllegalArgumentException(
               String.format("Question can have no more than %d options, found: %d",
