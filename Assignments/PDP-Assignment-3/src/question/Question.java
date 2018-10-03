@@ -22,7 +22,7 @@ public interface Question extends Comparable<Question> {
    *
    * @param answer answer for the given {@link Question}
    * @return the {@link String} "Correct" if given answer is correct, else return {@link String}
-   * "Incorrect" for all incorrect and invalid answers
+   *         "Incorrect" for all incorrect and invalid answers
    */
   String evaluateAnswer(String answer);
 

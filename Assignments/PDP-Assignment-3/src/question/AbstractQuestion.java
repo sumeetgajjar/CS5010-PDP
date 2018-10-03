@@ -44,7 +44,7 @@ public abstract class AbstractQuestion implements Question {
    * Returns the {@link Result} based on the evaluation of the answer.
    *
    * @param answer answer {@link String} to evaluate
-   * @return the {@link Result} of the evaluation
+   * @return the {@link Result} based on the evaluation of the answer
    * @throws IllegalArgumentException if the given answer is illegal
    */
   protected abstract Result getResult(String answer) throws IllegalArgumentException;
@@ -93,7 +93,7 @@ public abstract class AbstractQuestion implements Question {
    *
    * @param otherQuestion the Question to be compared with this Question
    * @return a negative number, zero or positive number as this object is less than, equal to, or
-   * greater than the specified object
+   *         greater than the specified object
    */
   @Override
   public int compareTo(Question otherQuestion) {

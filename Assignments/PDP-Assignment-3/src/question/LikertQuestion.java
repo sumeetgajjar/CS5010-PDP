@@ -7,22 +7,31 @@ import question.bean.Result;
 import util.Utils;
 
 /**
- * This class represents a LikertQuestion. It extends {@link AbstractQuestion}. {@link
- * LikertQuestion#evaluateAnswer(String)} will return "Correct" if the answer belongs to given
- * list.
+ * This class represents a LikertQuestion. It extends {@link AbstractQuestion}.
+ *
+ * This question can be answered on fixed, 5-point Likert scale (Strongly Agree, Agree, Neither
+ * Agree nor Disagree, Disagree, Strongly Disagree). An answer can be entered as one of the option
+ * numbers, numbered from 1 in the above order.
  * <ul>
- * <li>"Strongly Agree"</li>
- * <li>"Agree"</li>
- * <li>"Neither Agree nor Disagree"</li>
- * <li>"Disagree"</li>
- * <li>"Strongly Disagree"</li>
+ * <li>1 corresponds to "Strongly Agree"</li>
+ * <li>2 corresponds to "Agree"</li>
+ * <li>3 corresponds to "Neither Agree nor Disagree"</li>
+ * <li>4 corresponds to "Disagree"</li>
+ * <li>5 corresponds to "Strongly Disagree"</li>
  * </ul>
- * If the answer does not belong to above list it will return "Incorrect".
+ * Any valid option number is a “Correct” answer. If the given answer does not belong to the above
+ * list it will be considered as "Incorrect" answer.
  */
 public class LikertQuestion extends AbstractQuestion {
 
   private static final LikertScale[] VALID_OPTIONS = LikertScale.values();
 
+  /**
+   * Constructs a LikerQuestion object with the given text.
+   *
+   * @param text the text of the question
+   * @throws IllegalArgumentException if the given text is null
+   */
   public LikertQuestion(String text) throws IllegalArgumentException {
     super(text);
   }
@@ -32,8 +41,16 @@ public class LikertQuestion extends AbstractQuestion {
     return Utils.mapToStringArray(LikertScale::getLikertScaleString, VALID_OPTIONS);
   }
 
+  /**
+   * Checks if the given answer corresponds to an option from Likert Scale list. If the answer is
+   * invalid it will return {@link Result#INCORRECT}.
+   *
+   * @param answer answer {@link String} to evaluate
+   * @return {@link Result#CORRECT} if the given optionNumber corresponds to any option in Likert
+   *         Scale list, {@link Result#INCORRECT} otherwise
+   */
   @Override
-  protected Result getResult(String answer) throws IllegalArgumentException {
+  protected Result getResult(String answer) {
     try {
       int givenOptionNumber = Integer.parseInt(answer);
       return this.isOptionValid(givenOptionNumber) ? Result.CORRECT : Result.INCORRECT;
@@ -42,6 +59,12 @@ public class LikertQuestion extends AbstractQuestion {
     }
   }
 
+  /**
+   * Determines whether this {@link LikertQuestion} is equal to given {@link LikertQuestion}.
+   *
+   * @param likertQuestion the LikertQuestion object to which this LikertQuestion must be compared
+   * @return whether this {@link LikertQuestion} is equal to given {@link LikertQuestion}.
+   */
   @Override
   protected boolean equalsLikertQuestion(LikertQuestion likertQuestion) {
     return this.text.equals(likertQuestion.text);
@@ -56,16 +79,33 @@ public class LikertQuestion extends AbstractQuestion {
     return false;
   }
 
+  /**
+   * Returns the hashCode which is generated based on the question text and valid options.
+   *
+   * @return the hashCode which is generated based on the question text and valid options
+   */
   @Override
   public int hashCode() {
     return Objects.hash(Utils.merge(VALID_OPTIONS, this.text));
   }
 
+  /**
+   * Returns the rank of this {@link LikertQuestion}.
+   *
+   * @return the rank of this {@link LikertQuestion}
+   */
   @Override
   protected int getRankForOrdering() {
     return 201;
   }
 
+  /**
+   * Checks if the given optionNumber corresponds to any option in Likert Scale list.
+   *
+   * @param givenOptionNumber given option number
+   * @return true if the given optionNumber corresponds to any option in Likert Scale list, false
+   * otherwise
+   */
   private boolean isOptionValid(int givenOptionNumber) {
     return givenOptionNumber >= 1 && givenOptionNumber <= VALID_OPTIONS.length;
   }
