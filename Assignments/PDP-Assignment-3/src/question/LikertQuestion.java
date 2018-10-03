@@ -7,7 +7,7 @@ import question.bean.Result;
 import util.Utils;
 
 /**
- * This class represents a LikertQuestion. It extends {@link AbstractQuestion}.This question can be
+ * This class represents a LikertQuestion. It extends {@link AbstractQuestion}. This question can be
  * answered on fixed, 5-point Likert scale (Strongly Agree, Agree, Neither Agree nor Disagree,
  * Disagree, Strongly Disagree). An answer can be entered as one of the option numbers, numbered
  * from 1 in the above order.
