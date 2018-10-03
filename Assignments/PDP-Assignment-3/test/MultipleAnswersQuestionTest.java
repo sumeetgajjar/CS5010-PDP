@@ -18,6 +18,9 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
     return new MultipleAnswersQuestion("question-1?", "1 2 3", options);
   }
 
+  /**
+   * Test to check the whether the object is initialized with correct values.
+   */
   @Override
   public void testInitializationOfQuestionObject() {
     Question question = getQuestionInstance();
@@ -32,14 +35,6 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
     }
 
     Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer("1 2 3"));
-  }
-
-  @Test
-  public void testTrailingSpacesInCorrectOptionAndAnswer() {
-    Question question = new MultipleAnswersQuestion("question-1?", "1 2 3  ",
-            getOptions(3));
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer("1 2 3"));
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer("1 2 3  "));
   }
 
   @Override
@@ -383,7 +378,7 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
   public void testDuplicateOptionInOptionsArray() {
     try {
       Option[] options = new Option[]{new Option("option-1"), new Option("option-1"),
-        new Option("option-2")};
+              new Option("option-2")};
 
       Question question = new MultipleAnswersQuestion("question-1?", "1 2",
               options);
@@ -410,8 +405,17 @@ public class MultipleAnswersQuestionTest extends AbstractQuestionTest {
 
   }
 
+  @Test
+  public void testTrailingSpacesInCorrectOptionAndAnswer() {
+    Question question = new MultipleAnswersQuestion("question-1?", "1 2 3  ",
+            getOptions(3));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer("1 2 3"));
+    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer("1 2 3  "));
+  }
+
   /**
    * Returns a array of n Option.
+   *
    * @param n size of the array
    * @return a array of n Option
    */

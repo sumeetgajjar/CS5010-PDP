@@ -14,6 +14,9 @@ public class LikertQuestionTest extends AbstractQuestionTest {
     return new LikertQuestion("question-1?");
   }
 
+  /**
+   * Test to check the whether the object is initialized with correct values.
+   */
   @Override
   public void testInitializationOfQuestionObject() {
     Question question = getQuestionInstance();

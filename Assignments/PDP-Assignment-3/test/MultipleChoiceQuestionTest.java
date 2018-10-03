@@ -21,7 +21,7 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
   }
 
   /**
-   * Test to check the initialization of the Question Object.
+   * Test to check the whether the object is initialized with correct values.
    */
   @Override
   public void testInitializationOfQuestionObject() {
@@ -176,7 +176,7 @@ public class MultipleChoiceQuestionTest extends AbstractQuestionTest {
     Assert.assertEquals(-1, question2.compareTo(question1));
   }
 
-  @Test
+  @Override
   public void testCorrectAndIncorrectAnswer() {
     Option[] options = getOptions(8);
 
