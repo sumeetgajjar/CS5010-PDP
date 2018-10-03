@@ -50,12 +50,12 @@ public class Utils {
   }
 
   /**
-   * Returns true if the given array contains a element multiple times, false otherwise.
+   * Returns true if the given array contains an element multiple times, false otherwise.
    *
    * @param array array to be check
-   * @return true if the given array contains a element multiple times, false otherwise.
+   * @return true if the given array contains an element multiple times, false otherwise.
    */
-  public static <T> boolean checkForDuplicatesInArray(T[] array) {
+  public static <T> boolean containsDuplicateElementsInArray(T[] array) {
     for (int i = 0; i < array.length; i++) {
       for (int j = i + 1; j < array.length; j++) {
         if (array[i].equals(array[j])) {

@@ -222,7 +222,7 @@ public class MultipleAnswersQuestion extends AbstractQuestion {
    * @throws IllegalArgumentException if the given options contain duplicates
    */
   private void checkIfOptionsContainsDuplicate(Option[] options) throws IllegalArgumentException {
-    if (Utils.checkForDuplicatesInArray(options)) {
+    if (Utils.containsDuplicateElementsInArray(options)) {
       throw new IllegalArgumentException("cannot contain duplicate options");
     }
   }
@@ -236,7 +236,7 @@ public class MultipleAnswersQuestion extends AbstractQuestion {
   private void checkIfNumericChoicesContainsDuplicate(NumericChoice[] correctNumericChoices)
           throws IllegalArgumentException {
 
-    if (Utils.checkForDuplicatesInArray(correctNumericChoices)) {
+    if (Utils.containsDuplicateElementsInArray(correctNumericChoices)) {
       throw new IllegalArgumentException("cannot contain duplicate choices");
     }
   }
