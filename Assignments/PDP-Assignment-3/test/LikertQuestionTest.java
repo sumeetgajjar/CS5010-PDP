@@ -53,7 +53,8 @@ public class LikertQuestionTest extends AbstractQuestionTest {
   public void testCorrectAndIncorrectAnswer() {
     Question question = getQuestionInstance();
     for (int i = 1; i <= 5; i++) {
-      Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(String.valueOf(i)));
+      Assert.assertEquals(Result.CORRECT.getResultString(),
+              question.evaluateAnswer(String.valueOf(i)));
     }
 
     Assert.assertNotEquals(Result.CORRECT.getResultString(), question.evaluateAnswer("random"));
@@ -73,7 +74,8 @@ public class LikertQuestionTest extends AbstractQuestionTest {
     Question question4 = new LikertQuestion("Question-2?");
     Question question5 = new LikertQuestion("Question-1?");
 
-    Question[] questionArray = new Question[]{question1, question2, question3, question4, question5};
+    Question[] questionArray =
+            new Question[]{question1, question2, question3, question4, question5};
     Arrays.sort(questionArray);
 
     Assert.assertEquals(questionArray[0], question5);
