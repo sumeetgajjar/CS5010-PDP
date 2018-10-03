@@ -158,8 +158,8 @@ public class MultipleAnswersQuestion extends AbstractQuestion {
    */
   @Override
   public int hashCode() {
-    Object[] mergedArray = Utils.merge(
-            Utils.merge(this.options, this.text),
+    Object[] mergedArray = Utils.mergeArray(
+            Utils.mergeArray(this.options, this.text),
             (Object[]) this.correctNumericChoices
     );
 

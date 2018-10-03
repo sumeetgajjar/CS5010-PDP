@@ -35,7 +35,7 @@ public class Utils {
    * @param array2 second array
    * @return the merged array
    */
-  public static Object[] merge(Object[] array1, Object... array2) {
+  public static Object[] mergeArray(Object[] array1, Object... array2) {
     Object[] mergedArray = new Object[array1.length + array2.length];
     int i = 0;
     for (Object obj : array1) {

@@ -85,7 +85,7 @@ public class LikertQuestion extends AbstractQuestion {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(Utils.merge(VALID_OPTIONS, this.text));
+    return Objects.hash(Utils.mergeArray(VALID_OPTIONS, this.text));
   }
 
   /**
