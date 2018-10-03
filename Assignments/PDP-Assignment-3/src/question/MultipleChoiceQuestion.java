@@ -48,6 +48,11 @@ public class MultipleChoiceQuestion extends MultipleAnswersQuestion {
   }
 
   @Override
+  public int hashCode() {
+    return super.hashCode();
+  }
+
+  @Override
   protected int getRankForOrdering() {
     return 301;
   }
