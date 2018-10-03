@@ -67,7 +67,8 @@ public class Utils {
   }
 
   /**
-   * Applies the mapper function on all elements of the given array and returns the new array.
+   * Applies the mapper function on all elements of the given array to obtain the string value of
+   * object and returns them in a new array.
    *
    * @param mapper  mapper to be applied on each element of the given array
    * @param objects given array
