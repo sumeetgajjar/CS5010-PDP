@@ -26,7 +26,8 @@ public class YesNoQuestionTest extends AbstractQuestionTest {
     Assert.assertEquals(YesNoQuestionAnswer.YES.getAnswerString(), options[0]);
     Assert.assertEquals(YesNoQuestionAnswer.NO.getAnswerString(), options[1]);
 
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(YesNoQuestionAnswer.YES.getAnswerString()));
+    Assert.assertEquals(Result.CORRECT.getResultString(),
+            question.evaluateAnswer(YesNoQuestionAnswer.YES.getAnswerString()));
   }
 
   @Override
@@ -69,8 +70,11 @@ public class YesNoQuestionTest extends AbstractQuestionTest {
   public void testCorrectAndIncorrectAnswer() {
     Question question1 = new YesNoQuestion("question-1?", YesNoQuestionAnswer.YES);
     Assert.assertEquals("question-1?", question1.getText());
-    Assert.assertEquals(Result.CORRECT.getResultString(), question1.evaluateAnswer(YesNoQuestionAnswer.YES.getAnswerString()));
-    Assert.assertEquals(Result.INCORRECT.getResultString(), question1.evaluateAnswer(YesNoQuestionAnswer.NO.getAnswerString()));
+    Assert.assertEquals(Result.CORRECT.getResultString(),
+            question1.evaluateAnswer(YesNoQuestionAnswer.YES.getAnswerString()));
+
+    Assert.assertEquals(Result.INCORRECT.getResultString(),
+            question1.evaluateAnswer(YesNoQuestionAnswer.NO.getAnswerString()));
 
     Assert.assertEquals(Result.INCORRECT.getResultString(), question1.evaluateAnswer(null));
 
@@ -79,8 +83,12 @@ public class YesNoQuestionTest extends AbstractQuestionTest {
 
     Question question2 = new YesNoQuestion("question-2?", YesNoQuestionAnswer.NO);
     Assert.assertEquals("question-2?", question2.getText());
-    Assert.assertEquals(Result.CORRECT.getResultString(), question2.evaluateAnswer(YesNoQuestionAnswer.NO.getAnswerString()));
-    Assert.assertEquals(Result.INCORRECT.getResultString(), question2.evaluateAnswer(YesNoQuestionAnswer.YES.getAnswerString()));
+
+    Assert.assertEquals(Result.CORRECT.getResultString(),
+            question2.evaluateAnswer(YesNoQuestionAnswer.NO.getAnswerString()));
+
+    Assert.assertEquals(Result.INCORRECT.getResultString(),
+            question2.evaluateAnswer(YesNoQuestionAnswer.YES.getAnswerString()));
   }
 
   @Override
@@ -92,7 +100,8 @@ public class YesNoQuestionTest extends AbstractQuestionTest {
     Question question4 = new YesNoQuestion("Question-2?", YesNoQuestionAnswer.YES);
     Question question5 = new YesNoQuestion("Question-1?", YesNoQuestionAnswer.NO);
 
-    Question[] questionArray = new Question[]{question1, question2, question3, question4, question5};
+    Question[] questionArray =
+            new Question[]{question1, question2, question3, question4, question5};
     Arrays.sort(questionArray);
 
     Assert.assertEquals(questionArray[0], question5);
@@ -105,10 +114,17 @@ public class YesNoQuestionTest extends AbstractQuestionTest {
   @Override
   public void testOperationOnSameObjectMultipleTimes() {
     Question question = getQuestionInstance();
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(YesNoQuestionAnswer.YES.getAnswerString()));
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(YesNoQuestionAnswer.YES.getAnswerString()));
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(YesNoQuestionAnswer.YES.getAnswerString()));
-    Assert.assertEquals(Result.CORRECT.getResultString(), question.evaluateAnswer(YesNoQuestionAnswer.YES.getAnswerString()));
+    Assert.assertEquals(Result.CORRECT.getResultString(),
+            question.evaluateAnswer(YesNoQuestionAnswer.YES.getAnswerString()));
+
+    Assert.assertEquals(Result.CORRECT.getResultString(),
+            question.evaluateAnswer(YesNoQuestionAnswer.YES.getAnswerString()));
+
+    Assert.assertEquals(Result.CORRECT.getResultString(),
+            question.evaluateAnswer(YesNoQuestionAnswer.YES.getAnswerString()));
+
+    Assert.assertEquals(Result.CORRECT.getResultString(),
+            question.evaluateAnswer(YesNoQuestionAnswer.YES.getAnswerString()));
   }
 
   @Override
