@@ -18,11 +18,12 @@ public class MiscellaneousTest {
     Question yesNoQuestion = new YesNoQuestion("Generic Question?", YesNoQuestionAnswer.NO);
 
     Question likertQuestion = new LikertQuestion("Generic Question?");
+
     Option[] multipleChoiceQuestionOptions = MultipleChoiceQuestionTest.getOptions(8);
-
     Question multipleChoiceQuestion = new MultipleChoiceQuestion("Generic Question?", "3",
-            multipleChoiceQuestionOptions);Option[] multipleAnswersQuestionOptions = MultipleAnswersQuestionTest.getOptions(8);
+            multipleChoiceQuestionOptions);
 
+    Option[] multipleAnswersQuestionOptions = MultipleAnswersQuestionTest.getOptions(8);
     Question multipleAnswersQuestion = new MultipleAnswersQuestion("Generic Question?", "3",
             multipleAnswersQuestionOptions);
 
@@ -33,7 +34,7 @@ public class MiscellaneousTest {
     int numberOfComparisons = 0;
     for (Question question1 : questions) {
       for (Question question2 : questions) {
-        if(!question1.equals(question2)){
+        if (!question1.equals(question2)) {
           Assert.assertNotEquals(0, question1.compareTo(question2));
           Assert.assertNotEquals(0, question2.compareTo(question1));
 
@@ -48,7 +49,7 @@ public class MiscellaneousTest {
     }
 
     Assert.assertTrue("Test did not run successfully",
-            numberOfComparisons == questions.length*(questions.length-1));
+            numberOfComparisons == questions.length * (questions.length - 1));
   }
 
   @Test
