@@ -50,8 +50,8 @@ public abstract class AbstractQuestion implements Question {
   protected abstract Result getResult(String answer) throws IllegalArgumentException;
 
   /**
-   * Returns the rank for Ordering. The question with the least rank value will ranked 1st, the
-   * question 2nd least rank value will be ranked 2nd and so on and so forth.
+   * Returns the rank for Ordering. The question with the least rank value should ranked 1st, the
+   * question 2nd least rank value should be ranked 2nd and so on and so forth.
    *
    * @return the rank for ordering
    */
