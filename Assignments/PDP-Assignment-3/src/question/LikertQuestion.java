@@ -7,11 +7,10 @@ import question.bean.Result;
 import util.Utils;
 
 /**
- * This class represents a LikertQuestion. It extends {@link AbstractQuestion}.
- *
- * This question can be answered on fixed, 5-point Likert scale (Strongly Agree, Agree, Neither
- * Agree nor Disagree, Disagree, Strongly Disagree). An answer can be entered as one of the option
- * numbers, numbered from 1 in the above order.
+ * This class represents a LikertQuestion. It extends {@link AbstractQuestion}.This question can be
+ * answered on fixed, 5-point Likert scale (Strongly Agree, Agree, Neither Agree nor Disagree,
+ * Disagree, Strongly Disagree). An answer can be entered as one of the option numbers, numbered
+ * from 1 in the above order.
  * <ul>
  * <li>1 corresponds to "Strongly Agree"</li>
  * <li>2 corresponds to "Agree"</li>
@@ -104,7 +103,7 @@ public class LikertQuestion extends AbstractQuestion {
    *
    * @param givenOptionNumber given option number
    * @return true if the given optionNumber corresponds to any option in Likert Scale list, false
-   * otherwise
+   *         otherwise
    */
   private boolean isOptionValid(int givenOptionNumber) {
     return givenOptionNumber >= 1 && givenOptionNumber <= VALID_OPTIONS.length;
