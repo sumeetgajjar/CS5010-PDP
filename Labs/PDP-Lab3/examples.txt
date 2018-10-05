@@ -17,3 +17,9 @@ Fname7	Lname7	1	1	0.4	1		76	C+
 Fname8	Lname8	1	0.7	1	0.1		82	B-
 Fname9	Lname9	0.34	1	0.4	1		62.8	D-
 Fname10	Lname10	1	0.34	1	1		80.2	B-
+Clark 	Nair	1	1	0.9	1		96	A
+Clark 	Sharma	1	1	0.9	0.2756		88.756	B+
+Fname3	Lname11	0	0.4	1	0		52	F
+Fname3	Lname12	0.2345	0	1	0.2567		47.257	F
+Fname3	Lname13	0	0.67	1	0.234		62.44	D-
+Fname3	Lname14	0.4564	0.97	1	0.56		83.828	B

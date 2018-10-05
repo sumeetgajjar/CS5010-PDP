@@ -90,23 +90,25 @@ public class StubTest {
 
   @Test
   public void testAverageScoreForGivenFirstName() {
-    int count = 0;
-    double sum = 0D;
-    String fName = "Sumeet";
-    for (int i = 0; i < firstNames.size(); i++) {
-      if (fName.equals(firstNames.get(i))) {
-        sum += finalScores.get(i);
-        count++;
+    for (String fName : new String[]{"Ritika", "Amit", "Clark", "Fname3"}) {
+      int count = 0;
+      double sum = 0D;
+
+      for (int i = 0; i < firstNames.size(); i++) {
+        if (fName.equals(firstNames.get(i))) {
+          sum += finalScores.get(i);
+          count++;
+        }
       }
-    }
 
-    double expectedAvg = 0D;
-    if (count != 0) {
-      expectedAvg = sum / count;
-    }
+      double expectedAvg = 0D;
+      if (count != 0) {
+        expectedAvg = sum / count;
+      }
 
-    Assert.assertEquals(expectedAvg,
-            records.averageScoreForName("Sumeet", weights), 0.001D);
+      Assert.assertEquals(expectedAvg,
+              records.averageScoreForName(fName, weights), 0.001D);
+    }
   }
 
   @Test
@@ -300,5 +302,53 @@ public class StubTest {
           , "1"
           , "80.2"
           , "B-"
+          , "Clark"
+          , "Nair"
+          , "1"
+          , "1"
+          , "0.9"
+          , "1"
+          , "96"
+          , "A"
+          , "Clark"
+          , "Sharma"
+          , "1"
+          , "1"
+          , "0.9"
+          , "0.2756"
+          , "88.756"
+          , "B+"
+          , "Fname3"
+          , "Lname11"
+          , "0"
+          , "0.4"
+          , "1"
+          , "0"
+          , "52"
+          , "F"
+          , "Fname3"
+          , "Lname12"
+          , "0.2345"
+          , "0"
+          , "1"
+          , "0.2567"
+          , "47.257"
+          , "F"
+          , "Fname3"
+          , "Lname13"
+          , "0"
+          , "0.67"
+          , "1"
+          , "0.234"
+          , "62.44"
+          , "D-"
+          , "Fname3"
+          , "Lname14"
+          , "0.4564"
+          , "0.97"
+          , "1"
+          , "0.56"
+          , "83.828"
+          , "B"
   };
 }
