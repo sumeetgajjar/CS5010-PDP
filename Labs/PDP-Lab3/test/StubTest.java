@@ -153,6 +153,32 @@ public class StubTest {
     Assert.assertEquals(0, gradebook.countLetterGrade("A", weights));
   }
 
+  @Test
+  public void testStudentAddedWithCorrectInformation() {
+    String studentFirstName = "fName";
+    String studentLastName = "lName";
+    double[] points = {0.920833333333333D, 0.8D, 0.656410256410256D, 0.21818181818181D};
+
+    Gradebook gradebook = new Gradebook(letterGrades, thresholds);
+
+    Assert.assertEquals(0, gradebook.getFinalScores(weights).size());
+    Assert.assertEquals(0, gradebook.getStudentNames().size());
+    Assert.assertEquals(0D, gradebook.averageScoreForName(studentFirstName, weights), 0D);
+    Assert.assertEquals(0, gradebook.countAboveAverage(weights));
+    Assert.assertEquals(0, gradebook.countLetterGrade("C-", weights));
+
+    gradebook.addStudent(new StudentRecord(studentFirstName, studentLastName, points));
+
+    double actualFinalScore = gradebook.getFinalScores(weights).get(0) * 100;
+    double expectedFinalScore = 70.8548951048951D;
+    String expectedStudentName = String.format("%s %s", studentFirstName, studentLastName);
+
+    Assert.assertEquals(expectedFinalScore, actualFinalScore, 0.001D);
+    Assert.assertEquals(1, gradebook.getStudentNames().size());
+    Assert.assertEquals(expectedStudentName, gradebook.getStudentNames().get(0));
+    Assert.assertEquals(1, gradebook.countLetterGrade("C-", weights));
+  }
+
   // Data from the Excel file, to be used for testing
   String[] input = {"Amit"
           , "Shesh"
