@@ -42,7 +42,7 @@ public class Gradebook {
    */
   public List<Double> getFinalScores(List<Double> weights) {
     return this.gradebook.stream()
-            .map(s -> s.getGrade(weights))
+            .map(studentRecord -> studentRecord.getGrade(weights))
             .collect(Collectors.toList());
   }
 
@@ -56,7 +56,7 @@ public class Gradebook {
    */
   public int countLetterGrade(String grade, List<Double> weights) {
     return Math.toIntExact(this.gradebook.stream()
-            .map(s -> s.getGrade(weights))
+            .map(studentRecord -> studentRecord.getGrade(weights))
             .map(this::lettergrade)
             .filter(grade::equals)
             .count());
@@ -70,7 +70,7 @@ public class Gradebook {
    */
   public List<String> getStudentNames() {
     return this.gradebook.stream()
-            .map(s -> String.format("%s %s", s.getFirstName(), s.getLastName()))
+            .map(studentRecord -> String.format("%s %s", studentRecord.getFirstName(), studentRecord.getLastName()))
             .collect(Collectors.toList());
   }
 
@@ -84,7 +84,7 @@ public class Gradebook {
    */
   public Double averageScoreForName(String name, List<Double> weights) {
     return this.gradebook.stream()
-            .filter(s -> s.getFirstName().equals(name))
+            .filter(studentRecord -> studentRecord.getFirstName().equals(name))
             .mapToDouble(s -> s.getGrade(weights))
             .average().orElse(0D);
   }
@@ -98,11 +98,11 @@ public class Gradebook {
    */
   public long countAboveAverage(List<Double> weights) {
     double averageGrade = this.gradebook.stream()
-            .mapToDouble(s -> s.getGrade(weights))
+            .mapToDouble(studentRecord -> studentRecord.getGrade(weights))
             .average().orElse(0D);
 
     return this.gradebook.stream()
-            .filter(s -> s.getGrade(weights) > averageGrade)
+            .filter(studentRecord -> studentRecord.getGrade(weights) > averageGrade)
             .count();
   }
 
