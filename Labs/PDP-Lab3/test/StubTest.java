@@ -135,6 +135,10 @@ public class StubTest {
       Assert.assertEquals(expectedCount, actualCount);
     }
 
+  }
+
+  @Test
+  public void testInvalidLetterGrade() {
     Assert.assertEquals(0, records.countLetterGrade("Random", weights));
   }
 
