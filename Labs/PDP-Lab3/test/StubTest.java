@@ -1,11 +1,10 @@
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import java.util.List;
-
 
 import grades.Gradebook;
 import grades.StudentRecord;
@@ -27,11 +26,11 @@ public class StubTest {
   @Before
   public void setup() {
 
-    letters = Arrays.asList(new String[]{"F","D-","D","D+","C-","C","C+",
-            "B-","B","B+","A-","A"});
-    thresholds = Arrays.asList(new Double[]{60.0,63.0,66.0,70.0,73.0,76.0,
-            80.0,83.0,86.0,90.0,93.0,100.0});
-    records = new Gradebook(letters,thresholds);
+    letters = Arrays.asList(new String[]{"F", "D-", "D", "D+", "C-", "C", "C+",
+            "B-", "B", "B+", "A-", "A"});
+    thresholds = Arrays.asList(new Double[]{60.0, 63.0, 66.0, 70.0, 73.0, 76.0,
+            80.0, 83.0, 86.0, 90.0, 93.0, 100.0});
+    records = new Gradebook(letters, thresholds);
     finalScores = new ArrayList<Double>();
     letterGrades = new ArrayList<String>();
     firstNames = new ArrayList<String>();
@@ -46,7 +45,7 @@ public class StubTest {
       }
 
       finalScores.add(Double.parseDouble(input[i + 2 + NumAssignments]));
-      letterGrades.add(input[i + 2 + NumAssignments+1]);
+      letterGrades.add(input[i + 2 + NumAssignments + 1]);
       firstNames.add(fName);
       lastNames.add(lName);
 
@@ -70,8 +69,29 @@ public class StubTest {
     }
   }
 
+  @Test
+  public void testIndividualStudentNames() {
+    List<String> actualStudentNames = records.getStudentNames();
+
+    for (int i = 0; i < firstNames.size(); i++) {
+      String expectedStudentName = String.format("%s %s", firstNames.get(i), lastNames.get(i));
+      Assert.assertEquals(expectedStudentName, actualStudentNames.get(i));
+    }
+  }
+
+  @Test
+  public void testEmptyGradeBook() {
+    Gradebook gradebook = new Gradebook(letterGrades, thresholds);
+
+    Assert.assertEquals(0, gradebook.getFinalScores(weights).size());
+    Assert.assertEquals(0, gradebook.getStudentNames().size());
+    Assert.assertEquals(0D, gradebook.averageScoreForName("Sumeet", weights), 0D);
+    Assert.assertEquals(0, gradebook.countAboveAverage(weights));
+    Assert.assertEquals(0, gradebook.countLetterGrade("A", weights));
+  }
+
   // Data from the Excel file, to be used for testing
-  String []input = {"Amit"
+  String[] input = {"Amit"
           , "Shesh"
           , "0.920833333"
           , "0.8"
