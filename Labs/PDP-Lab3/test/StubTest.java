@@ -105,13 +105,17 @@ public class StubTest {
       expectedAvg = sum / count;
     }
 
-    Assert.assertEquals(expectedAvg, records.averageScoreForName("Sumeet", weights), 0.001D);
+    Assert.assertEquals(expectedAvg,
+            records.averageScoreForName("Sumeet", weights), 0.001D);
   }
 
   @Test
   public void testCountOfStudentsAboveAverage() {
-    Double expectedAverage = finalScores.stream().mapToDouble(score -> score).average().orElse(0D);
-    long expectedStudentsAboveAvg = finalScores.stream().filter(score -> score > expectedAverage).count();
+    Double expectedAverage = finalScores.stream()
+            .mapToDouble(score -> score).average().orElse(0D);
+
+    long expectedStudentsAboveAvg = finalScores.stream()
+            .filter(score -> score > expectedAverage).count();
     Assert.assertEquals(expectedStudentsAboveAvg, records.countAboveAverage(weights));
   }
 

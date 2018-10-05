@@ -70,7 +70,8 @@ public class Gradebook {
    */
   public List<String> getStudentNames() {
     return this.gradebook.stream()
-            .map(studentRecord -> String.format("%s %s", studentRecord.getFirstName(), studentRecord.getLastName()))
+            .map(studentRecord -> String.format("%s %s",
+                    studentRecord.getFirstName(), studentRecord.getLastName()))
             .collect(Collectors.toList());
   }
 
