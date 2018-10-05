@@ -114,6 +114,12 @@ public class Gradebook {
         return letterGrades.get(i);
       }
     }
+
+    int lastIndex = minThresholds.size() - 1;
+    if (Double.compare(score, minThresholds.get(lastIndex)) == 0) {
+      return letterGrades.get(lastIndex);
+    }
+
     return "";
   }
 }
