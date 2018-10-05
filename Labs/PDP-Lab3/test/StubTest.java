@@ -5,6 +5,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import grades.Gradebook;
 import grades.StudentRecord;
@@ -73,10 +76,60 @@ public class StubTest {
   public void testIndividualStudentNames() {
     List<String> actualStudentNames = records.getStudentNames();
 
-    for (int i = 0; i < firstNames.size(); i++) {
+    IntStream.range(0, firstNames.size()).forEach(i -> {
       String expectedStudentName = String.format("%s %s", firstNames.get(i), lastNames.get(i));
       Assert.assertEquals(expectedStudentName, actualStudentNames.get(i));
+    });
+  }
+
+  @Test
+  public void testAverageScoreForStudentNotFoundInGradeBook() {
+    Double actualAvg = records.averageScoreForName("Student who is not present", weights);
+    Assert.assertEquals(0D, actualAvg, 0D);
+  }
+
+  @Test
+  public void testAverageScoreForGivenFirstName() {
+    int count = 0;
+    double sum = 0D;
+    String fName = "Sumeet";
+    for (int i = 0; i < firstNames.size(); i++) {
+      if (fName.equals(firstNames.get(i))) {
+        sum += finalScores.get(i);
+        count++;
+      }
     }
+
+    double expectedAvg = 0D;
+    if (count != 0) {
+      expectedAvg = sum / count;
+    }
+
+    Assert.assertEquals(expectedAvg, records.averageScoreForName("Sumeet", weights), 0.001D);
+  }
+
+  @Test
+  public void testCountOfStudentsAboveAverage() {
+    Double expectedAverage = finalScores.stream().mapToDouble(score -> score).average().orElse(0D);
+    long expectedStudentsAboveAvg = finalScores.stream().filter(score -> score > expectedAverage).count();
+    Assert.assertEquals(expectedStudentsAboveAvg, records.countAboveAverage(weights));
+  }
+
+  @Test
+  public void testNumberOfStudentsWithGivenGrade() {
+    Map<String, Integer> expectedGradeCount = letterGrades.stream()
+            .collect(Collectors
+                    .toMap(gradeLetter -> gradeLetter,
+                            gradeLetter -> 1,
+                            (currentValue, newValue) -> currentValue + newValue));
+
+    for (String gradeLetter : letters) {
+      int expectedCount = expectedGradeCount.getOrDefault(gradeLetter, 0);
+      int actualCount = records.countLetterGrade(gradeLetter, weights);
+      Assert.assertEquals(expectedCount, actualCount);
+    }
+
+    Assert.assertEquals(0, records.countLetterGrade("Random", weights));
   }
 
   @Test
@@ -93,52 +146,155 @@ public class StubTest {
   // Data from the Excel file, to be used for testing
   String[] input = {"Amit"
           , "Shesh"
-          , "0.920833333"
+          , "0.920833333333333"
           , "0.8"
-          , "0.656410256"
-          , "0.218181818"
-          , "70.8548951"
+          , "0.656410256410256"
+          , "0.218181818181818"
+          , "70.8548951048951"
           , "C-"
           , "Clark"
           , "Freifeld"
           , "1"
-          , "0.888888889"
+          , "0.888888888888889"
           , "0.9"
-          , "0.987012987"
-          , "92.53679654"
+          , "0.987012987012987"
+          , "92.5367965367965"
           , "A-"
           , "Aniruddha"
           , "Tapas"
-          , "0.891666667"
-          , "0.566666667"
-          , "0.711111111"
-          , "0.566233766"
-          , "68.94011544"
+          , "0.891666666666667"
+          , "0.566666666666667"
+          , "0.711111111111111"
+          , "0.566233766233766"
+          , "68.9401154401155"
           , "D+"
           , "Aditya"
           , "Sathyanarayan"
-          , "0.783333333"
+          , "0.783333333333333"
           , "0.8"
-          , "0.333333333"
+          , "0.333333333333333"
           , "0"
           , "53"
           , "F"
           , "Ritika"
           , "Nair"
           , "1"
-          , "0.911111111"
-          , "0.955555556"
-          , "0.92987013"
-          , "94.85425685"
+          , "0.911111111111111"
+          , "0.955555555555556"
+          , "0.92987012987013"
+          , "94.8542568542569"
           , "A"
           , "Rohan"
           , "Chitnis"
-          , "0.933333333"
+          , "0.933333333333333"
           , "1"
-          , "0.977777778"
-          , "0.745454545"
-          , "95.23232323"
+          , "0.977777777777778"
+          , "0.745454545454546"
+          , "95.2323232323232"
           , "A"
+          , "Amit"
+          , "Freifeld"
+          , "1"
+          , "1"
+          , "1"
+          , "1"
+          , "100"
+          , "A"
+          , "Clark"
+          , "Shesh"
+          , "1"
+          , "1"
+          , "1"
+          , "1"
+          , "100"
+          , "A"
+          , "Bob"
+          , "Builder"
+          , "0"
+          , "0"
+          , "0"
+          , "0"
+          , "0"
+          , "F"
+          , "Fname1"
+          , "Lname1"
+          , "1"
+          , "0"
+          , "0"
+          , "0"
+          , "20"
+          , "F"
+          , "Fname2"
+          , "Lname2"
+          , "0"
+          , "1"
+          , "0"
+          , "0"
+          , "30"
+          , "F"
+          , "Fname3"
+          , "Lname3"
+          , "0"
+          , "0"
+          , "1"
+          , "0"
+          , "40"
+          , "F"
+          , "Fname4"
+          , "Lname4"
+          , "0"
+          , "0"
+          , "0"
+          , "1"
+          , "10"
+          , "F"
+          , "Fname5"
+          , "Lname5"
+          , "0.2"
+          , "1"
+          , "1"
+          , "1"
+          , "84"
+          , "B"
+          , "Fname6"
+          , "Lname6"
+          , "1"
+          , "0.4"
+          , "1"
+          , "1"
+          , "82"
+          , "B-"
+          , "Fname7"
+          , "Lname7"
+          , "1"
+          , "1"
+          , "0.4"
+          , "1"
+          , "76"
+          , "C+"
+          , "Fname8"
+          , "Lname8"
+          , "1"
+          , "0.7"
+          , "1"
+          , "0.1"
+          , "82"
+          , "B-"
+          , "Fname9"
+          , "Lname9"
+          , "0.34"
+          , "1"
+          , "0.4"
+          , "1"
+          , "62.8"
+          , "D-"
+          , "Fname10"
+          , "Lname10"
+          , "1"
+          , "0.34"
+          , "1"
+          , "1"
+          , "80.2"
+          , "B-"
   };
-
 }
