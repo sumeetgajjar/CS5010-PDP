@@ -148,7 +148,7 @@ public class StubTest {
   }
 
   // Data from the Excel file, to be used for testing
-  String []input = {"Amit"
+  String[] input = {"Amit"
           , "Shesh"
           , "0.920833333333333"
           , "0.8"
