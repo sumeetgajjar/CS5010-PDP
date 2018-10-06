@@ -137,6 +137,30 @@ public class PolynomialTest {
   public void testPolynomialStringWithInvalidLetters() {
     Polynomial polynomial = null;
     try {
+      polynomial = new PolynomialImpl("2xy^2 +10");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid polynomial string", e.getMessage());
+    }
+    Assert.assertNull(polynomial);
+
+    try {
+      polynomial = new PolynomialImpl("2x^a +10");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid polynomial string", e.getMessage());
+    }
+    Assert.assertNull(polynomial);
+
+    try {
+      polynomial = new PolynomialImpl("ax^2 +10");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid polynomial string", e.getMessage());
+    }
+    Assert.assertNull(polynomial);
+
+    try {
       polynomial = new PolynomialImpl("2x^2 +random");
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
@@ -261,6 +285,9 @@ public class PolynomialTest {
       Polynomial polynomial = new PolynomialImpl(polynomialStrings[i]);
       Assert.assertEquals(i, polynomial.getDegree());
     }
+
+    Assert.assertEquals(0, new PolynomialImpl().getDegree());
+    Assert.assertEquals(0, new PolynomialImpl("").getDegree());
   }
 
   @Test
@@ -313,6 +340,9 @@ public class PolynomialTest {
     Polynomial polynomial2 = new PolynomialImpl();
     Assert.assertEquals("0", polynomial1.add(polynomial2).toString());
     Assert.assertEquals("0", polynomial2.add(polynomial1).toString());
+
+    Assert.assertEquals("0", polynomial1.toString());
+    Assert.assertEquals("0", polynomial2.toString());
   }
 
   @Test
@@ -343,7 +373,8 @@ public class PolynomialTest {
     Assert.assertEquals("0", polynomial1.add(polynomial2).toString());
 
     Assert.assertEquals(polynomial1String, polynomial1.toString());
-    Assert.assertEquals(polynomialString2, polynomial2.toString());
+    Assert.assertEquals(4, polynomial1.getDegree());
+    Assert.assertEquals(4, polynomial2.getDegree());
   }
 
   @Test
@@ -592,6 +623,9 @@ public class PolynomialTest {
     Assert.assertEquals("-5x^5-4x^4+3x^3+2x^2+1x^1+10", polynomial.toString());
 
     polynomial.addTerm(6, 6);
+    Assert.assertEquals("6x^6-5x^5-4x^4+3x^3+2x^2+1x^1+10", polynomial.toString());
+
+    polynomial.addTerm(0, 0);
     Assert.assertEquals("6x^6-5x^5-4x^4+3x^3+2x^2+1x^1+10", polynomial.toString());
   }
 
