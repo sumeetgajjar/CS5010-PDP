@@ -74,6 +74,7 @@ public class PolynomialTest {
 
   @Test
   public void testPolynomialStringWithMissingCoefficient() {
+    //todo check the validity of this case on piazza
     Polynomial polynomial = null;
     try {
       polynomial = new PolynomialImpl("x^2");
