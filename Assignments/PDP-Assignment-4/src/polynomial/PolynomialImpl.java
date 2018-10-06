@@ -3,7 +3,7 @@ package polynomial;
 import java.util.Objects;
 import java.util.Scanner;
 
-import polynomial.parser.PolynomialTermParser;
+import polynomial.parser.SingleVariablePolynomialTermParser;
 import polynomial.util.list.ListADT;
 import polynomial.util.list.ListADTImpl;
 
@@ -35,7 +35,7 @@ public class PolynomialImpl implements Polynomial {
   private static final String TERMS_DELIMITER = " ";
 
   private final ListADT<Term> terms;
-  private final PolynomialTermParser polynomialTermParser = new PolynomialTermParser();
+  private final SingleVariablePolynomialTermParser polynomialTermParser = new SingleVariablePolynomialTermParser();
 
   //todo check for -0 only if tests fails
   public PolynomialImpl(String polynomialString) throws IllegalArgumentException {

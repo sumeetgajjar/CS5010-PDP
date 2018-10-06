@@ -53,7 +53,12 @@ public class ListADTImpl<T> implements ListADT<T> {
 
   @Override
   public <R> ListADT<R> map(Function<T, R> mapper) {
-    return new ListADTImpl(head.map(mapper));
+    return new ListADTImpl<>(head.map(mapper));
+  }
+
+  @Override
+  public void insertInSortedOrder(T data) {
+
   }
 
   @Override

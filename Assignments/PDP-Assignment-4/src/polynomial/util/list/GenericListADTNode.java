@@ -62,7 +62,7 @@ public interface GenericListADTNode<T> {
    * each data item of type T converted into R using the provided mapper method.
    *
    * @param mapper the function needed to convert T into R
-   * @param <R>       the type of the data in the returned list
+   * @param <R>    the type of the data in the returned list
    * @return the head of a list that is structurally identical to this list, but contains data of
    * type R
    */

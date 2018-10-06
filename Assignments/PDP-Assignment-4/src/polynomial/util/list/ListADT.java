@@ -27,7 +27,7 @@ public interface ListADT<T> {
    * Add an object to this list so that it occupies the provided index. Index begins with 0
    *
    * @param index the index to be occupied by this object, beginning at 0
-   * @param data     the object to be added to the list
+   * @param data  the object to be added to the list
    */
   void add(int index, T data);
 
@@ -59,8 +59,10 @@ public interface ListADT<T> {
    * of type R.
    *
    * @param mapper the function that converts T into R
-   * @param <R>       the type of data in the resulting list
+   * @param <R>    the type of data in the resulting list
    * @return the resulting list that is identical in structure to this list, but has data of type R
    */
   <R> ListADT<R> map(Function<T, R> mapper);
+
+  void insertInSortedOrder(T data);
 }
