@@ -6,7 +6,7 @@ package polynomial;
 public interface Polynomial {
 
   /**
-   * It takes a coefficient and a power and adds the resulting term to the polynomial. Both the
+   * It takes a coefficient and a power and adds the resulting term to this polynomial. Both the
    * coefficient and the power should be whole numbers. The power has to be a positive whole number.
    * It throws an IllegalArgumentException if the term is invalid.
    *
