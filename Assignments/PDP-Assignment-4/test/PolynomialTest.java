@@ -61,10 +61,22 @@ public class PolynomialTest {
   }
 
   @Test
+  public void testPolynomialStringWithNegativePower() {
+    Polynomial polynomial = null;
+    try {
+      polynomial = new PolynomialImpl("2x^-2");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid polynomial string", e.getMessage());
+    }
+    Assert.assertNull(polynomial);
+  }
+
+  @Test
   public void testPolynomialStringWithMissingCoefficient() {
     Polynomial polynomial = null;
     try {
-      polynomial = new PolynomialImpl("x^-2");
+      polynomial = new PolynomialImpl("x^2");
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
       Assert.assertEquals("Invalid polynomial string", e.getMessage());
@@ -88,7 +100,7 @@ public class PolynomialTest {
   public void testPolynomialStringWithInvalidLetters() {
     Polynomial polynomial = null;
     try {
-      polynomial = new PolynomialImpl("2x^-2 +random");
+      polynomial = new PolynomialImpl("2x^2 +random");
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
       Assert.assertEquals("Invalid polynomial string", e.getMessage());
@@ -96,7 +108,7 @@ public class PolynomialTest {
     Assert.assertNull(polynomial);
 
     try {
-      polynomial = new PolynomialImpl("2x^-2 +2y^2");
+      polynomial = new PolynomialImpl("2x^2 +2y^2");
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
       Assert.assertEquals("Invalid polynomial string", e.getMessage());
@@ -117,7 +129,7 @@ public class PolynomialTest {
     //todo check the validity of this case on piazza
     Polynomial polynomial = null;
     try {
-      polynomial = new PolynomialImpl("2x^-2 +2x^-2");
+      polynomial = new PolynomialImpl("2x^2 +2x^2");
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
       Assert.assertEquals("Invalid polynomial string", e.getMessage());
