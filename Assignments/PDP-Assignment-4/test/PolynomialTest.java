@@ -243,6 +243,41 @@ public class PolynomialTest {
   }
 
   @Test
+  public void testEvaluatingZeroPolynomial() {
+    Polynomial polynomial = new PolynomialImpl("");
+    Assert.assertEquals(0D, polynomial.evaluate(0D), 0D);
+    Assert.assertEquals(0D, polynomial.evaluate(100D), 0D);
+    Assert.assertEquals(0D, polynomial.evaluate(-100D), 0D);
+  }
+
+  @Test
+  public void testEvaluatingPolynomialWithPositiveX() {
+    Polynomial polynomial = new PolynomialImpl("+1 +2x^2 -3x^3");
+    Assert.assertEquals("-3x^3+2x^2+1", polynomial.toString());
+
+    Assert.assertEquals(1D, polynomial.evaluate(0D), 0D);
+    Assert.assertEquals(0D, polynomial.evaluate(1D), 0D);
+    Assert.assertEquals(6D, polynomial.evaluate(-1D), 0D);
+
+    Assert.assertEquals(-2799D, polynomial.evaluate(10D), 0D);
+    Assert.assertEquals(3201D, polynomial.evaluate(-10D), 0D);
+
+    try {
+      polynomial.evaluate(Double.MAX_VALUE);
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("overflow occurred while evaluating polynomial", e.getMessage());
+    }
+
+    try {
+      polynomial.evaluate(Double.MIN_VALUE);
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("overflow occurred while evaluating polynomial", e.getMessage());
+    }
+  }
+
+  @Test
   public void testAddingTermToPolynomial() {
     Polynomial polynomial = new PolynomialImpl();
     Assert.assertEquals("0", polynomial.toString());
