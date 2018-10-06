@@ -3,6 +3,18 @@ package polynomial;
 /**
  * Created by gajjar.s,on 8:05 PM, 10/5/18
  */
+
+/**
+ * This class represents a Polynomial. It implements {@link Polynomial} interface.
+ *
+ * "" is a valid string
+ * -ve powers are not allowed
+ *  missing powers are not allowed
+ *  missing coefficient are not allowed
+ *  missing term are not allowed
+ *  repetition not allowed
+ *  invalid letters not allowed
+ */
 public class PolynomialImpl implements Polynomial {
 
   public PolynomialImpl(String polynomialString) throws IllegalArgumentException {
