@@ -421,9 +421,16 @@ public class PolynomialTest {
     String polynomialString = "0";
     Assert.assertEquals(polynomialString, polynomial.toString());
 
-    Polynomial derivative = polynomial.derivative();
-    Assert.assertEquals("0", derivative.toString());
+    Polynomial derivative1 = polynomial.derivative();
+    Assert.assertEquals("0", derivative1.toString());
+    Assert.assertEquals(polynomialString, polynomial.toString());
 
+    Polynomial derivative2 = polynomial.derivative();
+    Assert.assertEquals("0", derivative2.toString());
+    Assert.assertEquals(polynomialString, polynomial.toString());
+
+    Polynomial derivative3 = polynomial.derivative();
+    Assert.assertEquals("0", derivative3.toString());
     Assert.assertEquals(polynomialString, polynomial.toString());
   }
 
@@ -433,9 +440,12 @@ public class PolynomialTest {
     String polynomialString = "10";
     Assert.assertEquals(polynomialString, polynomial.toString());
 
-    Polynomial derivative = polynomial.derivative();
-    Assert.assertEquals("0", derivative.toString());
+    Polynomial derivative1 = polynomial.derivative();
+    Assert.assertEquals("0", derivative1.toString());
+    Assert.assertEquals(polynomialString, polynomial.toString());
 
+    Polynomial derivative2 = polynomial.derivative();
+    Assert.assertEquals("0", derivative2.toString());
     Assert.assertEquals(polynomialString, polynomial.toString());
   }
 
