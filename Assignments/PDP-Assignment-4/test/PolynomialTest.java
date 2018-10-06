@@ -3,6 +3,7 @@ import org.junit.Test;
 
 import polynomial.Polynomial;
 import polynomial.PolynomialImpl;
+import util.Utils;
 
 /**
  * Created by gajjar.s,on 5:46 PM, 10/5/18
@@ -158,6 +159,7 @@ public class PolynomialTest {
   @Test
   public void testEmptyPolynomialString() {
     Assert.assertEquals("0", new PolynomialImpl("").toString());
+    Assert.assertEquals("0", new PolynomialImpl("0").toString());
   }
 
   @Test
@@ -193,7 +195,7 @@ public class PolynomialTest {
             new PolynomialImpl("4x^4 +10 +2x^2 +2x^1 +3x^3").toString());
 
     Assert.assertEquals("-4x^4-3x^3-2x^2-2x^1-10",
-            new PolynomialImpl("-2x^1 -4x^4-10 -2x^2 -3x^3").toString());
+            new PolynomialImpl("-2x^1 -4x^4 -10 -2x^2 -3x^3").toString());
   }
 
   @Test
@@ -202,6 +204,39 @@ public class PolynomialTest {
             new PolynomialImpl("4x^4 +10 +2x^2 +2x^1 +3x^3 +5x^5").toString());
 
     Assert.assertEquals("-5x^5-4x^4-3x^3-2x^2-2x^1-10",
-            new PolynomialImpl("-2x^1 -4x^4-10 -2x^2 -3x^3 -5x^5").toString());
+            new PolynomialImpl("-2x^1 -4x^4 -10 -2x^2 -3x^3 -5x^5").toString());
+  }
+
+  @Test
+  public void testGetDegreeOfPolynomial() {
+    String[] polynomialStrings = Utils.getArray(
+            "0",
+            "2x^1",
+            "2x^2 +2x^1",
+            "2x^2 -4x^3 +2x^1",
+            "-6x^4 +2x^2 -4x^3 +2x^1");
+
+    for (int i = 0; i < polynomialStrings.length; i++) {
+      Polynomial polynomial = new PolynomialImpl(polynomialStrings[i]);
+      Assert.assertEquals(i, polynomial.getDegree());
+    }
+  }
+
+  @Test
+  public void testGetCoefficientOfPolynomial() {
+    Polynomial polynomial = new PolynomialImpl("-2x^1 -10 -4x^4 -10 -6x^2 -3x^3 -5x^5");
+    Assert.assertEquals(-10, polynomial.getCoefficient(0));
+    Assert.assertEquals(-2, polynomial.getCoefficient(1));
+    Assert.assertEquals(-6, polynomial.getCoefficient(2));
+    Assert.assertEquals(-3, polynomial.getCoefficient(3));
+    Assert.assertEquals(-4, polynomial.getCoefficient(4));
+    Assert.assertEquals(-5, polynomial.getCoefficient(5));
+
+    Assert.assertEquals(5, polynomial.getDegree());
+
+    Assert.assertEquals(0, polynomial.getCoefficient(6));
+    Assert.assertEquals(0, polynomial.getCoefficient(100000000));
+    Assert.assertEquals(0, polynomial.getCoefficient(-1));
+    Assert.assertEquals(0, polynomial.getCoefficient(-100000000));
   }
 }
