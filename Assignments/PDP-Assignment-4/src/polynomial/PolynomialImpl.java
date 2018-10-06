@@ -7,9 +7,25 @@ package polynomial;
 /**
  * This class represents a Polynomial. It implements {@link Polynomial} interface.
  *
- * "" is a valid string -ve powers are not allowed missing powers are not allowed missing
- * coefficient are not allowed missing term are not allowed repetition of same power terms allowed
+ * "" is a valid string
+ *
+ * -ve powers are not allowed
+ *
+ * missing powers are not allowed
+ *
+ * missing coefficient are not allowed
+ *
+ * missing term are not allowed
+ *
+ * repetition of same power terms allowed
+ *
  * invalid letters not allowed
+ *
+ * no extra spaces are allowed in between
+ *
+ * no leading and trailing spaces are allowed
+ *
+ * evaluation can cause overflow
  */
 public class PolynomialImpl implements Polynomial {
 
@@ -59,4 +75,6 @@ public class PolynomialImpl implements Polynomial {
   public String toString() {
     return super.toString();
   }
+
+  //todo check if hashcode can be implemented
 }

@@ -75,10 +75,45 @@ public class PolynomialTest {
 
   @Test
   public void testPolynomialStringWithMissingCoefficient() {
-    //todo check the validity of this case on piazza
     Polynomial polynomial = null;
     try {
       polynomial = new PolynomialImpl("x^2");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid polynomial string", e.getMessage());
+    }
+    Assert.assertNull(polynomial);
+  }
+
+  @Test
+  public void testPolynomialStringWithExtraSpaces() {
+    Polynomial polynomial = null;
+    try {
+      polynomial = new PolynomialImpl("     ");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid polynomial string", e.getMessage());
+    }
+    Assert.assertNull(polynomial);
+
+    try {
+      polynomial = new PolynomialImpl("2x^2    3x^3");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid polynomial string", e.getMessage());
+    }
+    Assert.assertNull(polynomial);
+
+    try {
+      polynomial = new PolynomialImpl("2x^2 3x^3    ");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid polynomial string", e.getMessage());
+    }
+    Assert.assertNull(polynomial);
+
+    try {
+      polynomial = new PolynomialImpl("   2x^2 3x^3");
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
       Assert.assertEquals("Invalid polynomial string", e.getMessage());
@@ -154,6 +189,12 @@ public class PolynomialTest {
   public void testSamePowerTermsInPolynomialString() {
     Assert.assertEquals("6x^2-10", new PolynomialImpl("2x^2 -10 +4x^2").toString());
     Assert.assertEquals("-6x^2+10", new PolynomialImpl("-2x^2 +10 -4x^2").toString());
+  }
+
+  @Test
+  public void testPolynomialStringStartingWithSign() {
+    Assert.assertEquals("4x^2-10", new PolynomialImpl("+2x^2 -10").toString());
+    Assert.assertEquals("-4x^2+10", new PolynomialImpl("-2x^2 +10").toString());
   }
 
   @Test
@@ -240,6 +281,50 @@ public class PolynomialTest {
     Assert.assertEquals(0, polynomial.getCoefficient(100000000));
     Assert.assertEquals(0, polynomial.getCoefficient(-1));
     Assert.assertEquals(0, polynomial.getCoefficient(-100000000));
+  }
+
+  @Test
+  public void testPolynomialEquality() {
+    Polynomial polynomial1 = new PolynomialImpl("1 +2x^2 -1x^1 -3x^3 +4x^4");
+    Assert.assertEquals("4x^4-3x^3+2x^2+1", polynomial1.toString());
+
+    Polynomial polynomial2 = new PolynomialImpl("-1x^1 +1 +2x^2 +4x^4 -3x^3 ");
+    Assert.assertEquals("4x^4-3x^3+2x^2+1", polynomial2.toString());
+
+    Polynomial polynomial3 = new PolynomialImpl("+2x^2 -1x^1 +1 +4x^4 -3x^3 ");
+    Assert.assertEquals("4x^4-3x^3+2x^2+1", polynomial3.toString());
+
+    //Reflexivity
+    Assert.assertEquals(polynomial1, polynomial1);
+
+    //Associativity
+    Assert.assertEquals(polynomial1, polynomial2);
+    Assert.assertEquals(polynomial2, polynomial1);
+
+    //Transitivity
+    Assert.assertEquals(polynomial1, polynomial2);
+    Assert.assertEquals(polynomial2, polynomial3);
+    Assert.assertTrue(polynomial1.equals(polynomial3));
+  }
+
+  @Test
+  public void testAddingZeroPolynomials() {
+    Polynomial polynomial1 = new PolynomialImpl();
+    Polynomial polynomial2 = new PolynomialImpl();
+    Assert.assertEquals("0", polynomial1.add(polynomial2).toString());
+    Assert.assertEquals("0", polynomial2.add(polynomial1).toString());
+  }
+
+  @Test
+  public void testPolynomialAdditionIsAssociative() {
+    Polynomial polynomial1 = new PolynomialImpl("1 +2x^2 -3x^3 +4x^4");
+    Assert.assertEquals("4x^4-3x^3+2x^2+1", polynomial1.toString());
+
+    Polynomial polynomial2 = new PolynomialImpl("13x^3 -11 -12x^2 -14x^4 ");
+    Assert.assertEquals("-14x^4+13x^3-12x^2-11", polynomial2.toString());
+
+    Assert.assertEquals("-10x^4+10x^3-10x^2-10", polynomial1.add(polynomial2).toString());
+    Assert.assertEquals(polynomial1.add(polynomial2), polynomial2.add(polynomial1));
   }
 
   @Test
