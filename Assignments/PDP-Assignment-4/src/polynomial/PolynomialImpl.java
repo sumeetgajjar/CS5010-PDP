@@ -12,7 +12,7 @@ package polynomial;
  *  missing powers are not allowed
  *  missing coefficient are not allowed
  *  missing term are not allowed
- *  repetition not allowed
+ *  repetition of same power terms allowed
  *  invalid letters not allowed
  */
 public class PolynomialImpl implements Polynomial {

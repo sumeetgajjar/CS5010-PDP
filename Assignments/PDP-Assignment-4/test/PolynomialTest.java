@@ -126,19 +126,6 @@ public class PolynomialTest {
   }
 
   @Test
-  public void testSamePowerTermsInPolynomialString() {
-    //todo check the validity of this case on piazza
-    Polynomial polynomial = null;
-    try {
-      polynomial = new PolynomialImpl("2x^2 +2x^2");
-      Assert.fail("should have failed");
-    } catch (IllegalArgumentException e) {
-      Assert.assertEquals("Invalid polynomial string", e.getMessage());
-    }
-    Assert.assertNull(polynomial);
-  }
-
-  @Test
   public void testNullPolynomialString() {
     Polynomial polynomial = null;
     try {
@@ -151,62 +138,58 @@ public class PolynomialTest {
   }
 
   @Test
+  public void testSamePowerTermsInPolynomialString() {
+    Assert.assertEquals("6x^2-10", new PolynomialImpl("2x^2 -10 +4x^2").toString());
+    Assert.assertEquals("-6x^2+10", new PolynomialImpl("-2x^2 +10 -4x^2").toString());
+  }
+
+  @Test
   public void testEmptyPolynomialString() {
-    Polynomial polynomial = new PolynomialImpl("");
-    Assert.assertEquals("0", polynomial.toString());
+    Assert.assertEquals("0", new PolynomialImpl("").toString());
   }
 
   @Test
   public void testDegreeZeroPolynomialInitialization() {
-    Polynomial polynomial = new PolynomialImpl("10");
-    Assert.assertEquals("10", polynomial.toString());
-
-    polynomial = new PolynomialImpl("-10");
-    Assert.assertEquals("-10", polynomial.toString());
+    Assert.assertEquals("10", new PolynomialImpl("10").toString());
+    Assert.assertEquals("-10", new PolynomialImpl("-10").toString());
   }
 
   @Test
   public void testDegreeOnePolynomialInitialization() {
-    Polynomial polynomial = new PolynomialImpl("10 +2x^1");
-    Assert.assertEquals("2x^1+10", polynomial.toString());
-
-    polynomial = new PolynomialImpl("-10 -2x^1");
-    Assert.assertEquals("2x^1-10", polynomial.toString());
+    Assert.assertEquals("2x^1+10", new PolynomialImpl("10 +2x^1").toString());
+    Assert.assertEquals("2x^1-10", new PolynomialImpl("-10 -2x^1").toString());
   }
 
   @Test
   public void testDegreeTwoPolynomialInitialization() {
-    Polynomial polynomial = new PolynomialImpl("+2x^1 10 +2x^2");
-    Assert.assertEquals("2x^2+2x^1+10", polynomial.toString());
-
-    polynomial = new PolynomialImpl("-2x^1 -10 -2x^2");
-    Assert.assertEquals("-2x^2-2x^1-10", polynomial.toString());
+    Assert.assertEquals("2x^2+2x^1+10", new PolynomialImpl("+2x^1 10 +2x^2").toString());
+    Assert.assertEquals("-2x^2-2x^1-10", new PolynomialImpl("-2x^1 -10 -2x^2").toString());
   }
 
   @Test
   public void testDegreeThreePolynomialInitialization() {
-    Polynomial polynomial = new PolynomialImpl("10 +2x^2 +2x^1 +3x^3");
-    Assert.assertEquals("3x^3+2x^2+2x^1+10", polynomial.toString());
+    Assert.assertEquals("3x^3+2x^2+2x^1+10",
+            new PolynomialImpl("10 +2x^2 +2x^1 +3x^3").toString());
 
-    polynomial = new PolynomialImpl("-10 -2x^1 -2x^2 -3x^3");
-    Assert.assertEquals("-3x^3-2x^2-2x^1-10", polynomial.toString());
+    Assert.assertEquals("-3x^3-2x^2-2x^1-10",
+            new PolynomialImpl("-10 -2x^1 -2x^2 -3x^3").toString());
   }
 
   @Test
   public void testDegreeFourPolynomialInitialization() {
-    Polynomial polynomial = new PolynomialImpl("4x^4 +10 +2x^2 +2x^1 +3x^3");
-    Assert.assertEquals("4x^4+3x^3+2x^2+2x^1+10", polynomial.toString());
+    Assert.assertEquals("4x^4+3x^3+2x^2+2x^1+10",
+            new PolynomialImpl("4x^4 +10 +2x^2 +2x^1 +3x^3").toString());
 
-    polynomial = new PolynomialImpl("-2x^1 -4x^4-10 -2x^2 -3x^3");
-    Assert.assertEquals("-4x^4-3x^3-2x^2-2x^1-10", polynomial.toString());
+    Assert.assertEquals("-4x^4-3x^3-2x^2-2x^1-10",
+            new PolynomialImpl("-2x^1 -4x^4-10 -2x^2 -3x^3").toString());
   }
 
   @Test
   public void testDegreeFivePolynomialInitialization() {
-    Polynomial polynomial = new PolynomialImpl("4x^4 +10 +2x^2 +2x^1 +3x^3 +5x^5");
-    Assert.assertEquals("5x^5+4x^4+3x^3+2x^2+2x^1+10", polynomial.toString());
+    Assert.assertEquals("5x^5+4x^4+3x^3+2x^2+2x^1+10",
+            new PolynomialImpl("4x^4 +10 +2x^2 +2x^1 +3x^3 +5x^5").toString());
 
-    polynomial = new PolynomialImpl("-2x^1 -4x^4-10 -2x^2 -3x^3 -5x^5");
-    Assert.assertEquals("-5x^5-4x^4-3x^3-2x^2-2x^1-10", polynomial.toString());
+    Assert.assertEquals("-5x^5-4x^4-3x^3-2x^2-2x^1-10",
+            new PolynomialImpl("-2x^1 -4x^4-10 -2x^2 -3x^3 -5x^5").toString());
   }
 }
