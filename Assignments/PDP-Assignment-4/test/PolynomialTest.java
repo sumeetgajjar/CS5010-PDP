@@ -364,7 +364,7 @@ public class PolynomialTest {
 
   @Test
   public void testPolynomialAddition3() {
-    Polynomial polynomial1 = new PolynomialImpl("11 +12x^2 -13x^3 +14x^4");
+    Polynomial polynomial1 = new PolynomialImpl("5x^5 +11 +12x^2 -13x^3 +14x^4");
     String polynomial1String = "14x^4-13x^3+12x^2+11";
     Assert.assertEquals(polynomial1String, polynomial1.toString());
 
@@ -372,10 +372,35 @@ public class PolynomialTest {
     String polynomialString2 = "-4x^4+3x^3-2x^2-1";
     Assert.assertEquals(polynomialString2, polynomial2.toString());
 
-    Assert.assertEquals("10x^4-13x^3+10x^2+10", polynomial1.add(polynomial2).toString());
+    Polynomial polynomialAfterAddition = polynomial1.add(polynomial2);
+    Assert.assertEquals("5x^5+10x^4-13x^3+10x^2+10", polynomialAfterAddition.toString());
+    Assert.assertEquals(5, polynomialAfterAddition.getDegree());
 
     Assert.assertEquals(polynomial1String, polynomial1.toString());
     Assert.assertEquals(polynomialString2, polynomial2.toString());
+  }
+
+  @Test
+  public void testMultipleAdditionOnSamePolynomialObject() {
+    Polynomial polynomial = new PolynomialImpl("10 +3x^4");
+    String polynomialString = "3x^4+10";
+    Assert.assertEquals(polynomialString, polynomial.toString());
+
+    Assert.assertEquals("3x^4+2x^2+10",
+            polynomial.add(new PolynomialImpl("2x^2")).toString());
+    Assert.assertEquals(polynomialString, polynomial.toString());
+
+    Assert.assertEquals("3x^4+2x^2+10",
+            polynomial.add(new PolynomialImpl("2x^2")).toString());
+    Assert.assertEquals(polynomialString, polynomial.toString());
+
+    Assert.assertEquals("3x^4+2x^2+10",
+            polynomial.add(new PolynomialImpl("2x^2")).toString());
+    Assert.assertEquals(polynomialString, polynomial.toString());
+
+    Assert.assertEquals("3x^4+2x^2+10",
+            polynomial.add(new PolynomialImpl("2x^2")).toString());
+    Assert.assertEquals(polynomialString, polynomial.toString());
   }
 
   @Test
@@ -388,6 +413,114 @@ public class PolynomialTest {
 
     Assert.assertEquals("-10x^4+10x^3-10x^2-10", polynomial1.add(polynomial2).toString());
     Assert.assertEquals(polynomial1.add(polynomial2), polynomial2.add(polynomial1));
+  }
+
+  @Test
+  public void testDerivativeOfZeroPolynomial() {
+    Polynomial polynomial = new PolynomialImpl();
+    String polynomialString = "0";
+    Assert.assertEquals(polynomialString, polynomial.toString());
+
+    Polynomial derivative = polynomial.derivative();
+    Assert.assertEquals("0", derivative.toString());
+
+    Assert.assertEquals(polynomialString, polynomial.toString());
+  }
+
+  @Test
+  public void testDerivativeOfConstant() {
+    Polynomial polynomial = new PolynomialImpl("10");
+    String polynomialString = "10";
+    Assert.assertEquals(polynomialString, polynomial.toString());
+
+    Polynomial derivative = polynomial.derivative();
+    Assert.assertEquals("0", derivative.toString());
+
+    Assert.assertEquals(polynomialString, polynomial.toString());
+  }
+
+  @Test
+  public void testDerivativeOfPolynomialWithDegreeOne() {
+    Polynomial polynomial = new PolynomialImpl("10 +4x^1");
+    String polynomialString = "4x^1+10";
+    Assert.assertEquals(polynomialString, polynomial.toString());
+
+    Polynomial derivative = polynomial.derivative();
+    Assert.assertEquals("4", derivative.toString());
+    Assert.assertEquals(0, derivative.getDegree());
+
+    Assert.assertEquals(polynomialString, polynomial.toString());
+  }
+
+  @Test
+  public void testDerivativeOfPolynomialWithDegreeTwo() {
+    Polynomial polynomial = new PolynomialImpl("10 +4x^1 -5x^2");
+    String polynomialString = "-5x^2+4x^1+10";
+    Assert.assertEquals(polynomialString, polynomial.toString());
+
+    Polynomial derivative = polynomial.derivative();
+    Assert.assertEquals("-10x^1+4", derivative.toString());
+    Assert.assertEquals(1, derivative.getDegree());
+
+    Assert.assertEquals(polynomialString, polynomial.toString());
+  }
+
+  @Test
+  public void testDerivativeOfPolynomialWithDegreeThree() {
+    Polynomial polynomial = new PolynomialImpl("10 +4x^1 -5x^2 +10x^3");
+    String polynomialString = "10x^3-5x^2+4x^1+10";
+    Assert.assertEquals(polynomialString, polynomial.toString());
+
+    Polynomial derivative = polynomial.derivative();
+    Assert.assertEquals("30x^2-10x^1+4", derivative.toString());
+    Assert.assertEquals(2, derivative.getDegree());
+
+    Assert.assertEquals(polynomialString, polynomial.toString());
+  }
+
+  @Test
+  public void testDerivativeOfPolynomialWithDegreeFour() {
+    Polynomial polynomial = new PolynomialImpl("10 +4x^1 +12x^4 -5x^2 +10x^3");
+    String polynomialString = "12x^4+10x^3-5x^2+4x^1+10";
+    Assert.assertEquals(polynomialString, polynomial.toString());
+
+    Polynomial derivative = polynomial.derivative();
+    Assert.assertEquals("48x^3+30x^2-10x^1+4", derivative.toString());
+    Assert.assertEquals(3, derivative.getDegree());
+
+    Assert.assertEquals(polynomialString, polynomial.toString());
+  }
+
+  @Test
+  public void testDerivativeOfPolynomialWithDegreeFive() {
+    Polynomial polynomial = new PolynomialImpl("10 +10x^5");
+    String polynomialString = "10x^5+10";
+    Assert.assertEquals(polynomialString, polynomial.toString());
+
+    Polynomial derivative = polynomial.derivative();
+    Assert.assertEquals("50x^4", derivative.toString());
+    Assert.assertEquals(4, derivative.getDegree());
+
+    Assert.assertEquals(polynomialString, polynomial.toString());
+  }
+
+  @Test
+  public void testDifferentiatingSamePolynomialObject() {
+    Polynomial polynomial = new PolynomialImpl("10 +10x^5");
+    String polynomialString = "10x^5+10";
+    Assert.assertEquals(polynomialString, polynomial.toString());
+
+    Assert.assertEquals("50x^4", polynomial.derivative().toString());
+    Assert.assertEquals(polynomialString, polynomial.toString());
+
+    Assert.assertEquals("50x^4", polynomial.derivative().toString());
+    Assert.assertEquals(polynomialString, polynomial.toString());
+
+    Assert.assertEquals("50x^4", polynomial.derivative().toString());
+    Assert.assertEquals(polynomialString, polynomial.toString());
+
+    Assert.assertEquals("50x^4", polynomial.derivative().toString());
+    Assert.assertEquals(polynomialString, polynomial.toString());
   }
 
   @Test
