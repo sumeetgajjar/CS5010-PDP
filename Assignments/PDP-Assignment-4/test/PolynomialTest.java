@@ -138,6 +138,18 @@ public class PolynomialTest {
   }
 
   @Test
+  public void testPolynomialStringWithZeroPowerAndCoefficient() {
+    Assert.assertEquals("12", new PolynomialImpl("2x^0 +10").toString());
+    Assert.assertEquals("-10", new PolynomialImpl("2x^0 -10").toString());
+    Assert.assertEquals("10x^2+2", new PolynomialImpl("2x^0 +10x^2").toString());
+
+    Assert.assertEquals("10", new PolynomialImpl("0x^1 +10").toString());
+    Assert.assertEquals("10x^2-10", new PolynomialImpl("0x^0 -10x^0 -0x^6 +10x^2").toString());
+
+    Assert.assertEquals("0", new PolynomialImpl("0x^4 -0x^7 +0 -0x^0 +0x^9").toString());
+  }
+
+  @Test
   public void testSamePowerTermsInPolynomialString() {
     Assert.assertEquals("6x^2-10", new PolynomialImpl("2x^2 -10 +4x^2").toString());
     Assert.assertEquals("-6x^2+10", new PolynomialImpl("-2x^2 +10 -4x^2").toString());
