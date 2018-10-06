@@ -1,5 +1,12 @@
 package polynomial;
 
+import java.util.Objects;
+import java.util.Scanner;
+
+import polynomial.parser.PolynomialTermParser;
+import polynomial.util.list.ListADT;
+import polynomial.util.list.ListADTImpl;
+
 /**
  * This class represents a Polynomial. It implements {@link Polynomial} interface.
  *
@@ -25,11 +32,24 @@ package polynomial;
  */
 public class PolynomialImpl implements Polynomial {
 
+  private static final String TERMS_DELIMITER = " ";
+
+  private final ListADT<Term> terms;
+  private final PolynomialTermParser polynomialTermParser = new PolynomialTermParser();
+
   //todo check for -0 only if tests fails
   public PolynomialImpl(String polynomialString) throws IllegalArgumentException {
+
+    if (Objects.isNull(polynomialString)) {
+      throw new IllegalArgumentException("Invalid polynomial string");
+    }
+
+    this.terms = new ListADTImpl<>();
+    this.parsePolynomialString(polynomialString);
   }
 
   public PolynomialImpl() throws IllegalArgumentException {
+    this("");
   }
 
 
@@ -49,7 +69,7 @@ public class PolynomialImpl implements Polynomial {
   }
 
   @Override
-  public double evaluate(double x) throws ArithmeticException {
+  public double evaluate(double x) {
     return 0;
   }
 
@@ -74,4 +94,20 @@ public class PolynomialImpl implements Polynomial {
   }
 
   //todo check if hashcode can be implemented
+
+
+  private void parsePolynomialString(String polynomialString) {
+    Scanner scanner = new Scanner(polynomialString);
+    scanner.useDelimiter(TERMS_DELIMITER);
+
+    boolean isFirstTerm = true;
+    while (scanner.hasNext()) {
+      String termString = scanner.next();
+      Term term = this.polynomialTermParser.parsePolynomialTerm(isFirstTerm, termString);
+
+      this.terms.insertInSortedOrder(term);
+
+      isFirstTerm = false;
+    }
+  }
 }
