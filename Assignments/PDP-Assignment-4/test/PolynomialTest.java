@@ -316,7 +316,22 @@ public class PolynomialTest {
   }
 
   @Test
-  public void testPolynomialAddition() {
+  public void testAddingPolynomialWithZeroPolynomial() {
+    Polynomial polynomial1 = new PolynomialImpl();
+    Assert.assertEquals("0", polynomial1.toString());
+
+    Polynomial polynomial2 = new PolynomialImpl("-1 -2x^2 +3x^3 -4x^4");
+    String polynomialString2 = "-4x^4+3x^3-2x^2-1";
+    Assert.assertEquals(polynomialString2, polynomial2.toString());
+
+    Assert.assertEquals("-4x^4+3x^3-2x^2-1", polynomial1.add(polynomial2).toString());
+
+    Assert.assertEquals("0", polynomial1.toString());
+    Assert.assertEquals(polynomialString2, polynomial2.toString());
+  }
+
+  @Test
+  public void testPolynomialAddition1() {
     Polynomial polynomial1 = new PolynomialImpl("1 +2x^2 -3x^3 +4x^4");
     String polynomial1String = "4x^4-3x^3+2x^2+1";
     Assert.assertEquals(polynomial1String, polynomial1.toString());
@@ -329,7 +344,38 @@ public class PolynomialTest {
 
     Assert.assertEquals(polynomial1String, polynomial1.toString());
     Assert.assertEquals(polynomialString2, polynomial2.toString());
+  }
 
+  @Test
+  public void testPolynomialAddition2() {
+    Polynomial polynomial1 = new PolynomialImpl("11 +2x^2 -3x^3 +14x^4");
+    String polynomial1String = "14x^4-3x^3+2x^2+11";
+    Assert.assertEquals(polynomial1String, polynomial1.toString());
+
+    Polynomial polynomial2 = new PolynomialImpl("-1 -2x^2 +3x^3 -4x^4");
+    String polynomialString2 = "-4x^4+3x^3-2x^2-1";
+    Assert.assertEquals(polynomialString2, polynomial2.toString());
+
+    Assert.assertEquals("10x^4+10", polynomial1.add(polynomial2).toString());
+
+    Assert.assertEquals(polynomial1String, polynomial1.toString());
+    Assert.assertEquals(polynomialString2, polynomial2.toString());
+  }
+
+  @Test
+  public void testPolynomialAddition3() {
+    Polynomial polynomial1 = new PolynomialImpl("11 +12x^2 -13x^3 +14x^4");
+    String polynomial1String = "14x^4-13x^3+12x^2+11";
+    Assert.assertEquals(polynomial1String, polynomial1.toString());
+
+    Polynomial polynomial2 = new PolynomialImpl("-1 -2x^2 +3x^3 -4x^4");
+    String polynomialString2 = "-4x^4+3x^3-2x^2-1";
+    Assert.assertEquals(polynomialString2, polynomial2.toString());
+
+    Assert.assertEquals("10x^4-13x^3+10x^2+10", polynomial1.add(polynomial2).toString());
+
+    Assert.assertEquals(polynomial1String, polynomial1.toString());
+    Assert.assertEquals(polynomialString2, polynomial2.toString());
   }
 
   @Test
