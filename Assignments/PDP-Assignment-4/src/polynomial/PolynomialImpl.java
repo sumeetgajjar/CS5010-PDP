@@ -7,13 +7,9 @@ package polynomial;
 /**
  * This class represents a Polynomial. It implements {@link Polynomial} interface.
  *
- * "" is a valid string
- * -ve powers are not allowed
- *  missing powers are not allowed
- *  missing coefficient are not allowed
- *  missing term are not allowed
- *  repetition of same power terms allowed
- *  invalid letters not allowed
+ * "" is a valid string -ve powers are not allowed missing powers are not allowed missing
+ * coefficient are not allowed missing term are not allowed repetition of same power terms allowed
+ * invalid letters not allowed
  */
 public class PolynomialImpl implements Polynomial {
 
@@ -40,7 +36,7 @@ public class PolynomialImpl implements Polynomial {
   }
 
   @Override
-  public double evaluate(double x) {
+  public double evaluate(double x) throws ArithmeticException {
     return 0;
   }
 

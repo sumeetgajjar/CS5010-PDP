@@ -265,14 +265,14 @@ public class PolynomialTest {
     try {
       polynomial.evaluate(Double.MAX_VALUE);
       Assert.fail("should have failed");
-    } catch (IllegalArgumentException e) {
+    } catch (ArithmeticException e) {
       Assert.assertEquals("overflow occurred while evaluating polynomial", e.getMessage());
     }
 
     try {
       polynomial.evaluate(Double.MIN_VALUE);
       Assert.fail("should have failed");
-    } catch (IllegalArgumentException e) {
+    } catch (ArithmeticException e) {
       Assert.assertEquals("overflow occurred while evaluating polynomial", e.getMessage());
     }
   }
