@@ -63,6 +63,4 @@ public interface ListADT<T> {
    * @return the resulting list that is identical in structure to this list, but has data of type R
    */
   <R> ListADT<R> map(Function<T, R> mapper);
-
-  void insertInSortedOrder(T data);
 }

@@ -18,11 +18,20 @@ public class Term {
     this.power = power;
   }
 
+  public Term addTerm(Term that) throws IllegalArgumentException, ArithmeticException {
+    if (this.power != that.power) {
+      throw new IllegalArgumentException("cannot add terms");
+    }
+
+    int coefficientSum = this.coefficient + that.coefficient;
+    return new Term(coefficientSum, this.power);
+  }
+
   public double evaluate(double x) {
     return coefficient * (Math.pow(x, power));
   }
 
-  public Term differentiate() {
+  public Term differentiate() throws ArithmeticException {
     int powerOfDerivative = Math.max(0, this.power - 1);
     int coefficientOfDerivative = Math.multiplyExact(this.power, this.coefficient);
     return new Term(coefficientOfDerivative, powerOfDerivative);

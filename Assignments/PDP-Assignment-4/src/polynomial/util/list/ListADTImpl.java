@@ -57,11 +57,6 @@ public class ListADTImpl<T> implements ListADT<T> {
   }
 
   @Override
-  public void insertInSortedOrder(T data) {
-
-  }
-
-  @Override
   public String toString() {
     return "(" + head.toString() + ")";
   }

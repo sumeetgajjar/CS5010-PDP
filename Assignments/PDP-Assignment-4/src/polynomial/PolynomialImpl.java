@@ -34,8 +34,9 @@ public class PolynomialImpl implements Polynomial {
 
   private static final String TERMS_DELIMITER = " ";
 
-  private final ListADT<Term> terms;
   private final SingleVariablePolynomialTermParser polynomialTermParser = new SingleVariablePolynomialTermParser();
+
+  private ListADT<Term> terms;
 
   //todo check for -0 only if tests fails
   public PolynomialImpl(String polynomialString) throws IllegalArgumentException {
@@ -55,7 +56,6 @@ public class PolynomialImpl implements Polynomial {
 
   @Override
   public void addTerm(int coefficient, int power) throws IllegalArgumentException {
-
   }
 
   @Override
@@ -105,7 +105,7 @@ public class PolynomialImpl implements Polynomial {
       String termString = scanner.next();
       Term term = this.polynomialTermParser.parsePolynomialTerm(isFirstTerm, termString);
 
-      this.terms.insertInSortedOrder(term);
+      addTerm(term.getCoefficient(), term.getPower());
 
       isFirstTerm = false;
     }
