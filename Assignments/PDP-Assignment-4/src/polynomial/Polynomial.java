@@ -26,10 +26,10 @@ public interface Polynomial {
   /**
    * Takes a power and returns the coefficient for the term with that power.
    *
-   * @param coefficient the coefficient for the term
-   * @return power of the given coefficient
+   * @param power the power for the term
+   * @return coefficient of the given power
    */
-  int getCoefficient(int coefficient);
+  int getCoefficient(int power);
 
   /**
    * Returns the the evaluation of this polynomial using given x value.
@@ -44,7 +44,7 @@ public interface Polynomial {
    * Any implementation should ensure that this method does not mutate either polynomial.
    *
    * @param polynomial another {@link Polynomial}
-   * @return returns the polynomial obtained by adding the this polynomial and given polynomial
+   * @return returns the polynomial obtained by adding this polynomial and given polynomial
    */
   Polynomial add(Polynomial polynomial);
 
