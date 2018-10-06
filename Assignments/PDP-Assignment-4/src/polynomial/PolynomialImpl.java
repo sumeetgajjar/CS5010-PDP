@@ -1,10 +1,6 @@
 package polynomial;
 
 /**
- * Created by gajjar.s,on 8:05 PM, 10/5/18
- */
-
-/**
  * This class represents a Polynomial. It implements {@link Polynomial} interface.
  *
  * "" is a valid string
