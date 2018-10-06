@@ -29,6 +29,7 @@ package polynomial;
  */
 public class PolynomialImpl implements Polynomial {
 
+  //todo check for -0 only if tests fails
   public PolynomialImpl(String polynomialString) throws IllegalArgumentException {
   }
 

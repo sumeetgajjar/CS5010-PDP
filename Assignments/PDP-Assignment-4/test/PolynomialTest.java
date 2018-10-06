@@ -316,6 +316,23 @@ public class PolynomialTest {
   }
 
   @Test
+  public void testPolynomialAddition() {
+    Polynomial polynomial1 = new PolynomialImpl("1 +2x^2 -3x^3 +4x^4");
+    String polynomial1String = "4x^4-3x^3+2x^2+1";
+    Assert.assertEquals(polynomial1String, polynomial1.toString());
+
+    Polynomial polynomial2 = new PolynomialImpl("-1 -2x^2 +3x^3 -4x^4");
+    String polynomialString2 = "-4x^4+3x^3-2x^2-1";
+    Assert.assertEquals(polynomialString2, polynomial2.toString());
+
+    Assert.assertEquals("0", polynomial1.add(polynomial2).toString());
+
+    Assert.assertEquals(polynomial1String, polynomial1.toString());
+    Assert.assertEquals(polynomialString2, polynomial2.toString());
+
+  }
+
+  @Test
   public void testPolynomialAdditionIsAssociative() {
     Polynomial polynomial1 = new PolynomialImpl("1 +2x^2 -3x^3 +4x^4");
     Assert.assertEquals("4x^4-3x^3+2x^2+1", polynomial1.toString());
