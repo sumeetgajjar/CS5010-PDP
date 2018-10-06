@@ -86,6 +86,18 @@ public class PolynomialTest {
   }
 
   @Test
+  public void testPolynomialStringWithMissingOperator() {
+    Polynomial polynomial = null;
+    try {
+      polynomial = new PolynomialImpl("2x^2 2x^1");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid polynomial string", e.getMessage());
+    }
+    Assert.assertNull(polynomial);
+  }
+
+  @Test
   public void testPolynomialStringWithExtraSpaces() {
     Polynomial polynomial = null;
     try {
@@ -217,8 +229,8 @@ public class PolynomialTest {
 
   @Test
   public void testPolynomialStringStartingWithSign() {
-    Assert.assertEquals("4x^2-10", new PolynomialImpl("+2x^2 -10").toString());
-    Assert.assertEquals("-4x^2+10", new PolynomialImpl("-2x^2 +10").toString());
+    Assert.assertEquals("2x^2-10", new PolynomialImpl("+2x^2 -10").toString());
+    Assert.assertEquals("-2x^2+10", new PolynomialImpl("-2x^2 +10").toString());
   }
 
   @Test
@@ -584,6 +596,7 @@ public class PolynomialTest {
     Assert.assertEquals(-2799D, polynomial.evaluate(10D), 0D);
     Assert.assertEquals(3201D, polynomial.evaluate(-10D), 0D);
 
+    //todo check this.
     try {
       polynomial.evaluate(Double.MAX_VALUE);
       Assert.fail("should have failed");
