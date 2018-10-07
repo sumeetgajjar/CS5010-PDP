@@ -15,27 +15,8 @@ public class GenericEmptyNode<T> implements GenericListADTNode<T> {
     return 0;
   }
 
-  @Override
-  public GenericListADTNode<T> addFront(T data) {
+  private GenericListADTNode<T> addFront(T data) {
     return new GenericElementNode<>(data, this);
-  }
-
-  @Override
-  public GenericListADTNode<T> addBack(T data) {
-    return addFront(data);
-  }
-
-  @Override
-  public GenericListADTNode<T> add(int index, T data) throws IllegalArgumentException {
-    if (index == 0) {
-      return addFront(data);
-    }
-    throw new IllegalArgumentException("Invalid index to add an element");
-  }
-
-  @Override
-  public GenericListADTNode<T> remove(T data) {
-    return this; //cannot remove from nothing!
   }
 
   @Override

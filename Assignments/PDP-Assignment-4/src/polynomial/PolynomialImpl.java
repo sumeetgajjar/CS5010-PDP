@@ -70,7 +70,7 @@ public class PolynomialImpl implements Polynomial {
     this.head = this.head.insert(
             new Term(coefficient, power),
             Comparator.comparingInt(Term::getPower),
-            Term::addTerm)
+            Term::addTwoTerms)
             .filter(Utils::isTermNonZero);
   }
 

@@ -22,35 +22,8 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
     return 1 + this.rest.count();
   }
 
-  @Override
-  public GenericListADTNode<T> addFront(T data) {
+  private GenericListADTNode<T> addFront(T data) {
     return new GenericElementNode<>(data, this);
-  }
-
-  @Override
-  public GenericListADTNode<T> addBack(T data) {
-    this.rest = this.rest.addBack(data);
-    return this;
-  }
-
-  @Override
-  public GenericListADTNode<T> add(int index, T data) {
-    if (index == 0) {
-      return addFront(data);
-    } else {
-      this.rest = this.rest.add(index - 1, data);
-      return this;
-    }
-  }
-
-  @Override
-  public GenericListADTNode<T> remove(T data) {
-    if (this.data.equals(data)) {
-      return this.rest;
-    } else {
-      this.rest = this.rest.remove(data);
-      return this;
-    }
   }
 
   @Override

@@ -18,40 +18,6 @@ public interface GenericListADTNode<T> {
   int count();
 
   /**
-   * Add the given object to the front of this list and return this modified list
-   *
-   * @param data the object to be added
-   * @return the resulting list
-   */
-  GenericListADTNode<T> addFront(T data);
-
-  /**
-   * Add the given object to the back of this list and return this modified list
-   *
-   * @param data the object to be added
-   * @return the resulting list
-   */
-  GenericListADTNode<T> addBack(T data);
-
-  /**
-   * A method that adds the given object at the given index in this list . If index is 0, it means
-   * this object should be added to the front of this list
-   *
-   * @param index the position to be occupied by this object, starting at 0
-   * @param data  the object to be added
-   * @return the resulting list
-   * @throws IllegalArgumentException if an invalid index is passed
-   */
-  GenericListADTNode<T> add(int index, T data) throws IllegalArgumentException;
-
-  /**
-   * Remove the first instance of this object from the list
-   *
-   * @param data the object to be removed
-   */
-  GenericListADTNode<T> remove(T data);
-
-  /**
    * Get the object at the specified index, with 0 meaning the first object in this list
    *
    * @param index the specified index
