@@ -248,12 +248,12 @@ public class PolynomialTest {
   @Test
   public void testDegreeOnePolynomialInitialization() {
     Assert.assertEquals("2x^1+10", new PolynomialImpl("10 +2x^1").toString());
-    Assert.assertEquals("2x^1-10", new PolynomialImpl("-10 -2x^1").toString());
+    Assert.assertEquals("-2x^1-10", new PolynomialImpl("-10 -2x^1").toString());
   }
 
   @Test
   public void testDegreeTwoPolynomialInitialization() {
-    Assert.assertEquals("2x^2+2x^1+10", new PolynomialImpl("+2x^1 10 +2x^2").toString());
+    Assert.assertEquals("2x^2+2x^1+10", new PolynomialImpl("+2x^1 +10 +2x^2").toString());
     Assert.assertEquals("-2x^2-2x^1-10", new PolynomialImpl("-2x^1 -10 -2x^2").toString());
   }
 
@@ -305,9 +305,9 @@ public class PolynomialTest {
   @Test
   public void testGetCoefficientOfPolynomial() {
     Polynomial polynomial = new PolynomialImpl("-2x^1 -10 +4x^4 -10 -6x^2 -3x^3 -5x^5");
-    Assert.assertEquals("-5x^5+4x^4-4x^3-6x^2-2x^1-10", polynomial.toString());
+    Assert.assertEquals("-5x^5+4x^4-3x^3-6x^2-2x^1-20", polynomial.toString());
 
-    Assert.assertEquals(-10, polynomial.getCoefficient(0));
+    Assert.assertEquals(-20, polynomial.getCoefficient(0));
     Assert.assertEquals(-2, polynomial.getCoefficient(1));
     Assert.assertEquals(-6, polynomial.getCoefficient(2));
     Assert.assertEquals(-3, polynomial.getCoefficient(3));

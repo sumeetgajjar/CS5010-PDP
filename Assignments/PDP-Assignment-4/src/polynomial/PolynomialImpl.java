@@ -108,6 +108,10 @@ public class PolynomialImpl implements Polynomial {
 
   @Override
   public String toString() {
+    if (this.head.count() == 0) {
+      return "0";
+    }
+
     StringBuilder builder = new StringBuilder();
     builder = this.head.map(Term::toString)
             .fold(builder, StringBuilder::append);
