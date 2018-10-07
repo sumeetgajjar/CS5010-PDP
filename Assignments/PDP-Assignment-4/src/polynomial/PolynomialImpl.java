@@ -63,10 +63,11 @@ public class PolynomialImpl implements Polynomial {
 
   @Override
   public void addTerm(int coefficient, int power) throws IllegalArgumentException {
-    this.head = this.head.insert(
-            new Term(coefficient, power),
-            Comparator.comparingInt(Term::getPower),
-            Term::addTwoTerms)
+    this.head = this.head
+            .insert(
+                    new Term(coefficient, power),
+                    Comparator.comparingInt(Term::getPower),
+                    Term::addTwoTerms)
             .filter(Utils::isTermNonZero);
   }
 
@@ -81,13 +82,15 @@ public class PolynomialImpl implements Polynomial {
 
   @Override
   public int getCoefficient(int power) {
-    return this.head.filter(term -> term.getPower() == power)
+    return this.head
+            .filter(term -> term.getPower() == power)
             .fold(0, (integer, term) -> integer + term.getCoefficient());
   }
 
   @Override
   public double evaluate(double x) {
-    return this.head.map(term -> term.evaluate(x))
+    return this.head
+            .map(term -> term.evaluate(x))
             .fold(0D, Double::sum);
   }
 
@@ -95,9 +98,11 @@ public class PolynomialImpl implements Polynomial {
   public Polynomial add(Polynomial polynomial) {
     if (polynomial instanceof PolynomialImpl) {
       PolynomialImpl that = (PolynomialImpl) polynomial;
-      GenericListADTNode<Term> sum = this.head.combine(that.head,
-              Comparator.comparingInt(Term::getPower),
-              Term::addTwoTerms)
+      GenericListADTNode<Term> sum = this.head
+              .combine(
+                      that.head,
+                      Comparator.comparingInt(Term::getPower),
+                      Term::addTwoTerms)
               .filter(Utils::isTermNonZero);
 
       return new PolynomialImpl(sum);
@@ -108,7 +113,10 @@ public class PolynomialImpl implements Polynomial {
 
   @Override
   public Polynomial derivative() {
-    return new PolynomialImpl(this.head.map(Term::differentiate).filter(Utils::isTermNonZero));
+    return new PolynomialImpl(
+            this.head
+                    .map(Term::differentiate)
+                    .filter(Utils::isTermNonZero));
   }
 
   @Override
@@ -127,7 +135,8 @@ public class PolynomialImpl implements Polynomial {
 
   @Override
   public int hashCode() {
-    return this.head.map(Objects::hashCode)
+    return this.head
+            .map(Objects::hashCode)
             .fold(1, (hash1, hash2) -> (31 * hash1) + hash2);
   }
 
@@ -138,9 +147,14 @@ public class PolynomialImpl implements Polynomial {
     }
 
     StringBuilder builder = new StringBuilder();
-    builder = this.head.map(Term::toString)
+    builder = this.head
+            .map(Term::toString)
             .fold(builder, StringBuilder::append);
 
+    return removeLeadingPositiveSign(builder);
+  }
+
+  private String removeLeadingPositiveSign(StringBuilder builder) {
     if (builder.length() > 0 && builder.charAt(0) == '+') {
       return builder.substring(1);
     }
@@ -161,15 +175,6 @@ public class PolynomialImpl implements Polynomial {
 
         isFirstTerm = false;
       }
-    }
-  }
-
-  public static void main(String[] args) {
-    Scanner scanner = new Scanner("-2x^1 -10 +4x^4 -10 -6x^2 -3x^3 -5x^5");
-    scanner.useDelimiter("\\+*");
-
-    while (scanner.hasNext()) {
-      System.out.println(scanner.next());
     }
   }
 }
