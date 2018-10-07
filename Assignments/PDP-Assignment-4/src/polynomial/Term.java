@@ -66,7 +66,9 @@ public class Term {
     return power;
   }
 
-  public static Term addTwoTerms(Term term1, Term term2) throws IllegalArgumentException, ArithmeticException {
+  public static Term addTwoTerms(Term term1, Term term2)
+          throws IllegalArgumentException, ArithmeticException {
+
     if (term1.power != term2.power) {
       throw new IllegalArgumentException("cannot add terms");
     }
