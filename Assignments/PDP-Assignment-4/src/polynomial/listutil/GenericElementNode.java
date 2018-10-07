@@ -51,7 +51,7 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
       return new GenericElementNode<>(pair, this.rest.zip(that.rest, thisListDefaultValueSupplier, thatListDefaultValueSupplier));
     } else {
       Pair<T, T> pair = Pair.of(this.data, thatListDefaultValueSupplier.get());
-      return new GenericElementNode<>(pair, this.zip(list, thisListDefaultValueSupplier, thatListDefaultValueSupplier));
+      return new GenericElementNode<>(pair, this.rest.zip(list, thisListDefaultValueSupplier, thatListDefaultValueSupplier));
     }
   }
 

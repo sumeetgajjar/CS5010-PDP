@@ -374,6 +374,18 @@ public class PolynomialTest {
   }
 
   @Test
+  public void testPolynomialInEquality() {
+    Polynomial polynomial1 = new PolynomialImpl("1 +2x^2 -1x^1 -3x^3 +4x^4");
+    Assert.assertEquals("4x^4-3x^3+2x^2-1x^1+1", polynomial1.toString());
+
+    Polynomial polynomial2 = new PolynomialImpl("");
+    Assert.assertEquals("0", polynomial2.toString());
+
+    Assert.assertFalse(polynomial1.equals(polynomial2));
+    Assert.assertFalse(polynomial2.equals(polynomial1));
+  }
+
+  @Test
   public void testPolynomialEqualityUsingHashCode() {
     Polynomial polynomial1 = new PolynomialImpl("1 +2x^2 -1x^1 -3x^3 +4x^4");
     Assert.assertEquals("4x^4-3x^3+2x^2-1x^1+1", polynomial1.toString());
