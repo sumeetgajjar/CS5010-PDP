@@ -1,4 +1,4 @@
-package util.list;
+package polynomial;
 
 import java.util.Comparator;
 import java.util.function.BiFunction;

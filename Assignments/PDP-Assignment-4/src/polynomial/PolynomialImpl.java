@@ -6,8 +6,6 @@ import java.util.Scanner;
 
 import polynomial.parser.SingleVariablePolynomialTermParser;
 import util.Utils;
-import util.list.GenericEmptyNode;
-import util.list.GenericListADTNode;
 
 /**
  * This class represents a Polynomial. It implements {@link Polynomial} interface.
