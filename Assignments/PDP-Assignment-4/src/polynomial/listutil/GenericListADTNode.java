@@ -6,19 +6,18 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
- * This generic interface represents all the operations to be supported by a list of objects of type
- * T
+ * This interface represents all the operations to be supported by a list of objects of type T.
  */
 public interface GenericListADTNode<T> {
   /**
-   * Return the number of objects in this list
+   * Return the number of objects in this list.
    *
    * @return the size of this list
    */
   int count();
 
   /**
-   * Get the object at the specified index, with 0 meaning the first object in this list
+   * Get the object at the specified index, with 0 meaning the first object in this list.
    *
    * @param index the specified index
    * @return the object at the specified index
