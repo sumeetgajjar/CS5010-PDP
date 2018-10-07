@@ -18,13 +18,12 @@ public class Term {
     this.power = power;
   }
 
-  public Term addTerm(Term that) throws IllegalArgumentException, ArithmeticException {
-    if (this.power != that.power) {
-      throw new IllegalArgumentException("cannot add terms");
-    }
+  @Override
+  public String toString() {
+    String sign = this.coefficient >= 0 ? "+" : "";
+    String variableString = this.power != 0 ? String.format("x^%d", this.power) : "";
 
-    int coefficientSum = Math.addExact(this.coefficient, that.coefficient);
-    return new Term(coefficientSum, this.power);
+    return String.format("%s%d%s", sign, this.coefficient, variableString);
   }
 
   public double evaluate(double x) {
@@ -43,5 +42,14 @@ public class Term {
 
   public int getPower() {
     return power;
+  }
+
+  public static Term addTerm(Term term1, Term term2) throws IllegalArgumentException, ArithmeticException {
+    if (term1.power != term2.power) {
+      throw new IllegalArgumentException("cannot add terms");
+    }
+
+    int coefficientSum = Math.addExact(term1.coefficient, term2.coefficient);
+    return new Term(coefficientSum, term1.power);
   }
 }

@@ -12,16 +12,20 @@ public class SingleVariablePolynomialTermParser implements PolynomialTermParser 
   @Override
   public Term parsePolynomialTerm(boolean isFirstTerm, String termString) throws IllegalArgumentException {
 
-    Scanner scanner = new Scanner(termString);
-    scanner.useDelimiter("\\.*");
+    int coefficient;
+    int power;
 
-    int coefficient = getCoefficient(isFirstTerm, scanner);
-    int power = 0;
+    try (Scanner scanner = new Scanner(termString)) {
+      scanner.useDelimiter("\\.*");
 
-    if (scanner.hasNext()) {
-      skipVariableAndRaiseToSign(scanner);
-      power = getPower(scanner);
-      checkIfTermHasEnded(scanner);
+      coefficient = getCoefficient(isFirstTerm, scanner);
+      power = 0;
+
+      if (scanner.hasNext()) {
+        skipVariableAndRaiseToSign(scanner);
+        power = getPower(scanner);
+        checkIfTermHasEnded(scanner);
+      }
     }
 
     return new Term(coefficient, power);

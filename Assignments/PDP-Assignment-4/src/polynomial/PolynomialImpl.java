@@ -1,9 +1,13 @@
 package polynomial;
 
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.Scanner;
 
 import polynomial.parser.SingleVariablePolynomialTermParser;
+import util.Utils;
+import util.list.GenericEmptyNode;
+import util.list.GenericListADTNode;
 
 /**
  * This class represents a Polynomial. It implements {@link Polynomial} interface.
@@ -32,9 +36,9 @@ public class PolynomialImpl implements Polynomial {
 
   private static final String TERMS_DELIMITER = " ";
 
-  private final SingleVariablePolynomialTermParser polynomialTermParser = new SingleVariablePolynomialTermParser();
+  private final SingleVariablePolynomialTermParser polynomialTermParser;
 
-  private PolynomialNode head;
+  private GenericListADTNode<Term> head;
 
   //todo check for -0 only if tests fails
   public PolynomialImpl(String polynomialString) throws IllegalArgumentException {
@@ -43,8 +47,12 @@ public class PolynomialImpl implements Polynomial {
       throw new IllegalArgumentException("Invalid polynomial string");
     }
 
-    this.head = new PolynomialEmptyNode();
+    if (polynomialString.length() == 0) {
+      polynomialString = "0";
+    }
 
+    this.head = new GenericEmptyNode<>();
+    this.polynomialTermParser = new SingleVariablePolynomialTermParser();
     this.parsePolynomialString(polynomialString);
   }
 
@@ -52,10 +60,18 @@ public class PolynomialImpl implements Polynomial {
     this("");
   }
 
+  private PolynomialImpl(GenericListADTNode<Term> head) {
+    this.head = head;
+    polynomialTermParser = new SingleVariablePolynomialTermParser();
+  }
 
   @Override
   public void addTerm(int coefficient, int power) throws IllegalArgumentException {
-    this.head = this.head.insert(new Term(coefficient, power));
+    this.head = this.head.insert(
+            new Term(coefficient, power),
+            Comparator.comparingInt(Term::getPower),
+            Term::addTerm)
+            .filter(Utils::isTermNonZero);
   }
 
   @Override
@@ -65,12 +81,14 @@ public class PolynomialImpl implements Polynomial {
 
   @Override
   public int getCoefficient(int power) {
-    return this.head.getCoefficient(power);
+    return this.head.filter(term -> term.getPower() == power)
+            .fold(0, (integer, term) -> integer + term.getCoefficient());
   }
 
   @Override
   public double evaluate(double x) {
-    return 0;
+    return this.head.map(term -> term.evaluate(x))
+            .fold(0D, Double::sum);
   }
 
   @Override
@@ -80,7 +98,7 @@ public class PolynomialImpl implements Polynomial {
 
   @Override
   public Polynomial derivative() {
-    return null;
+    return new PolynomialImpl(this.head.map(Term::differentiate).filter(Utils::isTermNonZero));
   }
 
   @Override
@@ -90,24 +108,33 @@ public class PolynomialImpl implements Polynomial {
 
   @Override
   public String toString() {
-    return super.toString();
+    StringBuilder builder = new StringBuilder();
+    builder = this.head.map(Term::toString)
+            .fold(builder, StringBuilder::append);
+
+    if (builder.length() > 0 && builder.charAt(0) == '+') {
+      return builder.substring(1);
+    }
+
+    return builder.toString();
   }
 
   //todo check if hashcode can be implemented
 
 
   private void parsePolynomialString(String polynomialString) {
-    Scanner scanner = new Scanner(polynomialString);
-    scanner.useDelimiter(TERMS_DELIMITER);
+    try (Scanner scanner = new Scanner(polynomialString)) {
+      scanner.useDelimiter(TERMS_DELIMITER);
 
-    boolean isFirstTerm = true;
-    while (scanner.hasNext()) {
-      String termString = scanner.next();
-      Term term = this.polynomialTermParser.parsePolynomialTerm(isFirstTerm, termString);
+      boolean isFirstTerm = true;
+      while (scanner.hasNext()) {
+        String termString = scanner.next();
+        Term term = this.polynomialTermParser.parsePolynomialTerm(isFirstTerm, termString);
 
-      addTerm(term.getCoefficient(), term.getPower());
+        addTerm(term.getCoefficient(), term.getPower());
 
-      isFirstTerm = false;
+        isFirstTerm = false;
+      }
     }
   }
 }

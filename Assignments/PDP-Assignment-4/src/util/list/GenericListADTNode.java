@@ -1,6 +1,9 @@
 package util.list;
 
+import java.util.Comparator;
+import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * This generic interface represents all the operations to be supported by a list of objects of type
@@ -67,4 +70,10 @@ public interface GenericListADTNode<T> {
    * type R
    */
   <R> GenericListADTNode<R> map(Function<T, R> mapper);
+
+  GenericListADTNode<T> filter(Predicate<T> predicate);
+
+  <R> R fold(R initialValue, BiFunction<R, T, R> accumulator);
+
+  GenericListADTNode<T> insert(T data, Comparator<T> comparator, BiFunction<T, T, T> accumulator);
 }

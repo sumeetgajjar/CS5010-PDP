@@ -1,6 +1,9 @@
 package util.list;
 
+import java.util.Comparator;
+import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * This is a non-empty node in a generic list. It contains the data data and the rest of the list
@@ -52,7 +55,9 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
 
   @Override
   public T get(int index) throws IllegalArgumentException {
-    if (index == 0) return this.data;
+    if (index == 0) {
+      return this.data;
+    }
     return this.rest.get(index - 1);
   }
 
@@ -63,6 +68,37 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
     the converted list
      */
     return new GenericElementNode<>(mapper.apply(this.data), this.rest.map(mapper));
+  }
+
+  @Override
+  public GenericListADTNode<T> filter(Predicate<T> predicate) {
+    if (predicate.test(this.data)) {
+      return new GenericElementNode<>(this.data, this.rest.filter(predicate));
+    } else {
+      return this.rest.filter(predicate);
+    }
+  }
+
+  @Override
+  public <R> R fold(R initialValue, BiFunction<R, T, R> accumulator) {
+    return this.rest.fold(accumulator.apply(initialValue, this.data), accumulator);
+  }
+
+  @Override
+  public GenericListADTNode<T> insert(T data, Comparator<T> comparator, BiFunction<T, T, T> accumulator) {
+
+    int compare = comparator.compare(this.data, data);
+
+    if (compare < 0) {
+      return new GenericElementNode<>(data, this);
+    } else if (compare == 0) {
+      T accumulatedData = accumulator.apply(this.data, data);
+      return new GenericElementNode<>(accumulatedData, this.rest);
+    } else {
+      this.rest = this.rest.insert(data, comparator, accumulator);
+      return this;
+    }
+
   }
 
   @Override
