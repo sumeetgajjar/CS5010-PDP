@@ -4,6 +4,9 @@ import java.util.Comparator;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
+
+import polynomial.bean.Pair;
 
 /**
  * This is a non-empty node in a generic list. It contains the data data and the rest of the list
@@ -41,6 +44,18 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
   }
 
   @Override
+  public GenericListADTNode<Pair<T, T>> zip(GenericListADTNode<T> list, Supplier<T> thisListDefaultValueSupplier, Supplier<T> thatListDefaultValueSupplier) {
+    if (list instanceof GenericElementNode) {
+      GenericElementNode<T> that = (GenericElementNode<T>) list;
+      Pair<T, T> pair = Pair.of(this.data, that.data);
+      return new GenericElementNode<>(pair, this.rest.zip(that.rest, thisListDefaultValueSupplier, thatListDefaultValueSupplier));
+    } else {
+      Pair<T, T> pair = Pair.of(this.data, thatListDefaultValueSupplier.get());
+      return new GenericElementNode<>(pair, this.zip(list, thisListDefaultValueSupplier, thatListDefaultValueSupplier));
+    }
+  }
+
+  @Override
   public GenericListADTNode<T> insert(T data,
                                       Comparator<T> comparator,
                                       BiFunction<T, T, T> mergeFunction) {
@@ -59,6 +74,7 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
 
   }
 
+  //todo check if the list is modified
   @Override
   public GenericListADTNode<T> combine(GenericListADTNode<T> genericListADTNode,
                                        Comparator<T> comparator,

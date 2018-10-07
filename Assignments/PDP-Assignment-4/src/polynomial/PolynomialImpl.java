@@ -131,9 +131,10 @@ public class PolynomialImpl implements Polynomial {
 
     PolynomialImpl that = (PolynomialImpl) obj;
 
-//    this.head.fold(true, (aBoolean, term) -> )
-
-    return this.head.equals(that.head);
+    return this.head
+            .zip(that.head, Term::getZeroTerm, Term::getZeroTerm)
+            .map(pair -> pair.getFirst().equals(pair.getSecond()))
+            .fold(true, Boolean::equals);
   }
 
   @Override

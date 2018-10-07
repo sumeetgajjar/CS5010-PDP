@@ -4,6 +4,9 @@ import java.util.Comparator;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
+
+import polynomial.bean.Pair;
 
 /**
  * This represents an empty node of the generic list implementation.
@@ -23,6 +26,15 @@ public class GenericEmptyNode<T> implements GenericListADTNode<T> {
   @Override
   public <R> R fold(R initialValue, BiFunction<R, T, R> accumulator) {
     return initialValue;
+  }
+
+  @Override
+  public GenericListADTNode<Pair<T, T>> zip(GenericListADTNode<T> list, Supplier<T> thisListDefaultValueSupplier, Supplier<T> thatListDefaultValueSupplier) {
+    if (list instanceof GenericEmptyNode) {
+      return new GenericEmptyNode<>();
+    } else {
+      return list.zip(this, thatListDefaultValueSupplier, thatListDefaultValueSupplier);
+    }
   }
 
   @Override
