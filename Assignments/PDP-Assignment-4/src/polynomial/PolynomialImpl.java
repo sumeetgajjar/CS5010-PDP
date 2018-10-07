@@ -34,6 +34,8 @@ public class PolynomialImpl implements Polynomial {
 
   private final SingleVariablePolynomialTermParser polynomialTermParser = new SingleVariablePolynomialTermParser();
 
+  private PolynomialNode head;
+
   //todo check for -0 only if tests fails
   public PolynomialImpl(String polynomialString) throws IllegalArgumentException {
 
@@ -51,16 +53,17 @@ public class PolynomialImpl implements Polynomial {
 
   @Override
   public void addTerm(int coefficient, int power) throws IllegalArgumentException {
+    this.head = this.head.insert(new Term(coefficient, power));
   }
 
   @Override
   public int getDegree() {
-    return 0;
+    return this.head.get(0).getPower();
   }
 
   @Override
   public int getCoefficient(int power) {
-    return 0;
+    return this.head.getCoefficient(power);
   }
 
   @Override

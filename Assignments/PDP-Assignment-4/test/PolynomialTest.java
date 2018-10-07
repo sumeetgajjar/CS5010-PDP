@@ -373,6 +373,19 @@ public class PolynomialTest {
   }
 
   @Test
+  public void testPolynomialAdditionOverflow() {
+    Polynomial polynomial1 = new PolynomialImpl("2147483647x^2");
+    Polynomial polynomial2 = new PolynomialImpl("1x^2");
+
+    try {
+      polynomial1.add(polynomial2);
+      Assert.fail("should have failed");
+    } catch (ArithmeticException e) {
+      Assert.assertEquals("integer overflow", e.getMessage());
+    }
+  }
+
+  @Test
   public void testPolynomialAddition1() {
     Polynomial polynomial1 = new PolynomialImpl("1 +2x^2 -3x^3 +4x^4");
     String polynomial1String = "4x^4-3x^3+2x^2+1";
@@ -558,6 +571,17 @@ public class PolynomialTest {
   }
 
   @Test
+  public void testOverflowWhileDifferentiatingPolynomials() {
+    Polynomial polynomial = new PolynomialImpl("2147483647x^2");
+    try {
+      polynomial.derivative();
+      Assert.fail("should have failed");
+    } catch (ArithmeticException e) {
+      Assert.assertEquals("integer overflow", e.getMessage());
+    }
+  }
+
+  @Test
   public void testDifferentiatingSamePolynomialObject() {
     Polynomial polynomial = new PolynomialImpl("10 +10x^5");
     String polynomialString = "10x^5+10";
@@ -668,6 +692,17 @@ public class PolynomialTest {
       Assert.assertEquals("cannot add term with negative power", e.getMessage());
     }
     Assert.assertEquals("0", polynomial.toString());
+  }
+
+  @Test
+  public void testOverflowWhileAddingTermToPolynomial() {
+    Polynomial polynomial1 = new PolynomialImpl("2147483647x^2");
+    try {
+      polynomial1.addTerm(1, 2);
+      Assert.fail("should have failed");
+    } catch (ArithmeticException e) {
+      Assert.assertEquals("integer overflow", e.getMessage());
+    }
   }
 
   @Test

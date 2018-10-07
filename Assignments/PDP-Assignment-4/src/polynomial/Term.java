@@ -23,7 +23,7 @@ public class Term {
       throw new IllegalArgumentException("cannot add terms");
     }
 
-    int coefficientSum = this.coefficient + that.coefficient;
+    int coefficientSum = Math.addExact(this.coefficient, that.coefficient);
     return new Term(coefficientSum, this.power);
   }
 
