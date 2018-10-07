@@ -324,6 +324,7 @@ public class PolynomialTest {
 
     Assert.assertEquals(0, new PolynomialImpl().getDegree());
     Assert.assertEquals(0, new PolynomialImpl("").getDegree());
+    Assert.assertEquals(2342342, new PolynomialImpl("1x^2342342 +10").getDegree());
   }
 
   @Test

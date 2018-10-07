@@ -165,4 +165,13 @@ public class PolynomialImpl implements Polynomial {
       }
     }
   }
+
+  public static void main(String[] args) {
+    Scanner scanner = new Scanner("-2x^1 -10 +4x^4 -10 -6x^2 -3x^3 -5x^5");
+    scanner.useDelimiter("\\+*");
+
+    while (scanner.hasNext()) {
+      System.out.println(scanner.next());
+    }
+  }
 }

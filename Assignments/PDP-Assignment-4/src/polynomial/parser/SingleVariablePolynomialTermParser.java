@@ -21,10 +21,10 @@ public class SingleVariablePolynomialTermParser implements PolynomialTermParser 
       coefficient = getCoefficient(isFirstTerm, scanner);
       power = 0;
 
-      if (scanner.hasNext()) {
-        skipVariableAndRaiseToSign(scanner);
-        power = getPower(scanner);
-        checkIfTermHasEnded(scanner);
+    if (scanner.hasNext()) {
+      skipVariableAndRaiseToSign(scanner);
+      power = getPower(scanner);
+      checkIfTermHasEnded(scanner);
       }
     }
 
