@@ -212,7 +212,7 @@ public class PolynomialTest {
   @Test
   public void testPolynomialStringWithZeroPowerAndCoefficient() {
     Assert.assertEquals("12", new PolynomialImpl("2x^0 +10").toString());
-    Assert.assertEquals("-10", new PolynomialImpl("2x^0 -10").toString());
+    Assert.assertEquals("-8", new PolynomialImpl("2x^0 -10").toString());
     Assert.assertEquals("10x^2+2", new PolynomialImpl("2x^0 +10x^2").toString());
 
     Assert.assertEquals("10", new PolynomialImpl("0x^1 +10").toString());
@@ -723,43 +723,43 @@ public class PolynomialTest {
 
   @Test
   public void testAddingTermsOfSamePowerToPolynomial() {
-    Polynomial polynomial = new PolynomialImpl("-2x^1 -10 +4x^4 -10 -6x^2 -3x^3 -5x^5");
-    Assert.assertEquals("-5x^5+4x^4-4x^3-6x^2-2x^1-10", polynomial.toString());
+    Polynomial polynomial = new PolynomialImpl("-2x^1 -10 +4x^4 -10 -6x^2 -4x^3 -5x^5");
+    Assert.assertEquals("-5x^5+4x^4-4x^3-6x^2-2x^1-20", polynomial.toString());
 
     polynomial.addTerm(8, 0);
-    Assert.assertEquals("-5x^5+4x^4-4x^3-6x^2-2x^1-2", polynomial.toString());
+    Assert.assertEquals("-5x^5+4x^4-4x^3-6x^2-2x^1-12", polynomial.toString());
 
     polynomial.addTerm(-8, 0);
-    Assert.assertEquals("-5x^5+4x^4-4x^3-6x^2-2x^1-10", polynomial.toString());
+    Assert.assertEquals("-5x^5+4x^4-4x^3-6x^2-2x^1-20", polynomial.toString());
 
     polynomial.addTerm(8, 1);
-    Assert.assertEquals("-5x^5+4x^4-4x^3-6x^2+6x^1-2", polynomial.toString());
+    Assert.assertEquals("-5x^5+4x^4-4x^3-6x^2+6x^1-20", polynomial.toString());
 
     polynomial.addTerm(-8, 1);
-    Assert.assertEquals("-5x^5+4x^4-4x^3-6x^2-2x^1-2", polynomial.toString());
+    Assert.assertEquals("-5x^5+4x^4-4x^3-6x^2-2x^1-20", polynomial.toString());
 
     polynomial.addTerm(8, 2);
-    Assert.assertEquals("-5x^5+4x^4-4x^3+2x^2-2x^1-2", polynomial.toString());
+    Assert.assertEquals("-5x^5+4x^4-4x^3+2x^2-2x^1-20", polynomial.toString());
 
     polynomial.addTerm(-8, 2);
-    Assert.assertEquals("-5x^5+4x^4-4x^3-6x^2-2x^1-2", polynomial.toString());
+    Assert.assertEquals("-5x^5+4x^4-4x^3-6x^2-2x^1-20", polynomial.toString());
 
     polynomial.addTerm(8, 3);
-    Assert.assertEquals("-5x^5+4x^4+12x^3-6x^2-2x^1-2", polynomial.toString());
+    Assert.assertEquals("-5x^5+4x^4+4x^3-6x^2-2x^1-20", polynomial.toString());
 
     polynomial.addTerm(-8, 3);
-    Assert.assertEquals("-5x^5+4x^4-4x^3-6x^2-2x^1-2", polynomial.toString());
+    Assert.assertEquals("-5x^5+4x^4-4x^3-6x^2-2x^1-20", polynomial.toString());
 
     polynomial.addTerm(8, 4);
-    Assert.assertEquals("-5x^5+12x^4-4x^3-6x^2-2x^1-2", polynomial.toString());
+    Assert.assertEquals("-5x^5+12x^4-4x^3-6x^2-2x^1-20", polynomial.toString());
 
     polynomial.addTerm(-8, 4);
-    Assert.assertEquals("-5x^5+4x^4-4x^3-6x^2-2x^1-2", polynomial.toString());
+    Assert.assertEquals("-5x^5+4x^4-4x^3-6x^2-2x^1-20", polynomial.toString());
 
     polynomial.addTerm(8, 5);
-    Assert.assertEquals("3x^5+4x^4-4x^3-6x^2-2x^1-2", polynomial.toString());
+    Assert.assertEquals("3x^5+4x^4-4x^3-6x^2-2x^1-20", polynomial.toString());
 
     polynomial.addTerm(-8, 5);
-    Assert.assertEquals("-5x^5+4x^4-4x^3-6x^2-2x^1-2", polynomial.toString());
+    Assert.assertEquals("-5x^5+4x^4-4x^3-6x^2-2x^1-20", polynomial.toString());
   }
 }
