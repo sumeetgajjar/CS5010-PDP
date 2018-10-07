@@ -58,17 +58,17 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
   }
 
   @Override
-  public GenericListADTNode<T> insert(T data, Comparator<T> comparator, BiFunction<T, T, T> accumulator) {
+  public GenericListADTNode<T> insert(T data, Comparator<T> comparator, BiFunction<T, T, T> mergeFunction) {
 
     int compare = comparator.compare(this.data, data);
 
     if (compare < 0) {
       return new GenericElementNode<>(data, this);
     } else if (compare == 0) {
-      T accumulatedData = accumulator.apply(this.data, data);
+      T accumulatedData = mergeFunction.apply(this.data, data);
       return new GenericElementNode<>(accumulatedData, this.rest);
     } else {
-      this.rest = this.rest.insert(data, comparator, accumulator);
+      this.rest = this.rest.insert(data, comparator, mergeFunction);
       return this;
     }
 

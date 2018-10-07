@@ -40,7 +40,7 @@ public class GenericEmptyNode<T> implements GenericListADTNode<T> {
   }
 
   @Override
-  public GenericListADTNode<T> insert(T data, Comparator<T> comparator, BiFunction<T, T, T> accumulator) {
+  public GenericListADTNode<T> insert(T data, Comparator<T> comparator, BiFunction<T, T, T> mergeFunction) {
     return new GenericElementNode<>(data, this);
   }
 
