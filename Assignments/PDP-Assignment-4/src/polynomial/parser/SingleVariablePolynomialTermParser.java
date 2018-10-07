@@ -16,7 +16,7 @@ public class SingleVariablePolynomialTermParser implements PolynomialTermParser 
     int power;
 
     try (Scanner scanner = new Scanner(termString)) {
-      scanner.useDelimiter("\\*");
+      scanner.useDelimiter("");
 
       coefficient = getCoefficient(isFirstTerm, scanner);
       power = 0;
