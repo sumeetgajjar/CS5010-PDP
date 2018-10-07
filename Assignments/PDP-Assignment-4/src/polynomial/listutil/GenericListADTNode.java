@@ -33,8 +33,4 @@ public interface GenericListADTNode<T> {
                                      Supplier<T> thatListDefaultValueSupplier);
 
   GenericListADTNode<T> insert(T data, Comparator<T> comparator, BiFunction<T, T, T> mergeFunction);
-
-  GenericListADTNode<T> combine(GenericListADTNode<T> genericListADTNode,
-                                Comparator<T> comparator,
-                                BiFunction<T, T, T> accumulator);
 }

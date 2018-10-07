@@ -99,14 +99,26 @@ public class PolynomialImpl implements Polynomial {
   public Polynomial add(Polynomial polynomial) {
     if (polynomial instanceof PolynomialImpl) {
       PolynomialImpl that = (PolynomialImpl) polynomial;
-      GenericListADTNode<Term> sum = this.head
-              .combine(
-                      that.head,
-                      Comparator.comparingInt(Term::getPower),
-                      Term::addTwoTerms)
+
+      GenericListADTNode<Term> newPoly = new GenericEmptyNode<>();
+
+      newPoly = this.head
+              .fold(newPoly,
+                      (node, term) -> node
+                              .insert(term,
+                                      Comparator.comparingInt(Term::getPower),
+                                      Term::addTwoTerms));
+
+      newPoly = that.head
+              .fold(newPoly,
+                      (node, term) -> node
+                              .insert(term,
+                                      Comparator.comparingInt(Term::getPower),
+                                      Term::addTwoTerms))
               .filter(Utils::isTermNonZero);
 
-      return new PolynomialImpl(sum);
+
+      return new PolynomialImpl(newPoly);
     }
     throw new IllegalArgumentException("cannot add polynomials of different implementations");
   }
