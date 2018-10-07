@@ -76,6 +76,10 @@ public class PolynomialImpl implements Polynomial {
 
   @Override
   public int getDegree() {
+    if (this.head.count() == 0) {
+      return 0;
+    }
+
     return this.head.get(0).getPower();
   }
 
