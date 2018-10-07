@@ -18,19 +18,6 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
   }
 
   @Override
-  public int count() {
-    return 1 + this.rest.count();
-  }
-
-  @Override
-  public T get(int index) throws IllegalArgumentException {
-    if (index == 0) {
-      return this.data;
-    }
-    return this.rest.get(index - 1);
-  }
-
-  @Override
   public <R> GenericListADTNode<R> map(Function<T, R> mapper) {
     /* Starting from this list of T, the resulting list of type R is an
     element that contains this data converted to T, followed by the rest of
@@ -97,20 +84,5 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
     } else {
       return false;
     }
-  }
-
-  @Override
-  public int hashCode() {
-    return this.data.hashCode();
-  }
-
-  @Override
-  public String toString() {
-    String objString = this.data.toString();
-    String rest = this.rest.toString();
-    if (rest.length() > 0)
-      return objString + " " + rest;
-    else
-      return objString;
   }
 }

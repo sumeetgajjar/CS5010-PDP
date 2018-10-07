@@ -11,16 +11,6 @@ import java.util.function.Predicate;
 public class GenericEmptyNode<T> implements GenericListADTNode<T> {
 
   @Override
-  public int count() {
-    return 0;
-  }
-
-  @Override
-  public T get(int index) throws IllegalArgumentException {
-    throw new IllegalArgumentException("Wrong index");
-  }
-
-  @Override
   public <R> GenericListADTNode<R> map(Function<T, R> mapper) {
     return new GenericEmptyNode<>();
   }
@@ -63,15 +53,5 @@ public class GenericEmptyNode<T> implements GenericListADTNode<T> {
 
     GenericEmptyNode that = (GenericEmptyNode) obj;
     return true;
-  }
-
-  @Override
-  public int hashCode() {
-    return 93213139;
-  }
-
-  @Override
-  public String toString() {
-    return "";
   }
 }

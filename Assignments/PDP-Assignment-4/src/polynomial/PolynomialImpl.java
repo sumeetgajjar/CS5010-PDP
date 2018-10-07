@@ -75,17 +75,17 @@ public class PolynomialImpl implements Polynomial {
 
   @Override
   public int getDegree() {
-    if (this.head.count() == 0) {
-      return 0;
-    }
-    return this.head.get(0).getPower();
+    return this.head
+            .map(Term::getPower)
+            .fold(0, Integer::max);
   }
 
   @Override
   public int getCoefficient(int power) {
     return this.head
             .filter(term -> term.getPower() == power)
-            .fold(0, (integer, term) -> integer + term.getCoefficient());
+            .fold(0,
+                    (runningCoefficientSum, term) -> runningCoefficientSum + term.getCoefficient());
   }
 
   @Override
@@ -130,6 +130,9 @@ public class PolynomialImpl implements Polynomial {
     }
 
     PolynomialImpl that = (PolynomialImpl) obj;
+
+//    this.head.fold(true, (aBoolean, term) -> )
+
     return this.head.equals(that.head);
   }
 
@@ -142,7 +145,7 @@ public class PolynomialImpl implements Polynomial {
 
   @Override
   public String toString() {
-    if (this.head.count() == 0) {
+    if (this.getNumberOfTerms() == 0) {
       return "0";
     }
 
@@ -152,6 +155,11 @@ public class PolynomialImpl implements Polynomial {
             .fold(builder, StringBuilder::append);
 
     return removeLeadingPositiveSign(builder);
+  }
+
+  private int getNumberOfTerms() {
+    return this.head.map(term -> 1)
+            .fold(0, Integer::sum);
   }
 
   private String removeLeadingPositiveSign(StringBuilder builder) {
