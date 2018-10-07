@@ -1,6 +1,6 @@
 package util;
 
-import polynomial.Term;
+import polynomial.bean.Term;
 
 /**
  * Created by gajjar.s,on 10:29 AM, 10/6/18

@@ -1,6 +1,6 @@
 package polynomial.parser;
 
-import polynomial.Term;
+import polynomial.bean.Term;
 
 /**
  * Created by gajjar.s,on 6:18 PM, 10/6/18

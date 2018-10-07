@@ -1,4 +1,4 @@
-package polynomial;
+package polynomial.bean;
 
 import java.util.Objects;
 

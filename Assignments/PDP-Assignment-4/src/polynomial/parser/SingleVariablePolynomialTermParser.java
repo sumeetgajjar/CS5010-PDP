@@ -2,7 +2,7 @@ package polynomial.parser;
 
 import java.util.Scanner;
 
-import polynomial.Term;
+import polynomial.bean.Term;
 
 /**
  * Created by gajjar.s,on 6:13 PM, 10/6/18

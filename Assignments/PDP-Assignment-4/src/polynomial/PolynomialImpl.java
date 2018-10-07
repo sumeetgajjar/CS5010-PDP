@@ -4,6 +4,9 @@ import java.util.Comparator;
 import java.util.Objects;
 import java.util.Scanner;
 
+import polynomial.bean.Term;
+import polynomial.listutil.GenericEmptyNode;
+import polynomial.listutil.GenericListADTNode;
 import polynomial.parser.SingleVariablePolynomialTermParser;
 import util.Utils;
 
