@@ -146,6 +146,30 @@ public class PolynomialTest {
   }
 
   @Test
+  public void testPolynomialStringWIthDecimalCoefficient() {
+    Polynomial polynomial = null;
+    try {
+      polynomial = new PolynomialImpl("10 +2.1x^5");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid polynomial string", e.getMessage());
+    }
+    Assert.assertNull(polynomial);
+  }
+
+  @Test
+  public void testPolynomialStringWIthDecimalPower() {
+    Polynomial polynomial = null;
+    try {
+      polynomial = new PolynomialImpl("10 +2x^5.9");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid polynomial string", e.getMessage());
+    }
+    Assert.assertNull(polynomial);
+  }
+
+  @Test
   public void testPolynomialStringWithInvalidLetters() {
     Polynomial polynomial = null;
     try {

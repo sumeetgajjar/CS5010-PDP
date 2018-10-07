@@ -45,7 +45,6 @@ public class PolynomialImpl implements Polynomial {
     this.polynomialTermParser = new SingleVariablePolynomialTermParser();
   }
 
-  //todo check for -0 only if tests fails
   public PolynomialImpl(String polynomialString) throws IllegalArgumentException {
     this(new GenericEmptyNode<>());
 
@@ -150,9 +149,6 @@ public class PolynomialImpl implements Polynomial {
 
     return builder.toString();
   }
-
-  //todo check if hashcode can be implemented
-
 
   private void parsePolynomialString(String polynomialString) {
     try (Scanner scanner = new Scanner(polynomialString)) {
