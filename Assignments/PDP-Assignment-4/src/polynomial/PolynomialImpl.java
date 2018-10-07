@@ -103,7 +103,7 @@ public class PolynomialImpl implements Polynomial {
       return new PolynomialImpl(sum);
     }
 
-    throw new IllegalArgumentException("cannot add polynomials");
+    throw new IllegalArgumentException("cannot add polynomials of different implementations");
   }
 
   @Override
