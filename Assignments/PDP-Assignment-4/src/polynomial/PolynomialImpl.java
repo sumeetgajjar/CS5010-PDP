@@ -56,7 +56,6 @@ public class PolynomialImpl implements Polynomial {
     if (polynomialString.length() == 0) {
       polynomialString = "0";
     }
-
     this.parsePolynomialString(polynomialString);
   }
 
@@ -79,7 +78,6 @@ public class PolynomialImpl implements Polynomial {
     if (this.head.count() == 0) {
       return 0;
     }
-
     return this.head.get(0).getPower();
   }
 
@@ -110,7 +108,6 @@ public class PolynomialImpl implements Polynomial {
 
       return new PolynomialImpl(sum);
     }
-
     throw new IllegalArgumentException("cannot add polynomials of different implementations");
   }
 
