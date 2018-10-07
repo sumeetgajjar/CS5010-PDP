@@ -14,7 +14,7 @@ public class PolynomialTest {
   public void testPolynomialInitialization() {
     Polynomial polynomial = new PolynomialImpl("+4x^1 +2x^5 -3x^2 -10");
     Assert.assertEquals(5, polynomial.getDegree());
-    Assert.assertEquals(3, polynomial.getCoefficient(4));
+    Assert.assertEquals(0, polynomial.getCoefficient(4));
     Assert.assertEquals(-7D, polynomial.evaluate(1D), 0D);
     Assert.assertEquals("2x^5-3x^2+4x^1-10", polynomial.toString());
 
@@ -325,13 +325,13 @@ public class PolynomialTest {
   @Test
   public void testPolynomialEquality() {
     Polynomial polynomial1 = new PolynomialImpl("1 +2x^2 -1x^1 -3x^3 +4x^4");
-    Assert.assertEquals("4x^4-3x^3+2x^2+1", polynomial1.toString());
+    Assert.assertEquals("4x^4-3x^3+2x^2-1x^1+1", polynomial1.toString());
 
     Polynomial polynomial2 = new PolynomialImpl("-1x^1 +1 +2x^2 +4x^4 -3x^3 ");
-    Assert.assertEquals("4x^4-3x^3+2x^2+1", polynomial2.toString());
+    Assert.assertEquals("4x^4-3x^3+2x^2-1x^1+1", polynomial2.toString());
 
     Polynomial polynomial3 = new PolynomialImpl("+2x^2 -1x^1 +1 +4x^4 -3x^3 ");
-    Assert.assertEquals("4x^4-3x^3+2x^2+1", polynomial3.toString());
+    Assert.assertEquals("4x^4-3x^3+2x^2-1x^1+1", polynomial3.toString());
 
     //Reflexivity
     Assert.assertEquals(polynomial1, polynomial1);
@@ -344,6 +344,22 @@ public class PolynomialTest {
     Assert.assertEquals(polynomial1, polynomial2);
     Assert.assertEquals(polynomial2, polynomial3);
     Assert.assertTrue(polynomial1.equals(polynomial3));
+  }
+
+  @Test
+  public void testPolynomialEqualityUsingHashCode() {
+    Polynomial polynomial1 = new PolynomialImpl("1 +2x^2 -1x^1 -3x^3 +4x^4");
+    Assert.assertEquals("4x^4-3x^3+2x^2-1x^1+1", polynomial1.toString());
+
+    Polynomial polynomial2 = new PolynomialImpl("-1x^1 +1 +2x^2 +4x^4 -3x^3 ");
+    Assert.assertEquals("4x^4-3x^3+2x^2-1x^1+1", polynomial2.toString());
+
+    Polynomial polynomial3 = new PolynomialImpl("+2x^2 -1x^1 +1 +4x^4 -3x^3 ");
+    Assert.assertEquals("4x^4-3x^3+2x^2-1x^1+1", polynomial3.toString());
+
+    Assert.assertEquals(polynomial1.hashCode(), polynomial2.hashCode());
+    Assert.assertEquals(polynomial2.hashCode(), polynomial3.hashCode());
+    Assert.assertEquals(polynomial1.hashCode(), polynomial3.hashCode());
   }
 
   @Test

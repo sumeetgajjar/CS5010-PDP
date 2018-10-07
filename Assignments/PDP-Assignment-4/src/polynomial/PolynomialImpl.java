@@ -103,7 +103,22 @@ public class PolynomialImpl implements Polynomial {
 
   @Override
   public boolean equals(Object obj) {
-    return super.equals(obj);
+    if (this == obj) {
+      return true;
+    }
+
+    if (!(obj instanceof PolynomialImpl)) {
+      return false;
+    }
+
+    PolynomialImpl that = (PolynomialImpl) obj;
+    return this.head.equals(that.head);
+  }
+
+  @Override
+  public int hashCode() {
+    return this.head.map(Objects::hashCode)
+            .fold(1, (hash1, hash2) -> (31 * hash1) + hash2);
   }
 
   @Override

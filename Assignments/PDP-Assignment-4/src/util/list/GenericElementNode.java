@@ -102,6 +102,29 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
   }
 
   @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+
+    if (!(obj instanceof GenericElementNode)) {
+      return false;
+    }
+
+    GenericElementNode that = (GenericElementNode) obj;
+    if (this.data.equals(that.data)) {
+      return this.rest.equals(that.rest);
+    } else {
+      return false;
+    }
+  }
+
+  @Override
+  public int hashCode() {
+    return this.data.hashCode();
+  }
+
+  @Override
   public String toString() {
     String objString = this.data.toString();
     String rest = this.rest.toString();

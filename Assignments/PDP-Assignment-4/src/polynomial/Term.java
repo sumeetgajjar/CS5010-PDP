@@ -1,5 +1,7 @@
 package polynomial;
 
+import java.util.Objects;
+
 /**
  * Created by gajjar.s,on 4:26 PM, 10/6/18
  */
@@ -16,6 +18,26 @@ public class Term {
 
     this.coefficient = coefficient;
     this.power = power;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+
+    if (!(obj instanceof Term)) {
+      return false;
+    }
+
+    Term that = (Term) obj;
+    return this.coefficient == that.coefficient
+            && this.power == that.power;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.coefficient, this.power);
   }
 
   @Override
