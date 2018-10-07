@@ -1,4 +1,4 @@
-package polynomial.util;
+package util;
 
 import polynomial.Term;
 

@@ -3,7 +3,7 @@ import org.junit.Test;
 
 import polynomial.Polynomial;
 import polynomial.PolynomialImpl;
-import polynomial.util.Utils;
+import util.Utils;
 
 /**
  * Created by gajjar.s,on 5:46 PM, 10/5/18

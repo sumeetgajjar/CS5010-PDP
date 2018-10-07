@@ -4,8 +4,6 @@ import java.util.Objects;
 import java.util.Scanner;
 
 import polynomial.parser.SingleVariablePolynomialTermParser;
-import polynomial.util.list.ListADT;
-import polynomial.util.list.ListADTImpl;
 
 /**
  * This class represents a Polynomial. It implements {@link Polynomial} interface.
@@ -36,8 +34,6 @@ public class PolynomialImpl implements Polynomial {
 
   private final SingleVariablePolynomialTermParser polynomialTermParser = new SingleVariablePolynomialTermParser();
 
-  private ListADT<Term> terms;
-
   //todo check for -0 only if tests fails
   public PolynomialImpl(String polynomialString) throws IllegalArgumentException {
 
@@ -45,7 +41,6 @@ public class PolynomialImpl implements Polynomial {
       throw new IllegalArgumentException("Invalid polynomial string");
     }
 
-    this.terms = new ListADTImpl<>();
     this.parsePolynomialString(polynomialString);
   }
 
