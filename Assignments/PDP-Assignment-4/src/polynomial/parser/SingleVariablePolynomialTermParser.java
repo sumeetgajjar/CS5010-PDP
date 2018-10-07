@@ -10,7 +10,8 @@ import polynomial.bean.Term;
 public class SingleVariablePolynomialTermParser implements PolynomialTermParser {
 
   @Override
-  public Term parsePolynomialTerm(boolean isFirstTerm, String termString) throws IllegalArgumentException {
+  public Term parsePolynomialTerm(boolean isFirstTerm, String termString)
+          throws IllegalArgumentException {
 
     int coefficient;
     int power;
@@ -21,10 +22,10 @@ public class SingleVariablePolynomialTermParser implements PolynomialTermParser 
       coefficient = getCoefficient(isFirstTerm, scanner);
       power = 0;
 
-    if (scanner.hasNext()) {
-      skipVariableAndRaiseToSign(scanner);
-      power = getPower(scanner);
-      checkIfTermHasEnded(scanner);
+      if (scanner.hasNext()) {
+        skipVariableAndRaiseToSign(scanner);
+        power = getPower(scanner);
+        checkIfTermHasEnded(scanner);
       }
     }
 
