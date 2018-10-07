@@ -1,4 +1,4 @@
-package polynomial.util.list;
+package util.list;
 
 import java.util.function.Function;
 
