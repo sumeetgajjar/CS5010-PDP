@@ -43,6 +43,8 @@ public class PolynomialImpl implements Polynomial {
       throw new IllegalArgumentException("Invalid polynomial string");
     }
 
+    this.head = new PolynomialEmptyNode();
+
     this.parsePolynomialString(polynomialString);
   }
 
