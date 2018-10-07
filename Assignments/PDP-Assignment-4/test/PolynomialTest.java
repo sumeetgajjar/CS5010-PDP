@@ -22,7 +22,7 @@ public class PolynomialTest {
     Polynomial polynomialAfterAddition = polynomial.add(new PolynomialImpl("3x^4"));
     Assert.assertEquals(expectedPolynomialStringAfterAddition, polynomialAfterAddition.toString());
 
-    Polynomial expectedDerivative = new PolynomialImpl("10x^4-6x+4");
+    Polynomial expectedDerivative = new PolynomialImpl("10x^4 -6x^1 +4");
     Assert.assertEquals(expectedDerivative, polynomial.derivative());
 
     polynomial.addTerm(3, 4);
@@ -437,7 +437,7 @@ public class PolynomialTest {
   @Test
   public void testPolynomialAddition3() {
     Polynomial polynomial1 = new PolynomialImpl("5x^5 +11 +12x^2 -13x^3 +14x^4");
-    String polynomial1String = "14x^4-13x^3+12x^2+11";
+    String polynomial1String = "5x^5+14x^4-13x^3+12x^2+11";
     Assert.assertEquals(polynomial1String, polynomial1.toString());
 
     Polynomial polynomial2 = new PolynomialImpl("-1 -2x^2 +3x^3 -4x^4");
@@ -445,7 +445,7 @@ public class PolynomialTest {
     Assert.assertEquals(polynomialString2, polynomial2.toString());
 
     Polynomial polynomialAfterAddition = polynomial1.add(polynomial2);
-    Assert.assertEquals("5x^5+10x^4-13x^3+10x^2+10", polynomialAfterAddition.toString());
+    Assert.assertEquals("5x^5+10x^4-10x^3+10x^2+10", polynomialAfterAddition.toString());
     Assert.assertEquals(5, polynomialAfterAddition.getDegree());
 
     Assert.assertEquals(polynomial1String, polynomial1.toString());
@@ -689,7 +689,7 @@ public class PolynomialTest {
       polynomial.addTerm(10, -1);
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("cannot add term with negative power", e.getMessage());
+      Assert.assertEquals("power of term cannot be negative", e.getMessage());
     }
     Assert.assertEquals("0", polynomial.toString());
 
@@ -697,7 +697,7 @@ public class PolynomialTest {
       polynomial.addTerm(-10, -1);
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("cannot add term with negative power", e.getMessage());
+      Assert.assertEquals("power of term cannot be negative", e.getMessage());
     }
     Assert.assertEquals("0", polynomial.toString());
 
@@ -705,7 +705,7 @@ public class PolynomialTest {
       polynomial.addTerm(0, -1);
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("cannot add term with negative power", e.getMessage());
+      Assert.assertEquals("power of term cannot be negative", e.getMessage());
     }
     Assert.assertEquals("0", polynomial.toString());
   }

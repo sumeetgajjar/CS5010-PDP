@@ -13,7 +13,7 @@ public class Term {
   public Term(int coefficient, int power) throws IllegalArgumentException {
 
     if (power < 0) {
-      throw new IllegalArgumentException("power of term cannot be less than 0");
+      throw new IllegalArgumentException("power of term cannot be negative");
     }
 
     this.coefficient = coefficient;

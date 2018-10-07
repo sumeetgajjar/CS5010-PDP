@@ -75,6 +75,12 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
   }
 
   @Override
+  public GenericListADTNode<T> combine(GenericListADTNode<T> genericListADTNode, Comparator<T> comparator, BiFunction<T, T, T> accumulator) {
+    GenericListADTNode<T> node = genericListADTNode.insert(this.data, comparator, accumulator);
+    return this.rest.combine(node, comparator, accumulator);
+  }
+
+  @Override
   public boolean equals(Object obj) {
     if (this == obj) {
       return true;

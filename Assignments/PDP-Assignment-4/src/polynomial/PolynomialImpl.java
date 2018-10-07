@@ -40,8 +40,14 @@ public class PolynomialImpl implements Polynomial {
 
   private GenericListADTNode<Term> head;
 
+  private PolynomialImpl(GenericListADTNode<Term> head) {
+    this.head = head;
+    this.polynomialTermParser = new SingleVariablePolynomialTermParser();
+  }
+
   //todo check for -0 only if tests fails
   public PolynomialImpl(String polynomialString) throws IllegalArgumentException {
+    this(new GenericEmptyNode<>());
 
     if (Objects.isNull(polynomialString)) {
       throw new IllegalArgumentException("Invalid polynomial string");
@@ -51,18 +57,11 @@ public class PolynomialImpl implements Polynomial {
       polynomialString = "0";
     }
 
-    this.head = new GenericEmptyNode<>();
-    this.polynomialTermParser = new SingleVariablePolynomialTermParser();
     this.parsePolynomialString(polynomialString);
   }
 
   public PolynomialImpl() throws IllegalArgumentException {
     this("");
-  }
-
-  private PolynomialImpl(GenericListADTNode<Term> head) {
-    this.head = head;
-    polynomialTermParser = new SingleVariablePolynomialTermParser();
   }
 
   @Override
@@ -97,7 +96,17 @@ public class PolynomialImpl implements Polynomial {
 
   @Override
   public Polynomial add(Polynomial polynomial) {
-    return null;
+    if (polynomial instanceof PolynomialImpl) {
+      PolynomialImpl that = (PolynomialImpl) polynomial;
+      GenericListADTNode<Term> sum = this.head.combine(that.head,
+              Comparator.comparingInt(Term::getPower),
+              Term::addTwoTerms)
+              .filter(Utils::isTermNonZero);
+
+      return new PolynomialImpl(sum);
+    }
+
+    throw new IllegalArgumentException("cannot add polynomials");
   }
 
   @Override

@@ -45,6 +45,11 @@ public class GenericEmptyNode<T> implements GenericListADTNode<T> {
   }
 
   @Override
+  public GenericListADTNode<T> combine(GenericListADTNode<T> genericListADTNode, Comparator<T> comparator, BiFunction<T, T, T> accumulator) {
+    return genericListADTNode;
+  }
+
+  @Override
   public boolean equals(Object obj) {
     if (this == obj) {
       return true;
