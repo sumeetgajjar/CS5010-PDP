@@ -15,10 +15,6 @@ public class GenericEmptyNode<T> implements GenericListADTNode<T> {
     return 0;
   }
 
-  private GenericListADTNode<T> addFront(T data) {
-    return new GenericElementNode<>(data, this);
-  }
-
   @Override
   public T get(int index) throws IllegalArgumentException {
     throw new IllegalArgumentException("Wrong index");
@@ -40,12 +36,18 @@ public class GenericEmptyNode<T> implements GenericListADTNode<T> {
   }
 
   @Override
-  public GenericListADTNode<T> insert(T data, Comparator<T> comparator, BiFunction<T, T, T> mergeFunction) {
+  public GenericListADTNode<T> insert(T data,
+                                      Comparator<T> comparator,
+                                      BiFunction<T, T, T> mergeFunction) {
+
     return new GenericElementNode<>(data, this);
   }
 
   @Override
-  public GenericListADTNode<T> combine(GenericListADTNode<T> genericListADTNode, Comparator<T> comparator, BiFunction<T, T, T> accumulator) {
+  public GenericListADTNode<T> combine(GenericListADTNode<T> genericListADTNode,
+                                       Comparator<T> comparator,
+                                       BiFunction<T, T, T> accumulator) {
+
     return genericListADTNode;
   }
 

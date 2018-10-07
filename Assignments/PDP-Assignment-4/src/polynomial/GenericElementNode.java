@@ -22,10 +22,6 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
     return 1 + this.rest.count();
   }
 
-  private GenericListADTNode<T> addFront(T data) {
-    return new GenericElementNode<>(data, this);
-  }
-
   @Override
   public T get(int index) throws IllegalArgumentException {
     if (index == 0) {
@@ -58,7 +54,9 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
   }
 
   @Override
-  public GenericListADTNode<T> insert(T data, Comparator<T> comparator, BiFunction<T, T, T> mergeFunction) {
+  public GenericListADTNode<T> insert(T data,
+                                      Comparator<T> comparator,
+                                      BiFunction<T, T, T> mergeFunction) {
 
     int compare = comparator.compare(this.data, data);
 
@@ -75,7 +73,10 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
   }
 
   @Override
-  public GenericListADTNode<T> combine(GenericListADTNode<T> genericListADTNode, Comparator<T> comparator, BiFunction<T, T, T> accumulator) {
+  public GenericListADTNode<T> combine(GenericListADTNode<T> genericListADTNode,
+                                       Comparator<T> comparator,
+                                       BiFunction<T, T, T> accumulator) {
+
     GenericListADTNode<T> node = genericListADTNode.insert(this.data, comparator, accumulator);
     return this.rest.combine(node, comparator, accumulator);
   }
