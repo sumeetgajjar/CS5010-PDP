@@ -80,7 +80,10 @@ public class GenericEmptyNode<T> implements GenericListADTNode<T> {
    * elements in {@link Pair}
    */
   @Override
-  public GenericListADTNode<Pair<T, T>> zipAll(GenericListADTNode<T> thatList, Supplier<T> thisListDefaultValueSupplier, Supplier<T> thatListDefaultValueSupplier) {
+  public GenericListADTNode<Pair<T, T>> zipAll(GenericListADTNode<T> thatList,
+                                               Supplier<T> thisListDefaultValueSupplier,
+                                               Supplier<T> thatListDefaultValueSupplier) {
+
     if (thatList instanceof GenericEmptyNode) {
       return new GenericEmptyNode<>();
     } else {
