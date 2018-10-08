@@ -28,7 +28,7 @@ public interface GenericListADTNode<T> {
 
   <R> R fold(R initialValue, BiFunction<R, T, R> accumulator);
 
-  GenericListADTNode<Pair<T, T>> zip(GenericListADTNode<T> list,
+  GenericListADTNode<Pair<T, T>> zip(GenericListADTNode<T> thatList,
                                      Supplier<T> thisListDefaultValueSupplier,
                                      Supplier<T> thatListDefaultValueSupplier);
 

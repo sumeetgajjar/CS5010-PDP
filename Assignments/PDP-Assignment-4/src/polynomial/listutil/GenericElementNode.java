@@ -44,14 +44,27 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
   }
 
   @Override
-  public GenericListADTNode<Pair<T, T>> zip(GenericListADTNode<T> list, Supplier<T> thisListDefaultValueSupplier, Supplier<T> thatListDefaultValueSupplier) {
-    if (list instanceof GenericElementNode) {
-      GenericElementNode<T> that = (GenericElementNode<T>) list;
-      Pair<T, T> pair = Pair.of(this.data, that.data);
-      return new GenericElementNode<>(pair, this.rest.zip(that.rest, thisListDefaultValueSupplier, thatListDefaultValueSupplier));
+  public GenericListADTNode<Pair<T, T>> zip(GenericListADTNode<T> thatList,
+                                            Supplier<T> thisListDefaultValueSupplier,
+                                            Supplier<T> thatListDefaultValueSupplier) {
+
+    if (thatList instanceof GenericElementNode) {
+      GenericElementNode<T> thatGenericElementNode = (GenericElementNode<T>) thatList;
+      Pair<T, T> pair = Pair.of(this.data, thatGenericElementNode.data);
+      return new GenericElementNode<>(
+              pair,
+              this.rest.zip(
+                      thatGenericElementNode.rest,
+                      thisListDefaultValueSupplier,
+                      thatListDefaultValueSupplier));
     } else {
       Pair<T, T> pair = Pair.of(this.data, thatListDefaultValueSupplier.get());
-      return new GenericElementNode<>(pair, this.rest.zip(list, thisListDefaultValueSupplier, thatListDefaultValueSupplier));
+      return new GenericElementNode<>(
+              pair,
+              this.rest.zip(
+                      thatList,
+                      thisListDefaultValueSupplier,
+                      thatListDefaultValueSupplier));
     }
   }
 
@@ -72,23 +85,5 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
       return this;
     }
 
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
-    }
-
-    if (!(obj instanceof GenericElementNode)) {
-      return false;
-    }
-
-    GenericElementNode that = (GenericElementNode) obj;
-    if (this.data.equals(that.data)) {
-      return this.rest.equals(that.rest);
-    } else {
-      return false;
-    }
   }
 }
