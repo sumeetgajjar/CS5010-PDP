@@ -92,7 +92,13 @@ public class PolynomialImpl implements Polynomial {
   public double evaluate(double x) {
     return this.head
             .map(term -> term.evaluate(x))
-            .fold(0D, Double::sum);
+            .fold(0D, (a, b) -> {
+              double sum = Double.sum(a, b);
+              if (!Double.isFinite(sum)) {
+                throw new ArithmeticException("overflow occurred while evaluating polynomial");
+              }
+              return sum;
+            });
   }
 
   @Override

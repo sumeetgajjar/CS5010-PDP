@@ -438,8 +438,6 @@ public class PolynomialTest {
     }
   }
 
-  //todo check exception being thrown if new polynomial impl is passed for addition
-
   @Test
   public void testPolynomialAddition1() {
     Polynomial polynomial1 = new PolynomialImpl("1 +2x^2 -3x^3 +4x^4");
@@ -474,11 +472,12 @@ public class PolynomialTest {
     Assert.assertEquals(polynomialString2, polynomial2.toString());
 
     polynomial1.addTerm(4, 4);
+    Assert.assertEquals("18x^4-3x^3+2x^2+11", polynomial1.toString());
+
     polynomial2.addTerm(4, 4);
+    Assert.assertEquals("3x^3-2x^2-1", polynomial2.toString());
 
     Assert.assertEquals("10x^4+10", addedPolynomial.toString());
-    Assert.assertEquals("18x^4-3x^3+2x^2+11", polynomial1.toString());
-    Assert.assertEquals("3x^3-2x^2-1", polynomial2.toString());
   }
 
   @Test
@@ -672,7 +671,7 @@ public class PolynomialTest {
   }
 
   @Test
-  public void testEvaluatingPolynomialWithPositiveX() {
+  public void testEvaluatingPolynomialWithX() {
     Polynomial polynomial = new PolynomialImpl("+1 +2x^2 -3x^3");
     Assert.assertEquals("-3x^3+2x^2+1", polynomial.toString());
 
@@ -683,20 +682,21 @@ public class PolynomialTest {
     Assert.assertEquals(-2799D, polynomial.evaluate(10D), 0D);
     Assert.assertEquals(3201D, polynomial.evaluate(-10D), 0D);
 
-    //todo check this.
-    /*try {
+    Assert.assertEquals(-3880.0080956009997D, polynomial.evaluate(11.123D), 0D);
+    Assert.assertEquals(4376.892611601D, polynomial.evaluate(-11.123D), 0D);
+
+    Assert.assertEquals(-0.7303829657732552D, polynomial.evaluate(1.1235679D), 0D);
+    Assert.assertEquals(7.780002269414895D, polynomial.evaluate(-1.1235679D), 0D);
+
+    Assert.assertEquals(1.1142104789283578D, polynomial.evaluate(0.53231235679D), 0D);
+    Assert.assertEquals(2.0192153018369394D, polynomial.evaluate(-0.53231235679D), 0D);
+
+    try {
       polynomial.evaluate(Double.MAX_VALUE);
       Assert.fail("should have failed");
     } catch (ArithmeticException e) {
       Assert.assertEquals("overflow occurred while evaluating polynomial", e.getMessage());
     }
-
-    try {
-      polynomial.evaluate(Double.MIN_VALUE);
-      Assert.fail("should have failed");
-    } catch (ArithmeticException e) {
-      Assert.assertEquals("overflow occurred while evaluating polynomial", e.getMessage());
-    }*/
   }
 
   @Test
