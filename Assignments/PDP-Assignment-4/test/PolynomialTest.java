@@ -440,6 +440,8 @@ public class PolynomialTest {
     }
   }
 
+  //todo check exception being thrown if new polynomial impl is passed for addition
+
   @Test
   public void testPolynomialAddition1() {
     Polynomial polynomial1 = new PolynomialImpl("1 +2x^2 -3x^3 +4x^4");
@@ -467,10 +469,18 @@ public class PolynomialTest {
     String polynomialString2 = "-4x^4+3x^3-2x^2-1";
     Assert.assertEquals(polynomialString2, polynomial2.toString());
 
-    Assert.assertEquals("10x^4+10", polynomial1.add(polynomial2).toString());
+    Polynomial addedPolynomial = polynomial1.add(polynomial2);
+    Assert.assertEquals("10x^4+10", addedPolynomial.toString());
 
     Assert.assertEquals(polynomial1String, polynomial1.toString());
     Assert.assertEquals(polynomialString2, polynomial2.toString());
+
+    polynomial1.addTerm(4, 4);
+    polynomial2.addTerm(4, 4);
+
+    Assert.assertEquals("10x^4+10", addedPolynomial.toString());
+    Assert.assertEquals("18x^4-3x^3+2x^2+11", polynomial1.toString());
+    Assert.assertEquals("3x^3-2x^2-1", polynomial2.toString());
   }
 
   @Test
