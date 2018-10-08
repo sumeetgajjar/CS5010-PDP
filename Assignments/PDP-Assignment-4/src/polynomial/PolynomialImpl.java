@@ -120,6 +120,11 @@ public class PolynomialImpl implements Polynomial {
     return sum;
   }
 
+  /**
+   * Returns the polynomial obtained by differentiating this polynomial.
+   *
+   * @return the polynomial obtained by differentiating this polynomial
+   */
   @Override
   public Polynomial derivative() {
     return new PolynomialImpl(
@@ -128,6 +133,12 @@ public class PolynomialImpl implements Polynomial {
                     .filter(Utils::isTermNonZero));
   }
 
+  /**
+   * Returns true if all terms in this polynomial are equal to all terms in specified polynomial.
+   *
+   * @param obj the object to compare with this polynomial
+   * @return true if this polynomial is equal to specified obj, false otherwise
+   */
   @Override
   public boolean equals(Object obj) {
     if (this == obj) {
@@ -146,6 +157,11 @@ public class PolynomialImpl implements Polynomial {
             .foldLeft(true, Boolean::equals);
   }
 
+  /**
+   * Returns the hashCode of this polynomial.
+   *
+   * @return the hashCode of this polynomial
+   */
   @Override
   public int hashCode() {
     return this.head
@@ -153,6 +169,15 @@ public class PolynomialImpl implements Polynomial {
             .foldLeft(1, (hash1, hash2) -> (31 * hash1) + hash2);
   }
 
+  /**
+   * Returns the String representation of this polynomial. E.g. <ul>
+   * <li>For polynomial "5x^2 +4x^1 −2", toString will return "5x^2+4x^1-2"</li>
+   * <li>For polynomial "3 −50x^3 +x^2", toString will return "-50x^3+1x^2+3"</li>
+   * <li>For polynomial "4x^1 +2x^5 −3x^2 −10", toString will return "2x^5-3x^2+4x^1-10"</li>
+   * </ul>
+   *
+   * @return the String representation of this polynomial
+   */
   @Override
   public String toString() {
     if (this.getNumberOfTerms() == 0) {
@@ -167,11 +192,22 @@ public class PolynomialImpl implements Polynomial {
     return removeLeadingPositiveSign(builder);
   }
 
+  /**
+   * Returns the number of terms in this polynomial.
+   *
+   * @return the number of terms in this polynomial
+   */
   private int getNumberOfTerms() {
     return this.head.map(term -> 1)
             .foldLeft(0, Integer::sum);
   }
 
+  /**
+   * Strip the leading positive sign from the given StringBuilder and return the string.
+   *
+   * @param builder builder
+   * @return the string with positive sign stripped
+   */
   private String removeLeadingPositiveSign(StringBuilder builder) {
     if (builder.length() > 0 && builder.charAt(0) == '+') {
       return builder.substring(1);
@@ -180,6 +216,11 @@ public class PolynomialImpl implements Polynomial {
     return builder.toString();
   }
 
+  /**
+   * Parses the given string into polynomial Terms and adds the same term to current polynomial.
+   *
+   * @param polynomialString polynomialString to parse
+   */
   private void parsePolynomialString(String polynomialString) {
     try (Scanner scanner = new Scanner(polynomialString)) {
       scanner.useDelimiter(TERMS_DELIMITER);
@@ -189,7 +230,7 @@ public class PolynomialImpl implements Polynomial {
         String termString = scanner.next();
         Term term = this.polynomialTermParser.parsePolynomialTerm(isFirstTerm, termString);
 
-        addTerm(term.getCoefficient(), term.getPower());
+        this.addTerm(term.getCoefficient(), term.getPower());
 
         isFirstTerm = false;
       }
