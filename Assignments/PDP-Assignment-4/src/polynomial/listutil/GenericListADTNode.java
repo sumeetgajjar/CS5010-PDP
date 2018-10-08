@@ -24,7 +24,7 @@ public interface GenericListADTNode<T> {
    * @param data          the data to be inserted
    * @param comparator    the Comparator to compare the given type of data
    * @param mergeFunction the BinaryOperator for merging
-   * @return a
+   * @return the head of the list
    */
   GenericListADTNode<T> insert(T data, Comparator<T> comparator, BinaryOperator<T> mergeFunction);
 

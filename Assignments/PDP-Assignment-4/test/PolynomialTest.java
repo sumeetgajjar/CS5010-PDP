@@ -11,7 +11,7 @@ import util.Utils;
 public class PolynomialTest {
 
   @Test
-  public void testPolynomialInitialization() {
+  public void testPolynomialInitializedWithCorrectValues() {
     Polynomial polynomial = new PolynomialImpl("+4x^1 +2x^5 -3x^2 -10");
     Assert.assertEquals(5, polynomial.getDegree());
     Assert.assertEquals(0, polynomial.getCoefficient(4));
@@ -30,7 +30,7 @@ public class PolynomialTest {
   }
 
   @Test
-  public void testEmptyPolynomial() {
+  public void testEmptyPolynomialInitializedWithCorrectValues() {
     Polynomial polynomial = new PolynomialImpl();
 
     Assert.assertEquals(new PolynomialImpl(), polynomial);

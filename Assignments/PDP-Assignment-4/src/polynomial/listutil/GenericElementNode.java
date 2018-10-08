@@ -22,6 +22,24 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
   }
 
   @Override
+  public GenericListADTNode<T> insert(T data,
+                                      Comparator<T> comparator,
+                                      BinaryOperator<T> mergeFunction) {
+
+    int compare = comparator.compare(this.data, data);
+
+    if (compare < 0) {
+      return new GenericElementNode<>(data, this);
+    } else if (compare == 0) {
+      T accumulatedData = mergeFunction.apply(this.data, data);
+      return new GenericElementNode<>(accumulatedData, this.rest);
+    } else {
+      this.rest = this.rest.insert(data, comparator, mergeFunction);
+      return this;
+    }
+  }
+
+  @Override
   public <R> GenericListADTNode<R> map(Function<T, R> mapper) {
     /* Starting from this list of T, the resulting list of type R is an
     element that contains this data converted to T, followed by the rest of
@@ -59,31 +77,13 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
                       thisListDefaultValueSupplier,
                       thatListDefaultValueSupplier));
     } else {
-      Pair<T, T> pair = Pair.of(this.data, thatListDefaultValueSupplier.get());
+      Pair<T, T> pair = Pair.of(thatListDefaultValueSupplier.get(), this.data);
       return new GenericElementNode<>(
               pair,
               this.rest.zipAll(
                       thatList,
                       thisListDefaultValueSupplier,
                       thatListDefaultValueSupplier));
-    }
-  }
-
-  @Override
-  public GenericListADTNode<T> insert(T data,
-                                      Comparator<T> comparator,
-                                      BinaryOperator<T> mergeFunction) {
-
-    int compare = comparator.compare(this.data, data);
-
-    if (compare < 0) {
-      return new GenericElementNode<>(data, this);
-    } else if (compare == 0) {
-      T accumulatedData = mergeFunction.apply(this.data, data);
-      return new GenericElementNode<>(accumulatedData, this.rest);
-    } else {
-      this.rest = this.rest.insert(data, comparator, mergeFunction);
-      return this;
     }
   }
 }
