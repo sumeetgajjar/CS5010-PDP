@@ -15,10 +15,10 @@ import polynomial.bean.Pair;
 public interface GenericListADTNode<T> {
 
   /**
-   * A insert higher order function for nodes. This method iterates over the list, compares the data
-   * in each node in list with the given data using the given {@link Comparator} and inserts the
-   * given data in descending order of data. If this list already contains given the data then it
-   * merges the given data into the data already present in the list using the given {@link
+   * A insert higher order function for this list. This method iterates over the list, compares the
+   * data in each node in list with the given data using the given {@link Comparator} and inserts
+   * the given data in descending order of data. If this list already contains given the data then
+   * it merges the given data into the data already present in the list using the given {@link
    * BinaryOperator}.
    *
    * @param data          the data to be inserted
@@ -29,8 +29,8 @@ public interface GenericListADTNode<T> {
   GenericListADTNode<T> insert(T data, Comparator<T> comparator, BinaryOperator<T> mergeFunction);
 
   /**
-   * A general map higher order function for nodes. This returns a list of identical structure, but
-   * each data item of type T converted into R using the provided mapper method.
+   * A general map higher order function for this list. This returns a list of identical structure,
+   * but each data item of type T converted into R using the provided mapper method.
    *
    * @param mapper the function needed to convert T into R
    * @param <R>    the type of the data in the returned list
@@ -40,31 +40,32 @@ public interface GenericListADTNode<T> {
   <R> GenericListADTNode<R> map(Function<T, R> mapper);
 
   /**
-   * A general filter higher order function for nodes. This returns a list of each data item of type
-   * T that match the given predicate.
+   * A general filter higher order function for this list. This returns a list of each data item of
+   * type T that match the given predicate.
    *
-   * @param predicate to apply to each node to determine if it should be included
+   * @param predicate to apply to each node of the list to determine if it should be included
    * @return the head of a filtered list of data item of Type T
    */
   GenericListADTNode<T> filter(Predicate<T> predicate);
 
   /**
-   * A general foldLeft higher order function for nodes. Applies a {@link BiFunction} to a initial
-   * value and all elements of this list, going left to right.
+   * A general foldLeft higher order function for this list. Applies a {@link BiFunction} to a
+   * initial value and all elements of this list, going left to right.
    *
    * @param <R>          the data type of output of {@link BiFunction}
    * @param initialValue the initial value
    * @param accumulator  the {@link BiFunction} to fold initial value and data in the current node
+   *                     of list
    * @return the result of applying {@link BiFunction} to a initial value and all elements of this
    * list
    */
   <R> R foldLeft(R initialValue, BiFunction<R, T, R> accumulator);
 
   /**
-   * A general zipAll higher order function for nodes. Returns a list of {@link Pair} formed from
-   * this list and given list, by combining corresponding elements in {@link Pair}. If one of the
-   * two list is shorter than the other, corresponding default values are used to extend the shorter
-   * list to the length of the longer.
+   * A general zipAll higher order function for this list. Returns a list of {@link Pair} formed
+   * from this list and given list, by combining corresponding elements in {@link Pair}. If one of
+   * the two list is shorter than the other, corresponding default values are used to extend the
+   * shorter list to the length of the longer.
    *
    * @param thatList                     other list to zip with
    * @param thisListDefaultValueSupplier default value supplier for this list
