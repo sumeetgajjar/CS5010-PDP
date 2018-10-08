@@ -358,8 +358,6 @@ public class PolynomialTest {
     Polynomial polynomial3 = new PolynomialImpl("+2x^2 -1x^1 +1 +4x^4 -3x^3 ");
     Assert.assertEquals("4x^4-3x^3+2x^2-1x^1+1", polynomial3.toString());
 
-    System.out.println(polynomial1.equals(polynomial2));
-
     //Reflexivity
     Assert.assertEquals(polynomial1, polynomial1);
 
