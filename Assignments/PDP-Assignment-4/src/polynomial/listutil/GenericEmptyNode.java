@@ -2,6 +2,7 @@ package polynomial.listutil;
 
 import java.util.Comparator;
 import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -24,23 +25,23 @@ public class GenericEmptyNode<T> implements GenericListADTNode<T> {
   }
 
   @Override
-  public <R> R fold(R initialValue, BiFunction<R, T, R> accumulator) {
+  public <R> R foldLeft(R initialValue, BiFunction<R, T, R> accumulator) {
     return initialValue;
   }
 
   @Override
-  public GenericListADTNode<Pair<T, T>> zip(GenericListADTNode<T> thatList, Supplier<T> thisListDefaultValueSupplier, Supplier<T> thatListDefaultValueSupplier) {
+  public GenericListADTNode<Pair<T, T>> zipAll(GenericListADTNode<T> thatList, Supplier<T> thisListDefaultValueSupplier, Supplier<T> thatListDefaultValueSupplier) {
     if (thatList instanceof GenericEmptyNode) {
       return new GenericEmptyNode<>();
     } else {
-      return thatList.zip(this, thatListDefaultValueSupplier, thatListDefaultValueSupplier);
+      return thatList.zipAll(this, thatListDefaultValueSupplier, thatListDefaultValueSupplier);
     }
   }
 
   @Override
   public GenericListADTNode<T> insert(T data,
                                       Comparator<T> comparator,
-                                      BiFunction<T, T, T> mergeFunction) {
+                                      BinaryOperator<T> mergeFunction) {
 
     return new GenericElementNode<>(data, new GenericEmptyNode<>());
   }

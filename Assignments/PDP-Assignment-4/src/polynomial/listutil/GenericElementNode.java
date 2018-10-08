@@ -2,6 +2,7 @@ package polynomial.listutil;
 
 import java.util.Comparator;
 import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -39,21 +40,21 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
   }
 
   @Override
-  public <R> R fold(R initialValue, BiFunction<R, T, R> accumulator) {
-    return this.rest.fold(accumulator.apply(initialValue, this.data), accumulator);
+  public <R> R foldLeft(R initialValue, BiFunction<R, T, R> accumulator) {
+    return this.rest.foldLeft(accumulator.apply(initialValue, this.data), accumulator);
   }
 
   @Override
-  public GenericListADTNode<Pair<T, T>> zip(GenericListADTNode<T> thatList,
-                                            Supplier<T> thisListDefaultValueSupplier,
-                                            Supplier<T> thatListDefaultValueSupplier) {
+  public GenericListADTNode<Pair<T, T>> zipAll(GenericListADTNode<T> thatList,
+                                               Supplier<T> thisListDefaultValueSupplier,
+                                               Supplier<T> thatListDefaultValueSupplier) {
 
     if (thatList instanceof GenericElementNode) {
       GenericElementNode<T> thatGenericElementNode = (GenericElementNode<T>) thatList;
       Pair<T, T> pair = Pair.of(this.data, thatGenericElementNode.data);
       return new GenericElementNode<>(
               pair,
-              this.rest.zip(
+              this.rest.zipAll(
                       thatGenericElementNode.rest,
                       thisListDefaultValueSupplier,
                       thatListDefaultValueSupplier));
@@ -61,7 +62,7 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
       Pair<T, T> pair = Pair.of(this.data, thatListDefaultValueSupplier.get());
       return new GenericElementNode<>(
               pair,
-              this.rest.zip(
+              this.rest.zipAll(
                       thatList,
                       thisListDefaultValueSupplier,
                       thatListDefaultValueSupplier));
@@ -71,7 +72,7 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
   @Override
   public GenericListADTNode<T> insert(T data,
                                       Comparator<T> comparator,
-                                      BiFunction<T, T, T> mergeFunction) {
+                                      BinaryOperator<T> mergeFunction) {
 
     int compare = comparator.compare(this.data, data);
 
@@ -84,6 +85,5 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
       this.rest = this.rest.insert(data, comparator, mergeFunction);
       return this;
     }
-
   }
 }

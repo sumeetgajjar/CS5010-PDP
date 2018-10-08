@@ -77,14 +77,14 @@ public class PolynomialImpl implements Polynomial {
   public int getDegree() {
     return this.head
             .map(Term::getPower)
-            .fold(0, Integer::max);
+            .foldLeft(0, Integer::max);
   }
 
   @Override
   public int getCoefficient(int power) {
     return this.head
             .filter(term -> term.getPower() == power)
-            .fold(0,
+            .foldLeft(0,
                     (runningCoefficientSum, term) -> runningCoefficientSum + term.getCoefficient());
   }
 
@@ -92,7 +92,7 @@ public class PolynomialImpl implements Polynomial {
   public double evaluate(double x) {
     return this.head
             .map(term -> term.evaluate(x))
-            .fold(0D, (a, b) -> {
+            .foldLeft(0D, (a, b) -> {
               double sum = Double.sum(a, b);
               if (!Double.isFinite(sum)) {
                 throw new ArithmeticException("overflow occurred while evaluating polynomial");
@@ -112,7 +112,7 @@ public class PolynomialImpl implements Polynomial {
 
     Polynomial dummy = that.add(new PolynomialImpl());
 
-    Polynomial sum = this.head.fold(dummy, (poly, term) -> {
+    Polynomial sum = this.head.foldLeft(dummy, (poly, term) -> {
       poly.addTerm(term.getCoefficient(), term.getPower());
       return poly;
     });
@@ -141,16 +141,16 @@ public class PolynomialImpl implements Polynomial {
     PolynomialImpl that = (PolynomialImpl) obj;
 
     return this.head
-            .zip(that.head, Term::getZeroTerm, Term::getZeroTerm)
+            .zipAll(that.head, Term::getZeroTerm, Term::getZeroTerm)
             .map(pair -> pair.getFirst().equals(pair.getSecond()))
-            .fold(true, Boolean::equals);
+            .foldLeft(true, Boolean::equals);
   }
 
   @Override
   public int hashCode() {
     return this.head
             .map(Objects::hashCode)
-            .fold(1, (hash1, hash2) -> (31 * hash1) + hash2);
+            .foldLeft(1, (hash1, hash2) -> (31 * hash1) + hash2);
   }
 
   @Override
@@ -162,14 +162,14 @@ public class PolynomialImpl implements Polynomial {
     StringBuilder builder = new StringBuilder();
     builder = this.head
             .map(Term::toString)
-            .fold(builder, StringBuilder::append);
+            .foldLeft(builder, StringBuilder::append);
 
     return removeLeadingPositiveSign(builder);
   }
 
   private int getNumberOfTerms() {
     return this.head.map(term -> 1)
-            .fold(0, Integer::sum);
+            .foldLeft(0, Integer::sum);
   }
 
   private String removeLeadingPositiveSign(StringBuilder builder) {
