@@ -5,10 +5,32 @@ import java.util.Scanner;
 import polynomial.bean.Term;
 
 /**
- * Created by gajjar.s,on 6:13 PM, 10/6/18
+ * This class represents a Single Variable Polynomial Term Parser. It implements {@link
+ * PolynomialTermParser}.
  */
 public class SingleVariablePolynomialTermParser implements PolynomialTermParser {
 
+  /**
+   * Returns a Term parsed from the given String. The only valid format of input strings are as
+   * follows: <ul>
+   * <li>10</li>
+   * <li>10x^0</li>
+   * <li>1x^1</li>
+   * <li>10x^1</li>
+   * </ul>
+   *
+   * <p>Depending on value of isFirstTerm the following conditions holds true
+   * <ul>
+   * <li>if isFirstTerm = true: then the string may or may not start with '+' or '-' sign.</li>
+   * <li>if isFirstTerm = false: then the string should start with '+' or '-' sign else {@link
+   * IllegalArgumentException} will be thrown.</li>
+   * </ul>
+   *
+   * @param isFirstTerm does the given string corresponds to the first term
+   * @param termString  the string to parse
+   * @return the parsed string
+   * @throws IllegalArgumentException if the given string is invalid
+   */
   @Override
   public Term parsePolynomialTerm(boolean isFirstTerm, String termString)
           throws IllegalArgumentException {
@@ -32,6 +54,14 @@ public class SingleVariablePolynomialTermParser implements PolynomialTermParser 
     return new Term(coefficient, power);
   }
 
+  /**
+   * Gets the integer value for power of term by reading the next string using {@link Scanner} obj.
+   * If unable to parse power of term then it throws {@link IllegalArgumentException}.
+   *
+   * @param scanner scanner to read from
+   * @return the integer value for power of term
+   * @throws IllegalArgumentException if unable to parse power of term
+   */
   private int getPower(Scanner scanner) throws IllegalArgumentException {
     StringBuilder powerString = new StringBuilder();
 
@@ -50,12 +80,26 @@ public class SingleVariablePolynomialTermParser implements PolynomialTermParser 
     }
   }
 
+  /**
+   * Checks if the more string is left to be read by Scanner object. Throws {@link
+   * IllegalArgumentException} if scanner has more string to read.
+   *
+   * @param scanner scanner object to check
+   * @throws IllegalArgumentException if the given scanner object has more string to read
+   */
   private void checkIfTermHasEnded(Scanner scanner) throws IllegalArgumentException {
     if (scanner.hasNext()) {
       throw new IllegalArgumentException("Invalid polynomial string");
     }
   }
 
+  /**
+   * Check if next string is "x" followed by "^". It not then it throws {@link
+   * IllegalArgumentException}.
+   *
+   * @param scanner scanner object to read from
+   * @throws IllegalArgumentException if the given string is invalid
+   */
   private void skipVariableAndRaiseToSign(Scanner scanner) throws IllegalArgumentException {
     if (scanner.hasNext("x")) {
       scanner.next();
@@ -70,6 +114,20 @@ public class SingleVariablePolynomialTermParser implements PolynomialTermParser 
     }
   }
 
+  /**
+   * Gets the integer value for coefficient of term by reading next string using {@link Scanner}.
+   * Following conditions must hold based on value of isFirstTerm: <ul>
+   * <li>if isFirstTerm = true: then the next string may or may not start with '+' or '-'
+   * sign.</li>
+   * <li>if isFirstTerm = false: then the next string should start with '+' or '-' sign else {@link
+   * </ul>
+   * If unable to parse coefficient of term then it throws {@link IllegalArgumentException}.
+   *
+   * @param isFirstTerm does the string given to scanner is of first term
+   * @param scanner     scanner to read from
+   * @return the integer value for coefficient of term
+   * @throws IllegalArgumentException if unable to parse coefficient of term
+   */
   private int getCoefficient(boolean isFirstTerm, Scanner scanner) throws IllegalArgumentException {
     StringBuilder coefficientString = new StringBuilder();
 
