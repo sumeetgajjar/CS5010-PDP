@@ -20,6 +20,10 @@ public class Term {
     this.power = power;
   }
 
+  public Term(Term term) {
+    this(term.getCoefficient(), term.getPower());
+  }
+
   @Override
   public boolean equals(Object obj) {
     if (this == obj) {

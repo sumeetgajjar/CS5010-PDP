@@ -96,31 +96,22 @@ public class PolynomialImpl implements Polynomial {
   }
 
   @Override
-  public Polynomial add(Polynomial polynomial) {
-    if (polynomial instanceof PolynomialImpl) {
-      PolynomialImpl that = (PolynomialImpl) polynomial;
+  public Polynomial add(Polynomial that) {
 
-      GenericListADTNode<Term> newPoly = new GenericEmptyNode<>();
-
-      newPoly = this.head
-              .fold(newPoly,
-                      (node, term) -> node
-                              .insert(term,
-                                      Comparator.comparingInt(Term::getPower),
-                                      Term::addTwoTerms));
-
-      newPoly = that.head
-              .fold(newPoly,
-                      (node, term) -> node
-                              .insert(term,
-                                      Comparator.comparingInt(Term::getPower),
-                                      Term::addTwoTerms))
-              .filter(Utils::isTermNonZero);
-
-
-      return new PolynomialImpl(newPoly);
+    int degree = that.getDegree();
+    if (degree == 0 && that.getCoefficient(0) == 0) {
+      GenericListADTNode<Term> headClone = this.head.map(Term::new);
+      return new PolynomialImpl(headClone);
     }
-    throw new IllegalArgumentException("cannot add polynomials of different implementations");
+
+    Polynomial dummy = that.add(new PolynomialImpl());
+
+    Polynomial sum = this.head.fold(dummy, (poly, term) -> {
+      poly.addTerm(term.getCoefficient(), term.getPower());
+      return poly;
+    });
+
+    return sum;
   }
 
   @Override
