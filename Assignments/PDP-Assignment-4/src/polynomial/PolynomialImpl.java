@@ -35,17 +35,32 @@ import util.Utils;
  */
 public class PolynomialImpl implements Polynomial {
 
+  /**
+   * Delimiter for terms in polynomial string.
+   */
   private static final String TERMS_DELIMITER = " ";
 
   private final SingleVariablePolynomialTermParser polynomialTermParser;
 
   private GenericListADTNode<Term> head;
 
+  /**
+   * Constructs a {@link PolynomialImpl } object with given list of terms.
+   *
+   * @param head the head of list of terms
+   */
   private PolynomialImpl(GenericListADTNode<Term> head) {
     this.head = head;
     this.polynomialTermParser = new SingleVariablePolynomialTermParser();
   }
 
+  /**
+   * Construts a {@link PolynomialImpl} object by parsing the given polynomialString. It throws a
+   * {@link IllegalArgumentException} if the specified string is invalid.
+   *
+   * @param polynomialString the polynomialString to parse
+   * @throws IllegalArgumentException if the given polynomialString is invalid
+   */
   public PolynomialImpl(String polynomialString) throws IllegalArgumentException {
     this(new GenericEmptyNode<>());
 
@@ -59,10 +74,22 @@ public class PolynomialImpl implements Polynomial {
     this.parsePolynomialString(polynomialString);
   }
 
+  /**
+   * Constructs a empty {@link PolynomialImpl} object.
+   */
   public PolynomialImpl() throws IllegalArgumentException {
     this("");
   }
 
+  /**
+   * It takes a coefficient and a power and adds the resulting term to this polynomial. Both the
+   * coefficient and the power should be whole numbers. The power has to be a positive whole number.
+   * It throws an IllegalArgumentException if the term is invalid.
+   *
+   * @param coefficient coefficient of the term
+   * @param power       power of the term
+   * @throws IllegalArgumentException if the term is invalid
+   */
   @Override
   public void addTerm(int coefficient, int power) throws IllegalArgumentException {
     this.head = this.head
@@ -73,6 +100,11 @@ public class PolynomialImpl implements Polynomial {
             .filter(Utils::isTermNonZero);
   }
 
+  /**
+   * Returns the degree of this polynomial.
+   *
+   * @return the degree of this polynomial
+   */
   @Override
   public int getDegree() {
     return this.head
@@ -80,6 +112,12 @@ public class PolynomialImpl implements Polynomial {
             .foldLeft(0, Integer::max);
   }
 
+  /**
+   * Takes a power and returns the coefficient for the term with that power.
+   *
+   * @param power the power for the term
+   * @return coefficient of the given power
+   */
   @Override
   public int getCoefficient(int power) {
     return this.head
@@ -88,8 +126,16 @@ public class PolynomialImpl implements Polynomial {
                     (runningCoefficientSum, term) -> runningCoefficientSum + term.getCoefficient());
   }
 
+  /**
+   * Returns the the evaluation of this polynomial using given x value. It throws {@link
+   * ArithmeticException} if the result of evaluation is not finite.
+   *
+   * @param x value of x for this polynomial
+   * @return evaluation of this polynomial using given value x.
+   * @throws ArithmeticException if the result of evaluation is not finite
+   */
   @Override
-  public double evaluate(double x) {
+  public double evaluate(double x) throws ArithmeticException {
     return this.head
             .map(term -> term.evaluate(x))
             .foldLeft(0D, (a, b) -> {
@@ -101,6 +147,13 @@ public class PolynomialImpl implements Polynomial {
             });
   }
 
+  /**
+   * Returns a new {@link Polynomial} object by adding this and specified {@link Polynomial}. This
+   * method does not mutate either polynomial.
+   *
+   * @param that another {@link Polynomial}
+   * @return returns the polynomial obtained by adding this polynomial and given polynomial
+   */
   @Override
   public Polynomial add(Polynomial that) {
 
