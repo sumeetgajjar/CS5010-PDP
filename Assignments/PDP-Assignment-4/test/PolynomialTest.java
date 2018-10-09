@@ -324,7 +324,15 @@ public class PolynomialTest {
 
     Assert.assertEquals(0, new PolynomialImpl().getDegree());
     Assert.assertEquals(0, new PolynomialImpl("").getDegree());
-    Assert.assertEquals(2342342, new PolynomialImpl("1x^2342342 +10").getDegree());
+
+    PolynomialImpl polynomial = new PolynomialImpl("1x^2342342 +10");
+    Assert.assertEquals(2342342, polynomial.getDegree());
+
+    polynomial.addTerm(1,2342343);
+    Assert.assertEquals(2342343, polynomial.getDegree());
+
+    polynomial.addTerm(-1,2342343);
+    Assert.assertEquals(2342342, polynomial.getDegree());
   }
 
   @Test
@@ -345,6 +353,14 @@ public class PolynomialTest {
     Assert.assertEquals(0, polynomial.getCoefficient(100000000));
     Assert.assertEquals(0, polynomial.getCoefficient(-1));
     Assert.assertEquals(0, polynomial.getCoefficient(-100000000));
+
+    polynomial.addTerm(10,5);
+    Assert.assertEquals(5, polynomial.getCoefficient(5));
+
+    polynomial.addTerm(-5,5);
+    Assert.assertEquals(0, polynomial.getCoefficient(5));
+
+    Assert.assertEquals(4, polynomial.getDegree());
   }
 
   @Test
