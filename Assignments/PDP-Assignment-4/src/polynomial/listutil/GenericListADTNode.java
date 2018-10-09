@@ -35,7 +35,7 @@ public interface GenericListADTNode<T> {
    * @param mapper the function needed to convert T into R
    * @param <R>    the type of the data in the returned list
    * @return the head of a list that is structurally identical to this list, but contains data of
-   * type R
+   *         type R
    */
   <R> GenericListADTNode<R> map(Function<T, R> mapper);
 
@@ -57,7 +57,7 @@ public interface GenericListADTNode<T> {
    * @param accumulator  the {@link BiFunction} to fold initial value and data in the current node
    *                     of list
    * @return the result of applying {@link BiFunction} to a initial value and all elements of this
-   * list
+   *         list
    */
   <R> R foldLeft(R initialValue, BiFunction<R, T, R> accumulator);
 
@@ -74,8 +74,8 @@ public interface GenericListADTNode<T> {
    * zipped list = {(a,d),(b,e),(c,v2)}</li>
    * </ul>
    *
-   * All implementations should make sure that the first value in pair belongs to this list and the
-   * second value in the pair belongs to the specified list.
+   * <p>All implementations should make sure that the first value in pair belongs to this list and
+   * the second value in the pair belongs to the specified list.
    *
    * @param thatList                     other list to zip with
    * @param thisListDefaultValueSupplier default value supplier for this list

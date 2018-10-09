@@ -122,8 +122,8 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
    * zipped list = {(a,d),(b,e),(c,v2)}</li>
    * </ul>
    *
-   * <p>All implementations should make sure that the first value in pair belongs to this list and the
-   * second value in the pair belongs to the specified list.
+   * <p>All implementations should make sure that the first value in pair belongs to this list and
+   * the second value in the pair belongs to the specified list.
    *
    * @param thatList                     other list to zip with
    * @param thisListDefaultValueSupplier default value supplier for this list
