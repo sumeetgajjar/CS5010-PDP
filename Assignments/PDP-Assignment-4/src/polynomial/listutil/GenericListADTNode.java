@@ -57,7 +57,7 @@ public interface GenericListADTNode<T> {
    * @param accumulator  the {@link BiFunction} to fold initial value and data in the current node
    *                     of list
    * @return the result of applying {@link BiFunction} to a initial value and all elements of this
-   * list
+   *         list
    */
   <R> R foldLeft(R initialValue, BiFunction<R, T, R> accumulator);
 
@@ -71,7 +71,7 @@ public interface GenericListADTNode<T> {
    * @param thisListDefaultValueSupplier default value supplier for this list
    * @param thatListDefaultValueSupplier default value supplier for other list
    * @return the list of Pair formed from this list and given list, by combining corresponding
-   * elements in {@link Pair}
+   *         elements in {@link Pair}
    */
   GenericListADTNode<Pair<T, T>> zipAll(GenericListADTNode<T> thatList,
                                         Supplier<T> thisListDefaultValueSupplier,

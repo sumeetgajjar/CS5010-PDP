@@ -121,7 +121,8 @@ public class SingleVariablePolynomialTermParser implements PolynomialTermParser 
    * sign.</li>
    * <li>if isFirstTerm = false: then the next string should start with '+' or '-' sign else {@link
    * </ul>
-   * If unable to parse coefficient of term then it throws {@link IllegalArgumentException}.
+   *
+   * <p>If unable to parse coefficient of term then it throws {@link IllegalArgumentException}.
    *
    * @param isFirstTerm does the string given to scanner is of first term
    * @param scanner     scanner to read from

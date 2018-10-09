@@ -29,24 +29,11 @@ public class Pair<F, S> {
   }
 
   /**
-   * Returns the second element of the pair
+   * Returns the second element of the pair.
    *
    * @return the first element of the pair
    */
   public S getSecond() {
     return second;
-  }
-
-  /**
-   * Returns a pair of given parameters.
-   *
-   * @param first  the first element of the pair
-   * @param second the second element of the pair
-   * @param <U>    the data type of first element of the pair
-   * @param <V>    the data type of second element of the pair
-   * @return the pair of given elements
-   */
-  public static <U, V> Pair<U, V> of(U first, V second) {
-    return new Pair<>(first, second);
   }
 }

@@ -136,8 +136,8 @@ public class PolynomialImpl implements Polynomial {
   public int getCoefficient(int power) {
     return this.head
             .filter(term -> term.getPower() == power)
-            .foldLeft(0,
-                    (runningCoefficientSum, term) -> runningCoefficientSum + term.getCoefficient());
+            .foldLeft(0, (runningCoefficientSum, term) ->
+                    runningCoefficientSum + term.getCoefficient());
   }
 
   /**

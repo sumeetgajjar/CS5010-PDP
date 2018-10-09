@@ -65,7 +65,7 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
    * @param mapper the function needed to convert T into R
    * @param <R>    the type of the data in the returned list
    * @return the head of a list that is structurally identical to this list, but contains data of
-   * type R
+   *         type R
    */
   @Override
   public <R> GenericListADTNode<R> map(Function<T, R> mapper) {
@@ -101,7 +101,7 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
    * @param accumulator  the {@link BiFunction} to fold initial value and data in the current node
    *                     of list
    * @return the result of applying {@link BiFunction} to a initial value and all elements of this
-   * list
+   *         list
    */
   @Override
   public <R> R foldLeft(R initialValue, BiFunction<R, T, R> accumulator) {
@@ -119,7 +119,7 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
    * @param thisListDefaultValueSupplier default value supplier for this list
    * @param thatListDefaultValueSupplier default value supplier for other list
    * @return the list of Pair formed from this list and given list, by combining corresponding
-   * elements in {@link Pair}
+   *         elements in {@link Pair}
    */
   @Override
   public GenericListADTNode<Pair<T, T>> zipAll(GenericListADTNode<T> thatList,
@@ -135,7 +135,7 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
      */
     if (thatList instanceof GenericElementNode) {
       GenericElementNode<T> thatGenericElementNode = (GenericElementNode<T>) thatList;
-      Pair<T, T> pair = Pair.of(this.data, thatGenericElementNode.data);
+      Pair<T, T> pair = new Pair<>(this.data, thatGenericElementNode.data);
       return new GenericElementNode<>(
               pair,
               this.rest.zipAll(
@@ -143,7 +143,7 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
                       thisListDefaultValueSupplier,
                       thatListDefaultValueSupplier));
     } else {
-      Pair<T, T> pair = Pair.of(thatListDefaultValueSupplier.get(), this.data);
+      Pair<T, T> pair = new Pair<>(thatListDefaultValueSupplier.get(), this.data);
       return new GenericElementNode<>(
               pair,
               this.rest.zipAll(

@@ -77,7 +77,7 @@ public class GenericEmptyNode<T> implements GenericListADTNode<T> {
    * @param thisListDefaultValueSupplier default value supplier for this list
    * @param thatListDefaultValueSupplier default value supplier for other list
    * @return the list of Pair formed from this list and given list, by combining corresponding
-   * elements in {@link Pair}
+   *         elements in {@link Pair}
    */
   @Override
   public GenericListADTNode<Pair<T, T>> zipAll(GenericListADTNode<T> thatList,
