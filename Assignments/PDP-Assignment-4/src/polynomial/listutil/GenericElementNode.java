@@ -113,7 +113,17 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
    * A general zipAll higher order function for this list. Returns a list of {@link Pair} formed
    * from this list and given list, by combining corresponding elements in {@link Pair}. If one of
    * the two list is shorter than the other, corresponding default values are used to extend the
-   * shorter list to the length of the longer.
+   * shorter list to the length of the longer. e.g.<ul>
+   * <li>A={a,b,c}, B={d,e,f}, v1 is the default value for A and v2 is default value for B then
+   * zipped list = {(a,d),(b,e),(c,f)}</li>
+   * <li>A={a,b}, B={d,e,f}, v1 is the default value for A and v2 is default value for B then
+   * zipped list = {(a,d),(b,e),(v1,f)}</li>
+   * <li>A={a,b,c}, B={d,e}, v1 is the default value for A and v2 is default value for B then
+   * zipped list = {(a,d),(b,e),(c,v2)}</li>
+   * </ul>
+   *
+   * <p>All implementations should make sure that the first value in pair belongs to this list and the
+   * second value in the pair belongs to the specified list.
    *
    * @param thatList                     other list to zip with
    * @param thisListDefaultValueSupplier default value supplier for this list
