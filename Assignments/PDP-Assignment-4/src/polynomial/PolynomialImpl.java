@@ -11,27 +11,8 @@ import polynomial.parser.SingleVariablePolynomialTermParser;
 import util.Utils;
 
 /**
- * This class represents a Polynomial. It implements {@link Polynomial} interface.
- *
- * "" is a valid string
- *
- * -ve powers are not allowed
- *
- * missing powers are not allowed
- *
- * missing coefficient are not allowed
- *
- * missing term are not allowed
- *
- * repetition of same power terms allowed
- *
- * invalid letters not allowed
- *
- * no extra spaces are allowed in between
- *
- * no leading and trailing spaces are allowed
- *
- * evaluation can cause overflow
+ * This class represents a Polynomial. It implements {@link Polynomial} interface. This polynomial
+ * does not support terms with negative powers. It supports terms with only single variable "x".
  */
 public class PolynomialImpl implements Polynomial {
 
@@ -40,8 +21,14 @@ public class PolynomialImpl implements Polynomial {
    */
   private static final String TERMS_DELIMITER = " ";
 
+  /**
+   * parser to parse th polynomial string.
+   */
   private final SingleVariablePolynomialTermParser polynomialTermParser;
 
+  /**
+   * head of the list of terms.
+   */
   private GenericListADTNode<Term> head;
 
   /**
@@ -55,8 +42,34 @@ public class PolynomialImpl implements Polynomial {
   }
 
   /**
-   * Construts a {@link PolynomialImpl} object by parsing the given polynomialString. It throws a
-   * {@link IllegalArgumentException} if the specified string is invalid.
+   * Constructs a {@link PolynomialImpl} object by parsing the given polynomialString. It throws a
+   * {@link IllegalArgumentException} if the specified string is invalid. A input of empty "" String
+   * will constructs a empty {@link Polynomial}. The polynomialString should comply to following
+   * rules.<ul>
+   * <li>-ve powers for term are not allowed. E.g. "1x^-2" is invalid</li>
+   * <li>Missing powers for the term are not allowed, missing powers will not be inferred E.g. "1x"
+   * is invalid</li>
+   * <li>Missing coefficient for the term is not allowed, missing coefficient will not be inferred
+   * E.g. "x^2" is invalid</li>
+   * <li>The first term in the string may or may not start with a sign, E.g. "+4x^2" and "4x^2"
+   * both are valid</li>
+   * <li>Missing operators in between the terms is not allowed, missing operator will not be
+   * inferred, E.g. "10x^2 1x^1" is invalid</li>
+   * <li>variables apart from x are not allowed, E.g. "y^2" is invalid</li>
+   * <li>Extra spaces between two consecutive terms is not allowed, E.g. "4x^1   +2x^4" is
+   * invalid</li>
+   * <li>leading and trailing spaces are not allowed for the string E.g. "  1x^3  "</li>
+   * <li>Only coefficient is allowed, E.g. "1" is valid</li>
+   * <li>Repetition of terms with same power is allowed, E.g. "4x^2 +10 +3x^2" is valid</li>
+   * </ul>
+   *
+   * <p>The following examples are valid examples of polynomialString
+   * <ul>
+   * <li>"4x^3 +3x^1 -5"</li>
+   * <li>"-3x^4 -2x^5 -5 +11x^1"</li>
+   * <li>"102"</li>
+   * <li>"+3x^4 -2x^5 -5 -2x^4 +11x^1"</li>
+   * </ul>
    *
    * @param polynomialString the polynomialString to parse
    * @throws IllegalArgumentException if the given polynomialString is invalid
@@ -101,7 +114,7 @@ public class PolynomialImpl implements Polynomial {
   }
 
   /**
-   * Returns the degree of this polynomial.
+   * Returns the degree of this polynomial. In case of empty polynomial it return 0 as its degree.
    *
    * @return the degree of this polynomial
    */
@@ -113,7 +126,8 @@ public class PolynomialImpl implements Polynomial {
   }
 
   /**
-   * Takes a power and returns the coefficient for the term with that power.
+   * Takes a power and returns the coefficient for the term with that power. If the term does not
+   * exists with the given power then it returns 0 as its coefficient.
    *
    * @param power the power for the term
    * @return coefficient of the given power
@@ -174,9 +188,10 @@ public class PolynomialImpl implements Polynomial {
   }
 
   /**
-   * Returns the polynomial obtained by differentiating this polynomial.
+   * Returns a new polynomial obtained by differentiating this polynomial. It does not mutate the
+   * current polynomial.
    *
-   * @return the polynomial obtained by differentiating this polynomial
+   * @return a new polynomial obtained by differentiating this polynomial
    */
   @Override
   public Polynomial derivative() {
