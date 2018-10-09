@@ -57,7 +57,7 @@ public interface GenericListADTNode<T> {
    * @param accumulator  the {@link BiFunction} to fold initial value and data in the current node
    *                     of list
    * @return the result of applying {@link BiFunction} to a initial value and all elements of this
-   *         list
+   * list
    */
   <R> R foldLeft(R initialValue, BiFunction<R, T, R> accumulator);
 
@@ -65,13 +65,23 @@ public interface GenericListADTNode<T> {
    * A general zipAll higher order function for this list. Returns a list of {@link Pair} formed
    * from this list and given list, by combining corresponding elements in {@link Pair}. If one of
    * the two list is shorter than the other, corresponding default values are used to extend the
-   * shorter list to the length of the longer.
+   * shorter list to the length of the longer. e.g.<ul>
+   * <li>A={a,b,c}, B={d,e,f}, v1 is the default value for A and v2 is default value for B then
+   * zipped list = {(a,d),(b,e),(c,f)}</li>
+   * <li>A={a,b}, B={d,e,f}, v1 is the default value for A and v2 is default value for B then
+   * zipped list = {(a,d),(b,e),(v1,f)}</li>
+   * <li>A={a,b,c}, B={d,e}, v1 is the default value for A and v2 is default value for B then
+   * zipped list = {(a,d),(b,e),(c,v2)}</li>
+   * </ul>
+   *
+   * All implementations should make sure that the first value in pair belongs to this list and the
+   * second value in the pair belongs to the specified list.
    *
    * @param thatList                     other list to zip with
    * @param thisListDefaultValueSupplier default value supplier for this list
    * @param thatListDefaultValueSupplier default value supplier for other list
    * @return the list of Pair formed from this list and given list, by combining corresponding
-   *         elements in {@link Pair}
+   * elements in {@link Pair}
    */
   GenericListADTNode<Pair<T, T>> zipAll(GenericListADTNode<T> thatList,
                                         Supplier<T> thisListDefaultValueSupplier,
