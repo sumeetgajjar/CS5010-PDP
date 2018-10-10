@@ -6,7 +6,7 @@ package polynomial;
 public interface Polynomial {
 
   /**
-   * It takes a coefficient and a power and adds the resulting term to this polynomial. Both the
+   * It takes a coefficient and a power and, adds the resulting term to this polynomial. Both the
    * coefficient and the power should be whole numbers. The power has to be a positive whole number.
    * It throws an IllegalArgumentException if the term is invalid.
    *
@@ -33,10 +33,10 @@ public interface Polynomial {
   int getCoefficient(int power);
 
   /**
-   * Returns the the evaluation of this polynomial using given x value.
+   * Returns the the evaluation of this polynomial for the given value of x.
    *
-   * @param x value of x for this polynomial
-   * @return evaluation of this polynomial using given value x.
+   * @param x value of x for evaluating this polynomial
+   * @return evaluation of this polynomial for the given value of x.
    */
   double evaluate(double x);
 
