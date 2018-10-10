@@ -6,13 +6,26 @@ import polynomial.bean.Term;
 
 /**
  * This class represents a Single Variable Polynomial Term Parser. It implements {@link
- * PolynomialTermParser}.
+ * PolynomialTermParser}. It can be used to parse polynomial String of polynomials with one
+ * variable.
  */
 public class SingleVariablePolynomialTermParser implements PolynomialTermParser {
 
+  private final String variable;
+
   /**
-   * Returns a Term parsed from the given String. The only valid format of input strings are as
-   * follows: <ul>
+   * Constructs a {@link SingleVariablePolynomialTermParser} object to parse polynomial strings of
+   * given variable.
+   *
+   * @param variable the variable
+   */
+  public SingleVariablePolynomialTermParser(String variable) {
+    this.variable = variable;
+  }
+
+  /**
+   * Returns a new {@link Term} object parsed from the given String. The only valid format of input
+   * strings are as follows: <ul>
    * <li>10</li>
    * <li>10x^0</li>
    * <li>1x^1</li>
@@ -22,7 +35,7 @@ public class SingleVariablePolynomialTermParser implements PolynomialTermParser 
    * <p>Depending on value of isFirstTerm the following conditions holds true
    * <ul>
    * <li>if isFirstTerm = true: then the string may or may not start with '+' or '-' sign.</li>
-   * <li>if isFirstTerm = false: then the string should start with '+' or '-' sign else {@link
+   * <li>if isFirstTerm = false: then the string should start with '+' or '-' sign, else {@link
    * IllegalArgumentException} will be thrown.</li>
    * </ul>
    *
@@ -94,14 +107,14 @@ public class SingleVariablePolynomialTermParser implements PolynomialTermParser 
   }
 
   /**
-   * Check if next string is "x" followed by "^". It not then it throws {@link
-   * IllegalArgumentException}.
+   * Check if next string is "{@link SingleVariablePolynomialTermParser#variable}" followed by "^".
+   * It not then it throws {@link IllegalArgumentException}.
    *
    * @param scanner scanner object to read from
    * @throws IllegalArgumentException if the given string is invalid
    */
   private void skipVariableAndRaiseToSign(Scanner scanner) throws IllegalArgumentException {
-    if (scanner.hasNext("x")) {
+    if (scanner.hasNext(this.variable)) {
       scanner.next();
     } else {
       throw new IllegalArgumentException("Invalid polynomial string");
@@ -125,7 +138,7 @@ public class SingleVariablePolynomialTermParser implements PolynomialTermParser 
    *
    * <p>If unable to parse coefficient of term then it throws {@link IllegalArgumentException}.
    *
-   * @param isFirstTerm does the string given to scanner is of first term
+   * @param isFirstTerm is the next string read from scanner is of first term
    * @param scanner     scanner to read from
    * @return the integer value for coefficient of term
    * @throws IllegalArgumentException if unable to parse coefficient of term

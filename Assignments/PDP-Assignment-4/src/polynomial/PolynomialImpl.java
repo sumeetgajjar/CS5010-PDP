@@ -38,7 +38,7 @@ public class PolynomialImpl implements Polynomial {
    */
   private PolynomialImpl(GenericListADTNode<Term> head) {
     this.head = head;
-    this.polynomialTermParser = new SingleVariablePolynomialTermParser();
+    this.polynomialTermParser = new SingleVariablePolynomialTermParser("x");
   }
 
   /**
