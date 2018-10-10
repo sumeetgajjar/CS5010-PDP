@@ -6,7 +6,7 @@ import polynomial.PolynomialImpl;
 import util.Utils;
 
 /**
- * Created by gajjar.s,on 5:46 PM, 10/5/18
+ * A Junit class to test {@link PolynomialImpl}.
  */
 public class PolynomialTest {
 
