@@ -110,7 +110,9 @@ public class PolynomialImpl implements Polynomial {
    *                                  term
    */
   @Override
-  public void addTerm(int coefficient, int power) throws IllegalArgumentException, ArithmeticException {
+  public void addTerm(int coefficient, int power)
+          throws IllegalArgumentException, ArithmeticException {
+
     this.head = this.head
             .insert(
                     new Term(coefficient, power),
