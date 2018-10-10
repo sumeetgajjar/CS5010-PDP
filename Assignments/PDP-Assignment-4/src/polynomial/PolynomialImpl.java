@@ -173,8 +173,7 @@ public class PolynomialImpl implements Polynomial {
 
     int degree = that.getDegree();
     if (degree == 0 && that.getCoefficient(0) == 0) {
-      GenericListADTNode<Term> headClone = this.head.map(Term::new);
-      return new PolynomialImpl(headClone);
+      return getThisPolynomialClone();
     }
 
     Polynomial dummy = that.add(new PolynomialImpl());
@@ -303,5 +302,15 @@ public class PolynomialImpl implements Polynomial {
         isFirstTerm = false;
       }
     }
+  }
+
+  /**
+   * Returns the clone of this Polynomial.
+   *
+   * @return the clone of this Polynomial
+   */
+  private Polynomial getThisPolynomialClone() {
+    GenericListADTNode<Term> headClone = this.head.map(Term::new);
+    return new PolynomialImpl(headClone);
   }
 }
