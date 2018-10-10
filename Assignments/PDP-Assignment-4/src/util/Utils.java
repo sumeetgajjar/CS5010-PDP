@@ -8,7 +8,7 @@ import polynomial.bean.Term;
 public class Utils {
 
   /**
-   * Returns the given array as it is.
+   * Returns the given array.
    *
    * @param objects the objects to be returned
    * @param <T>     the type of the objects array
@@ -20,7 +20,7 @@ public class Utils {
   }
 
   /**
-   * Checks if the term is zero.
+   * Checks if the term is a zero term. A term is a zero term is its coefficient is zero.
    *
    * @param term the term to check
    * @return true if the term is zero, false otherwise
@@ -30,7 +30,7 @@ public class Utils {
   }
 
   /**
-   * Checks if the term is non-zero.
+   * Checks if the term is non-zero. A term is a non zero term is its coefficient is non zero.
    *
    * @param term the term to check
    * @return true if the term is non-zero, false otherwise
