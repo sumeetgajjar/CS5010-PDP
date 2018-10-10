@@ -7,12 +7,14 @@ import java.util.Scanner;
 import polynomial.bean.Term;
 import polynomial.listutil.GenericEmptyNode;
 import polynomial.listutil.GenericListADTNode;
+import polynomial.parser.PolynomialTermParser;
 import polynomial.parser.SingleVariablePolynomialTermParser;
 import util.Utils;
 
 /**
- * This class represents a Polynomial. It implements {@link Polynomial} interface. This polynomial
- * does not support terms with negative powers. It supports terms with only single variable "x".
+ * This class represents a {@link PolynomialImpl}. It implements {@link Polynomial} interface. This
+ * polynomial does not support terms with negative powers. It supports terms with only one variable
+ * "x".
  */
 public class PolynomialImpl implements Polynomial {
 
@@ -22,9 +24,9 @@ public class PolynomialImpl implements Polynomial {
   private static final String TERMS_DELIMITER = " ";
 
   /**
-   * parser to parse th polynomial string.
+   * {@link PolynomialTermParser} to parse th polynomial string.
    */
-  private final SingleVariablePolynomialTermParser polynomialTermParser;
+  private final PolynomialTermParser polynomialTermParser;
 
   /**
    * head of the list of terms.
@@ -32,7 +34,7 @@ public class PolynomialImpl implements Polynomial {
   private GenericListADTNode<Term> head;
 
   /**
-   * Constructs a {@link PolynomialImpl } object with given list of terms.
+   * Constructs a {@link PolynomialImpl} object with given list of terms.
    *
    * @param head the head of list of terms
    */
@@ -44,7 +46,7 @@ public class PolynomialImpl implements Polynomial {
   /**
    * Constructs a {@link PolynomialImpl} object by parsing the given polynomialString. It throws a
    * {@link IllegalArgumentException} if the specified string is invalid. A input of empty "" String
-   * will constructs a empty {@link Polynomial}. The polynomialString should comply to following
+   * will constructs a empty {@link PolynomialImpl}. The polynomialString should comply to following
    * rules.<ul>
    * <li>-ve powers for term are not allowed. E.g. "1x^-2" is invalid</li>
    * <li>Missing powers for the term are not allowed, missing powers will not be inferred E.g. "1x"
@@ -53,13 +55,13 @@ public class PolynomialImpl implements Polynomial {
    * E.g. "x^2" is invalid</li>
    * <li>The first term in the string may or may not start with a sign, E.g. "+4x^2" and "4x^2"
    * both are valid</li>
-   * <li>Missing operators in between the terms is not allowed, missing operator will not be
-   * inferred, E.g. "10x^2 1x^1" is invalid</li>
+   * <li>Missing operator in between the consecutive terms is not allowed, missing operator will
+   * not be inferred, E.g. "10x^2 1x^1" is invalid</li>
    * <li>variables apart from x are not allowed, E.g. "y^2" is invalid</li>
    * <li>Extra spaces between two consecutive terms is not allowed, E.g. "4x^1   +2x^4" is
    * invalid</li>
    * <li>leading and trailing spaces are not allowed for the string E.g. "  1x^3  "</li>
-   * <li>Only coefficient is allowed, E.g. "1" is valid</li>
+   * <li>A Term containing just the coefficient is allowed, E.g. "1" is valid</li>
    * <li>Repetition of terms with same power is allowed, E.g. "4x^2 +10 +3x^2" is valid</li>
    * </ul>
    *
@@ -90,21 +92,25 @@ public class PolynomialImpl implements Polynomial {
   /**
    * Constructs a empty {@link PolynomialImpl} object.
    */
-  public PolynomialImpl() throws IllegalArgumentException {
+  public PolynomialImpl() {
     this("");
   }
 
   /**
-   * It takes a coefficient and a power and adds the resulting term to this polynomial. Both the
-   * coefficient and the power should be whole numbers. The power has to be a positive whole number.
-   * It throws an IllegalArgumentException if the term is invalid.
+   * It takes a coefficient and a power and adds the resulting term to this {@link PolynomialImpl}.
+   * Both the coefficient and the power should be whole numbers. The power has to be a positive
+   * whole number. It throws an {@link IllegalArgumentException} if the term is invalid. It throws
+   * an {@link ArithmeticException} if adding a term causes an overflow for coefficient of the
+   * term.
    *
    * @param coefficient coefficient of the term
    * @param power       power of the term
    * @throws IllegalArgumentException if the term is invalid
+   * @throws ArithmeticException      if adding a term causes an overflow for coefficient of the
+   *                                  term
    */
   @Override
-  public void addTerm(int coefficient, int power) throws IllegalArgumentException {
+  public void addTerm(int coefficient, int power) throws IllegalArgumentException, ArithmeticException {
     this.head = this.head
             .insert(
                     new Term(coefficient, power),
@@ -136,8 +142,8 @@ public class PolynomialImpl implements Polynomial {
   public int getCoefficient(int power) {
     return this.head
             .filter(term -> term.getPower() == power)
-            .foldLeft(0, (runningCoefficientSum, term) ->
-                    runningCoefficientSum + term.getCoefficient());
+            .map(Term::getCoefficient)
+            .foldLeft(0, Integer::sum);
   }
 
   /**
@@ -165,7 +171,7 @@ public class PolynomialImpl implements Polynomial {
    * Returns a new {@link Polynomial} object by adding this and specified {@link Polynomial}. This
    * method does not mutate either polynomial.
    *
-   * @param that another {@link Polynomial}
+   * @param that {@link Polynomial} object
    * @return returns the polynomial obtained by adding this polynomial and given polynomial
    */
   @Override
@@ -178,17 +184,15 @@ public class PolynomialImpl implements Polynomial {
 
     Polynomial dummy = that.add(new PolynomialImpl());
 
-    Polynomial sum = this.head.foldLeft(dummy, (poly, term) -> {
+    return this.head.foldLeft(dummy, (poly, term) -> {
       poly.addTerm(term.getCoefficient(), term.getPower());
       return poly;
     });
-
-    return sum;
   }
 
   /**
-   * Returns a new polynomial obtained by differentiating this polynomial. It does not mutate the
-   * current polynomial.
+   * Returns a new {@link Polynomial} object obtained by differentiating this polynomial. It does
+   * not mutate the current polynomial.
    *
    * @return a new polynomial obtained by differentiating this polynomial
    */
@@ -201,10 +205,11 @@ public class PolynomialImpl implements Polynomial {
   }
 
   /**
-   * Returns true if all terms in this polynomial are equal to all terms in specified polynomial.
+   * Returns true if all terms in this {@link PolynomialImpl} are equal to all terms in specified
+   * {@link PolynomialImpl}.
    *
-   * @param obj the object to compare with this polynomial
-   * @return true if this polynomial is equal to specified obj, false otherwise
+   * @param obj the object to compare with this {@link PolynomialImpl}
+   * @return true if this {@link PolynomialImpl} is equal to specified obj, false otherwise
    */
   @Override
   public boolean equals(Object obj) {
