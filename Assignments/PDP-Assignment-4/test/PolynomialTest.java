@@ -887,4 +887,15 @@ public class PolynomialTest {
     polynomial.addTerm(-8, 5);
     Assert.assertEquals("-5x^5+4x^4-4x^3-6x^2-2x^1-20", polynomial.toString());
   }
+
+  @Test
+  public void testToStringOfPolynomials() {
+    Polynomial polynomial1 = new PolynomialImpl("+1 +2x^2 -3x^3");
+    Assert.assertEquals("-3x^3+2x^2+1", polynomial1.toString());
+
+    Polynomial polynomial2 = new PolynomialImpl("+1 +2x^2 -3x^3");
+    Assert.assertEquals("-3x^3+2x^2+1", polynomial2.toString());
+
+    Assert.assertEquals(polynomial1.toString(), polynomial2.toString());
+  }
 }
