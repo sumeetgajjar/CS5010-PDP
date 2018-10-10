@@ -1,5 +1,6 @@
 package util;
 
+import polynomial.Polynomial;
 import polynomial.bean.Term;
 
 /**
@@ -37,5 +38,16 @@ public class Utils {
    */
   public static boolean isTermNonZero(Term term) {
     return !isTermZero(term);
+  }
+
+  /**
+   * Checks if the given Polynomial is a Zero Polynomial. A polynomial is zero polynomial is its
+   * degree is 0 and the coefficient of the term with power 0 is 0.
+   *
+   * @param polynomial the polynomial to check
+   * @return true if the polynomial is zero, false otherwise
+   */
+  public static boolean isZeroPolynomial(Polynomial polynomial) {
+    return polynomial.getDegree() == 0 && polynomial.getCoefficient(0) == 0;
   }
 }

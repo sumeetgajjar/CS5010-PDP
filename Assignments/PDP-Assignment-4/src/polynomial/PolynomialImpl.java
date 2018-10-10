@@ -177,8 +177,7 @@ public class PolynomialImpl implements Polynomial {
   @Override
   public Polynomial add(Polynomial that) {
 
-    int degree = that.getDegree();
-    if (degree == 0 && that.getCoefficient(0) == 0) {
+    if (Utils.isZeroPolynomial(that)) {
       return getThisPolynomialClone();
     }
 
