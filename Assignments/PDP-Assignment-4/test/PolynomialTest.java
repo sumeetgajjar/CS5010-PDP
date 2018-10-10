@@ -14,16 +14,23 @@ public class PolynomialTest {
   public void testPolynomialInitializedWithCorrectValues() {
     Polynomial polynomial = new PolynomialImpl("+4x^1 +2x^5 -3x^2 -10");
     Assert.assertEquals(5, polynomial.getDegree());
+    Assert.assertEquals("2x^5-3x^2+4x^1-10", polynomial.toString());
+
     Assert.assertEquals(0, polynomial.getCoefficient(4));
+    Assert.assertEquals("2x^5-3x^2+4x^1-10", polynomial.toString());
+
     Assert.assertEquals(-7D, polynomial.evaluate(1D), 0D);
     Assert.assertEquals("2x^5-3x^2+4x^1-10", polynomial.toString());
 
     String expectedPolynomialStringAfterAddition = "2x^5+3x^4-3x^2+4x^1-10";
     Polynomial polynomialAfterAddition = polynomial.add(new PolynomialImpl("3x^4"));
     Assert.assertEquals(expectedPolynomialStringAfterAddition, polynomialAfterAddition.toString());
+    Assert.assertEquals("2x^5-3x^2+4x^1-10", polynomial.toString());
 
     Polynomial expectedDerivative = new PolynomialImpl("10x^4 -6x^1 +4");
     Assert.assertEquals(expectedDerivative, polynomial.derivative());
+    Assert.assertEquals("10x^4-6x^1+4", polynomial.derivative().toString());
+    Assert.assertEquals("2x^5-3x^2+4x^1-10", polynomial.toString());
 
     polynomial.addTerm(3, 4);
     Assert.assertEquals(expectedPolynomialStringAfterAddition, polynomial.toString());
@@ -50,82 +57,10 @@ public class PolynomialTest {
   }
 
   @Test
-  public void testPolynomialStringWithMissingCoefficientAndPower() {
-    Polynomial polynomial = null;
-    try {
-      polynomial = new PolynomialImpl("2x^2 +");
-      Assert.fail("should have failed");
-    } catch (IllegalArgumentException e) {
-      Assert.assertEquals("Invalid polynomial string", e.getMessage());
-    }
-    Assert.assertNull(polynomial);
-  }
-
-  @Test
   public void testPolynomialStringWithNegativePower() {
     Polynomial polynomial = null;
     try {
       polynomial = new PolynomialImpl("2x^-2");
-      Assert.fail("should have failed");
-    } catch (IllegalArgumentException e) {
-      Assert.assertEquals("Invalid polynomial string", e.getMessage());
-    }
-    Assert.assertNull(polynomial);
-  }
-
-  @Test
-  public void testPolynomialStringWithMissingCoefficient() {
-    Polynomial polynomial = null;
-    try {
-      polynomial = new PolynomialImpl("x^2");
-      Assert.fail("should have failed");
-    } catch (IllegalArgumentException e) {
-      Assert.assertEquals("Invalid polynomial string", e.getMessage());
-    }
-    Assert.assertNull(polynomial);
-  }
-
-  @Test
-  public void testPolynomialStringWithMissingOperator() {
-    Polynomial polynomial = null;
-    try {
-      polynomial = new PolynomialImpl("2x^2 2x^1");
-      Assert.fail("should have failed");
-    } catch (IllegalArgumentException e) {
-      Assert.assertEquals("Invalid polynomial string", e.getMessage());
-    }
-    Assert.assertNull(polynomial);
-  }
-
-  @Test
-  public void testPolynomialStringWithExtraSpaces() {
-    Polynomial polynomial = null;
-    try {
-      polynomial = new PolynomialImpl("     ");
-      Assert.fail("should have failed");
-    } catch (IllegalArgumentException e) {
-      Assert.assertEquals("Invalid polynomial string", e.getMessage());
-    }
-    Assert.assertNull(polynomial);
-
-    try {
-      polynomial = new PolynomialImpl("2x^2    3x^3");
-      Assert.fail("should have failed");
-    } catch (IllegalArgumentException e) {
-      Assert.assertEquals("Invalid polynomial string", e.getMessage());
-    }
-    Assert.assertNull(polynomial);
-
-    try {
-      polynomial = new PolynomialImpl("2x^2 3x^3    ");
-      Assert.fail("should have failed");
-    } catch (IllegalArgumentException e) {
-      Assert.assertEquals("Invalid polynomial string", e.getMessage());
-    }
-    Assert.assertNull(polynomial);
-
-    try {
-      polynomial = new PolynomialImpl("   2x^2 3x^3");
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
       Assert.assertEquals("Invalid polynomial string", e.getMessage());
@@ -146,7 +81,99 @@ public class PolynomialTest {
   }
 
   @Test
-  public void testPolynomialStringWIthDecimalCoefficient() {
+  public void testPolynomialStringWithMissingCoefficient() {
+    Polynomial polynomial = null;
+    try {
+      polynomial = new PolynomialImpl("x^2");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid polynomial string", e.getMessage());
+    }
+    Assert.assertNull(polynomial);
+  }
+
+  @Test
+  public void testPolynomialStringWithMissingCoefficientAndPower() {
+    Polynomial polynomial = null;
+    try {
+      polynomial = new PolynomialImpl("2x^2 +");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid polynomial string", e.getMessage());
+    }
+    Assert.assertNull(polynomial);
+  }
+
+  @Test
+  public void testPolynomialStringWithMissingOperator() {
+    Polynomial polynomial = null;
+    try {
+      polynomial = new PolynomialImpl("2x^2 2x^1");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid polynomial string", e.getMessage());
+    }
+    Assert.assertNull(polynomial);
+  }
+
+  @Test
+  public void testPolynomialStringWithNoSpacesInBetweenTerms() {
+    Polynomial polynomial = null;
+    try {
+      polynomial = new PolynomialImpl("2x^2+2x^1");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid polynomial string", e.getMessage());
+    }
+    Assert.assertNull(polynomial);
+  }
+
+  @Test
+  public void testPolynomialStringWithExtraSpaces() {
+    Polynomial polynomial = null;
+    try {
+      polynomial = new PolynomialImpl("     ");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid polynomial string", e.getMessage());
+    }
+    Assert.assertNull(polynomial);
+
+    try {
+      polynomial = new PolynomialImpl("2x^2    +3x^3");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid polynomial string", e.getMessage());
+    }
+    Assert.assertNull(polynomial);
+
+    try {
+      polynomial = new PolynomialImpl("2x^2 +3x^3    ");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid polynomial string", e.getMessage());
+    }
+    Assert.assertNull(polynomial);
+
+    try {
+      polynomial = new PolynomialImpl("   2x^2 +3x^3");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid polynomial string", e.getMessage());
+    }
+    Assert.assertNull(polynomial);
+
+    try {
+      polynomial = new PolynomialImpl("   2x^2 +3x^3   ");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid polynomial string", e.getMessage());
+    }
+    Assert.assertNull(polynomial);
+  }
+
+  @Test
+  public void testPolynomialStringWithDecimalCoefficient() {
     Polynomial polynomial = null;
     try {
       polynomial = new PolynomialImpl("10 +2.1x^5");
@@ -158,10 +185,34 @@ public class PolynomialTest {
   }
 
   @Test
-  public void testPolynomialStringWIthDecimalPower() {
+  public void testPolynomialStringWithDecimalPower() {
     Polynomial polynomial = null;
     try {
       polynomial = new PolynomialImpl("10 +2x^5.9");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid polynomial string", e.getMessage());
+    }
+    Assert.assertNull(polynomial);
+  }
+
+  @Test
+  public void testPolynomialStringWithCoefficientOverflow() {
+    Polynomial polynomial = null;
+    try {
+      polynomial = new PolynomialImpl("10 +21111111111111x^5");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid polynomial string", e.getMessage());
+    }
+    Assert.assertNull(polynomial);
+  }
+
+  @Test
+  public void testPolynomialStringWithPowerOverflow() {
+    Polynomial polynomial = null;
+    try {
+      polynomial = new PolynomialImpl("10 +x^521111111111111");
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
       Assert.assertEquals("Invalid polynomial string", e.getMessage());
@@ -328,10 +379,10 @@ public class PolynomialTest {
     PolynomialImpl polynomial = new PolynomialImpl("1x^2342342 +10");
     Assert.assertEquals(2342342, polynomial.getDegree());
 
-    polynomial.addTerm(1,2342343);
+    polynomial.addTerm(1, 2342343);
     Assert.assertEquals(2342343, polynomial.getDegree());
 
-    polynomial.addTerm(-1,2342343);
+    polynomial.addTerm(-1, 2342343);
     Assert.assertEquals(2342342, polynomial.getDegree());
   }
 
@@ -354,10 +405,10 @@ public class PolynomialTest {
     Assert.assertEquals(0, polynomial.getCoefficient(-1));
     Assert.assertEquals(0, polynomial.getCoefficient(-100000000));
 
-    polynomial.addTerm(10,5);
+    polynomial.addTerm(10, 5);
     Assert.assertEquals(5, polynomial.getCoefficient(5));
 
-    polynomial.addTerm(-5,5);
+    polynomial.addTerm(-5, 5);
     Assert.assertEquals(0, polynomial.getCoefficient(5));
 
     Assert.assertEquals(4, polynomial.getDegree());
@@ -388,7 +439,7 @@ public class PolynomialTest {
   }
 
   @Test
-  public void testPolynomialInEquality() {
+  public void testPolynomialInEqualityUsingEquals() {
     Polynomial polynomial1 = new PolynomialImpl("1 +2x^2 -1x^1 -3x^3 +4x^4");
     Assert.assertEquals("4x^4-3x^3+2x^2-1x^1+1", polynomial1.toString());
 
@@ -413,6 +464,17 @@ public class PolynomialTest {
     Assert.assertEquals(polynomial1.hashCode(), polynomial2.hashCode());
     Assert.assertEquals(polynomial2.hashCode(), polynomial3.hashCode());
     Assert.assertEquals(polynomial1.hashCode(), polynomial3.hashCode());
+  }
+
+  @Test
+  public void testPolynomialInEqualityUsingHashcode() {
+    Polynomial polynomial1 = new PolynomialImpl("1 +2x^2 -1x^1 -3x^3 +4x^4");
+    Assert.assertEquals("4x^4-3x^3+2x^2-1x^1+1", polynomial1.toString());
+
+    Polynomial polynomial2 = new PolynomialImpl("");
+    Assert.assertEquals("0", polynomial2.toString());
+
+    Assert.assertNotEquals(polynomial1.hashCode(), polynomial2.hashCode());
   }
 
   @Test
