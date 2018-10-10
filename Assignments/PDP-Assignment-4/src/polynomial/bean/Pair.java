@@ -9,7 +9,7 @@ public class Pair<F, S> {
   private final S second;
 
   /**
-   * Constructs a pair of given parameters.
+   * Constructs a pair object with given parameters.
    *
    * @param first  the first element of the pair
    * @param second the second element of the pair
@@ -31,7 +31,7 @@ public class Pair<F, S> {
   /**
    * Returns the second element of the pair.
    *
-   * @return the first element of the pair
+   * @return the second element of the pair
    */
   public S getSecond() {
     return second;

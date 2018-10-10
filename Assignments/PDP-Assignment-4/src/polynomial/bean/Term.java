@@ -13,7 +13,7 @@ public class Term {
   private final int power;
 
   /**
-   * Constructs a Term with given coefficient and power.
+   * Constructs a Term object with given coefficient and power.
    *
    * @param coefficient the coefficient of the term
    * @param power       the power of the term
@@ -77,10 +77,10 @@ public class Term {
   }
 
   /**
-   * Returns the evaluation of this Term for given value of x.
+   * Returns the evaluation of this Term for the given value of x.
    *
    * @param x the given value
-   * @return the evaluation of the term for given value of x
+   * @return the evaluation of the term for the given value of x
    */
   public double evaluate(double x) {
     return coefficient * (Math.pow(x, power));
@@ -127,9 +127,9 @@ public class Term {
   }
 
   /**
-   * Returns the result of addition of given terms. Throws an {@link IllegalArgumentException} if
-   * the power of the given terms is not same. Throws {@link ArithmeticException} if an overflow
-   * occurs while adding the given terms.
+   * Returns a new {@link Term} object which is the result of addition of given terms. Throws an
+   * {@link IllegalArgumentException} if the power of the given terms is not same. Throws {@link
+   * ArithmeticException} if an overflow occurs while adding the given terms.
    *
    * @param term1 first term to be added
    * @param term2 second term to be added
