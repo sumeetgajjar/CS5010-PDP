@@ -13,7 +13,7 @@ import polynomial.bean.Pair;
  * This represents an empty node of the generic list implementation. It implements {@link
  * GenericListADTNode}.
  */
-public class GenericEmptyNode<T> implements GenericListADTNode<T> {
+public class GenericEmptyNode<T> extends AbstractGenericElementNode<T> {
 
   /**
    * Returns a head of the list with data in an element node and an empty node at its rest.
@@ -78,16 +78,38 @@ public class GenericEmptyNode<T> implements GenericListADTNode<T> {
    * @param thatListDefaultValueSupplier default value supplier for other list
    * @return the list of Pair formed from this list and given list, by combining corresponding
    *         elements in {@link Pair}
+   * @throws IllegalArgumentException if the specified list is not of type {@link
+   *                                  GenericElementNode} or {@link GenericEmptyNode}
    */
   @Override
   public GenericListADTNode<Pair<T, T>> zipAll(GenericListADTNode<T> thatList,
                                                Supplier<T> thisListDefaultValueSupplier,
-                                               Supplier<T> thatListDefaultValueSupplier) {
+                                               Supplier<T> thatListDefaultValueSupplier)
+          throws IllegalArgumentException {
 
-    if (thatList instanceof GenericEmptyNode) {
-      return new GenericEmptyNode<>();
-    } else {
-      return thatList.zipAll(this, thatListDefaultValueSupplier, thatListDefaultValueSupplier);
+    if (thatList instanceof AbstractGenericElementNode) {
+      AbstractGenericElementNode<T> thatTAbstractGenericElementNode =
+              (AbstractGenericElementNode<T>) thatList;
+
+      if (thatTAbstractGenericElementNode.isGenericEmptyNode()) {
+        return new GenericEmptyNode<>();
+      } else if (thatTAbstractGenericElementNode.isGenericElementNode()) {
+        return thatList.zipAll(this,
+                thatListDefaultValueSupplier,
+                thatListDefaultValueSupplier);
+      }
     }
+    throw new IllegalArgumentException(
+            "cannot zip list which is not GenericElementNode or GenericEmptyNode");
+  }
+
+  /**
+   * Returns if this {@link GenericListADTNode} is {@link GenericEmptyNode}.
+   *
+   * @return true by default, subclasses may override
+   */
+  @Override
+  protected boolean isGenericEmptyNode() {
+    return true;
   }
 }

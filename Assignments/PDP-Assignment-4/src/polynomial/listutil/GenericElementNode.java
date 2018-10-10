@@ -13,7 +13,7 @@ import polynomial.bean.Pair;
  * This is a non-empty node in a generic list. It implements {@link GenericListADTNode}. It contains
  * the data data and the rest of the list
  */
-public class GenericElementNode<T> implements GenericListADTNode<T> {
+public class GenericElementNode<T> extends AbstractGenericElementNode<T> {
   private T data;
   private GenericListADTNode<T> rest;
 
@@ -108,7 +108,6 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
     return this.rest.foldLeft(accumulator.apply(initialValue, this.data), accumulator);
   }
 
-
   /**
    * A general zipAll higher order function for this list. Returns a list of {@link Pair} formed
    * from this list and given list, by combining corresponding elements in {@link Pair}. If one of
@@ -130,36 +129,59 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
    * @param thatListDefaultValueSupplier default value supplier for other list
    * @return the list of Pair formed from this list and given list, by combining corresponding
    *         elements in {@link Pair}
+   * @throws IllegalArgumentException if the specified list is not of type {@link
+   *                                  GenericElementNode} or {@link GenericEmptyNode}
    */
   @Override
   public GenericListADTNode<Pair<T, T>> zipAll(GenericListADTNode<T> thatList,
                                                Supplier<T> thisListDefaultValueSupplier,
-                                               Supplier<T> thatListDefaultValueSupplier) {
+                                               Supplier<T> thatListDefaultValueSupplier)
+          throws IllegalArgumentException {
 
-    /*
-    If that list node is of type GenericElementNode which implies thatList is not empty,
-    then encapsulate the data of this list and thatList in a pair in that order and zip the rest of
-    this list with rest of thatList
-    else encapsulate the data of default value for thatList and this list in a pair in that order
-    and zip the rest of this list with thatList.
-     */
-    if (thatList instanceof GenericElementNode) {
-      GenericElementNode<T> thatGenericElementNode = (GenericElementNode<T>) thatList;
-      Pair<T, T> pair = new Pair<>(this.data, thatGenericElementNode.data);
-      return new GenericElementNode<>(
-              pair,
-              this.rest.zipAll(
-                      thatGenericElementNode.rest,
-                      thisListDefaultValueSupplier,
-                      thatListDefaultValueSupplier));
-    } else {
-      Pair<T, T> pair = new Pair<>(thatListDefaultValueSupplier.get(), this.data);
-      return new GenericElementNode<>(
-              pair,
-              this.rest.zipAll(
-                      thatList,
-                      thisListDefaultValueSupplier,
-                      thatListDefaultValueSupplier));
+    if (thatList instanceof AbstractGenericElementNode) {
+      AbstractGenericElementNode<T> thatAbstractGenericElementNode =
+              (AbstractGenericElementNode<T>) thatList;
+
+      if (thatAbstractGenericElementNode.isGenericElementNode()) {
+
+        /*
+        If thatList is of type GenericElementNode then encapsulate the data of this list and
+        thatList in a pair in that order and zip the rest of this list with rest of thatList
+        else if thatList is of type GenericEmptyNode encapsulate the data of default value for
+        thatList and this list in a pair in that order and zip the rest of this list with thatList.
+         */
+
+        GenericElementNode<T> thatGenericElementNode = (GenericElementNode<T>) thatList;
+        Pair<T, T> pair = new Pair<>(this.data, thatGenericElementNode.data);
+        return new GenericElementNode<>(
+                pair,
+                this.rest.zipAll(
+                        thatGenericElementNode.rest,
+                        thisListDefaultValueSupplier,
+                        thatListDefaultValueSupplier));
+
+      } else if (thatAbstractGenericElementNode.isGenericEmptyNode()) {
+
+        Pair<T, T> pair = new Pair<>(thatListDefaultValueSupplier.get(), this.data);
+        return new GenericElementNode<>(
+                pair,
+                this.rest.zipAll(
+                        thatList,
+                        thisListDefaultValueSupplier,
+                        thatListDefaultValueSupplier));
+      }
     }
+    throw new IllegalArgumentException(
+            "cannot zip list which is not GenericElementNode or GenericEmptyNode");
+  }
+
+  /**
+   * Returns if this {@link GenericListADTNode} is {@link GenericElementNode}.
+   *
+   * @return true by default, subclasses may override
+   */
+  @Override
+  protected boolean isGenericElementNode() {
+    return true;
   }
 }

@@ -17,14 +17,15 @@ public interface Polynomial {
   void addTerm(int coefficient, int power) throws IllegalArgumentException;
 
   /**
-   * Returns the degree of this polynomial.
+   * Returns the degree of this polynomial. In case of empty polynomial it return 0 as its degree.
    *
    * @return the degree of this polynomial
    */
   int getDegree();
 
   /**
-   * Takes a power and returns the coefficient for the term with that power.
+   * Takes a power and returns the coefficient for the term with that power. If the term does not
+   * exists with the given power then it returns 0 as its coefficient.
    *
    * @param power the power for the term
    * @return coefficient of the given power

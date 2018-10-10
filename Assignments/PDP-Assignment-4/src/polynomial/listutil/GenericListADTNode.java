@@ -35,7 +35,7 @@ public interface GenericListADTNode<T> {
    * @param mapper the function needed to convert T into R
    * @param <R>    the type of the data in the returned list
    * @return the head of a list that is structurally identical to this list, but contains data of
-   *         type R
+   * type R
    */
   <R> GenericListADTNode<R> map(Function<T, R> mapper);
 
@@ -82,8 +82,10 @@ public interface GenericListADTNode<T> {
    * @param thatListDefaultValueSupplier default value supplier for other list
    * @return the list of Pair formed from this list and given list, by combining corresponding
    *         elements in {@link Pair}
+   * @throws IllegalArgumentException if the specified list cannot be zipped with this list
    */
   GenericListADTNode<Pair<T, T>> zipAll(GenericListADTNode<T> thatList,
                                         Supplier<T> thisListDefaultValueSupplier,
-                                        Supplier<T> thatListDefaultValueSupplier);
+                                        Supplier<T> thatListDefaultValueSupplier)
+          throws IllegalArgumentException;
 }
