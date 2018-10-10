@@ -41,7 +41,7 @@ public class Utils {
   }
 
   /**
-   * Checks if the given Polynomial is a Zero Polynomial. A polynomial is zero polynomial is its
+   * Checks if the given Polynomial is a Zero Polynomial. A polynomial is a zero polynomial is its
    * degree is 0 and the coefficient of the term with power 0 is 0.
    *
    * @param polynomial the polynomial to check
