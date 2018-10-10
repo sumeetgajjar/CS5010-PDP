@@ -36,4 +36,13 @@ public class Pair<F, S> {
   public S getSecond() {
     return second;
   }
+
+  /**
+   * Returns a new pair by reversing the order of elements in this pair.
+   *
+   * @return a new pair by reversing the order of elements in this pair
+   */
+  public Pair<S, F> reverse() {
+    return new Pair<>(this.second, this.first);
+  }
 }

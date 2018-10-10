@@ -10,8 +10,9 @@ import java.util.function.Supplier;
 import polynomial.bean.Pair;
 
 /**
- * This is a non-empty node in a generic list. It implements {@link GenericListADTNode}. It contains
- * the data data and the rest of the list
+ * This represents an element node of the generic list implementation. It implements {@link
+ * GenericListADTNode}. It contains the data of Type <code>T</code> and a reference to the rest of
+ * the list
  */
 public class GenericElementNode<T> extends AbstractGenericElementNode<T> {
   private T data;
@@ -29,10 +30,10 @@ public class GenericElementNode<T> extends AbstractGenericElementNode<T> {
   }
 
   /**
-   * A insert higher order function for nodes. This method iterates over the list, compares the data
-   * in each node in list with the given data using the given {@link Comparator} and inserts the
-   * given data in descending order of data. If this list already contains given the data then it
-   * merges the given data into the data already present in the list using the given {@link
+   * A insert higher order function for this list. This method iterates over the list, compares the
+   * data in each node in list with the given data using the given {@link Comparator} and inserts
+   * the given data in descending order of data. If this list already contains given the data then
+   * it merges the given data into the data already present in the list using the given {@link
    * BinaryOperator}.
    *
    * @param data          the data to be inserted
@@ -59,8 +60,8 @@ public class GenericElementNode<T> extends AbstractGenericElementNode<T> {
   }
 
   /**
-   * A general map higher order function for nodes. This returns a list of identical structure, but
-   * each data item of type T converted into R using the provided mapper method.
+   * A general map higher order function for this list. This returns a list of identical structure,
+   * but each data item of type T converted into R using the provided mapper method.
    *
    * @param mapper the function needed to convert T into R
    * @param <R>    the type of the data in the returned list
@@ -77,8 +78,8 @@ public class GenericElementNode<T> extends AbstractGenericElementNode<T> {
   }
 
   /**
-   * A general filter higher order function for nodes. This returns a list of each data item of type
-   * T that match the given predicate.
+   * A general filter higher order function for this list. This returns a list of each data item of
+   * type T that match the given predicate.
    *
    * @param predicate to apply to each node to determine if it should be included
    * @return the head of a filtered list of data item of Type T
@@ -147,8 +148,9 @@ public class GenericElementNode<T> extends AbstractGenericElementNode<T> {
         /*
         If thatList is of type GenericElementNode then encapsulate the data of this list and
         thatList in a pair in that order and zip the rest of this list with rest of thatList
-        else if thatList is of type GenericEmptyNode encapsulate the data of default value for
-        thatList and this list in a pair in that order and zip the rest of this list with thatList.
+        else if thatList is of type GenericEmptyNode encapsulate the data of this list and
+        default value for thatList in a pair in that order and zip the rest of this list with
+        thatList.
          */
 
         GenericElementNode<T> thatGenericElementNode = (GenericElementNode<T>) thatList;
@@ -162,7 +164,7 @@ public class GenericElementNode<T> extends AbstractGenericElementNode<T> {
 
       } else if (thatAbstractGenericElementNode.isGenericEmptyNode()) {
 
-        Pair<T, T> pair = new Pair<>(thatListDefaultValueSupplier.get(), this.data);
+        Pair<T, T> pair = new Pair<>(this.data, thatListDefaultValueSupplier.get());
         return new GenericElementNode<>(
                 pair,
                 this.rest.zipAll(

@@ -73,6 +73,9 @@ public class GenericEmptyNode<T> extends AbstractGenericElementNode<T> {
    * supplier. E.g <code>thatList.zipAll(this, thatListDefaultValueSupplier,
    * thatListDefaultValueSupplier)</code>
    *
+   * <p>All implementations should make sure that the first value in pair belongs to this list and
+   * the second value in the pair belongs to the specified list.
+   *
    * @param thatList                     other list to zip with
    * @param thisListDefaultValueSupplier default value supplier for this list
    * @param thatListDefaultValueSupplier default value supplier for other list
@@ -92,11 +95,22 @@ public class GenericEmptyNode<T> extends AbstractGenericElementNode<T> {
               (AbstractGenericElementNode<T>) thatList;
 
       if (thatTAbstractGenericElementNode.isGenericEmptyNode()) {
+
         return new GenericEmptyNode<>();
+
       } else if (thatTAbstractGenericElementNode.isGenericElementNode()) {
+
+        /*
+         * Reversing the order of elements in the pair in the zipped list, to ensure that the order
+         * the of elements in the final list of pairs is such that "the first value in pair belongs
+         * to the list which called zipAll and the second value in the pair belongs to the specified
+         * list"
+         */
+
         return thatList.zipAll(this,
                 thatListDefaultValueSupplier,
-                thatListDefaultValueSupplier);
+                thisListDefaultValueSupplier)
+                .map(Pair::reverse);
       }
     }
     throw new IllegalArgumentException(

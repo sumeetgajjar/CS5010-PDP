@@ -35,7 +35,7 @@ public interface GenericListADTNode<T> {
    * @param mapper the function needed to convert T into R
    * @param <R>    the type of the data in the returned list
    * @return the head of a list that is structurally identical to this list, but contains data of
-   * type R
+   *         type R
    */
   <R> GenericListADTNode<R> map(Function<T, R> mapper);
 
@@ -43,7 +43,8 @@ public interface GenericListADTNode<T> {
    * A general filter higher order function for this list. This returns a list of each data item of
    * type T that match the given predicate.
    *
-   * @param predicate to apply to each node of the list to determine if it should be included
+   * @param predicate to apply to each node of the list to determine if it should be included in the
+   *                  final list
    * @return the head of a filtered list of data item of Type T
    */
   GenericListADTNode<T> filter(Predicate<T> predicate);
