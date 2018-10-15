@@ -32,6 +32,8 @@ public class DecoderTest {
     decoder.addCode('e', "101");
 
     Assert.assertEquals("ace", decoder.decode("10001101"));
+    Assert.assertEquals("bad", decoder.decode("0010011"));
+    Assert.assertEquals("dad", decoder.decode("1110011"));
 
     String expectedAllCodes = "";
     expectedAllCodes += "a:100" + System.lineSeparator();
