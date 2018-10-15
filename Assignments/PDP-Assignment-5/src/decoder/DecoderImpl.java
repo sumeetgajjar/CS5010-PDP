@@ -77,6 +77,14 @@ public class DecoderImpl implements Decoder {
     return null;
   }
 
+  /**
+   * Returns true if the code entered so far is complete, false otherwise. A code is said to be
+   * complete if every valid encoded message can be successfully decoded. This condition is
+   * fulfilled if the coding tree is full (i.e. every non-leaf node has exactly the same number of
+   * children, equal to the number of coding symbols).
+   *
+   * @return true if the code entered so far is complete, false otherwise
+   */
   @Override
   public boolean isCodeComplete() {
     return false;
