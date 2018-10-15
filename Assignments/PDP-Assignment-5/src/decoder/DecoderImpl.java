@@ -28,11 +28,23 @@ public class DecoderImpl implements Decoder {
     this.performSanityCheck(codingSymbols);
   }
 
+  /**
+   * Checks if the given codingSymbols string complies with the sanity checks.
+   *
+   * @param codingSymbols string to check
+   * @throws IllegalArgumentException if the given string does not pass the sanity checks
+   */
   private void performSanityCheck(String codingSymbols) throws IllegalArgumentException {
     checkNullOrEmptyCodingSymbolsString(codingSymbols);
     checkDuplicateCodingSymbols(codingSymbols);
   }
 
+  /**
+   * Checks if the given codingSymbols contains duplicate symbols.
+   *
+   * @param codingSymbols string to check
+   * @throws IllegalArgumentException if the given codingSymbols contains duplicate symbols
+   */
   private void checkDuplicateCodingSymbols(String codingSymbols) throws IllegalArgumentException {
 
     long symbolsWithCountGreaterThanOne = codingSymbols.chars().boxed()
@@ -47,6 +59,12 @@ public class DecoderImpl implements Decoder {
     }
   }
 
+  /**
+   * Checks if the given codingSymbols string is null or empty.
+   *
+   * @param codingSymbols string to check
+   * @throws IllegalArgumentException if the given codingSymbols string is null or empty
+   */
   private void checkNullOrEmptyCodingSymbolsString(String codingSymbols) throws IllegalArgumentException {
     if (Objects.isNull(codingSymbols)) {
       throw new IllegalArgumentException("Invalid codingSymbols string");
