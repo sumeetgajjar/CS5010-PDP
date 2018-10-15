@@ -258,37 +258,73 @@ public class DecoderTest {
 
   @Test
   public void testSpecialCharactersAsCodingSymbols() {
-    Decoder decoder = new DecoderImpl("!@");
+    Decoder decoder = new DecoderImpl("@#");
+
+    decoder.addCode('a', "#@@");
+    decoder.addCode('b', "@@");
+    decoder.addCode('c', "@#");
+    decoder.addCode('d', "##");
+    decoder.addCode('e', "#@#");
+
+    Assert.assertEquals("ace", decoder.decode("#@@@##@#"));
   }
 
   @Test
   public void testSpaceInCodingSymbols() {
-    Decoder decoder = new DecoderImpl("1 0");
+    Decoder decoder = new DecoderImpl("1 ");
+
+    decoder.addCode('a', " 11");
+    decoder.addCode('b', "11");
+    decoder.addCode('c', "1 ");
+    decoder.addCode('d', "  ");
+    decoder.addCode('e', " 1 ");
+
+    Assert.assertEquals("ace", decoder.decode(" 111  1 "));
   }
 
   @Test
   public void testOneSymbolDecoder() {
     Decoder decoder = new DecoderImpl("1");
-  }
 
-  @Test
-  public void testTwoSymbolDecoder() {
-    Decoder decoder = new DecoderImpl("01");
+    decoder.addCode('a', "1");
+    Assert.assertEquals("aaaaaaaaaa", decoder.decode("1111111111"));
   }
 
   @Test
   public void testThreeSymbolDecoder() {
     Decoder decoder = new DecoderImpl("123");
+
+    decoder.addCode('a', "12");
+    decoder.addCode('b', "22");
+    decoder.addCode('c', "21");
+    decoder.addCode('d', "231");
+    decoder.addCode('e', "31");
+
+    Assert.assertEquals("aced", decoder.decode("122131231"));
   }
 
   @Test
   public void testSixteenSymbolDecoder() {
     Decoder decoder = new DecoderImpl("0123456789abcdef");
+
+    decoder.addCode('a', "b");
+    decoder.addCode('c', "e");
+    decoder.addCode('e', "d");
+    decoder.addCode('d', "fedcba9876543210");
+
+    Assert.assertEquals("aced", decoder.decode("bedfedcba9876543210"));
   }
 
   @Test
   public void testTwentySymbolDecoder() {
-    Decoder decoder = new DecoderImpl("0123456789abcde !@#$");
+    Decoder decoder = new DecoderImpl("0123456789abcdef !@#$");
+
+    decoder.addCode('a', "b");
+    decoder.addCode('c', "e");
+    decoder.addCode('e', "d");
+    decoder.addCode('d', "$#@! fedcba9876543210");
+
+    Assert.assertEquals("aced", decoder.decode("bed$#@! fedcba9876543210"));
   }
 
   @Test
