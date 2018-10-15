@@ -1,5 +1,9 @@
 package decoder;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 /**
  * This class represents a {@link DecoderImpl}. It extends {@link Decoder} interface. It can be used
  * to decode message with "n" codingSymbols.
@@ -21,7 +25,41 @@ public class DecoderImpl implements Decoder {
    * @throws IllegalArgumentException if the given codingSymbols are invalid
    */
   public DecoderImpl(String codingSymbols) throws IllegalArgumentException {
+    this.performSanityCheck(codingSymbols);
+  }
 
+  private void performSanityCheck(String codingSymbols) throws IllegalArgumentException {
+    checkNullOrEmptyCodingSymbolsString(codingSymbols);
+    checkDuplicateCodingSymbols(codingSymbols);
+  }
+
+  private void checkDuplicateCodingSymbols(String codingSymbols) throws IllegalArgumentException {
+    Map<Character, Integer> symbolCount = new HashMap<>(codingSymbols.length());
+    for (Character symbol : codingSymbols.toCharArray()) {
+      if (!symbolCount.containsKey(symbol)) {
+        symbolCount.put(symbol, 1);
+      }
+      symbolCount.put(symbol, symbolCount.get(symbol) + 1);
+    }
+
+    long symbolsWithCountGreaterThanOne = symbolCount.entrySet().stream()
+            .map(Map.Entry::getValue)
+            .filter(count -> count > 1)
+            .count();
+
+    if (symbolsWithCountGreaterThanOne >= 1) {
+      throw new IllegalArgumentException("Invalid codingSymbols string");
+    }
+  }
+
+  private void checkNullOrEmptyCodingSymbolsString(String codingSymbols) throws IllegalArgumentException {
+    if (Objects.isNull(codingSymbols)) {
+      throw new IllegalArgumentException("Invalid codingSymbols string");
+    }
+
+    if (codingSymbols.length() == 0) {
+      throw new IllegalArgumentException("Invalid codingSymbols string");
+    }
   }
 
   /**
