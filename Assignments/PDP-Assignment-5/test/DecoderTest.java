@@ -320,6 +320,10 @@ public class DecoderTest {
     Decoder decoder = new DecoderImpl("1");
 
     decoder.addCode('a', "1");
+    Assert.assertTrue(decoder.isCodeComplete());
+
+    Assert.assertEquals("a:1", decoder.allCodes());
+
     Assert.assertEquals("aaaaaaaaaa", decoder.decode("1111111111"));
   }
 
