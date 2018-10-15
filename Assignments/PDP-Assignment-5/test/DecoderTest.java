@@ -169,7 +169,7 @@ public class DecoderTest {
     try {
       Decoder decoder = new DecoderImpl("01");
       decoder.addCode('a', "100");
-      decoder.addCode('a', "100");
+      decoder.addCode('a', "101");
 
       Assert.fail("should have failed");
     } catch (IllegalStateException e) {
@@ -201,6 +201,19 @@ public class DecoderTest {
       Assert.fail("should have failed");
     } catch (IllegalStateException e) {
       Assert.assertEquals("cannot add more codes to complete coding tree", e.getMessage());
+    }
+  }
+
+  @Test
+  public void testAddingCodeWhichDoesNotSatisfyPrefixCodingCriteria() {
+    try {
+      Decoder decoder = new DecoderImpl("01");
+      decoder.addCode('a', "10");
+      decoder.addCode('b', "1");
+
+      Assert.fail("should have failed");
+    } catch (IllegalStateException e) {
+      Assert.assertEquals("invalid code:'1'", e.getMessage());
     }
   }
 
