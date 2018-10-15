@@ -258,7 +258,7 @@ public class DecoderTest {
       Assert.fail("should have failed");
 
     } catch (IllegalStateException e) {
-      Assert.assertEquals("cannot decode given string:'10001101'", e.getMessage());
+      Assert.assertEquals("cannot decode given string:'100'", e.getMessage());
     }
 
     decoder.addCode('a', "100");
@@ -266,7 +266,7 @@ public class DecoderTest {
   }
 
   @Test
-  public void testDecodingOnIncompleteCodingTree() {
+  public void testDecodingInvalidEncodedString() {
     Decoder decoder = new DecoderImpl("01");
     decoder.addCode('a', "100");
 
