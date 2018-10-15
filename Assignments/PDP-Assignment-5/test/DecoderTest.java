@@ -172,6 +172,20 @@ public class DecoderTest {
   }
 
   @Test
+  public void testAddingSymbolToCompleteCodingTree() {
+    try {
+      Decoder decoder = new DecoderImpl("01");
+      decoder.addCode('a', "0");
+      decoder.addCode('b', "1");
+      decoder.addCode('c', "01");
+
+      Assert.fail("should have failed");
+    } catch (IllegalStateException e) {
+      Assert.assertEquals("cannot add more codes to complete coding tree", e.getMessage());
+    }
+  }
+
+  @Test
   public void testAddingIllegalCodingSymbol() {
     try {
       Decoder decoder = new DecoderImpl("01");
@@ -349,5 +363,53 @@ public class DecoderTest {
 
     Assert.assertEquals("ace", decoder1.decode("10001101"));
     Assert.assertEquals("ace", decoder2.decode("10001101"));
+  }
+
+  @Test
+  public void testChangingOrderOfAddCodeDoesNotChangeDecoderOutput() {
+    Decoder decoder1 = new DecoderImpl("01");
+
+    decoder1.addCode('e', "101");
+    decoder1.addCode('d', "11");
+    decoder1.addCode('c', "01");
+    decoder1.addCode('b', "00");
+    decoder1.addCode('a', "100");
+
+    Decoder decoder2 = new DecoderImpl("10");
+    decoder2.addCode('a', "100");
+    decoder2.addCode('b', "00");
+    decoder2.addCode('c', "01");
+    decoder2.addCode('d', "11");
+    decoder2.addCode('e', "101");
+
+    Assert.assertEquals(decoder1.allCodes(), decoder2.allCodes());
+    Assert.assertEquals(decoder1.isCodeComplete(), decoder2.isCodeComplete());
+
+    Assert.assertEquals("ace", decoder1.decode("10001101"));
+    Assert.assertEquals("ace", decoder2.decode("10001101"));
+  }
+
+  @Test
+  public void testIsCodeComplete() {
+    Decoder decoder = new DecoderImpl("01");
+
+    decoder.addCode('b', "00");
+    decoder.addCode('c', "01");
+    Assert.assertFalse(decoder.isCodeComplete());
+
+    decoder.addCode('d', "11");
+    Assert.assertFalse(decoder.isCodeComplete());
+
+    decoder.addCode('a', "100");
+    Assert.assertFalse(decoder.isCodeComplete());
+
+    decoder.addCode('e', "101");
+    Assert.assertTrue(decoder.isCodeComplete());
+  }
+
+  @Test
+  public void testIsCodeCompleteOnEmptyCodingTree() {
+    Decoder decoder = new DecoderImpl("01");
+    Assert.assertFalse(decoder.isCodeComplete());
   }
 }

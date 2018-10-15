@@ -31,6 +31,7 @@ public class DecoderImpl implements Decoder {
    * <li>if the code contains symbols other than coding symbols</li>
    * <li>if the code already exists in the coding tree</li>
    * <li>if the symbol already exists in the coding tree</li>
+   * <li>if the coding tree is complete</li>
    * </ul>
    *
    * <p>It throws an {@link IllegalArgumentException} if the given code is null or empty.
@@ -81,7 +82,7 @@ public class DecoderImpl implements Decoder {
    * Returns true if the code entered so far is complete, false otherwise. A code is said to be
    * complete if every valid encoded message can be successfully decoded. This condition is
    * fulfilled if the coding tree is full (i.e. every non-leaf node has exactly the same number of
-   * children, equal to the number of coding symbols).
+   * children, equal to the number of coding symbols). Returns false in case coding tree is empty.
    *
    * @return true if the code entered so far is complete, false otherwise
    */
