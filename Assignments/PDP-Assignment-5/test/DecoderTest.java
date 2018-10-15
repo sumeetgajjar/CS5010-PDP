@@ -91,8 +91,10 @@ public class DecoderTest {
 
   @Test
   public void testAddCodeMethod() {
-    String expectedAllCodes = "";
     Decoder decoder = new DecoderImpl("01");
+
+    String expectedAllCodes = "";
+    Assert.assertEquals(expectedAllCodes, decoder.allCodes());
 
     decoder.addCode('a', "100");
     expectedAllCodes += "a:100";
@@ -124,6 +126,7 @@ public class DecoderTest {
       decoder.addCode('a', "100");
       decoder.addCode('b', null);
 
+      Assert.fail("should have failed");
     } catch (IllegalStateException e) {
       Assert.assertEquals("Invalid coding symbol:'null'", e.getMessage());
     }
@@ -136,6 +139,7 @@ public class DecoderTest {
       decoder.addCode('a', "100");
       decoder.addCode('b', "");
 
+      Assert.fail("should have failed");
     } catch (IllegalStateException e) {
       Assert.assertEquals("Invalid coding symbol:''", e.getMessage());
     }
@@ -148,6 +152,7 @@ public class DecoderTest {
       decoder.addCode('a', "100");
       decoder.addCode('a', "100");
 
+      Assert.fail("should have failed");
     } catch (IllegalStateException e) {
       Assert.assertEquals("code for symbol:'a' already exists", e.getMessage());
     }
@@ -160,6 +165,7 @@ public class DecoderTest {
       decoder.addCode('a', "100");
       decoder.addCode('b', "100");
 
+      Assert.fail("should have failed");
     } catch (IllegalStateException e) {
       Assert.assertEquals("code:'100' already exists for symbol:'a'", e.getMessage());
     }
@@ -172,8 +178,75 @@ public class DecoderTest {
       decoder.addCode('a', "100");
       decoder.addCode('b', "102");
 
+      Assert.fail("should have failed");
     } catch (IllegalStateException e) {
       Assert.assertEquals("Invalid coding symbol:'2'", e.getMessage());
+    }
+  }
+
+  @Test
+  public void testDecodingInvalidString() {
+    try {
+      getDecoder().decode("10001102");
+      Assert.fail("should have failed");
+    } catch (IllegalStateException e) {
+      Assert.assertEquals("cannot decode given string:'10001102'", e.getMessage());
+    }
+
+    try {
+      getDecoder().decode("2345");
+      Assert.fail("should have failed");
+    } catch (IllegalStateException e) {
+      Assert.assertEquals("cannot decode given string:'2345'", e.getMessage());
+    }
+  }
+
+  @Test
+  public void testDecodingOnEmptyCodingTree() {
+    try {
+      Decoder decoder = new DecoderImpl("01");
+      decoder.decode("10001101");
+      Assert.fail("should have failed");
+
+    } catch (IllegalStateException e) {
+      Assert.assertEquals("cannot decode given string:'10001101'", e.getMessage());
+    }
+  }
+
+  @Test
+  public void testDecodingOnIncompleteCodingTree() {
+    Decoder decoder = new DecoderImpl("01");
+    decoder.addCode('a', "100");
+
+    try {
+      decoder.decode("1101");
+    } catch (IllegalStateException e) {
+      Assert.assertEquals("cannot decode given string:'1101'", e.getMessage());
+    }
+
+    decoder.addCode('b', "1101");
+    Assert.assertEquals("ab", decoder.decode("1001101"));
+  }
+
+  @Test
+  public void testDecodingEmptyString() {
+    try {
+      Decoder decoder = getDecoder();
+      decoder.decode("");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid string:''", e.getMessage());
+    }
+  }
+
+  @Test
+  public void testDecodingNull() {
+    try {
+      Decoder decoder = getDecoder();
+      decoder.decode(null);
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid string:'null'", e.getMessage());
     }
   }
 

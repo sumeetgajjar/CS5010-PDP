@@ -25,7 +25,7 @@ public class DecoderImpl implements Decoder {
   }
 
   /**
-   * Adds the given symbol and the corresponding code to the coding tree. Throws {@link
+   * Adds the given symbol and the corresponding code to the coding tree. It Throws {@link
    * IllegalStateException}
    * <ul>
    * <li>if the code contains symbols other than coding symbols</li>
@@ -33,17 +33,36 @@ public class DecoderImpl implements Decoder {
    * <li>if the symbol already exists in the coding tree</li>
    * </ul>
    *
+   * <p>It throws an {@link IllegalArgumentException} if the given code is null or empty.
+   *
    * @param symbol the symbol to be added
    * @param code   the code for the given symbol
-   * @throws IllegalStateException if the code contains symbols other than the coding symbols
+   * @throws IllegalStateException    if the code contains symbols other than the coding symbols
+   * @throws IllegalArgumentException if the given code is null or empty
    */
   @Override
-  public void addCode(char symbol, String code) throws IllegalStateException {
+  public void addCode(char symbol, String code) throws IllegalStateException, IllegalArgumentException {
 
   }
 
+  /**
+   * Takes a encoded message and returns the decoded message using the coding tree created thus far.
+   * It throws {@link IllegalStateException} if
+   * <ul>
+   * <li>if the given string contains symbols other than the coding symbols</li>
+   * <li>if the coding tree is empty and decode() method is invoked</li>
+   * <li>if the given string leads to an traversal to a leaf that does not exist</li>
+   * </ul>
+   *
+   * <p>It throws {@link IllegalArgumentException} if the given encodedMessage is null or empty.
+   *
+   * @param encodedMessage the message to be decoded
+   * @return the decoded string
+   * @throws IllegalStateException    if the decoding fails due to any reason
+   * @throws IllegalArgumentException if the given encodedMessage is null or empty
+   */
   @Override
-  public String decode(String encodedMessage) throws IllegalStateException {
+  public String decode(String encodedMessage) throws IllegalStateException, IllegalArgumentException {
     return null;
   }
 
