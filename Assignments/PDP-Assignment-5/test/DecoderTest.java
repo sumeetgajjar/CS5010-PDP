@@ -118,6 +118,30 @@ public class DecoderTest {
   }
 
   @Test
+  public void testAddingNullCodeForSymbol() {
+    try {
+      Decoder decoder = new DecoderImpl("01");
+      decoder.addCode('a', "100");
+      decoder.addCode('b', null);
+
+    } catch (IllegalStateException e) {
+      Assert.assertEquals("Invalid coding symbol:'null'", e.getMessage());
+    }
+  }
+
+  @Test
+  public void testAddingEmptyCodeForSymbol() {
+    try {
+      Decoder decoder = new DecoderImpl("01");
+      decoder.addCode('a', "100");
+      decoder.addCode('b', "");
+
+    } catch (IllegalStateException e) {
+      Assert.assertEquals("Invalid coding symbol:''", e.getMessage());
+    }
+  }
+
+  @Test
   public void testAddingCodeAlreadyExistingSymbol() {
     try {
       Decoder decoder = new DecoderImpl("01");
