@@ -186,31 +186,37 @@ public class DecoderTest {
 
   @Test
   public void testDecodingInvalidString() {
+    Decoder decoder = getDecoder();
     try {
-      getDecoder().decode("10001102");
+      decoder.decode("10001102");
       Assert.fail("should have failed");
     } catch (IllegalStateException e) {
       Assert.assertEquals("cannot decode given string:'10001102'", e.getMessage());
     }
 
     try {
-      getDecoder().decode("2345");
+      decoder.decode("2345");
       Assert.fail("should have failed");
     } catch (IllegalStateException e) {
       Assert.assertEquals("cannot decode given string:'2345'", e.getMessage());
     }
+
+    Assert.assertEquals("a", decoder.decode("100"));
   }
 
   @Test
   public void testDecodingOnEmptyCodingTree() {
+    Decoder decoder = new DecoderImpl("01");
     try {
-      Decoder decoder = new DecoderImpl("01");
-      decoder.decode("10001101");
+      decoder.decode("100");
       Assert.fail("should have failed");
 
     } catch (IllegalStateException e) {
       Assert.assertEquals("cannot decode given string:'10001101'", e.getMessage());
     }
+
+    decoder.addCode('a', "100");
+    Assert.assertEquals("a", decoder.decode("100"));
   }
 
   @Test

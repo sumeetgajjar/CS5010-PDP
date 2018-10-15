@@ -66,6 +66,12 @@ public class DecoderImpl implements Decoder {
     return null;
   }
 
+  /**
+   * Returns the codes entered thus far as a string. This string contains each symbol x and its code
+   * yyy on a separate line, in the form x:yyy. Returns a empty string if the coding tree is empty.
+   *
+   * @return the codes entered thus far as a string
+   */
   @Override
   public String allCodes() {
     return null;
