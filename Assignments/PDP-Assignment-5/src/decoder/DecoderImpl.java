@@ -1,8 +1,8 @@
 package decoder;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * This class represents a {@link DecoderImpl}. It extends {@link Decoder} interface. It can be used
@@ -34,20 +34,15 @@ public class DecoderImpl implements Decoder {
   }
 
   private void checkDuplicateCodingSymbols(String codingSymbols) throws IllegalArgumentException {
-    Map<Character, Integer> symbolCount = new HashMap<>(codingSymbols.length());
-    for (Character symbol : codingSymbols.toCharArray()) {
-      if (!symbolCount.containsKey(symbol)) {
-        symbolCount.put(symbol, 1);
-      }
-      symbolCount.put(symbol, symbolCount.get(symbol) + 1);
-    }
 
-    long symbolsWithCountGreaterThanOne = symbolCount.entrySet().stream()
+    long symbolsWithCountGreaterThanOne = codingSymbols.chars().boxed()
+            .collect(Collectors.toMap(character -> character, character -> 1, Integer::sum))
+            .entrySet().stream()
             .map(Map.Entry::getValue)
             .filter(count -> count > 1)
             .count();
 
-    if (symbolsWithCountGreaterThanOne >= 1) {
+    if (symbolsWithCountGreaterThanOne > 0) {
       throw new IllegalArgumentException("Invalid codingSymbols string");
     }
   }
