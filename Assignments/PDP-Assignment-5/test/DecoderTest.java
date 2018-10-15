@@ -48,6 +48,23 @@ public class DecoderTest {
   }
 
   @Test
+  public void testDecoderWithEmptyCodingTree() {
+    Decoder decoder = new DecoderImpl("01");
+    Assert.assertFalse(decoder.isCodeComplete());
+    Assert.assertEquals("", decoder.allCodes());
+
+    try {
+      decoder.decode("10001101");
+      Assert.fail("should have failed");
+    } catch (IllegalStateException e) {
+      Assert.assertEquals("", e.getMessage());
+    }
+
+    decoder.addCode('a', "100");
+    Assert.assertEquals("aaa", "100100100");
+  }
+
+  @Test
   public void testNullInputToConstructor() {
     Decoder decoder = null;
     try {
@@ -394,8 +411,11 @@ public class DecoderTest {
   @Test
   public void testIsCodeComplete() {
     Decoder decoder = new DecoderImpl("01");
+    Assert.assertFalse(decoder.isCodeComplete());
 
     decoder.addCode('b', "00");
+    Assert.assertFalse(decoder.isCodeComplete());
+
     decoder.addCode('c', "01");
     Assert.assertFalse(decoder.isCodeComplete());
 
@@ -407,11 +427,5 @@ public class DecoderTest {
 
     decoder.addCode('e', "101");
     Assert.assertTrue(decoder.isCodeComplete());
-  }
-
-  @Test
-  public void testIsCodeCompleteOnEmptyCodingTree() {
-    Decoder decoder = new DecoderImpl("01");
-    Assert.assertFalse(decoder.isCodeComplete());
   }
 }
