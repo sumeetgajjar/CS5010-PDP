@@ -10,9 +10,9 @@ public interface Decoder {
    *
    * @param symbol the symbol to be added
    * @param code   the code for the given symbol
-   * @throws IllegalArgumentException if the code contains symbols other than the coding symbols
+   * @throws IllegalStateException if the code contains symbols other than the coding symbols
    */
-  void addCode(char symbol, String code) throws IllegalArgumentException;
+  void addCode(char symbol, String code) throws IllegalStateException;
 
   /**
    * Takes a encoded message and returns the decoded message using the coding tree created thus
