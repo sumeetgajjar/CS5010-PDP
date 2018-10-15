@@ -70,6 +70,10 @@ public class DecoderImpl implements Decoder {
   /**
    * Returns the codes entered thus far as a string. This string contains each symbol x and its code
    * yyy on a separate line, in the form x:yyy. Returns a empty string if the coding tree is empty.
+   * The ordering of the symbols in the final string is according to the order of in which the
+   * symbols were added in the coding tree using addCode() method. For e.g. if
+   * <code>addCode('b',"110");addCode('a',"001");</code> then <code>allCodes()</code> will return
+   * "b:110{line-separator}a:001"
    *
    * @return the codes entered thus far as a string
    */
