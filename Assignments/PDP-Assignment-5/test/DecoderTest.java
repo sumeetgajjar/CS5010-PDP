@@ -71,7 +71,7 @@ public class DecoderTest {
       decoder = new DecoderImpl(null);
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("Invalid codingSymbols string", e.getMessage());
+      Assert.assertEquals("Invalid string:'null'", e.getMessage());
     }
     Assert.assertNull(decoder);
   }
@@ -83,7 +83,7 @@ public class DecoderTest {
       decoder = new DecoderImpl("");
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("Invalid codingSymbols string", e.getMessage());
+      Assert.assertEquals("Invalid string:''", e.getMessage());
     }
     Assert.assertNull(decoder);
   }
@@ -146,8 +146,8 @@ public class DecoderTest {
       decoder.addCode('b', null);
 
       Assert.fail("should have failed");
-    } catch (IllegalStateException e) {
-      Assert.assertEquals("Invalid coding symbol:'null'", e.getMessage());
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid string:'null'", e.getMessage());
     }
   }
 
@@ -159,8 +159,8 @@ public class DecoderTest {
       decoder.addCode('b', "");
 
       Assert.fail("should have failed");
-    } catch (IllegalStateException e) {
-      Assert.assertEquals("Invalid coding symbol:''", e.getMessage());
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid string:''", e.getMessage());
     }
   }
 

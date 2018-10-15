@@ -1,7 +1,10 @@
 package decoder;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -9,6 +12,8 @@ import java.util.stream.Collectors;
  * to decode message with "n" codingSymbols.
  */
 public class DecoderImpl implements Decoder {
+
+  private final Set<Character> validCodingSymbols;
 
   /**
    * Constructs a {@link DecoderImpl} with the given codingSymbols. The order of the symbols in the
@@ -25,18 +30,18 @@ public class DecoderImpl implements Decoder {
    * @throws IllegalArgumentException if the given codingSymbols are invalid
    */
   public DecoderImpl(String codingSymbols) throws IllegalArgumentException {
-    this.performSanityCheck(codingSymbols);
+    this.checkNullOrEmptyString(codingSymbols);
+    this.checkDuplicateCodingSymbols(codingSymbols);
+
+    validCodingSymbols = this.getCodingSymbolsSet(codingSymbols);
   }
 
-  /**
-   * Checks if the given codingSymbols string complies with the sanity checks.
-   *
-   * @param codingSymbols string to check
-   * @throws IllegalArgumentException if the given string does not pass the sanity checks
-   */
-  private void performSanityCheck(String codingSymbols) throws IllegalArgumentException {
-    checkNullOrEmptyCodingSymbolsString(codingSymbols);
-    checkDuplicateCodingSymbols(codingSymbols);
+  private Set<Character> getCodingSymbolsSet(String codingSymbols) {
+    Set<Character> codingSymbolsSet = new HashSet<>();
+    for (char codingSymbol : codingSymbols.toCharArray()) {
+      codingSymbolsSet.add(codingSymbol);
+    }
+    return Collections.unmodifiableSet(codingSymbolsSet);
   }
 
   /**
@@ -60,18 +65,14 @@ public class DecoderImpl implements Decoder {
   }
 
   /**
-   * Checks if the given codingSymbols string is null or empty.
+   * Checks if the given string is null or empty.
    *
-   * @param codingSymbols string to check
-   * @throws IllegalArgumentException if the given codingSymbols string is null or empty
+   * @param string string to check
+   * @throws IllegalArgumentException if the given string is null or empty
    */
-  private void checkNullOrEmptyCodingSymbolsString(String codingSymbols) throws IllegalArgumentException {
-    if (Objects.isNull(codingSymbols)) {
-      throw new IllegalArgumentException("Invalid codingSymbols string");
-    }
-
-    if (codingSymbols.length() == 0) {
-      throw new IllegalArgumentException("Invalid codingSymbols string");
+  private void checkNullOrEmptyString(String string) throws IllegalArgumentException {
+    if (Objects.isNull(string) || string.length() == 0) {
+      throw new IllegalArgumentException(String.format("Invalid string:'%s'", string));
     }
   }
 
@@ -94,7 +95,24 @@ public class DecoderImpl implements Decoder {
    */
   @Override
   public void addCode(char symbol, String code) throws IllegalStateException, IllegalArgumentException {
+    this.checkNullOrEmptyString(code);
+    this.checkInvalidSymbolsInCode(code);
 
+
+  }
+
+  /**
+   * Checks if the given code string contains invalid coding symbols.
+   *
+   * @param code the string to check
+   * @throws IllegalStateException if the given code string contains invalid coding symbols
+   */
+  private void checkInvalidSymbolsInCode(String code) throws IllegalStateException {
+    for (char codeSymbol : code.toCharArray()) {
+      if (!validCodingSymbols.contains(codeSymbol)) {
+        throw new IllegalStateException(String.format("Invalid coding symbol:'%s'", codeSymbol));
+      }
+    }
   }
 
   /**
