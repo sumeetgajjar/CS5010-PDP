@@ -426,6 +426,23 @@ public class DecoderTest {
   }
 
   @Test
+  public void testOrderingOfAllCodesMethod() {
+    Decoder decoder = new DecoderImpl("01");
+    decoder.addCode('b', "110");
+    decoder.addCode('a', "001");
+
+    String expectedAllCodesString = String.format("b:110%sa:001", System.lineSeparator());
+    Assert.assertEquals(expectedAllCodesString, decoder.allCodes());
+
+    decoder = new DecoderImpl("01");
+    decoder.addCode('a', "001");
+    decoder.addCode('b', "110");
+
+    expectedAllCodesString = String.format("a:001%sb:110", System.lineSeparator());
+    Assert.assertEquals(expectedAllCodesString, decoder.allCodes());
+  }
+
+  @Test
   public void testIsCodeComplete() {
     Decoder decoder = new DecoderImpl("01");
     Assert.assertFalse(decoder.isCodeComplete());
