@@ -1,11 +1,18 @@
 package decoder;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import decoder.bean.DecodedData;
+import decoder.treeutil.GroupNode;
+import decoder.treeutil.PrefixTreeNode;
+import util.Utils;
 
 /**
  * This class represents a {@link DecoderImpl}. It extends {@link Decoder} interface. It can be used
@@ -14,6 +21,9 @@ import java.util.stream.Collectors;
 public class DecoderImpl implements Decoder {
 
   private final Set<Character> validCodingSymbols;
+  private final Set<Character> symbolsInCodingTree;
+
+  private PrefixTreeNode<Character, Character> root;
 
   /**
    * Constructs a {@link DecoderImpl} with the given codingSymbols. The order of the symbols in the
@@ -33,7 +43,9 @@ public class DecoderImpl implements Decoder {
     this.checkNullOrEmptyString(codingSymbols);
     this.checkDuplicateCodingSymbols(codingSymbols);
 
-    validCodingSymbols = this.getCodingSymbolsSet(codingSymbols);
+    this.symbolsInCodingTree = new HashSet<>();
+    this.validCodingSymbols = this.getCodingSymbolsSet(codingSymbols);
+    this.root = new GroupNode<>(validCodingSymbols);
   }
 
   private Set<Character> getCodingSymbolsSet(String codingSymbols) {
@@ -97,8 +109,18 @@ public class DecoderImpl implements Decoder {
   public void addCode(char symbol, String code) throws IllegalStateException, IllegalArgumentException {
     this.checkNullOrEmptyString(code);
     this.checkInvalidSymbolsInCode(code);
+    this.checkIfSymbolAlreadyExistsInCodingTree(symbol);
 
+    Character[] path = Utils.convertStringToCharacterArray(code);
+    this.root.addChild(path, symbol);
 
+    this.symbolsInCodingTree.add(symbol);
+  }
+
+  private void checkIfSymbolAlreadyExistsInCodingTree(char symbol) {
+    if (this.symbolsInCodingTree.contains(symbol)) {
+      throw new IllegalStateException(String.format("code for symbol:'%s' already exists", symbol));
+    }
   }
 
   /**
@@ -133,22 +155,45 @@ public class DecoderImpl implements Decoder {
    */
   @Override
   public String decode(String encodedMessage) throws IllegalStateException, IllegalArgumentException {
-    return null;
+    checkNullOrEmptyString(encodedMessage);
+
+    List<Character> characters = new ArrayList<>(encodedMessage.length());
+    for (char c : encodedMessage.toCharArray()) {
+      characters.add(c);
+    }
+
+    List<Character> unmodifiableSequence = Collections.unmodifiableList(characters);
+    StringBuilder builder = new StringBuilder();
+    int pointer = 0;
+    while (pointer < characters.size()) {
+      DecodedData<Character> decodedData = this.root.decode(pointer, unmodifiableSequence);
+      pointer = decodedData.getNextStartPointer();
+      builder.append(decodedData.getData());
+    }
+
+    //todo remember checking pointer position with length of characters
+
+    return builder.toString();
   }
 
   /**
    * Returns the codes entered thus far as a string. This string contains each symbol x and its code
    * yyy on a separate line, in the form x:yyy. Returns a empty string if the coding tree is empty.
-   * The ordering of the symbols in the final string is according to the order of in which the
-   * symbols were added in the coding tree using addCode() method. For e.g. if
-   * <code>addCode('b',"110");addCode('a',"001");</code> then <code>allCodes()</code> will return
-   * "b:110{line-separator}a:001"
+   * The ordering of the symbols in the final string is according to the lexicographical order of
+   * symbols in the coding tree. For e.g.<ul>
+   * <li>if <code>addCode('b',"110");addCode('a',"001");</code> then <code>allCodes()</code> will
+   * return "a:110{line-separator}b:001"</li>
+   * <li>if <code>addCode('a',"110");addCode('b',"001");</code> then <code>allCodes()</code> will
+   * return "a:110{line-separator}b:001"</li>
+   * </ul>
    *
    * @return the codes entered thus far as a string
    */
   @Override
   public String allCodes() {
-    return null;
+    List<String> allCodes = this.root.getAllCodes("");
+    Collections.sort(allCodes);
+    return allCodes.stream().collect(Collectors.joining(System.lineSeparator()));
   }
 
   /**
@@ -161,6 +206,6 @@ public class DecoderImpl implements Decoder {
    */
   @Override
   public boolean isCodeComplete() {
-    return false;
+    return this.root.isTreeComplete();
   }
 }
