@@ -9,6 +9,8 @@ import decoder.DecoderImpl;
  */
 public class DecoderTest {
 
+  //todo test prefix codes with same prefix
+
   private Decoder getDecoder() {
     Decoder decoder = new DecoderImpl("01");
 
@@ -40,7 +42,7 @@ public class DecoderTest {
     expectedAllCodes += "b:00" + System.lineSeparator();
     expectedAllCodes += "c:01" + System.lineSeparator();
     expectedAllCodes += "d:11" + System.lineSeparator();
-    expectedAllCodes += "e:101" + System.lineSeparator();
+    expectedAllCodes += "e:101";
 
     Assert.assertEquals(expectedAllCodes, decoder.allCodes());
 
@@ -57,11 +59,11 @@ public class DecoderTest {
       decoder.decode("10001101");
       Assert.fail("should have failed");
     } catch (IllegalStateException e) {
-      Assert.assertEquals("", e.getMessage());
+      Assert.assertEquals("cannot decode given sequence", e.getMessage());
     }
 
     decoder.addCode('a', "100");
-    Assert.assertEquals("aaa", "100100100");
+    Assert.assertEquals("aaa", decoder.decode("100100100"));
   }
 
   @Test
@@ -186,7 +188,7 @@ public class DecoderTest {
 
       Assert.fail("should have failed");
     } catch (IllegalStateException e) {
-      Assert.assertEquals("code:'100' already exists for symbol:'a'", e.getMessage());
+      Assert.assertEquals("data already exists at given path", e.getMessage());
     }
   }
 
@@ -200,7 +202,7 @@ public class DecoderTest {
 
       Assert.fail("should have failed");
     } catch (IllegalStateException e) {
-      Assert.assertEquals("cannot add more codes to complete coding tree", e.getMessage());
+      Assert.assertEquals("data already exists at given path", e.getMessage());
     }
   }
 
@@ -213,7 +215,7 @@ public class DecoderTest {
 
       Assert.fail("should have failed");
     } catch (IllegalStateException e) {
-      Assert.assertEquals("invalid code:'1'", e.getMessage());
+      Assert.assertEquals("data already exists at given path", e.getMessage());
     }
   }
 
@@ -237,14 +239,14 @@ public class DecoderTest {
       decoder.decode("10001102");
       Assert.fail("should have failed");
     } catch (IllegalStateException e) {
-      Assert.assertEquals("cannot decode given string:'10001102'", e.getMessage());
+      Assert.assertEquals("cannot decode given sequence", e.getMessage());
     }
 
     try {
       decoder.decode("2345");
       Assert.fail("should have failed");
     } catch (IllegalStateException e) {
-      Assert.assertEquals("cannot decode given string:'2345'", e.getMessage());
+      Assert.assertEquals("cannot decode given sequence", e.getMessage());
     }
 
     Assert.assertEquals("a", decoder.decode("100"));
@@ -258,7 +260,7 @@ public class DecoderTest {
       Assert.fail("should have failed");
 
     } catch (IllegalStateException e) {
-      Assert.assertEquals("cannot decode given string:'100'", e.getMessage());
+      Assert.assertEquals("cannot decode given sequence", e.getMessage());
     }
 
     decoder.addCode('a', "100");
@@ -273,7 +275,7 @@ public class DecoderTest {
     try {
       decoder.decode("1101");
     } catch (IllegalStateException e) {
-      Assert.assertEquals("cannot decode given string:'1101'", e.getMessage());
+      Assert.assertEquals("cannot decode given sequence", e.getMessage());
     }
 
     decoder.addCode('b', "1101");
@@ -431,14 +433,13 @@ public class DecoderTest {
     decoder.addCode('b', "110");
     decoder.addCode('a', "001");
 
-    String expectedAllCodesString = String.format("b:110%sa:001", System.lineSeparator());
+    String expectedAllCodesString = String.format("a:001%sb:110", System.lineSeparator());
     Assert.assertEquals(expectedAllCodesString, decoder.allCodes());
 
     decoder = new DecoderImpl("01");
     decoder.addCode('a', "001");
     decoder.addCode('b', "110");
 
-    expectedAllCodesString = String.format("a:001%sb:110", System.lineSeparator());
     Assert.assertEquals(expectedAllCodesString, decoder.allCodes());
   }
 
