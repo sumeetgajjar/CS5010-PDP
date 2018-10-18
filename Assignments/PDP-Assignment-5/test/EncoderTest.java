@@ -9,7 +9,7 @@ import encoder.Encoder;
 import encoder.HuffmanEncoder;
 
 /**
- * A junit class to test {@link encoder.HuffmanEncoder}
+ * A junit class to test {@link encoder.HuffmanEncoder}.
  */
 public class EncoderTest {
 
@@ -18,7 +18,8 @@ public class EncoderTest {
     String message = "abcde";
 
     Encoder<Character> encoder = new HuffmanEncoder();
-    Map<Character, String> codingTable = encoder.generateCodingTable(Arrays.asList('0', '1'), message);
+    Map<Character, String> codingTable =
+            encoder.generateCodingTable(Arrays.asList('0', '1'), message);
 
     Assert.assertEquals("110", codingTable.get('a'));
     Assert.assertEquals("111", codingTable.get('b'));
@@ -34,7 +35,8 @@ public class EncoderTest {
   public void testSymbolInMessageDoesNotExistInCodingTable() {
     Encoder<Character> encoder = new HuffmanEncoder();
     String message = "abcde";
-    Map<Character, String> codingTable = encoder.generateCodingTable(Arrays.asList('0', '1'), message);
+    Map<Character, String> codingTable =
+            encoder.generateCodingTable(Arrays.asList('0', '1'), message);
 
     try {
       encoder.encode(codingTable, String.format("%s%s", message, "f"));
@@ -94,7 +96,8 @@ public class EncoderTest {
   @Test
   public void testNullOrEmptyMessageForEncoding() {
     Encoder<Character> encoder = new HuffmanEncoder();
-    Map<Character, String> codingTable = encoder.generateCodingTable(Arrays.asList('0', '1'), "abcde");
+    Map<Character, String> codingTable =
+            encoder.generateCodingTable(Arrays.asList('0', '1'), "abcde");
     try {
       encoder.encode(codingTable, null);
       Assert.fail("should have failed");
@@ -113,7 +116,7 @@ public class EncoderTest {
   @Test
   public void testNullOrEmptyCodingTableForEncoding() {
     Encoder<Character> encoder = new HuffmanEncoder();
-    Map<Character, String> codingTable = encoder.generateCodingTable(Arrays.asList('0', '1'), "abcde");
+
     try {
       encoder.encode(null, "abcde");
       Assert.fail("should have failed");

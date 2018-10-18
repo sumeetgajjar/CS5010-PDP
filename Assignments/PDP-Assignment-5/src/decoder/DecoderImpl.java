@@ -151,10 +151,10 @@ public class DecoderImpl implements Decoder {
   }
 
   /**
-   * Returns a {@link Set<Character>} of the given string.
+   * Returns a Set of Character of the given string.
    *
    * @param codingSymbols the given string
-   * @return a {@link Set<Character>} of the given string
+   * @return a Set of Character of the given string
    */
   private Set<Character> getCodingSymbolsSet(String codingSymbols) {
     Set<Character> codingSymbolsSet = new HashSet<>();
