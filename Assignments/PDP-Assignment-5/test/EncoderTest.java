@@ -27,6 +27,32 @@ public class EncoderTest {
     Assert.assertEquals("10", codingTable.get('e'));
 
     Assert.assertEquals("110111000110", encoder.encode(codingTable, message));
+    Assert.assertEquals("110110110110", encoder.encode(codingTable, "aaaa"));
+  }
+
+  @Test
+  public void testSymbolInMessageDoesNotExistInCodingTable() {
+    Encoder<Character> encoder = new HuffmanEncoder();
+    String message = "abcde";
+    Map<Character, String> codingTable = encoder.generateCodingTable(Arrays.asList('0', '1'), message);
+
+    try {
+      encoder.encode(codingTable, String.format("%s%s", message, "f"));
+      Assert.fail("should have failed");
+    } catch (IllegalStateException e) {
+      Assert.assertEquals("coding symbol not found for symbol:'f'", e.getMessage());
+    }
+  }
+
+  @Test
+  public void testCodingSymbolCannotBeNull() {
+    Encoder<Character> encoder = new HuffmanEncoder();
+    try {
+      encoder.generateCodingTable(Arrays.asList(null, '1'), "abcde");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("coding symbol cannot be null", e.getMessage());
+    }
   }
 
   @Test

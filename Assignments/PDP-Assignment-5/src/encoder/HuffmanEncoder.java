@@ -64,16 +64,21 @@ public class HuffmanEncoder implements Encoder<Character> {
       String code = codingTable.get(symbol);
       if (Objects.isNull(code)) {
         throw new IllegalStateException(
-                String.format("coding symbol not found for symbol:%s", symbol));
+                String.format("coding symbol not found for symbol:'%s'", symbol));
       }
       builder.append(code);
     }
     return builder.toString();
   }
 
-  private Map<Character, StringBuilder> updateCodingTable(Map<Character, StringBuilder> codingTable,
-                                                          Character codingSymbol,
-                                                          String symbols) {
+  private Map<Character, StringBuilder> updateCodingTable(
+          Map<Character, StringBuilder> codingTable,
+          Character codingSymbol,
+          String symbols) throws IllegalArgumentException {
+
+    if (Objects.isNull(codingSymbol)) {
+      throw new IllegalArgumentException("coding symbol cannot be null");
+    }
 
     for (char symbol : symbols.toCharArray()) {
       StringBuilder gx = codingTable.getOrDefault(symbol, new StringBuilder());
