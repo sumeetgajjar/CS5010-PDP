@@ -65,7 +65,9 @@ public class DecoderImpl implements Decoder {
    * @throws IllegalArgumentException if the given code is null or empty
    */
   @Override
-  public void addCode(char symbol, String code) throws IllegalStateException, IllegalArgumentException {
+  public void addCode(char symbol, String code)
+          throws IllegalStateException, IllegalArgumentException {
+
     this.checkNullOrEmptyString(code);
     this.checkInvalidSymbolsInCode(code);
     this.checkIfSymbolAlreadyExistsInCodingTree(symbol);
@@ -93,7 +95,9 @@ public class DecoderImpl implements Decoder {
    * @throws IllegalArgumentException if the given encodedMessage is null or empty
    */
   @Override
-  public String decode(String encodedMessage) throws IllegalStateException, IllegalArgumentException {
+  public String decode(String encodedMessage)
+          throws IllegalStateException, IllegalArgumentException {
+
     checkNullOrEmptyString(encodedMessage);
 
     List<Character> encodedSequence = Utils.convertStringToCharacterArray(encodedMessage);
@@ -103,12 +107,13 @@ public class DecoderImpl implements Decoder {
     int nextIndexToStartDecoding = 0;
 
     while (nextIndexToStartDecoding < unmodifiableSequence.size()) {
-      DecodedData<Character> decodedData = this.root.decode(nextIndexToStartDecoding, unmodifiableSequence);
+
+      DecodedData<Character> decodedData =
+              this.root.decode(nextIndexToStartDecoding, unmodifiableSequence);
+
       nextIndexToStartDecoding = decodedData.getNextIndexToStartDecoding();
       builder.append(decodedData.getData());
     }
-
-    //todo remember checking pointer position with length of characters
     return builder.toString();
   }
 

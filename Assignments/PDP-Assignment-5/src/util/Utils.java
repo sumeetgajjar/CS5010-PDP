@@ -8,9 +8,15 @@ import java.util.List;
  */
 public class Utils {
 
-  public static List<Character> convertStringToCharacterArray(String code) {
-    List<Character> path = new ArrayList<>(code.length());
-    char[] chars = code.toCharArray();
+  /**
+   * Returns the List of characters from the given string.
+   *
+   * @param message the given string
+   * @return the List of characters from the given string
+   */
+  public static List<Character> convertStringToCharacterArray(String message) {
+    List<Character> path = new ArrayList<>(message.length());
+    char[] chars = message.toCharArray();
     for (int i = 0; i < chars.length; i++) {
       path.add(i, chars[i]);
     }
