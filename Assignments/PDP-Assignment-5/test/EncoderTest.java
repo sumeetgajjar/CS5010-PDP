@@ -58,6 +58,17 @@ public class EncoderTest {
   }
 
   @Test
+  public void testCodingSymbolSizeLessThanTwo() {
+    Encoder<Character> encoder = new HuffmanEncoder();
+    try {
+      encoder.generateCodingTable(Collections.singletonList('1'), "abcde");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("coding symbols cannot be less than 2", e.getMessage());
+    }
+  }
+
+  @Test
   public void testDuplicateCodingSymbols() {
     Encoder<Character> encoder = new HuffmanEncoder();
     try {
