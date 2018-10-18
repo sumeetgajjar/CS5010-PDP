@@ -2,6 +2,7 @@ package util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by gajjar.s, on 12:43 PM, 10/17/18
@@ -21,5 +22,17 @@ public class Utils {
       path.add(i, chars[i]);
     }
     return path;
+  }
+
+  /**
+   * Checks if the given string is null or empty.
+   *
+   * @param string string to check
+   * @throws IllegalArgumentException if the given string is null or empty
+   */
+  public static void checkNullOrEmptyString(String string) throws IllegalArgumentException {
+    if (Objects.isNull(string) || string.length() == 0) {
+      throw new IllegalArgumentException(String.format("Invalid string:'%s'", string));
+    }
   }
 }

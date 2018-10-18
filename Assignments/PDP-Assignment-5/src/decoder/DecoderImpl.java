@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -40,7 +39,7 @@ public class DecoderImpl implements Decoder {
    * @throws IllegalArgumentException if the given codingSymbols are invalid
    */
   public DecoderImpl(String codingSymbols) throws IllegalArgumentException {
-    this.checkNullOrEmptyString(codingSymbols);
+    Utils.checkNullOrEmptyString(codingSymbols);
     this.checkDuplicateCodingSymbols(codingSymbols);
 
     this.symbolsInCodingTree = new HashSet<>();
@@ -69,7 +68,7 @@ public class DecoderImpl implements Decoder {
   public void addCode(char symbol, String code)
           throws IllegalStateException, IllegalArgumentException {
 
-    this.checkNullOrEmptyString(code);
+    Utils.checkNullOrEmptyString(code);
     this.checkInvalidSymbolsInCode(code);
     this.checkIfSymbolAlreadyExistsInCodingTree(symbol);
 
@@ -99,7 +98,7 @@ public class DecoderImpl implements Decoder {
   public String decode(String encodedMessage)
           throws IllegalStateException, IllegalArgumentException {
 
-    checkNullOrEmptyString(encodedMessage);
+    Utils.checkNullOrEmptyString(encodedMessage);
 
     List<Character> encodedSequence = Utils.convertStringToCharacterArray(encodedMessage);
     List<Character> unmodifiableSequence = Collections.unmodifiableList(encodedSequence);
@@ -163,18 +162,6 @@ public class DecoderImpl implements Decoder {
       codingSymbolsSet.add(codingSymbol);
     }
     return Collections.unmodifiableSet(codingSymbolsSet);
-  }
-
-  /**
-   * Checks if the given string is null or empty.
-   *
-   * @param string string to check
-   * @throws IllegalArgumentException if the given string is null or empty
-   */
-  private void checkNullOrEmptyString(String string) throws IllegalArgumentException {
-    if (Objects.isNull(string) || string.length() == 0) {
-      throw new IllegalArgumentException(String.format("Invalid string:'%s'", string));
-    }
   }
 
   /**

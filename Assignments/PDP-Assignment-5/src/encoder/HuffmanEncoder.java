@@ -1,5 +1,6 @@
 package encoder;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +18,10 @@ import util.Utils;
 public class HuffmanEncoder implements Encoder<Character> {
 
   @Override
-  public Map<Character, String> generateCodingTable(List<Character> codingSymbols, String message) {
+  public Map<Character, String> generateCodingTable(List<Character> codingSymbols, String message)
+          throws IllegalArgumentException {
+
+    Utils.checkNullOrEmptyString(message);
     Map<Character, StringBuilder> codingTable = new HashMap<>();
 
     PriorityQueue<Pair<String, Integer>> priorityQueue = getPriorityQueueForMessage(message);
@@ -48,8 +52,9 @@ public class HuffmanEncoder implements Encoder<Character> {
 
   @Override
   public String encode(Map<Character, String> codingTable, String message)
-          throws IllegalStateException {
+          throws IllegalStateException, IllegalArgumentException {
 
+    Utils.checkNullOrEmptyString(message);
     StringBuilder builder = new StringBuilder();
     for (char symbol : message.toCharArray()) {
       String code = codingTable.get(symbol);
@@ -79,7 +84,7 @@ public class HuffmanEncoder implements Encoder<Character> {
     for (Map.Entry<Character, StringBuilder> entry : codingTable.entrySet()) {
       finalCodingTable.put(entry.getKey(), entry.getValue().reverse().toString());
     }
-    return finalCodingTable;
+    return Collections.unmodifiableMap(finalCodingTable);
   }
 
   private PriorityQueue<Pair<String, Integer>> getPriorityQueueForMessage(String message) {
