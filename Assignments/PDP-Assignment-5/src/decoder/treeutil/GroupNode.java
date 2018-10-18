@@ -8,7 +8,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import decoder.bean.DecodedData;
-import util.Utils;
 
 
 /**
@@ -25,23 +24,24 @@ public class GroupNode<P, T> extends AbstractPrefixTreeNode<P, T> {
   }
 
   @Override
-  public PrefixTreeNode<P, T> addChild(P[] pathSequence, T data) {
+  public PrefixTreeNode<P, T> addChild(List<P> pathSequence, T data) {
 
-    if (pathSequence.length == 1) {
+    if (pathSequence.size() == 1) {
+      P immediatePath = pathSequence.get(0);
 
-      if (this.children.containsKey(pathSequence[0])) {
+      if (this.children.containsKey(immediatePath)) {
         throw new IllegalStateException("data already exists at given path");
       }
 
       PrefixTreeNode<P, T> leafNode = new LeafNode<>(data);
-      this.children.put(pathSequence[0], leafNode);
+      this.children.put(immediatePath, leafNode);
       return this;
 
     }
 
-    P immediatePath = pathSequence[0];
+    P immediatePath = pathSequence.get(0);
     PrefixTreeNode<P, T> nodeAtImmediateNextPath = this.children.get(immediatePath);
-    P[] reducedPath = Utils.getSubArray(pathSequence, 1, pathSequence.length);
+    List<P> reducedPath = pathSequence.subList(1, pathSequence.size());
 
     if (Objects.nonNull(nodeAtImmediateNextPath)) {
 
@@ -71,10 +71,9 @@ public class GroupNode<P, T> extends AbstractPrefixTreeNode<P, T> {
   @Override
   public DecodedData<T> decode(int startIndex, List<P> encodedSequence) {
 
-    P p = encodedSequence.get(startIndex);
-
-    if (this.children.containsKey(p)) {
-      PrefixTreeNode<P, T> node = this.children.get(p);
+    P codingSymbol = encodedSequence.get(startIndex);
+    if (this.children.containsKey(codingSymbol)) {
+      PrefixTreeNode<P, T> node = this.children.get(codingSymbol);
       return node.decode(startIndex + 1, encodedSequence);
     } else {
       throw new IllegalStateException("cannot decode given sequence");

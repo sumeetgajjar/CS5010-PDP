@@ -17,7 +17,7 @@ public class LeafNode<P, T> extends AbstractPrefixTreeNode<P, T> {
   }
 
   @Override
-  public PrefixTreeNode<P, T> addChild(P[] pathSequence, T data) throws UnsupportedOperationException {
+  public PrefixTreeNode<P, T> addChild(List<P> pathSequence, T data) throws UnsupportedOperationException {
     throw new UnsupportedOperationException("A leafNode cannot add children to itself");
   }
 

@@ -1,6 +1,5 @@
 package decoder;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -71,7 +70,7 @@ public class DecoderImpl implements Decoder {
     this.checkInvalidSymbolsInCode(code);
     this.checkIfSymbolAlreadyExistsInCodingTree(symbol);
 
-    Character[] path = Utils.convertStringToCharacterArray(code);
+    List<Character> path = Utils.convertStringToCharacterArray(code);
     this.root.addChild(path, symbol);
 
     this.symbolsInCodingTree.add(symbol);
@@ -97,22 +96,19 @@ public class DecoderImpl implements Decoder {
   public String decode(String encodedMessage) throws IllegalStateException, IllegalArgumentException {
     checkNullOrEmptyString(encodedMessage);
 
-    List<Character> characters = new ArrayList<>(encodedMessage.length());
-    for (char c : encodedMessage.toCharArray()) {
-      characters.add(c);
-    }
+    List<Character> encodedSequence = Utils.convertStringToCharacterArray(encodedMessage);
+    List<Character> unmodifiableSequence = Collections.unmodifiableList(encodedSequence);
 
-    List<Character> unmodifiableSequence = Collections.unmodifiableList(characters);
     StringBuilder builder = new StringBuilder();
-    int pointer = 0;
-    while (pointer < characters.size()) {
-      DecodedData<Character> decodedData = this.root.decode(pointer, unmodifiableSequence);
-      pointer = decodedData.getNextIndexToStartDecoding();
+    int nextIndexToStartDecoding = 0;
+
+    while (nextIndexToStartDecoding < unmodifiableSequence.size()) {
+      DecodedData<Character> decodedData = this.root.decode(nextIndexToStartDecoding, unmodifiableSequence);
+      nextIndexToStartDecoding = decodedData.getNextIndexToStartDecoding();
       builder.append(decodedData.getData());
     }
 
     //todo remember checking pointer position with length of characters
-
     return builder.toString();
   }
 
@@ -183,6 +179,11 @@ public class DecoderImpl implements Decoder {
     }
   }
 
+  /**
+   * Checks if the given symbol already exists in the coding tree.
+   *
+   * @param symbol if the given symbol already exists in the coding tree
+   */
   private void checkIfSymbolAlreadyExistsInCodingTree(char symbol) {
     if (this.symbolsInCodingTree.contains(symbol)) {
       throw new IllegalStateException(String.format("code for symbol:'%s' already exists", symbol));
@@ -190,10 +191,10 @@ public class DecoderImpl implements Decoder {
   }
 
   /**
-   * Checks if the given codingSymbols contains duplicate symbols.
+   * Checks if the given string contains duplicate symbols.
    *
    * @param codingSymbols string to check
-   * @throws IllegalArgumentException if the given codingSymbols contains duplicate symbols
+   * @throws IllegalArgumentException if the given string contains duplicate symbols
    */
   private void checkDuplicateCodingSymbols(String codingSymbols) throws IllegalArgumentException {
 
