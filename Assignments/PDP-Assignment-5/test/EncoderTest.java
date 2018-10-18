@@ -32,6 +32,42 @@ public class EncoderTest {
   }
 
   @Test
+  public void testEncodingUsingSpecialSymbols() {
+    String message = "abcde";
+
+    Encoder<Character> encoder = new HuffmanEncoder();
+    Map<Character, String> codingTable =
+            encoder.generateCodingTable(Arrays.asList('@', ' '), message);
+
+    Assert.assertEquals("  @", codingTable.get('a'));
+    Assert.assertEquals("   ", codingTable.get('b'));
+    Assert.assertEquals("@@", codingTable.get('c'));
+    Assert.assertEquals("@ ", codingTable.get('d'));
+    Assert.assertEquals(" @", codingTable.get('e'));
+
+    Assert.assertEquals("  @   @@@  @", encoder.encode(codingTable, message));
+    Assert.assertEquals("  @  @  @  @", encoder.encode(codingTable, "aaaa"));
+  }
+
+  @Test
+  public void testEncodingMessageSameAsCodingSymbols() {
+    String message = "abcde";
+
+    Encoder<Character> encoder = new HuffmanEncoder();
+    Map<Character, String> codingTable =
+            encoder.generateCodingTable(Arrays.asList('a', 'b', 'c', 'd', 'e'), message);
+
+    Assert.assertEquals("a", codingTable.get('a'));
+    Assert.assertEquals("b", codingTable.get('b'));
+    Assert.assertEquals("c", codingTable.get('c'));
+    Assert.assertEquals("d", codingTable.get('d'));
+    Assert.assertEquals("e", codingTable.get('e'));
+
+    Assert.assertEquals("abcde", encoder.encode(codingTable, message));
+    Assert.assertEquals("aaaa", encoder.encode(codingTable, "aaaa"));
+  }
+
+  @Test
   public void testSymbolInMessageDoesNotExistInCodingTable() {
     Encoder<Character> encoder = new HuffmanEncoder();
     String message = "abcde";
