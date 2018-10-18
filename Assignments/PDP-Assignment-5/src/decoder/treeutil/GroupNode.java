@@ -27,27 +27,19 @@ public class GroupNode<P, T> extends AbstractPrefixTreeNode<P, T> {
   public PrefixTreeNode<P, T> addChild(List<P> pathSequence, T data) {
 
     if (pathSequence.size() == 1) {
-      P immediatePath = pathSequence.get(0);
-
-      if (this.children.containsKey(immediatePath)) {
-        throw new IllegalStateException("data already exists at given path");
-      }
-
-      PrefixTreeNode<P, T> leafNode = new LeafNode<>(data);
-      this.children.put(immediatePath, leafNode);
+      P path = pathSequence.get(0);
+      checkIfChildrenAlreadyExists(path);
+      this.children.put(path, new LeafNode<>(data));
       return this;
-
     }
 
-    P immediatePath = pathSequence.get(0);
-    PrefixTreeNode<P, T> nodeAtImmediateNextPath = this.children.get(immediatePath);
+    P path = pathSequence.get(0);
+    PrefixTreeNode<P, T> nodeAtPath = this.children.get(path);
     List<P> reducedPath = pathSequence.subList(1, pathSequence.size());
 
-    if (Objects.nonNull(nodeAtImmediateNextPath)) {
-
-      if (nodeAtImmediateNextPath instanceof AbstractPrefixTreeNode) {
-        AbstractPrefixTreeNode<P, T> abstractPrefixTreeNode = (AbstractPrefixTreeNode<P, T>) nodeAtImmediateNextPath;
-
+    if (Objects.nonNull(nodeAtPath)) {
+      if (nodeAtPath instanceof AbstractPrefixTreeNode) {
+        AbstractPrefixTreeNode<P, T> abstractPrefixTreeNode = (AbstractPrefixTreeNode<P, T>) nodeAtPath;
         if (abstractPrefixTreeNode.isGroupNode()) {
           abstractPrefixTreeNode.addChild(reducedPath, data);
           return this;
@@ -57,13 +49,10 @@ public class GroupNode<P, T> extends AbstractPrefixTreeNode<P, T> {
           throw new IllegalStateException("data already exists at given path");
         }
       }
-
     } else {
-
       PrefixTreeNode<P, T> groupNode = new GroupNode<>(validCodingSymbols);
-      this.children.put(immediatePath, groupNode.addChild(reducedPath, data));
+      this.children.put(path, groupNode.addChild(reducedPath, data));
       return this;
-
     }
     throw new IllegalStateException("Cannot reach here");
   }
@@ -86,8 +75,8 @@ public class GroupNode<P, T> extends AbstractPrefixTreeNode<P, T> {
     List<String> allCodes = new ArrayList<>();
     for (Map.Entry<P, PrefixTreeNode<P, T>> entry : this.children.entrySet()) {
       PrefixTreeNode<P, T> node = entry.getValue();
-      P key = entry.getKey();
-      allCodes.addAll(node.getAllCodes(currentPath + key));
+      P path = entry.getKey();
+      allCodes.addAll(node.getAllCodes(String.format("%s%s", currentPath, path)));
     }
 
     return allCodes;
@@ -112,5 +101,11 @@ public class GroupNode<P, T> extends AbstractPrefixTreeNode<P, T> {
   @Override
   protected boolean isGroupNode() {
     return true;
+  }
+
+  private void checkIfChildrenAlreadyExists(P path) {
+    if (this.children.containsKey(path)) {
+      throw new IllegalStateException("data already exists at given path");
+    }
   }
 }
