@@ -3,6 +3,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import encoder.Encoder;
@@ -78,7 +79,23 @@ public class EncoderTest {
       encoder.encode(codingTable, String.format("%s%s", message, "f"));
       Assert.fail("should have failed");
     } catch (IllegalStateException e) {
-      Assert.assertEquals("coding symbol not found for symbol:'f'", e.getMessage());
+      Assert.assertEquals("invalid coding symbol for symbol:'f'", e.getMessage());
+    }
+  }
+
+  @Test
+  public void testEmptyCodingSymbolForASymbolInMessage() {
+    Encoder encoder = new HuffmanEncoder();
+    String message = "abcde";
+    Map<Character, String> codingTable = new HashMap<>();
+    codingTable.put('a', "");
+    codingTable.put('b', "111");
+
+    try {
+      encoder.encode(codingTable, message);
+      Assert.fail("should have failed");
+    } catch (IllegalStateException e) {
+      Assert.assertEquals("invalid coding symbol for symbol:'a'", e.getMessage());
     }
   }
 
