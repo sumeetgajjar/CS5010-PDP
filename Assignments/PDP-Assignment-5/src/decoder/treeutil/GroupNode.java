@@ -24,7 +24,7 @@ public class GroupNode<P, T> implements PrefixTreeNode<P, T> {
   }
 
   @Override
-  public PrefixTreeNode<P, T> addChild(List<P> pathSequence, T data) {
+  public PrefixTreeNode<P, T> addChild(List<P> pathSequence, T data) throws IllegalStateException {
 
     if (pathSequence.size() == 1) {
       P path = pathSequence.get(0);
@@ -48,15 +48,17 @@ public class GroupNode<P, T> implements PrefixTreeNode<P, T> {
   }
 
   @Override
-  public DecodedData<T> decode(int startIndex, List<P> encodedSequence) {
+  public DecodedData<T> decode(int startIndex, List<P> encodedSequence)
+          throws IllegalStateException {
 
-    P codingSymbol = encodedSequence.get(startIndex);
-    if (this.children.containsKey(codingSymbol)) {
-      PrefixTreeNode<P, T> node = this.children.get(codingSymbol);
-      return node.decode(startIndex + 1, encodedSequence);
-    } else {
-      throw new IllegalStateException("cannot decode given sequence");
+    if (startIndex < encodedSequence.size()) {
+      P codingSymbol = encodedSequence.get(startIndex);
+      if (this.children.containsKey(codingSymbol)) {
+        PrefixTreeNode<P, T> node = this.children.get(codingSymbol);
+        return node.decode(startIndex + 1, encodedSequence);
+      }
     }
+    throw new IllegalStateException("cannot decode given sequence");
   }
 
   @Override
@@ -88,7 +90,7 @@ public class GroupNode<P, T> implements PrefixTreeNode<P, T> {
     return isTreeComplete;
   }
 
-  private void checkIfChildrenAlreadyExists(P path) {
+  private void checkIfChildrenAlreadyExists(P path) throws IllegalStateException {
     if (this.children.containsKey(path)) {
       throw new IllegalStateException("data already exists at given path");
     }

@@ -308,6 +308,24 @@ public class DecoderTest {
     decoder.addCode('a', "100");
 
     try {
+      decoder.decode("1001");
+    } catch (IllegalStateException e) {
+      Assert.assertEquals("cannot decode given sequence", e.getMessage());
+    }
+
+    try {
+      decoder.decode("10010");
+    } catch (IllegalStateException e) {
+      Assert.assertEquals("cannot decode given sequence", e.getMessage());
+    }
+
+    try {
+      decoder.decode("100101");
+    } catch (IllegalStateException e) {
+      Assert.assertEquals("cannot decode given sequence", e.getMessage());
+    }
+
+    try {
       decoder.decode("1101");
     } catch (IllegalStateException e) {
       Assert.assertEquals("cannot decode given sequence", e.getMessage());
