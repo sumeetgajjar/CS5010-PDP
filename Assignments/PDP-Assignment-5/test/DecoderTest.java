@@ -511,19 +511,4 @@ public class DecoderTest {
     decoder.addCode('e', "101");
     Assert.assertTrue(decoder.isCodeComplete());
   }
-
-  @Test
-  public void testDecodingEqualNumberOfCodingSymbolAndMessageSymbol() {
-
-  }
-
-  @Test
-  public void testDecodingNumberOfCodingSymbolGreaterThanMessageSymbol() {
-
-  }
-
-  @Test
-  public void testDecodingNumberOfCodingSymbolLessThanMessageSymbol() {
-
-  }
 }
