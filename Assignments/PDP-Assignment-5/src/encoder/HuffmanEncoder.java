@@ -14,24 +14,23 @@ import util.Utils;
 /**
  * Created by gajjar.s, on 9:30 PM, 10/17/18
  */
-public class HuffmanEncoder implements Encoder {
+public class HuffmanEncoder implements Encoder<Character> {
 
   @Override
-  public Map<Character, String> generateCodingTable(int noOfSymbols, String message) {
+  public Map<Character, String> generateCodingTable(List<Character> codingSymbols, String message) {
     Map<Character, StringBuilder> codingTable = new HashMap<>();
+
     PriorityQueue<Pair<String, Integer>> priorityQueue = getPriorityQueueForMessage(message);
     while (!priorityQueue.isEmpty()) {
       StringBuilder builder = new StringBuilder();
       int frequencyCount = 0;
 
-      for (int i = 0; i < noOfSymbols && !priorityQueue.isEmpty(); i++) {
+      for (int i = 0; i < codingSymbols.size() && !priorityQueue.isEmpty(); i++) {
         Pair<String, Integer> pair = priorityQueue.poll();
         String symbols = pair.getFirst();
-        for (char symbol : symbols.toCharArray()) {
-          StringBuilder gx = codingTable.getOrDefault(symbol, new StringBuilder());
-          gx.append(i);
-          codingTable.put(symbol, gx);
-        }
+
+        Character codingSymbol = codingSymbols.get(i);
+        codingTable = updateCodingTable(codingTable, codingSymbol, symbols);
 
         frequencyCount = Math.addExact(frequencyCount, pair.getSecond());
         builder.append(symbols);
@@ -48,16 +47,31 @@ public class HuffmanEncoder implements Encoder {
   }
 
   @Override
-  public String encode(Map<Character, String> codingTable, String message) throws IllegalStateException {
+  public String encode(Map<Character, String> codingTable, String message)
+          throws IllegalStateException {
+
     StringBuilder builder = new StringBuilder();
     for (char symbol : message.toCharArray()) {
       String code = codingTable.get(symbol);
       if (Objects.isNull(code)) {
-        throw new IllegalStateException(String.format("coding symbol not found for symbol:%s", symbol));
+        throw new IllegalStateException(
+                String.format("coding symbol not found for symbol:%s", symbol));
       }
       builder.append(code);
     }
     return builder.toString();
+  }
+
+  private Map<Character, StringBuilder> updateCodingTable(Map<Character, StringBuilder> codingTable,
+                                                          Character codingSymbol,
+                                                          String symbols) {
+
+    for (char symbol : symbols.toCharArray()) {
+      StringBuilder gx = codingTable.getOrDefault(symbol, new StringBuilder());
+      gx.append(codingSymbol);
+      codingTable.put(symbol, gx);
+    }
+    return codingTable;
   }
 
   private Map<Character, String> getCharacterStringMap(Map<Character, StringBuilder> codingTable) {
@@ -71,7 +85,9 @@ public class HuffmanEncoder implements Encoder {
   private PriorityQueue<Pair<String, Integer>> getPriorityQueueForMessage(String message) {
     List<Pair<String, Integer>> frequencyPairs = getFrequencyPair(message);
 
-    PriorityQueue<Pair<String, Integer>> priorityQueue = new PriorityQueue<>(getFrequencyPairComparator());
+    PriorityQueue<Pair<String, Integer>> priorityQueue =
+            new PriorityQueue<>(getFrequencyPairComparator());
+
     priorityQueue.addAll(frequencyPairs);
 
     return priorityQueue;
@@ -95,17 +111,5 @@ public class HuffmanEncoder implements Encoder {
         return frequencyDiff;
       }
     };
-  }
-
-  public static void main(String[] args) {
-    Encoder encoder = new HuffmanEncoder();
-    String message = "(Taken from wikipedia)\n" +
-            "\n" +
-            "Grace Brewster Murray Hopper (née Murray; December 9, 1906 – January 1, 1992) was an American computer scientist and United States Navy rear admiral.[1] One of the first programmers of the Harvard Mark I computer, she was a pioneer of computer programming who invented one of the first compiler related tools. She popularized the idea of machine-independent programming languages, which led to the development of COBOL, an early high-level programming language still in use today.\n" +
-            "\n" +
-            "Hopper attempted to enlist in the Navy during World War II but was rejected because she was 34 years old. She instead joined the Navy Reserves. Hopper began her computing career in 1944 when she worked on the Harvard Mark I team led by Howard H. Aiken. In 1949, she joined the Eckert–Mauchly Computer Corporation and was part of the team that developed the UNIVAC I computer. At Eckert–Mauchly she began developing the compiler. She believed that a programming language based on English was possible. Her compiler converted English terms into machine code understood by computers. By 1952, Hopper had finished her program linker (originally called a compiler), which was written for the A-0 System.";
-    Map<Character, String> codingTable = encoder.generateCodingTable(2, message);
-    System.out.println(codingTable);
-    System.out.println(encoder.encode(codingTable, message));
   }
 }
