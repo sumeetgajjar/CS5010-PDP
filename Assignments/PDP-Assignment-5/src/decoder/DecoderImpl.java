@@ -15,7 +15,8 @@ import util.Utils;
 
 /**
  * This class represents a {@link DecoderImpl}. It extends {@link Decoder} interface. It can be used
- * to decode message with "n" codingSymbols.
+ * to decode message with "n" codingSymbols where n can be greater than equal to 1. It uses a Prefix
+ * Coding Tree to decode the encodedSequences.
  */
 public class DecoderImpl implements Decoder {
 
@@ -150,6 +151,12 @@ public class DecoderImpl implements Decoder {
     return this.root.isTreeComplete();
   }
 
+  /**
+   * Returns a {@link Set<Character>} of the given string.
+   *
+   * @param codingSymbols the given string
+   * @return a {@link Set<Character>} of the given string
+   */
   private Set<Character> getCodingSymbolsSet(String codingSymbols) {
     Set<Character> codingSymbolsSet = new HashSet<>();
     for (char codingSymbol : codingSymbols.toCharArray()) {
