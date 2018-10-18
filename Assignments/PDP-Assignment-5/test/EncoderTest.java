@@ -58,6 +58,17 @@ public class EncoderTest {
   }
 
   @Test
+  public void testDuplicateCodingSymbols() {
+    Encoder<Character> encoder = new HuffmanEncoder();
+    try {
+      encoder.generateCodingTable(Arrays.asList('1', '1'), "abcde");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("duplicate coding symbols are not allowed", e.getMessage());
+    }
+  }
+
+  @Test
   public void testNullOrEmptyMessageForGeneratingCodingTable() {
     Encoder<Character> encoder = new HuffmanEncoder();
     try {
@@ -130,5 +141,22 @@ public class EncoderTest {
     } catch (IllegalArgumentException e) {
       Assert.assertEquals("Map cannot be null or empty", e.getMessage());
     }
+  }
+
+  @Test
+  public void testHuffmanEncoderWithThreeSymbols() {
+    String message = "abcd";
+
+    Encoder<Character> encoder = new HuffmanEncoder();
+    Map<Character, String> codingTable =
+            encoder.generateCodingTable(Arrays.asList('0', '1', '2'), message);
+
+    Assert.assertEquals("10", codingTable.get('a'));
+    Assert.assertEquals("11", codingTable.get('b'));
+    Assert.assertEquals("12", codingTable.get('c'));
+    Assert.assertEquals("0", codingTable.get('d'));
+
+    Assert.assertEquals("1011120", encoder.encode(codingTable, message));
+    Assert.assertEquals("10101010", encoder.encode(codingTable, "aaaa"));
   }
 }

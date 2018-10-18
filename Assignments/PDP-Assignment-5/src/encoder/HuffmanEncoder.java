@@ -3,10 +3,12 @@ package encoder;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.PriorityQueue;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import encoder.bean.Pair;
@@ -21,8 +23,7 @@ public class HuffmanEncoder implements Encoder<Character> {
   public Map<Character, String> generateCodingTable(List<Character> codingSymbols, String message)
           throws IllegalArgumentException {
 
-    Utils.checkNullOrEmptyString(message);
-    Utils.checkNullOrEmptyList(codingSymbols);
+    sanityCheckBeforeGeneratingCodingTable(codingSymbols, message);
 
     Map<Character, StringBuilder> codingTable = new HashMap<>();
 
@@ -50,6 +51,22 @@ public class HuffmanEncoder implements Encoder<Character> {
       }
     }
     return getCharacterStringMap(codingTable);
+  }
+
+  private void sanityCheckBeforeGeneratingCodingTable(List<Character> codingSymbols, String message)
+          throws IllegalArgumentException {
+
+    Utils.checkNullOrEmptyString(message);
+    Utils.checkNullOrEmptyList(codingSymbols);
+
+    if (codingSymbols.size() < 2) {
+      throw new IllegalArgumentException("coding symbols cannot be less than 2");
+    }
+
+    Set<Character> codingSymbolSet = new HashSet<>(codingSymbols);
+    if (codingSymbols.size() != codingSymbolSet.size()) {
+      throw new IllegalArgumentException("duplicate coding symbols are not allowed");
+    }
   }
 
   @Override
