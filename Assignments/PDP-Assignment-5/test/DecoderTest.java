@@ -220,6 +220,9 @@ public class DecoderTest {
       Decoder decoder = new DecoderImpl("01");
       decoder.addCode('a', "0");
       decoder.addCode('b', "1");
+
+      Assert.assertTrue(decoder.isCodeComplete());
+
       decoder.addCode('c', "01");
 
       Assert.fail("should have failed");
@@ -310,6 +313,12 @@ public class DecoderTest {
       Assert.assertEquals("cannot decode given sequence", e.getMessage());
     }
 
+    try {
+      decoder.decode("1001101");
+    } catch (IllegalStateException e) {
+      Assert.assertEquals("cannot decode given sequence", e.getMessage());
+    }
+
     decoder.addCode('b', "1101");
     Assert.assertEquals("ab", decoder.decode("1001101"));
   }
@@ -372,6 +381,13 @@ public class DecoderTest {
     Assert.assertEquals("a:1", decoder.allCodes());
 
     Assert.assertEquals("aaaaaaaaaa", decoder.decode("1111111111"));
+
+    try {
+      decoder.decode("11110000");
+      Assert.fail("should have failed");
+    } catch (IllegalStateException e) {
+      Assert.assertEquals("cannot decode given sequence", e.getMessage());
+    }
   }
 
   @Test
