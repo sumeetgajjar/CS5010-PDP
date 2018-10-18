@@ -8,7 +8,7 @@ import decoder.bean.DecodedData;
 /**
  * Created by gajjar.s, on 4:11 PM, 10/15/18
  */
-public class LeafNode<P, T> extends AbstractPrefixTreeNode<P, T> {
+public class LeafNode<P, T> implements PrefixTreeNode<P, T> {
 
   private final T data;
 
@@ -17,8 +17,8 @@ public class LeafNode<P, T> extends AbstractPrefixTreeNode<P, T> {
   }
 
   @Override
-  public PrefixTreeNode<P, T> addChild(List<P> pathSequence, T data) throws UnsupportedOperationException {
-    throw new UnsupportedOperationException("A leafNode cannot add children to itself");
+  public PrefixTreeNode<P, T> addChild(List<P> pathSequence, T data) throws IllegalStateException {
+    throw new IllegalStateException("children cannot be added to leafNode");
   }
 
   @Override
@@ -34,11 +34,6 @@ public class LeafNode<P, T> extends AbstractPrefixTreeNode<P, T> {
 
   @Override
   public boolean isTreeComplete() {
-    return true;
-  }
-
-  @Override
-  protected boolean isLeafNode() {
     return true;
   }
 }

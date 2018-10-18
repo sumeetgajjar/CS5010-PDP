@@ -13,7 +13,7 @@ import decoder.bean.DecodedData;
 /**
  * Created by gajjar.s, on 4:10 PM, 10/15/18
  */
-public class GroupNode<P, T> extends AbstractPrefixTreeNode<P, T> {
+public class GroupNode<P, T> implements PrefixTreeNode<P, T> {
 
   private final Map<P, PrefixTreeNode<P, T>> children;
   private final Set<P> validCodingSymbols;
@@ -38,23 +38,13 @@ public class GroupNode<P, T> extends AbstractPrefixTreeNode<P, T> {
     List<P> reducedPath = pathSequence.subList(1, pathSequence.size());
 
     if (Objects.nonNull(nodeAtPath)) {
-      if (nodeAtPath instanceof AbstractPrefixTreeNode) {
-        AbstractPrefixTreeNode<P, T> abstractPrefixTreeNode = (AbstractPrefixTreeNode<P, T>) nodeAtPath;
-        if (abstractPrefixTreeNode.isGroupNode()) {
-          abstractPrefixTreeNode.addChild(reducedPath, data);
-          return this;
-        }
-
-        if (abstractPrefixTreeNode.isLeafNode()) {
-          throw new IllegalStateException("data already exists at given path");
-        }
-      }
+      nodeAtPath.addChild(reducedPath, data);
+      return this;
     } else {
       PrefixTreeNode<P, T> groupNode = new GroupNode<>(validCodingSymbols);
       this.children.put(path, groupNode.addChild(reducedPath, data));
       return this;
     }
-    throw new IllegalStateException("Cannot reach here");
   }
 
   @Override
@@ -96,11 +86,6 @@ public class GroupNode<P, T> extends AbstractPrefixTreeNode<P, T> {
       }
     }
     return isTreeComplete;
-  }
-
-  @Override
-  protected boolean isGroupNode() {
-    return true;
   }
 
   private void checkIfChildrenAlreadyExists(P path) {

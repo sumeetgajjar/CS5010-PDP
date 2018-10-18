@@ -111,7 +111,7 @@ public class DecoderTest {
   }
 
   @Test
-  public void testAddCodeMethod() {
+  public void testAddCodeMethodWithAllCodesMethod() {
     Decoder decoder = new DecoderImpl("01");
 
     String expectedAllCodes = "";
@@ -136,6 +136,28 @@ public class DecoderTest {
     decoder.addCode('e', "101");
     expectedAllCodes += System.lineSeparator() + "e:101";
     Assert.assertEquals(expectedAllCodes, decoder.allCodes());
+
+    Assert.assertEquals("ace", decoder.decode("10001101"));
+  }
+
+  @Test
+  public void testAddCodeMethodWithDecodeMethod() {
+    Decoder decoder = new DecoderImpl("01");
+
+    decoder.addCode('a', "100");
+    Assert.assertEquals("aaa", decoder.decode("100100100"));
+
+    decoder.addCode('b', "00");
+    Assert.assertEquals("aba", decoder.decode("10000100"));
+
+    decoder.addCode('c', "01");
+    Assert.assertEquals("abc", decoder.decode("1000001"));
+
+    decoder.addCode('d', "11");
+    Assert.assertEquals("abcd", decoder.decode("100000111"));
+
+    decoder.addCode('e', "101");
+    Assert.assertEquals("eabcd", decoder.decode("101100000111"));
 
     Assert.assertEquals("ace", decoder.decode("10001101"));
   }
@@ -202,7 +224,7 @@ public class DecoderTest {
 
       Assert.fail("should have failed");
     } catch (IllegalStateException e) {
-      Assert.assertEquals("data already exists at given path", e.getMessage());
+      Assert.assertEquals("children cannot be added to leafNode", e.getMessage());
     }
   }
 
@@ -216,6 +238,16 @@ public class DecoderTest {
       Assert.fail("should have failed");
     } catch (IllegalStateException e) {
       Assert.assertEquals("data already exists at given path", e.getMessage());
+    }
+
+    try {
+      Decoder decoder = new DecoderImpl("01");
+      decoder.addCode('b', "1");
+      decoder.addCode('a', "10");
+
+      Assert.fail("should have failed");
+    } catch (IllegalStateException e) {
+      Assert.assertEquals("children cannot be added to leafNode", e.getMessage());
     }
   }
 
