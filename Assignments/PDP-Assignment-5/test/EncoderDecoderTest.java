@@ -1,6 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.Map;
 
 import decoder.Decoder;
@@ -15,21 +16,22 @@ import util.Utils;
 public class EncoderDecoderTest {
 
   @Test
-  public void testEncoderDecoderInteractively() {
-    Encoder<Character> encoder = new HuffmanEncoder();
-    String codingSymbols = "01";
-    String originalMessage = "Robots are gonna take over the world, I am just playing my part";
-    Map<Character, String> codingTable = encoder.generateCodingTable(
-            Utils.convertStringToCharacterArray(codingSymbols), originalMessage);
+  public void testEncoderDecoderInteractivelyWithTwoCodingSymbols() {
+    for (String codingSymbols : Arrays.asList("01", "012", "0123", "0123456789abcdef")) {
+      Encoder<Character> encoder = new HuffmanEncoder();
+      String originalMessage = "Robots are gonna take over the world, I am just playing my part";
+      Map<Character, String> codingTable = encoder.generateCodingTable(
+              Utils.convertStringToCharacterArray(codingSymbols), originalMessage);
 
-    String encodedMessage = encoder.encode(codingTable, originalMessage);
+      String encodedMessage = encoder.encode(codingTable, originalMessage);
 
-    Decoder decoder = new DecoderImpl(codingSymbols);
-    for (Map.Entry<Character, String> entry : codingTable.entrySet()) {
-      decoder.addCode(entry.getKey(), entry.getValue());
+      Decoder decoder = new DecoderImpl(codingSymbols);
+      for (Map.Entry<Character, String> entry : codingTable.entrySet()) {
+        decoder.addCode(entry.getKey(), entry.getValue());
+      }
+
+      String decodedMessage = decoder.decode(encodedMessage);
+      Assert.assertEquals(originalMessage, decodedMessage);
     }
-
-    String decodedMessage = decoder.decode(encodedMessage);
-    Assert.assertEquals(originalMessage, decodedMessage);
   }
 }
