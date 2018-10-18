@@ -17,7 +17,7 @@ public class EncoderTest {
   public void testHuffmanEncoderInitialization() {
     String message = "abcde";
 
-    Encoder<Character> encoder = new HuffmanEncoder();
+    Encoder encoder = new HuffmanEncoder();
     Map<Character, String> codingTable =
             encoder.generateCodingTable(Arrays.asList('0', '1'), message);
 
@@ -35,7 +35,7 @@ public class EncoderTest {
   public void testEncodingUsingSpecialSymbols() {
     String message = "abcde";
 
-    Encoder<Character> encoder = new HuffmanEncoder();
+    Encoder encoder = new HuffmanEncoder();
     Map<Character, String> codingTable =
             encoder.generateCodingTable(Arrays.asList('@', ' '), message);
 
@@ -53,7 +53,7 @@ public class EncoderTest {
   public void testEncodingMessageSameAsCodingSymbols() {
     String message = "abcde";
 
-    Encoder<Character> encoder = new HuffmanEncoder();
+    Encoder encoder = new HuffmanEncoder();
     Map<Character, String> codingTable =
             encoder.generateCodingTable(Arrays.asList('a', 'b', 'c', 'd', 'e'), message);
 
@@ -69,7 +69,7 @@ public class EncoderTest {
 
   @Test
   public void testSymbolInMessageDoesNotExistInCodingTable() {
-    Encoder<Character> encoder = new HuffmanEncoder();
+    Encoder encoder = new HuffmanEncoder();
     String message = "abcde";
     Map<Character, String> codingTable =
             encoder.generateCodingTable(Arrays.asList('0', '1'), message);
@@ -84,7 +84,7 @@ public class EncoderTest {
 
   @Test
   public void testCodingSymbolCannotBeNull() {
-    Encoder<Character> encoder = new HuffmanEncoder();
+    Encoder encoder = new HuffmanEncoder();
     try {
       encoder.generateCodingTable(Arrays.asList(null, '1'), "abcde");
       Assert.fail("should have failed");
@@ -95,7 +95,7 @@ public class EncoderTest {
 
   @Test
   public void testCodingSymbolSizeLessThanTwo() {
-    Encoder<Character> encoder = new HuffmanEncoder();
+    Encoder encoder = new HuffmanEncoder();
     try {
       encoder.generateCodingTable(Collections.singletonList('1'), "abcde");
       Assert.fail("should have failed");
@@ -106,7 +106,7 @@ public class EncoderTest {
 
   @Test
   public void testDuplicateCodingSymbols() {
-    Encoder<Character> encoder = new HuffmanEncoder();
+    Encoder encoder = new HuffmanEncoder();
     try {
       encoder.generateCodingTable(Arrays.asList('1', '1'), "abcde");
       Assert.fail("should have failed");
@@ -117,7 +117,7 @@ public class EncoderTest {
 
   @Test
   public void testNullOrEmptyMessageForGeneratingCodingTable() {
-    Encoder<Character> encoder = new HuffmanEncoder();
+    Encoder encoder = new HuffmanEncoder();
     try {
       encoder.generateCodingTable(Arrays.asList('0', '1'), null);
       Assert.fail("should have failed");
@@ -135,7 +135,7 @@ public class EncoderTest {
 
   @Test
   public void testNullOrEmptyCodingSymbolsForGeneratingCodingTable() {
-    Encoder<Character> encoder = new HuffmanEncoder();
+    Encoder encoder = new HuffmanEncoder();
     try {
       encoder.generateCodingTable(null, "abcde");
       Assert.fail("should have failed");
@@ -153,7 +153,7 @@ public class EncoderTest {
 
   @Test
   public void testNullOrEmptyMessageForEncoding() {
-    Encoder<Character> encoder = new HuffmanEncoder();
+    Encoder encoder = new HuffmanEncoder();
     Map<Character, String> codingTable =
             encoder.generateCodingTable(Arrays.asList('0', '1'), "abcde");
     try {
@@ -173,7 +173,7 @@ public class EncoderTest {
 
   @Test
   public void testNullOrEmptyCodingTableForEncoding() {
-    Encoder<Character> encoder = new HuffmanEncoder();
+    Encoder encoder = new HuffmanEncoder();
 
     try {
       encoder.encode(null, "abcde");
@@ -194,7 +194,7 @@ public class EncoderTest {
   public void testHuffmanEncoderWithThreeSymbols() {
     String message = "abcd";
 
-    Encoder<Character> encoder = new HuffmanEncoder();
+    Encoder encoder = new HuffmanEncoder();
     Map<Character, String> codingTable =
             encoder.generateCodingTable(Arrays.asList('0', '1', '2'), message);
 

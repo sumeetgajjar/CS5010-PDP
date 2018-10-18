@@ -6,9 +6,9 @@ import java.util.Map;
 /**
  * Created by gajjar.s, on 9:28 PM, 10/17/18
  */
-public interface Encoder<P> {
+public interface Encoder {
 
-  Map<P, String> generateCodingTable(List<P> codingSymbols, String message);
+  Map<Character, String> generateCodingTable(List<Character> codingSymbols, String message);
 
-  String encode(Map<P, String> codingTable, String message) throws IllegalStateException;
+  String encode(Map<Character, String> codingTable, String message) throws IllegalStateException;
 }

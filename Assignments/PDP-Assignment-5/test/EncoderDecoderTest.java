@@ -18,7 +18,7 @@ public class EncoderDecoderTest {
   @Test
   public void testEncoderDecoderInteractivelyWithTwoCodingSymbols() {
     for (String codingSymbols : Arrays.asList("01", "012", "0123", "@ #\n$", "0123456789abcdef")) {
-      Encoder<Character> encoder = new HuffmanEncoder();
+      Encoder encoder = new HuffmanEncoder();
       String originalMessage = "Robots are gonna take over the world, I am just playing my part";
       Map<Character, String> codingTable = encoder.generateCodingTable(
               Utils.convertStringToCharacterArray(codingSymbols), originalMessage);

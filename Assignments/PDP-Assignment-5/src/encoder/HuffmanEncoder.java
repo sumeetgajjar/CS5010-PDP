@@ -17,7 +17,7 @@ import util.Utils;
 /**
  * Created by gajjar.s, on 9:30 PM, 10/17/18
  */
-public class HuffmanEncoder implements Encoder<Character> {
+public class HuffmanEncoder implements Encoder {
 
   @Override
   public Map<Character, String> generateCodingTable(List<Character> codingSymbols, String message)
