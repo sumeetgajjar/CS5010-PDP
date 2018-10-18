@@ -4,16 +4,16 @@ package decoder.bean;
  * Created by gajjar.s, on 7:13 PM, 10/17/18
  */
 public class DecodedData<T> {
-  private final int nextStartPointer;
+  private final int nextIndexToStartDecoding;
   private final T data;
 
-  public DecodedData(int nextStartPointer, T data) {
-    this.nextStartPointer = nextStartPointer;
+  public DecodedData(int nextIndexToStartDecoding, T data) {
+    this.nextIndexToStartDecoding = nextIndexToStartDecoding;
     this.data = data;
   }
 
-  public int getNextStartPointer() {
-    return nextStartPointer;
+  public int getNextIndexToStartDecoding() {
+    return nextIndexToStartDecoding;
   }
 
   public T getData() {

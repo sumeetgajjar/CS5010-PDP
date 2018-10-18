@@ -48,46 +48,6 @@ public class DecoderImpl implements Decoder {
     this.root = new GroupNode<>(validCodingSymbols);
   }
 
-  private Set<Character> getCodingSymbolsSet(String codingSymbols) {
-    Set<Character> codingSymbolsSet = new HashSet<>();
-    for (char codingSymbol : codingSymbols.toCharArray()) {
-      codingSymbolsSet.add(codingSymbol);
-    }
-    return Collections.unmodifiableSet(codingSymbolsSet);
-  }
-
-  /**
-   * Checks if the given codingSymbols contains duplicate symbols.
-   *
-   * @param codingSymbols string to check
-   * @throws IllegalArgumentException if the given codingSymbols contains duplicate symbols
-   */
-  private void checkDuplicateCodingSymbols(String codingSymbols) throws IllegalArgumentException {
-
-    long symbolsWithCountGreaterThanOne = codingSymbols.chars().boxed()
-            .collect(Collectors.toMap(character -> character, character -> 1, Integer::sum))
-            .entrySet().stream()
-            .map(Map.Entry::getValue)
-            .filter(count -> count > 1)
-            .count();
-
-    if (symbolsWithCountGreaterThanOne > 0) {
-      throw new IllegalArgumentException("Invalid codingSymbols string");
-    }
-  }
-
-  /**
-   * Checks if the given string is null or empty.
-   *
-   * @param string string to check
-   * @throws IllegalArgumentException if the given string is null or empty
-   */
-  private void checkNullOrEmptyString(String string) throws IllegalArgumentException {
-    if (Objects.isNull(string) || string.length() == 0) {
-      throw new IllegalArgumentException(String.format("Invalid string:'%s'", string));
-    }
-  }
-
   /**
    * Adds the given symbol and the corresponding code to the coding tree. It Throws {@link
    * IllegalStateException}
@@ -115,26 +75,6 @@ public class DecoderImpl implements Decoder {
     this.root.addChild(path, symbol);
 
     this.symbolsInCodingTree.add(symbol);
-  }
-
-  private void checkIfSymbolAlreadyExistsInCodingTree(char symbol) {
-    if (this.symbolsInCodingTree.contains(symbol)) {
-      throw new IllegalStateException(String.format("code for symbol:'%s' already exists", symbol));
-    }
-  }
-
-  /**
-   * Checks if the given code string contains invalid coding symbols.
-   *
-   * @param code the string to check
-   * @throws IllegalStateException if the given code string contains invalid coding symbols
-   */
-  private void checkInvalidSymbolsInCode(String code) throws IllegalStateException {
-    for (char codeSymbol : code.toCharArray()) {
-      if (!validCodingSymbols.contains(codeSymbol)) {
-        throw new IllegalStateException(String.format("Invalid coding symbol:'%s'", codeSymbol));
-      }
-    }
   }
 
   /**
@@ -167,7 +107,7 @@ public class DecoderImpl implements Decoder {
     int pointer = 0;
     while (pointer < characters.size()) {
       DecodedData<Character> decodedData = this.root.decode(pointer, unmodifiableSequence);
-      pointer = decodedData.getNextStartPointer();
+      pointer = decodedData.getNextIndexToStartDecoding();
       builder.append(decodedData.getData());
     }
 
@@ -207,5 +147,65 @@ public class DecoderImpl implements Decoder {
   @Override
   public boolean isCodeComplete() {
     return this.root.isTreeComplete();
+  }
+
+  private Set<Character> getCodingSymbolsSet(String codingSymbols) {
+    Set<Character> codingSymbolsSet = new HashSet<>();
+    for (char codingSymbol : codingSymbols.toCharArray()) {
+      codingSymbolsSet.add(codingSymbol);
+    }
+    return Collections.unmodifiableSet(codingSymbolsSet);
+  }
+
+  /**
+   * Checks if the given string is null or empty.
+   *
+   * @param string string to check
+   * @throws IllegalArgumentException if the given string is null or empty
+   */
+  private void checkNullOrEmptyString(String string) throws IllegalArgumentException {
+    if (Objects.isNull(string) || string.length() == 0) {
+      throw new IllegalArgumentException(String.format("Invalid string:'%s'", string));
+    }
+  }
+
+  /**
+   * Checks if the given code string contains invalid coding symbols.
+   *
+   * @param code the string to check
+   * @throws IllegalStateException if the given code string contains invalid coding symbols
+   */
+  private void checkInvalidSymbolsInCode(String code) throws IllegalStateException {
+    for (char codeSymbol : code.toCharArray()) {
+      if (!validCodingSymbols.contains(codeSymbol)) {
+        throw new IllegalStateException(String.format("Invalid coding symbol:'%s'", codeSymbol));
+      }
+    }
+  }
+
+  private void checkIfSymbolAlreadyExistsInCodingTree(char symbol) {
+    if (this.symbolsInCodingTree.contains(symbol)) {
+      throw new IllegalStateException(String.format("code for symbol:'%s' already exists", symbol));
+    }
+  }
+
+  /**
+   * Checks if the given codingSymbols contains duplicate symbols.
+   *
+   * @param codingSymbols string to check
+   * @throws IllegalArgumentException if the given codingSymbols contains duplicate symbols
+   */
+  private void checkDuplicateCodingSymbols(String codingSymbols) throws IllegalArgumentException {
+
+    long symbolsWithCountGreaterThanOne = codingSymbols.chars().boxed()
+            .collect(Collectors.toMap(character -> character, character -> 1, Integer::sum))
+            .entrySet().stream()
+            .map(Map.Entry::getValue)
+            .filter(count -> count > 1)
+            .count();
+
+    if (symbolsWithCountGreaterThanOne > 0) {
+      throw new IllegalArgumentException("Invalid codingSymbols string");
+    }
   }
 }

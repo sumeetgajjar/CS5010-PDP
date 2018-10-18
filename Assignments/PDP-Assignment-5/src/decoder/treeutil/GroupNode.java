@@ -25,23 +25,23 @@ public class GroupNode<P, T> extends AbstractPrefixTreeNode<P, T> {
   }
 
   @Override
-  public PrefixTreeNode<P, T> addChild(P[] path, T dataToBeAdded) {
+  public PrefixTreeNode<P, T> addChild(P[] pathSequence, T data) {
 
-    if (path.length == 1) {
+    if (pathSequence.length == 1) {
 
-      if (this.children.containsKey(path[0])) {
+      if (this.children.containsKey(pathSequence[0])) {
         throw new IllegalStateException("data already exists at given path");
       }
 
-      PrefixTreeNode<P, T> leafNode = new LeafNode<>(dataToBeAdded);
-      this.children.put(path[0], leafNode);
+      PrefixTreeNode<P, T> leafNode = new LeafNode<>(data);
+      this.children.put(pathSequence[0], leafNode);
       return this;
 
     }
 
-    P immediatePath = path[0];
+    P immediatePath = pathSequence[0];
     PrefixTreeNode<P, T> nodeAtImmediateNextPath = this.children.get(immediatePath);
-    P[] reducedPath = Utils.getSubArray(path, 1, path.length);
+    P[] reducedPath = Utils.getSubArray(pathSequence, 1, pathSequence.length);
 
     if (Objects.nonNull(nodeAtImmediateNextPath)) {
 
@@ -49,7 +49,7 @@ public class GroupNode<P, T> extends AbstractPrefixTreeNode<P, T> {
         AbstractPrefixTreeNode<P, T> abstractPrefixTreeNode = (AbstractPrefixTreeNode<P, T>) nodeAtImmediateNextPath;
 
         if (abstractPrefixTreeNode.isGroupNode()) {
-          abstractPrefixTreeNode.addChild(reducedPath, dataToBeAdded);
+          abstractPrefixTreeNode.addChild(reducedPath, data);
           return this;
         }
 
@@ -61,7 +61,7 @@ public class GroupNode<P, T> extends AbstractPrefixTreeNode<P, T> {
     } else {
 
       PrefixTreeNode<P, T> groupNode = new GroupNode<>(validCodingSymbols);
-      this.children.put(immediatePath, groupNode.addChild(reducedPath, dataToBeAdded));
+      this.children.put(immediatePath, groupNode.addChild(reducedPath, data));
       return this;
 
     }

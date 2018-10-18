@@ -9,7 +9,7 @@ import decoder.bean.DecodedData;
  */
 public interface PrefixTreeNode<P, T> {
 
-  PrefixTreeNode<P, T> addChild(P[] path, T dataToBeAdded);
+  PrefixTreeNode<P, T> addChild(P[] pathSequence, T data);
 
   DecodedData<T> decode(int startIndex, List<P> encodedSequence);
 
