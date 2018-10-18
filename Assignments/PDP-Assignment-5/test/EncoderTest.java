@@ -2,6 +2,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Map;
 
 import encoder.Encoder;
@@ -32,17 +33,35 @@ public class EncoderTest {
   public void testNullOrEmptyMessageForGeneratingCodingTable() {
     Encoder<Character> encoder = new HuffmanEncoder();
     try {
-      Map<Character, String> codingTable = encoder.generateCodingTable(Arrays.asList('0', '1'), null);
+      encoder.generateCodingTable(Arrays.asList('0', '1'), null);
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
       Assert.assertEquals("Invalid string:'null'", e.getMessage());
     }
 
     try {
-      Map<Character, String> codingTable = encoder.generateCodingTable(Arrays.asList('0', '1'), "");
+      encoder.generateCodingTable(Arrays.asList('0', '1'), "");
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
       Assert.assertEquals("Invalid string:''", e.getMessage());
+    }
+  }
+
+  @Test
+  public void testNullOrEmptyCodingSymbolsForGeneratingCodingTable() {
+    Encoder<Character> encoder = new HuffmanEncoder();
+    try {
+      encoder.generateCodingTable(null, "abcde");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("List cannot be null or empty", e.getMessage());
+    }
+
+    try {
+      encoder.generateCodingTable(Collections.emptyList(), "abcde");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("List cannot be null or empty", e.getMessage());
     }
   }
 
@@ -62,6 +81,25 @@ public class EncoderTest {
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
       Assert.assertEquals("Invalid string:''", e.getMessage());
+    }
+  }
+
+  @Test
+  public void testNullOrEmptyCodingTableForEncoding() {
+    Encoder<Character> encoder = new HuffmanEncoder();
+    Map<Character, String> codingTable = encoder.generateCodingTable(Arrays.asList('0', '1'), "abcde");
+    try {
+      encoder.encode(null, "abcde");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Map cannot be null or empty", e.getMessage());
+    }
+
+    try {
+      encoder.encode(Collections.emptyMap(), "abcde");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Map cannot be null or empty", e.getMessage());
     }
   }
 }

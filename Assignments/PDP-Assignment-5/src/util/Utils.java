@@ -2,6 +2,7 @@ package util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -33,6 +34,30 @@ public class Utils {
   public static void checkNullOrEmptyString(String string) throws IllegalArgumentException {
     if (Objects.isNull(string) || string.length() == 0) {
       throw new IllegalArgumentException(String.format("Invalid string:'%s'", string));
+    }
+  }
+
+  /**
+   * Checks if the given list is null or empty.
+   *
+   * @param list the list to check
+   * @throws IllegalArgumentException if the given list is null or empty
+   */
+  public static <T> void checkNullOrEmptyList(List<T> list) throws IllegalArgumentException {
+    if (Objects.isNull(list) || list.isEmpty()) {
+      throw new IllegalArgumentException("List cannot be null or empty");
+    }
+  }
+
+  /**
+   * Checks if the given map is null or empty.
+   *
+   * @param map the map to check
+   * @throws IllegalArgumentException if the given map is null or empty
+   */
+  public static <K, V> void checkNullOrEmptyMap(Map<K, V> map) throws IllegalArgumentException {
+    if (Objects.isNull(map) || map.isEmpty()) {
+      throw new IllegalArgumentException("Map cannot be null or empty");
     }
   }
 }

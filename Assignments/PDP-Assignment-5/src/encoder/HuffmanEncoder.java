@@ -22,6 +22,8 @@ public class HuffmanEncoder implements Encoder<Character> {
           throws IllegalArgumentException {
 
     Utils.checkNullOrEmptyString(message);
+    Utils.checkNullOrEmptyList(codingSymbols);
+
     Map<Character, StringBuilder> codingTable = new HashMap<>();
 
     PriorityQueue<Pair<String, Integer>> priorityQueue = getPriorityQueueForMessage(message);
@@ -55,6 +57,8 @@ public class HuffmanEncoder implements Encoder<Character> {
           throws IllegalStateException, IllegalArgumentException {
 
     Utils.checkNullOrEmptyString(message);
+    Utils.checkNullOrEmptyMap(codingTable);
+
     StringBuilder builder = new StringBuilder();
     for (char symbol : message.toCharArray()) {
       String code = codingTable.get(symbol);
