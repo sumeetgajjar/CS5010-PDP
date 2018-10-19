@@ -17,7 +17,7 @@ public class LeafNode<P, T> implements PrefixTreeNode<P, T> {
   }
 
   @Override
-  public PrefixTreeNode<P, T> addChild(List<P> pathSequence, T data) throws IllegalStateException {
+  public void addChild(List<P> pathSequence, T data) throws IllegalStateException {
     throw new IllegalStateException("children cannot be added to leafNode");
   }
 
@@ -27,7 +27,7 @@ public class LeafNode<P, T> implements PrefixTreeNode<P, T> {
   }
 
   @Override
-  public List<String> getAllCodes(String currentPath) {
+  public List<String> getAllLeavesPath(String currentPath) {
     return Collections.singletonList(
             String.format("%s:%s", this.data, currentPath));
   }

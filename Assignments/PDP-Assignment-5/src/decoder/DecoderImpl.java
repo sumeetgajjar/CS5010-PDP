@@ -132,7 +132,7 @@ public class DecoderImpl implements Decoder {
    */
   @Override
   public String allCodes() {
-    List<String> allCodes = this.root.getAllCodes("");
+    List<String> allCodes = this.root.getAllLeavesPath("");
     Collections.sort(allCodes);
     return allCodes.stream().collect(Collectors.joining(System.lineSeparator()));
   }
