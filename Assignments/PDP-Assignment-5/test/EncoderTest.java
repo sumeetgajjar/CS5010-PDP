@@ -223,4 +223,21 @@ public class EncoderTest {
     Assert.assertEquals("1011120", encoder.encode(codingTable, message));
     Assert.assertEquals("10101010", encoder.encode(codingTable, "aaaa"));
   }
+
+  @Test
+  public void testHuffmanEncoderWithHexSymbols() {
+    String message = "The more you weight the harder you are to kidnap. Stay safe, eat cake.";
+
+    Encoder encoder = new HuffmanEncoder();
+    Map<Character, String> codingTable =
+            encoder.generateCodingTable(Arrays.asList('0', '1', '2'), message);
+
+    Assert.assertEquals("10", codingTable.get('a'));
+    Assert.assertEquals("11", codingTable.get('b'));
+    Assert.assertEquals("12", codingTable.get('c'));
+    Assert.assertEquals("0", codingTable.get('d'));
+
+    Assert.assertEquals("1011120", encoder.encode(codingTable, message));
+    Assert.assertEquals("10101010", encoder.encode(codingTable, "aaaa"));
+  }
 }

@@ -529,4 +529,30 @@ public class DecoderTest {
     decoder.addCode('e', "101");
     Assert.assertTrue(decoder.isCodeComplete());
   }
+
+  @Test
+  public void testDecodingCaseSensitiveSymbols() {
+    Decoder decoder = new DecoderImpl("01");
+
+    decoder.addCode('a', "100");
+    decoder.addCode('B', "00");
+    decoder.addCode('c', "01");
+    decoder.addCode('D', "11");
+    decoder.addCode('e', "101");
+
+    Assert.assertEquals("ace", decoder.decode("10001101"));
+    Assert.assertEquals("BaD", decoder.decode("0010011"));
+    Assert.assertEquals("DaD", decoder.decode("1110011"));
+
+    String expectedAllCodes = "";
+    expectedAllCodes += "B:00" + System.lineSeparator();
+    expectedAllCodes += "D:11" + System.lineSeparator();
+    expectedAllCodes += "a:100" + System.lineSeparator();
+    expectedAllCodes += "c:01" + System.lineSeparator();
+    expectedAllCodes += "e:101";
+
+    Assert.assertEquals(expectedAllCodes, decoder.allCodes());
+
+    Assert.assertTrue(decoder.isCodeComplete());
+  }
 }
