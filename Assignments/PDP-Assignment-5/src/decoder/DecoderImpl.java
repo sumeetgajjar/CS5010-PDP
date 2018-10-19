@@ -55,6 +55,7 @@ public class DecoderImpl implements Decoder {
    * <li>if the code already exists in the coding tree</li>
    * <li>if the symbol already exists in the coding tree</li>
    * <li>if the coding tree is complete</li>
+   * <li>if the given code is a prefix of any code present in the coding tree</li>
    * </ul>
    *
    * <p>It throws an {@link IllegalArgumentException} if the given code is null or empty.

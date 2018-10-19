@@ -29,6 +29,14 @@ public class GroupNode<P, T> implements PrefixTreeNode<P, T> {
     this.children = new LinkedHashMap<>();
   }
 
+  /**
+   * Adds the given data to the given path in the tree. It throws a {@link IllegalStateException} if
+   * a node already exists at the given path.
+   *
+   * @param pathSequence the path at which data is to be stored
+   * @param data         the data to be stored
+   * @throws IllegalStateException if the data cannot be added at the given path
+   */
   @Override
   public void addChild(List<P> pathSequence, T data) throws IllegalStateException {
 
@@ -52,6 +60,19 @@ public class GroupNode<P, T> implements PrefixTreeNode<P, T> {
     }
   }
 
+  /**
+   * Decodes a part of the given sequence from the given index and returns the {@link DecodedData}.
+   * It starts decoding the encodedSequence by traversing the tree from the given index of the given
+   * sequence. It uses the given encodedSequence as the traversal path and as soon as it reaches a
+   * Leaf node it returns the data at the leaf node along with the new index of the given sequence
+   * to continue decoding. It throws {@link IllegalArgumentException} if the given startIndex is
+   * greater than the size of the encodedSequence.
+   *
+   * @param startIndex      the index of the sequence to start decoding from
+   * @param encodedSequence the encoded sequence to decode
+   * @return the decoded data for the part of given sequence
+   * @throws IllegalStateException if the decoding fails due to any reason
+   */
   @Override
   public DecodedData<T> decode(int startIndex, List<P> encodedSequence)
           throws IllegalStateException {
