@@ -16,7 +16,8 @@ public interface PrefixTreeNode<P, T> {
 
   /**
    * Adds the given data to the given path in the tree. It throws a {@link IllegalStateException} if
-   * the given data cannot be added to the given path.
+   * the given data cannot be added to the given path or a leaf node is invoked to add children to
+   * itself.
    *
    * @param pathSequence the path at which data is to be stored
    * @param data         the data to be stored
@@ -31,7 +32,7 @@ public interface PrefixTreeNode<P, T> {
    * Leaf node it returns the data at the leaf node along with the new index of the given sequence
    * to continue decoding.
    *
-   * @param startIndex    the index of the sequence to start decoding from
+   * @param startIndex      the index of the sequence to start decoding from
    * @param encodedSequence the encoded sequence to decode
    * @return the decoded data for the part of given sequence
    * @throws IllegalStateException if the decoding fails due to any reason
@@ -39,8 +40,9 @@ public interface PrefixTreeNode<P, T> {
   DecodedData<T> decode(int startIndex, List<P> encodedSequence) throws IllegalStateException;
 
   /**
-   * Returns list of path to all leaf nodes of this tree. The format of the path will be as follows:
-   * "data:path". For e.g. if the tree contains symbol 'a' at "110" then the format will "a:110".
+   * Returns list of path to all leaf nodes of this tree. The format of the path of a leaf will be
+   * as: "data:path". For e.g. if the tree contains data 'a' at "110" then the path of 'a' will be
+   * "a:110".
    *
    * @param currentPath the path till this node
    * @return list of path of all leaf nodes of this tree

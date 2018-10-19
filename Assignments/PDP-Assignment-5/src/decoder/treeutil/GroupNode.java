@@ -1,7 +1,6 @@
 package decoder.treeutil;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,13 +11,19 @@ import decoder.bean.DecodedData;
 
 
 /**
- * Created by gajjar.s, on 4:10 PM, 10/15/18
+ * This class represents a {@link GroupNode} for the PrefixTree. It implements {@link
+ * PrefixTreeNode} interface.
  */
 public class GroupNode<P, T> implements PrefixTreeNode<P, T> {
 
   private final Map<P, PrefixTreeNode<P, T>> children;
   private final Set<P> validCodingSymbols;
 
+  /**
+   * Constructs a {@link GroupNode} with the given params.
+   *
+   * @param validCodingSymbols the valid coding symbols for this tree
+   */
   public GroupNode(Set<P> validCodingSymbols) {
     this.validCodingSymbols = validCodingSymbols;
     this.children = new LinkedHashMap<>();
@@ -36,8 +41,7 @@ public class GroupNode<P, T> implements PrefixTreeNode<P, T> {
 
     P path = pathSequence.get(0);
     PrefixTreeNode<P, T> nodeAtPath = this.children.get(path);
-    List<P> reducedPath =
-            Collections.unmodifiableList(pathSequence.subList(1, pathSequence.size()));
+    List<P> reducedPath = pathSequence.subList(1, pathSequence.size());
 
     if (Objects.nonNull(nodeAtPath)) {
       nodeAtPath.addChild(reducedPath, data);
@@ -62,6 +66,14 @@ public class GroupNode<P, T> implements PrefixTreeNode<P, T> {
     throw new IllegalStateException("cannot decode given sequence");
   }
 
+  /**
+   * Returns list of path to all leaf nodes of this tree. The format of the path of a leaf will be
+   * as: "data:path". For e.g. if the tree contains data 'a' at "110" then the path of 'a' will be
+   * "a:110".
+   *
+   * @param currentPath the path till this node
+   * @return list of path of all leaf nodes of this tree
+   */
   @Override
   public List<String> getAllLeavesPath(String currentPath) {
 
@@ -75,6 +87,14 @@ public class GroupNode<P, T> implements PrefixTreeNode<P, T> {
     return allCodes;
   }
 
+  /**
+   * Returns true if the tree is complete, false otherwise. A Tree is said to complete if every
+   * non-leaf node has exactly the same number of children, equal to the number of distinct path
+   * symbols in the tree. Returns false in case, a node has no children, except in case of leaf node
+   * which does not have any children it return true.
+   *
+   * @return true if the tree is complete, false otherwise
+   */
   @Override
   public boolean isTreeComplete() {
     boolean isTreeComplete = this.children.size() == validCodingSymbols.size();
@@ -91,6 +111,12 @@ public class GroupNode<P, T> implements PrefixTreeNode<P, T> {
     return isTreeComplete;
   }
 
+  /**
+   * Check if a children exists at the given path.
+   *
+   * @param path the path to check
+   * @throws IllegalStateException if a children already exists at the given path
+   */
   private void checkIfChildrenAlreadyExists(P path) throws IllegalStateException {
     if (this.children.containsKey(path)) {
       throw new IllegalStateException("data already exists at given path");
