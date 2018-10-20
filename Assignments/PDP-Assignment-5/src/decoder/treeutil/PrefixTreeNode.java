@@ -26,11 +26,11 @@ public interface PrefixTreeNode<P, T> {
   void addChild(List<P> pathSequence, T data) throws IllegalStateException;
 
   /**
-   * Decodes a part of the given sequence from the given index and returns the {@link DecodedData}.
-   * It starts decoding the encodedSequence by traversing the tree from the given index of the given
-   * sequence. It uses the given encodedSequence as the traversal path and as soon as it reaches a
-   * Leaf node it returns the data at the leaf node along with the new index of the given sequence
-   * to continue decoding.
+   * Decodes a part of the given encodedSequence from the given startIndex and returns the {@link
+   * DecodedData}. It uses the given encodedSequence from the given startIndex as the traversal path
+   * and as soon as it reaches a Leaf node it returns the data at the leaf node along with the new
+   * startIndex of the given encodedSequence to continue decoding. It throws {@link
+   * IllegalStateException} if the given encodedSequence is invalid and cannot be decoded.
    *
    * @param startIndex      the index of the sequence to start decoding from
    * @param encodedSequence the encoded sequence to decode
@@ -50,10 +50,8 @@ public interface PrefixTreeNode<P, T> {
   List<String> getAllLeavesPath(String currentPath);
 
   /**
-   * Returns true if the tree is complete, false otherwise. A Tree is said to complete if every
-   * non-leaf node has exactly the same number of children, equal to the number of distinct path
-   * symbols in the tree. Returns false in case, a node has no children, except in case of leaf node
-   * which does not have any children it return true.
+   * Returns true if the tree is complete, false otherwise. A Tree is said to be complete every
+   * non-leaf node has exactly the same number of children, equal to the number of coding symbols
    *
    * @return true if the tree is complete, false otherwise
    */

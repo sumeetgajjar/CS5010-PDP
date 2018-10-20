@@ -67,10 +67,9 @@ public class GroupNode<P, T> implements PrefixTreeNode<P, T> {
 
   /**
    * Decodes a part of the given sequence from the given startIndex and returns the {@link
-   * DecodedData}. It starts decoding the encodedSequence by traversing the tree from the given
-   * startIndex of the given encodedSequence. It uses the given encodedSequence as the traversal
-   * path and as soon as it reaches a Leaf node it returns the data at the leaf node along with the
-   * new startIndex of the given encodedSequence to continue decoding. It throws {@link
+   * DecodedData}. It uses the given encodedSequence from the given startIndex as the traversal path
+   * and as soon as it reaches a Leaf node it returns the data at the leaf node along with the new
+   * startIndex of the given encodedSequence to continue decoding. It throws {@link
    * IllegalStateException} if the given encodedSequence is invalid and cannot be decoded.
    *
    * @param startIndex      the index of the sequence to start decoding from
