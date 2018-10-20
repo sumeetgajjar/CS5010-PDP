@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * Created by gajjar.s, on 12:43 PM, 10/17/18
+ * This class represents set of util functions which can be used by any class.
  */
 public class Utils {
 
