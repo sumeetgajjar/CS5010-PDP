@@ -44,7 +44,7 @@ public class EncoderDecoderTest {
     String originalMessage = null;
     try (BufferedReader reader = new BufferedReader(
             new InputStreamReader(new FileInputStream("test/passage.txt")))) {
-      originalMessage = reader.lines().collect(Collectors.joining());
+      originalMessage = reader.lines().collect(Collectors.joining(System.lineSeparator()));
 
     } catch (Exception e) {
       Assert.fail("should have failed");
