@@ -419,6 +419,14 @@ public class DecoderTest {
     decoder.addCode('e', "31");
 
     Assert.assertEquals("aced", decoder.decode("122131231"));
+    Assert.assertFalse(decoder.isCodeComplete());
+
+    String expectedAllCodes = "a:12";
+    expectedAllCodes += System.lineSeparator() + "b:22";
+    expectedAllCodes += System.lineSeparator() + "c:21";
+    expectedAllCodes += System.lineSeparator() + "d:231";
+    expectedAllCodes += System.lineSeparator() + "e:31";
+    Assert.assertEquals(expectedAllCodes, decoder.allCodes());
   }
 
   @Test
@@ -431,6 +439,13 @@ public class DecoderTest {
     decoder.addCode('d', "fedcba9876543210");
 
     Assert.assertEquals("aced", decoder.decode("bedfedcba9876543210"));
+    Assert.assertFalse(decoder.isCodeComplete());
+
+    String expectedAllCodes = "a:b";
+    expectedAllCodes += System.lineSeparator() + "c:e";
+    expectedAllCodes += System.lineSeparator() + "d:fedcba9876543210";
+    expectedAllCodes += System.lineSeparator() + "e:d";
+    Assert.assertEquals(expectedAllCodes, decoder.allCodes());
   }
 
   @Test
@@ -443,6 +458,13 @@ public class DecoderTest {
     decoder.addCode('d', "$#@! fedcba9876543210");
 
     Assert.assertEquals("aced", decoder.decode("bed$#@! fedcba9876543210"));
+    Assert.assertFalse(decoder.isCodeComplete());
+
+    String expectedAllCodes = "a:b";
+    expectedAllCodes += System.lineSeparator() + "c:e";
+    expectedAllCodes += System.lineSeparator() + "d:$#@! fedcba9876543210";
+    expectedAllCodes += System.lineSeparator() + "e:d";
+    Assert.assertEquals(expectedAllCodes, decoder.allCodes());
   }
 
   @Test
