@@ -140,15 +140,25 @@ public class DecoderTest {
     Assert.assertEquals("aaa", decoder.decode("100100100"));
 
     decoder.addCode('b', "00");
+    Assert.assertEquals("aaa", decoder.decode("100100100"));
     Assert.assertEquals("aba", decoder.decode("10000100"));
 
     decoder.addCode('c', "01");
+    Assert.assertEquals("aaa", decoder.decode("100100100"));
+    Assert.assertEquals("aba", decoder.decode("10000100"));
     Assert.assertEquals("abc", decoder.decode("1000001"));
 
     decoder.addCode('d', "11");
+    Assert.assertEquals("aaa", decoder.decode("100100100"));
+    Assert.assertEquals("aba", decoder.decode("10000100"));
+    Assert.assertEquals("abc", decoder.decode("1000001"));
     Assert.assertEquals("abcd", decoder.decode("100000111"));
 
     decoder.addCode('e', "101");
+    Assert.assertEquals("aaa", decoder.decode("100100100"));
+    Assert.assertEquals("aba", decoder.decode("10000100"));
+    Assert.assertEquals("abc", decoder.decode("1000001"));
+    Assert.assertEquals("abcd", decoder.decode("100000111"));
     Assert.assertEquals("eabcd", decoder.decode("101100000111"));
 
     Assert.assertEquals("ace", decoder.decode("10001101"));
@@ -589,5 +599,83 @@ public class DecoderTest {
     Assert.assertEquals(expectedAllCodes, decoder.allCodes());
 
     Assert.assertTrue(decoder.isCodeComplete());
+  }
+
+  @Test
+  public void testDecodingOnRightSkewedCodingTree() {
+    Decoder decoder = new DecoderImpl("01");
+
+    decoder.addCode('a', "10");
+    decoder.addCode('b', "110");
+    decoder.addCode('c', "1110");
+    decoder.addCode('d', "11110");
+    decoder.addCode('e', "111110");
+    decoder.addCode('f', "1111110");
+    decoder.addCode('g', "11111110");
+    decoder.addCode('h', "111111110");
+    decoder.addCode('i', "1111111110");
+    decoder.addCode('j', "11111111110");
+    decoder.addCode('k', "111111111110");
+
+    Assert.assertEquals("abcdefghijkabcdefghijkabcdefghijk",
+            decoder.decode("10110111011110111110111111011111110111111110111111111" +
+                    "01111111111011111111111010110111011110111110111111011111110111111110111111" +
+                    "11101111111111011111111111010110111011110111110111111011111110111111110111" +
+                    "111111011111111110111111111110"));
+
+    String expectedAllCodes = "";
+    expectedAllCodes += "a:10" + System.lineSeparator();
+    expectedAllCodes += "b:110" + System.lineSeparator();
+    expectedAllCodes += "c:1110" + System.lineSeparator();
+    expectedAllCodes += "d:11110" + System.lineSeparator();
+    expectedAllCodes += "e:111110" + System.lineSeparator();
+    expectedAllCodes += "f:1111110" + System.lineSeparator();
+    expectedAllCodes += "g:11111110" + System.lineSeparator();
+    expectedAllCodes += "h:111111110" + System.lineSeparator();
+    expectedAllCodes += "i:1111111110" + System.lineSeparator();
+    expectedAllCodes += "j:11111111110" + System.lineSeparator();
+    expectedAllCodes += "k:111111111110";
+    Assert.assertEquals(expectedAllCodes, decoder.allCodes());
+
+    Assert.assertFalse(decoder.isCodeComplete());
+  }
+
+  @Test
+  public void testDecodingOnLeftSkewedCodingTree() {
+    Decoder decoder = new DecoderImpl("01");
+
+    decoder.addCode('a', "01");
+    decoder.addCode('b', "001");
+    decoder.addCode('c', "0001");
+    decoder.addCode('d', "00001");
+    decoder.addCode('e', "000001");
+    decoder.addCode('f', "0000001");
+    decoder.addCode('g', "00000001");
+    decoder.addCode('h', "000000001");
+    decoder.addCode('i', "0000000001");
+    decoder.addCode('j', "00000000001");
+    decoder.addCode('k', "000000000001");
+
+    Assert.assertEquals("abcdefghijkabcdefghijkabcdefghijk",
+            decoder.decode("01001000100001000001000000100000001000000001000000000" +
+                    "10000000000100000000000101001000100001000001000000100000001000000001000000" +
+                    "00010000000000100000000000101001000100001000001000000100000001000000001000" +
+                    "000000100000000001000000000001"));
+
+    String expectedAllCodes = "";
+    expectedAllCodes += "a:01" + System.lineSeparator();
+    expectedAllCodes += "b:001" + System.lineSeparator();
+    expectedAllCodes += "c:0001" + System.lineSeparator();
+    expectedAllCodes += "d:00001" + System.lineSeparator();
+    expectedAllCodes += "e:000001" + System.lineSeparator();
+    expectedAllCodes += "f:0000001" + System.lineSeparator();
+    expectedAllCodes += "g:00000001" + System.lineSeparator();
+    expectedAllCodes += "h:000000001" + System.lineSeparator();
+    expectedAllCodes += "i:0000000001" + System.lineSeparator();
+    expectedAllCodes += "j:00000000001" + System.lineSeparator();
+    expectedAllCodes += "k:000000000001";
+    Assert.assertEquals(expectedAllCodes, decoder.allCodes());
+
+    Assert.assertFalse(decoder.isCodeComplete());
   }
 }
