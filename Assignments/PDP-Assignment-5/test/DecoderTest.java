@@ -390,6 +390,27 @@ public class DecoderTest {
   }
 
   @Test
+  public void testNewlineInCodingSymbols() {
+    Decoder decoder = new DecoderImpl("1\n");
+
+    decoder.addCode('a', "\n11");
+    decoder.addCode('b', "11");
+    decoder.addCode('c', "1\n");
+    decoder.addCode('d', "\n\n");
+    decoder.addCode('e', "\n1\n");
+    Assert.assertTrue(decoder.isCodeComplete());
+
+    Assert.assertEquals("ace", decoder.decode("\n111\n\n1\n"));
+
+    String expectedAllCodes = "a:\n11";
+    expectedAllCodes += System.lineSeparator() + "b:11";
+    expectedAllCodes += System.lineSeparator() + "c:1\n";
+    expectedAllCodes += System.lineSeparator() + "d:\n\n";
+    expectedAllCodes += System.lineSeparator() + "e:\n1\n";
+    Assert.assertEquals(expectedAllCodes, decoder.allCodes());
+  }
+
+  @Test
   public void testOneSymbolDecoder() {
     Decoder decoder = new DecoderImpl("1");
 
