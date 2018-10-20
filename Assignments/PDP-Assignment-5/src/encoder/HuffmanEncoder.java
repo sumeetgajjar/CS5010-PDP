@@ -27,7 +27,7 @@ public class HuffmanEncoder implements Encoder {
    * <ul>
    * <li>given message should not be null or empty</li>
    * <li>given coding symbols list should not be  null or empty</li>
-   * <li>any coding symbol in the given list should not be  null</li>
+   * <li>any coding symbol in the given list should not be null</li>
    * <li>The number of coding symbols should be greater equal to 2</li>
    * <li>Coding symbols in the given list should be unique</li>
    * </ul>
@@ -37,7 +37,7 @@ public class HuffmanEncoder implements Encoder {
    *
    * @param codingSymbols the valid list of coding symbols
    * @param message       the message to generate coding table for
-   * @return the coding table containing code for each symbol in message
+   * @return an unmodifiable coding table containing code for each symbol in message
    * @throws IllegalArgumentException if the given params does not pass any of the sanity checks
    * @throws ArithmeticException      if the frequency of a character in the given message is
    *                                  greater than {@link Integer#MAX_VALUE}

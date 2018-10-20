@@ -39,15 +39,15 @@ public class Utils {
   }
 
   /**
-   * Checks if the given list is null or empty.
+   * Checks if the given {@link Collection} is null or empty.
    *
-   * @param list the list to check
-   * @throws IllegalArgumentException if the given list is null or empty
+   * @param collection the collection to check
+   * @throws IllegalArgumentException if the given collection is null or empty
    */
-  public static <T> void checkNullOrEmptyCollection(Collection<T> list)
+  public static <T> void checkNullOrEmptyCollection(Collection<T> collection)
           throws IllegalArgumentException {
 
-    if (Objects.isNull(list) || list.isEmpty()) {
+    if (Objects.isNull(collection) || collection.isEmpty()) {
       throw new IllegalArgumentException("Collection cannot be null or empty");
     }
   }
