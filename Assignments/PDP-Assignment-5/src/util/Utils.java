@@ -44,7 +44,9 @@ public class Utils {
    * @param list the list to check
    * @throws IllegalArgumentException if the given list is null or empty
    */
-  public static <T> void checkNullOrEmptyCollection(Collection<T> list) throws IllegalArgumentException {
+  public static <T> void checkNullOrEmptyCollection(Collection<T> list)
+          throws IllegalArgumentException {
+
     if (Objects.isNull(list) || list.isEmpty()) {
       throw new IllegalArgumentException("Collection cannot be null or empty");
     }

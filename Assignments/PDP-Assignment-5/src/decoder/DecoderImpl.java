@@ -21,8 +21,7 @@ public class DecoderImpl implements Decoder {
 
   private final Set<Character> validCodingSymbols;
   private final Set<Character> symbolsInCodingTree;
-
-  private PrefixTreeNode<Character, Character> root;
+  private final PrefixTreeNode<Character, Character> root;
 
   /**
    * Constructs a {@link DecoderImpl} with the given codingSymbols. The order of the symbols in the
@@ -52,7 +51,7 @@ public class DecoderImpl implements Decoder {
    * IllegalStateException}
    * <ul>
    * <li>if the code contains symbols other than coding symbols</li>
-   * <li>if the code already exists in the coding tree</li>
+   * <li>if a symbol exists at the given code in the coding tree</li>
    * <li>if the symbol already exists in the coding tree</li>
    * <li>if the coding tree is complete</li>
    * <li>if the given code is a prefix of any code present in the coding tree</li>
@@ -101,16 +100,16 @@ public class DecoderImpl implements Decoder {
 
     Utils.checkNullOrEmptyString(encodedMessage);
 
-    List<Character> encodedSequence = Utils.convertStringToCharacterArray(encodedMessage);
-    List<Character> unmodifiableSequence = Collections.unmodifiableList(encodedSequence);
+    List<Character> unmodifiableEncodedSequence = Collections.unmodifiableList(
+            Utils.convertStringToCharacterArray(encodedMessage));
 
     StringBuilder builder = new StringBuilder();
     int nextIndexToStartDecoding = 0;
 
-    while (nextIndexToStartDecoding < unmodifiableSequence.size()) {
+    while (nextIndexToStartDecoding < unmodifiableEncodedSequence.size()) {
 
       DecodedData<Character> decodedData =
-              this.root.decode(nextIndexToStartDecoding, unmodifiableSequence);
+              this.root.decode(nextIndexToStartDecoding, unmodifiableEncodedSequence);
 
       nextIndexToStartDecoding = decodedData.getNextIndexToStartDecoding();
       builder.append(decodedData.getData());
@@ -182,9 +181,10 @@ public class DecoderImpl implements Decoder {
   /**
    * Checks if the given symbol already exists in the coding tree.
    *
-   * @param symbol if the given symbol already exists in the coding tree
+   * @param symbol the symbol to check
+   * @throws IllegalStateException if the given symbol already exists in the coding tree
    */
-  private void checkIfSymbolAlreadyExistsInCodingTree(char symbol) {
+  private void checkIfSymbolAlreadyExistsInCodingTree(char symbol) throws IllegalStateException {
     if (this.symbolsInCodingTree.contains(symbol)) {
       throw new IllegalStateException(String.format("code for symbol:'%s' already exists", symbol));
     }
