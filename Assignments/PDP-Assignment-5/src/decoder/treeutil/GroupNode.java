@@ -8,11 +8,16 @@ import java.util.Objects;
 import java.util.Set;
 
 import decoder.bean.DecodedData;
+import util.Utils;
 
 
 /**
  * This class represents a {@link GroupNode} for the PrefixTree. It implements {@link
- * PrefixTreeNode} interface.
+ * PrefixTreeNode} interface. It is a generic class of Type <code>P</code> and <code>T</code>. Type
+ * <code>P</code> is the type of path which will be used to reach children. <code>T</code> is the
+ * type of Data that will be stored at {@link LeafNode}. The {@link GroupNode} does not store any
+ * data. It has references of its children and a corresponding path to reach each children. Its
+ * children can be a {@link GroupNode} or an {@link LeafNode}.
  */
 public class GroupNode<P, T> implements PrefixTreeNode<P, T> {
 
@@ -25,6 +30,7 @@ public class GroupNode<P, T> implements PrefixTreeNode<P, T> {
    * @param validCodingSymbols the valid coding symbols for this tree
    */
   public GroupNode(Set<P> validCodingSymbols) {
+    Utils.checkNullOrEmptyCollection(validCodingSymbols);
     this.validCodingSymbols = validCodingSymbols;
     this.children = new LinkedHashMap<>();
   }
@@ -40,14 +46,13 @@ public class GroupNode<P, T> implements PrefixTreeNode<P, T> {
   @Override
   public void addChild(List<P> pathSequence, T data) throws IllegalStateException {
 
+    P path = pathSequence.get(0);
     if (pathSequence.size() == 1) {
-      P path = pathSequence.get(0);
       checkIfChildrenAlreadyExists(path);
       this.children.put(path, new LeafNode<>(data));
       return;
     }
 
-    P path = pathSequence.get(0);
     PrefixTreeNode<P, T> nodeAtPath = this.children.get(path);
     List<P> reducedPath = pathSequence.subList(1, pathSequence.size());
 
@@ -61,12 +66,12 @@ public class GroupNode<P, T> implements PrefixTreeNode<P, T> {
   }
 
   /**
-   * Decodes a part of the given sequence from the given index and returns the {@link DecodedData}.
-   * It starts decoding the encodedSequence by traversing the tree from the given index of the given
-   * sequence. It uses the given encodedSequence as the traversal path and as soon as it reaches a
-   * Leaf node it returns the data at the leaf node along with the new index of the given sequence
-   * to continue decoding. It throws {@link IllegalArgumentException} if the given startIndex is
-   * greater than the size of the encodedSequence.
+   * Decodes a part of the given sequence from the given startIndex and returns the {@link
+   * DecodedData}. It starts decoding the encodedSequence by traversing the tree from the given
+   * startIndex of the given encodedSequence. It uses the given encodedSequence as the traversal
+   * path and as soon as it reaches a Leaf node it returns the data at the leaf node along with the
+   * new startIndex of the given encodedSequence to continue decoding. It throws {@link
+   * IllegalStateException} if the given encodedSequence is invalid and cannot be decoded.
    *
    * @param startIndex      the index of the sequence to start decoding from
    * @param encodedSequence the encoded sequence to decode
@@ -84,7 +89,7 @@ public class GroupNode<P, T> implements PrefixTreeNode<P, T> {
         return node.decode(startIndex + 1, encodedSequence);
       }
     }
-    throw new IllegalStateException("cannot decode given sequence");
+    throw new IllegalStateException("cannot decode given encodedSequence");
   }
 
   /**
@@ -110,9 +115,8 @@ public class GroupNode<P, T> implements PrefixTreeNode<P, T> {
 
   /**
    * Returns true if the tree is complete, false otherwise. A Tree is said to complete if every
-   * non-leaf node has exactly the same number of children, equal to the number of distinct path
-   * symbols in the tree. Returns false in case, a node has no children, except in case of leaf node
-   * which does not have any children it return true.
+   * non-leaf node has exactly the same number of children, equal to the size of {@link
+   * GroupNode#validCodingSymbols} in the tree.
    *
    * @return true if the tree is complete, false otherwise
    */

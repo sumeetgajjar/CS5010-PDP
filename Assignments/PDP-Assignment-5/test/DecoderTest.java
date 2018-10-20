@@ -59,7 +59,7 @@ public class DecoderTest {
       decoder.decode("10001101");
       Assert.fail("should have failed");
     } catch (IllegalStateException e) {
-      Assert.assertEquals("cannot decode given sequence", e.getMessage());
+      Assert.assertEquals("cannot decode given encodedSequence", e.getMessage());
     }
 
     decoder.addCode('a', "100");
@@ -274,14 +274,14 @@ public class DecoderTest {
       decoder.decode("10001102");
       Assert.fail("should have failed");
     } catch (IllegalStateException e) {
-      Assert.assertEquals("cannot decode given sequence", e.getMessage());
+      Assert.assertEquals("cannot decode given encodedSequence", e.getMessage());
     }
 
     try {
       decoder.decode("2345");
       Assert.fail("should have failed");
     } catch (IllegalStateException e) {
-      Assert.assertEquals("cannot decode given sequence", e.getMessage());
+      Assert.assertEquals("cannot decode given encodedSequence", e.getMessage());
     }
 
     Assert.assertEquals("a", decoder.decode("100"));
@@ -295,7 +295,7 @@ public class DecoderTest {
       Assert.fail("should have failed");
 
     } catch (IllegalStateException e) {
-      Assert.assertEquals("cannot decode given sequence", e.getMessage());
+      Assert.assertEquals("cannot decode given encodedSequence", e.getMessage());
     }
 
     decoder.addCode('a', "100");
@@ -310,31 +310,31 @@ public class DecoderTest {
     try {
       decoder.decode("1001");
     } catch (IllegalStateException e) {
-      Assert.assertEquals("cannot decode given sequence", e.getMessage());
+      Assert.assertEquals("cannot decode given encodedSequence", e.getMessage());
     }
 
     try {
       decoder.decode("10010");
     } catch (IllegalStateException e) {
-      Assert.assertEquals("cannot decode given sequence", e.getMessage());
+      Assert.assertEquals("cannot decode given encodedSequence", e.getMessage());
     }
 
     try {
       decoder.decode("100101");
     } catch (IllegalStateException e) {
-      Assert.assertEquals("cannot decode given sequence", e.getMessage());
+      Assert.assertEquals("cannot decode given encodedSequence", e.getMessage());
     }
 
     try {
       decoder.decode("1101");
     } catch (IllegalStateException e) {
-      Assert.assertEquals("cannot decode given sequence", e.getMessage());
+      Assert.assertEquals("cannot decode given encodedSequence", e.getMessage());
     }
 
     try {
       decoder.decode("1001101");
     } catch (IllegalStateException e) {
-      Assert.assertEquals("cannot decode given sequence", e.getMessage());
+      Assert.assertEquals("cannot decode given encodedSequence", e.getMessage());
     }
 
     decoder.addCode('b', "1101");
@@ -404,7 +404,7 @@ public class DecoderTest {
       decoder.decode("11110000");
       Assert.fail("should have failed");
     } catch (IllegalStateException e) {
-      Assert.assertEquals("cannot decode given sequence", e.getMessage());
+      Assert.assertEquals("cannot decode given encodedSequence", e.getMessage());
     }
   }
 

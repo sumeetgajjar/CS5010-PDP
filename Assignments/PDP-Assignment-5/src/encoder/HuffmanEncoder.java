@@ -120,7 +120,7 @@ public class HuffmanEncoder implements Encoder {
           throws IllegalArgumentException {
 
     Utils.checkNullOrEmptyString(message);
-    Utils.checkNullOrEmptyList(codingSymbols);
+    Utils.checkNullOrEmptyCollection(codingSymbols);
 
     if (codingSymbols.size() < 2) {
       throw new IllegalArgumentException("coding symbols cannot be less than 2");

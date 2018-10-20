@@ -158,14 +158,14 @@ public class EncoderTest {
       encoder.generateCodingTable(null, "abcde");
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("List cannot be null or empty", e.getMessage());
+      Assert.assertEquals("Collection cannot be null or empty", e.getMessage());
     }
 
     try {
       encoder.generateCodingTable(Collections.emptyList(), "abcde");
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("List cannot be null or empty", e.getMessage());
+      Assert.assertEquals("Collection cannot be null or empty", e.getMessage());
     }
   }
 

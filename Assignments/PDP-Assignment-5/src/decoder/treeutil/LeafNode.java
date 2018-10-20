@@ -7,7 +7,10 @@ import decoder.bean.DecodedData;
 
 /**
  * This class represents a LeafNode for the PrefixTree. It implements the {@link PrefixTreeNode}
- * interface.
+ * interface. A {@link LeafNode} It is a generic class of Type <code>P</code> and <code>T</code>.
+ * Type <code>P</code> is the type of path to this {@link LeafNode} from its parent. <code>T</code>
+ * is the type of Data that will be stored at {@link LeafNode}. A {@link LeafNode} can only store
+ * data, it cannot have children.
  */
 public class LeafNode<P, T> implements PrefixTreeNode<P, T> {
 
