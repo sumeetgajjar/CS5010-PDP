@@ -9,8 +9,6 @@ import decoder.DecoderImpl;
  */
 public class DecoderTest {
 
-  //todo test prefix codes with same prefix
-
   private Decoder getDecoder() {
     Decoder decoder = new DecoderImpl("01");
 
