@@ -2,9 +2,9 @@ package decoder.bean;
 
 /**
  * This class represents a container class for Decoded Data of type<code>T</code>. It contains the
- * current decoded data and the index of the next location of the encoded sequence to continue
- * decoding. The index of next location can lie outside bounds of sequence and should be checked
- * before continuing the decoding process.
+ * decoded data and the index of the next location of the encoded sequence to continue decoding. The
+ * index of next location can lie outside bounds of sequence and should be checked before continuing
+ * the decoding process.
  */
 public class DecodedData<T> {
   private final int nextIndexToStartDecoding;
