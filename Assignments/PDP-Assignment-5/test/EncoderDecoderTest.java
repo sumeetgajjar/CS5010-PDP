@@ -57,8 +57,6 @@ public class EncoderDecoderTest {
               Utils.convertStringToCharacterArray(codingSymbols), originalMessage);
 
       String encodedMessage = encoder.encode(codingTable, originalMessage);
-      System.out.println("For CodingSymbols: " + codingSymbols);
-      System.out.println(encodedMessage);
 
       Decoder decoder = new DecoderImpl(codingSymbols);
       for (Map.Entry<Character, String> entry : codingTable.entrySet()) {

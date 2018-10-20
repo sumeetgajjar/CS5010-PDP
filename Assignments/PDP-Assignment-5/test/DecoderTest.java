@@ -23,13 +23,7 @@ public class DecoderTest {
 
   @Test
   public void testInitializationOfDecoder() {
-    Decoder decoder = new DecoderImpl("01");
-
-    decoder.addCode('a', "100");
-    decoder.addCode('b', "00");
-    decoder.addCode('c', "01");
-    decoder.addCode('d', "11");
-    decoder.addCode('e', "101");
+    Decoder decoder = getDecoder();
 
     Assert.assertEquals("ace", decoder.decode("10001101"));
     Assert.assertEquals("bad", decoder.decode("0010011"));
