@@ -71,7 +71,7 @@ public interface CashRegister {
    * @param dollars the dollar amount to be withdrawn
    * @param cents   the cent amount to be withdrawn
    * @return if dispensing is possible, a map of &lt;value of coin/bill in cents, number of
-   * coins/bills&gt; that represents the change
+   *         coins/bills&gt; that represents the change
    */
   Map<Integer, Integer> withdraw(int dollars, int cents) throws InsufficientCashException;
 

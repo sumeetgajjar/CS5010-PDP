@@ -138,7 +138,7 @@ public class SimpleRegister implements CashRegister {
    * @param dollars the dollar amount to be withdrawn
    * @param cents   the cent amount to be withdrawn
    * @return if dispensing is possible, a map of &lt;value of coin/bill in cents, number of
-   * coins/bills&gt; that represents the change
+   *         coins/bills&gt; that represents the change
    * @throws InsufficientCashException if dispensing the amount is not possible.
    * @throws IllegalArgumentException  if the given params are less than or equal to zero
    */
@@ -146,7 +146,7 @@ public class SimpleRegister implements CashRegister {
   public Map<Integer, Integer> withdraw(int dollars, int cents)
           throws InsufficientCashException, IllegalArgumentException {
 
-    checkIfWithdrawlAmountIsInvalid(dollars, cents);
+    checkIfWithdrawAmountIsInvalid(dollars, cents);
     int givenAmountInPennies = (dollars * 100) + cents;
 
     Map<Denomination, Integer> updatedCash = new EnumMap<>(Denomination.class);
@@ -154,8 +154,8 @@ public class SimpleRegister implements CashRegister {
 
     for (Denomination denomination : DENOMINATION_ORDER) {
       int denominationCountInRegister = this.cash.getOrDefault(denomination, 0);
-      int denominationCountToBeGivenToUser = denomination.getDenominationCount(givenAmountInPennies);
-      int denominationCount = Math.min(denominationCountInRegister, denominationCountToBeGivenToUser);
+      int denominationCountDispense = denomination.getDenominationCount(givenAmountInPennies);
+      int denominationCount = Math.min(denominationCountInRegister, denominationCountDispense);
 
       if (denominationCount != 0) {
         updatedCash.put(denomination, denominationCountInRegister - denominationCount);
@@ -225,7 +225,8 @@ public class SimpleRegister implements CashRegister {
    * @param cents   cents
    * @throws IllegalArgumentException if the given amount to withdraw is invalid
    */
-  private void checkIfWithdrawlAmountIsInvalid(int dollars, int cents) throws IllegalArgumentException {
+  private void checkIfWithdrawAmountIsInvalid(int dollars, int cents)
+          throws IllegalArgumentException {
     if (dollars < 0 || cents < 0) {
       throw new IllegalArgumentException("invalid withdraw amount");
     }
@@ -236,7 +237,7 @@ public class SimpleRegister implements CashRegister {
   }
 
   /**
-   * Converts the given Map<Denomination,Integer> to Map<Integer,Integer>.
+   * Converts the given Map of (Denomination,Integer) to Map of (Integer,Integer).
    *
    * @param map the given map to convert
    * @return the converted map
