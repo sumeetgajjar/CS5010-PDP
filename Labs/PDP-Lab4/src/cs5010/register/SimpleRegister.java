@@ -211,7 +211,9 @@ public class SimpleRegister implements CashRegister {
    * @param denominationCount the given amount to check
    * @throws IllegalArgumentException if the given amount is less than equal to zero
    */
-  private void checkIfDepositDenominationCountIsInvalid(int denominationCount) throws IllegalArgumentException {
+  private void checkIfDepositDenominationCountIsInvalid(int denominationCount)
+          throws IllegalArgumentException {
+
     if (denominationCount <= 0) {
       throw new IllegalArgumentException("invalid deposit amount");
     }
