@@ -85,8 +85,8 @@ public interface CashRegister {
 
   /**
    * Returns a string describing the history of transactions performed on the cash register. The
-   * audit log is a series of transactions (1 per line). Each line is of the form: "Deposit: x.y"
-   * or "Withdraw: x.y", where x is the dollar amount and y is cents up to 2 decimal places.
+   * audit log is a series of transactions (1 per line). Each line is of the form: "Deposit: x.y" or
+   * "Withdraw: x.y", where x is the dollar amount and y is cents up to 2 decimal places.
    *
    * @return the string of the audit log
    */
