@@ -1,3 +1,4 @@
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,6 +25,11 @@ public class SimpleRegisterTest {
   @Before
   public void setUp() {
     this.cashRegister = new SimpleRegister();
+  }
+
+  @After
+  public void tearDown() {
+    this.cashRegister = null;
   }
 
   @Test
