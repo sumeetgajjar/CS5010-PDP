@@ -57,6 +57,48 @@ public class SimpleRegisterTest {
   }
 
   @Test
+  public void testWithDrawAmountInMultipleDenominations() throws InsufficientCashException {
+    this.cashRegister.addPennies(10);
+    this.cashRegister.addNickels(10);
+    this.cashRegister.addDimes(10);
+    this.cashRegister.addQuarters(10);
+    this.cashRegister.addOnes(10);
+    this.cashRegister.addFives(10);
+    this.cashRegister.addTens(10);
+
+    Map<Integer, Integer> expectedContents = new HashMap<>();
+    expectedContents.put(1, 10);
+    expectedContents.put(5, 10);
+    expectedContents.put(10, 10);
+    expectedContents.put(25, 10);
+    expectedContents.put(100, 10);
+    expectedContents.put(500, 10);
+    expectedContents.put(1000, 10);
+
+    Map<Integer, Integer> expectedWithdrawAmount = new HashMap<>();
+    expectedWithdrawAmount.put(1, 2);
+    Assert.assertTrue(Utils.areMapEqual(expectedWithdrawAmount, this.cashRegister.withdraw(0, 2)));
+
+    expectedWithdrawAmount.put(5, 1);
+    Assert.assertTrue(Utils.areMapEqual(expectedWithdrawAmount, this.cashRegister.withdraw(0, 7)));
+
+    expectedWithdrawAmount.put(10, 1);
+    Assert.assertTrue(Utils.areMapEqual(expectedWithdrawAmount, this.cashRegister.withdraw(0, 17)));
+
+    expectedWithdrawAmount.put(25, 1);
+    Assert.assertTrue(Utils.areMapEqual(expectedWithdrawAmount, this.cashRegister.withdraw(0, 42)));
+
+    expectedWithdrawAmount.put(100, 1);
+    Assert.assertTrue(Utils.areMapEqual(expectedWithdrawAmount, this.cashRegister.withdraw(1, 42)));
+
+    expectedWithdrawAmount.put(500, 1);
+    Assert.assertTrue(Utils.areMapEqual(expectedWithdrawAmount, this.cashRegister.withdraw(6, 42)));
+
+    expectedWithdrawAmount.put(1000, 1);
+    Assert.assertTrue(Utils.areMapEqual(expectedWithdrawAmount, this.cashRegister.withdraw(16, 42)));
+  }
+
+  @Test
   public void testWithdrawAmountGreaterThanCashRegister() {
     Map<Integer, Integer> expectedContents = new HashMap<>();
     expectedContents.put(1, 1);
