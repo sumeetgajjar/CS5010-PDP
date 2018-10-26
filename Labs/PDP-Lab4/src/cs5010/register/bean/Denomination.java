@@ -1,27 +1,29 @@
 package cs5010.register.bean;
 
-import java.util.function.Function;
-
 /**
  * Created by gajjar.s, on 1:48 PM, 10/26/18
  */
 public enum Denomination {
 
-  PENNIES(pennies -> pennies),
-  NICKELS(nickels -> nickels * 5),
-  DIMES(dimes -> dimes * 10),
-  QUARTER(quarter -> quarter * 25),
-  ONES(ones -> ones * 100),
-  FIVES(fives -> fives * 500),
-  TENS(tens -> tens * 10 * 100);
+  PENNIES(1),
+  NICKELS(5),
+  DIMES(10),
+  QUARTER(25),
+  ONES(100),
+  FIVES(500),
+  TENS(1000);
 
-  private final Function<Integer, Integer> converter;
+  private final int numberOfPenniesInDenomination;
 
-  private Denomination(Function<Integer, Integer> converter) {
-    this.converter = converter;
+  Denomination(int numberOfPenniesInDenomination) {
+    this.numberOfPenniesInDenomination = numberOfPenniesInDenomination;
   }
 
   public int getPennies(int count) {
-    return this.converter.apply(count);
+    return count * this.numberOfPenniesInDenomination;
+  }
+
+  public int getNumberOfPenniesInDenomination() {
+    return numberOfPenniesInDenomination;
   }
 }
