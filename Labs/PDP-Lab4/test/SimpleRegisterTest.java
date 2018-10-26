@@ -33,6 +33,7 @@ public class SimpleRegisterTest {
 
     try {
       this.cashRegister.withdraw(1, 1);
+      Assert.fail("should have failed");
     } catch (InsufficientCashException e) {
       Assert.assertEquals("insufficient cash in the register", e.getMessage());
     }
@@ -47,6 +48,117 @@ public class SimpleRegisterTest {
     expectedAuditLog += TransactionType.WITHDRAWL.getTypeString() + ": 20.00" + System.lineSeparator();
 
     Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
+  }
+
+  @Test
+  public void testWithdrawAmountGreaterThanCashRegister() {
+    Map<Integer, Integer> expectedContents = new HashMap<>();
+    expectedContents.put(1, 1);
+    expectedContents.put(5, 1);
+    expectedContents.put(10, 1);
+    expectedContents.put(25, 1);
+    expectedContents.put(100, 1);
+    expectedContents.put(500, 1);
+    expectedContents.put(1000, 1);
+
+    this.cashRegister.addPennies(1);
+    this.cashRegister.addNickels(1);
+    this.cashRegister.addDimes(1);
+    this.cashRegister.addQuarters(1);
+    this.cashRegister.addOnes(1);
+    this.cashRegister.addFives(1);
+    this.cashRegister.addTens(1);
+
+    try {
+      this.cashRegister.withdraw(16, 42);
+      Assert.fail("should have failed");
+    } catch (InsufficientCashException e) {
+      Assert.assertEquals("insufficient cash in the register", e.getMessage());
+    }
+
+    try {
+      this.cashRegister.withdraw(164, 2);
+      Assert.fail("should have failed");
+    } catch (InsufficientCashException e) {
+      Assert.assertEquals("insufficient cash in the register", e.getMessage());
+    }
+
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+  }
+
+  @Test
+  public void testWithdrawAmountOfDenominationNotPresentInRegister() {
+    Map<Integer, Integer> expectedContents = new HashMap<>();
+
+    expectedContents.put(1000, 10);
+    this.cashRegister.addTens(10);
+    try {
+      this.cashRegister.withdraw(11, 0);
+      Assert.fail("should have failed");
+    } catch (InsufficientCashException e) {
+      Assert.assertEquals("insufficient cash in the register", e.getMessage());
+    }
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+
+    expectedContents.put(500, 10);
+    this.cashRegister.addFives(10);
+    try {
+      this.cashRegister.withdraw(11, 0);
+      Assert.fail("should have failed");
+    } catch (InsufficientCashException e) {
+      Assert.assertEquals("insufficient cash in the register", e.getMessage());
+    }
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+
+    expectedContents.put(100, 1);
+    this.cashRegister.addOnes(10);
+    try {
+      this.cashRegister.withdraw(12, 0);
+      Assert.fail("should have failed");
+    } catch (InsufficientCashException e) {
+      Assert.assertEquals("insufficient cash in the register", e.getMessage());
+    }
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+
+    expectedContents.put(25, 1);
+    this.cashRegister.addQuarters(1);
+    try {
+      this.cashRegister.withdraw(12, 10);
+      Assert.fail("should have failed");
+    } catch (InsufficientCashException e) {
+      Assert.assertEquals("insufficient cash in the register", e.getMessage());
+    }
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+
+    expectedContents.put(10, 1);
+    this.cashRegister.addDimes(1);
+    try {
+      this.cashRegister.withdraw(12, 20);
+      Assert.fail("should have failed");
+    } catch (InsufficientCashException e) {
+      Assert.assertEquals("insufficient cash in the register", e.getMessage());
+    }
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+
+    expectedContents.put(5, 1);
+    this.cashRegister.addNickels(1);
+    try {
+      this.cashRegister.withdraw(12, 20);
+      Assert.fail("should have failed");
+    } catch (InsufficientCashException e) {
+      Assert.assertEquals("insufficient cash in the register", e.getMessage());
+    }
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+
+    expectedContents.put(1, 1);
+    this.cashRegister.addPennies(1);
+    try {
+      this.cashRegister.withdraw(12, 20);
+      Assert.fail("should have failed");
+    } catch (InsufficientCashException e) {
+      Assert.assertEquals("insufficient cash in the register", e.getMessage());
+    }
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
   }
 
   @Test
@@ -134,24 +246,28 @@ public class SimpleRegisterTest {
   public void testWithDrawingInvalidAmount() throws InsufficientCashException {
     try {
       this.cashRegister.withdraw(0, 0);
+      Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
       Assert.assertEquals("invalid withdrawal amount", e.getMessage());
     }
 
     try {
       this.cashRegister.withdraw(-1, 10);
+      Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
       Assert.assertEquals("invalid withdrawal amount", e.getMessage());
     }
 
     try {
       this.cashRegister.withdraw(10, -10);
+      Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
       Assert.assertEquals("invalid withdrawal amount", e.getMessage());
     }
 
     try {
       this.cashRegister.withdraw(-1, -10);
+      Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
       Assert.assertEquals("invalid withdrawal amount", e.getMessage());
     }
