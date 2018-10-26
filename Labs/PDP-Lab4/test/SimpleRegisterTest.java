@@ -50,7 +50,7 @@ public class SimpleRegisterTest {
   }
 
   @Test
-  public void testWithdrawMethod() {
+  public void testWithdrawMethod() throws InsufficientCashException {
     this.cashRegister.addPennies(10);
     this.cashRegister.addNickels(10);
     this.cashRegister.addDimes(10);
@@ -73,7 +73,88 @@ public class SimpleRegisterTest {
             System.lineSeparator());
     expectedAuditLog += String.format("%s: 100.00", TransactionType.DEPOSIT.getTypeString());
 
+    Map<Integer, Integer> expectedContents = new HashMap<>();
+    expectedContents.put(1, 10);
+    expectedContents.put(5, 10);
+    expectedContents.put(10, 10);
+    expectedContents.put(25, 10);
+    expectedContents.put(100, 10);
+    expectedContents.put(500, 10);
+    expectedContents.put(1000, 10);
+
     Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+
+    expectedContents.put(1, 9);
+    Assert.assertEquals(Collections.singletonMap(1, 1), this.cashRegister.withdraw(0, 1));
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+
+    expectedContents.put(5, 9);
+    Assert.assertEquals(Collections.singletonMap(5, 1), this.cashRegister.withdraw(0, 5));
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+
+    expectedContents.put(10, 9);
+    Assert.assertEquals(Collections.singletonMap(10, 1), this.cashRegister.withdraw(0, 10));
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+
+    expectedContents.put(25, 9);
+    Assert.assertEquals(Collections.singletonMap(25, 1), this.cashRegister.withdraw(0, 25));
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+
+    expectedContents.put(100, 9);
+    Assert.assertEquals(Collections.singletonMap(100, 1), this.cashRegister.withdraw(1, 0));
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+
+    expectedContents.put(500, 9);
+    Assert.assertEquals(Collections.singletonMap(500, 1), this.cashRegister.withdraw(5, 0));
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+
+    expectedContents.put(1000, 9);
+    Assert.assertEquals(Collections.singletonMap(1000, 1), this.cashRegister.withdraw(10, 0));
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+
+    expectedAuditLog += String.format("%s%s: 0.01%s", System.lineSeparator(),
+            TransactionType.WITHDRAWL.getTypeString(), System.lineSeparator());
+    expectedAuditLog += String.format("%s: 0.05%s", TransactionType.WITHDRAWL.getTypeString(),
+            System.lineSeparator());
+    expectedAuditLog += String.format("%s: 0.10%s", TransactionType.WITHDRAWL.getTypeString(),
+            System.lineSeparator());
+    expectedAuditLog += String.format("%s: 0.25%s", TransactionType.WITHDRAWL.getTypeString(),
+            System.lineSeparator());
+    expectedAuditLog += String.format("%s: 1.00%s", TransactionType.WITHDRAWL.getTypeString(),
+            System.lineSeparator());
+    expectedAuditLog += String.format("%s: 5.00%s", TransactionType.WITHDRAWL.getTypeString(),
+            System.lineSeparator());
+    expectedAuditLog += String.format("%s: 10.00", TransactionType.WITHDRAWL.getTypeString());
+
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
+  }
+
+  @Test
+  public void testWithDrawingInvalidAmount() throws InsufficientCashException {
+    try {
+      this.cashRegister.withdraw(0, 0);
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("invalid withdrawal amount", e.getMessage());
+    }
+
+    try {
+      this.cashRegister.withdraw(-1, 10);
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("invalid withdrawal amount", e.getMessage());
+    }
+
+    try {
+      this.cashRegister.withdraw(10, -10);
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("invalid withdrawal amount", e.getMessage());
+    }
+
+    try {
+      this.cashRegister.withdraw(-1, -10);
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("invalid withdrawal amount", e.getMessage());
+    }
   }
 
   @Test
