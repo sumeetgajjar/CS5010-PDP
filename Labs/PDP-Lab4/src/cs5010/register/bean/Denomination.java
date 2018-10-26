@@ -23,7 +23,11 @@ public enum Denomination {
     return count * this.numberOfPenniesInDenomination;
   }
 
-  public int getNumberOfPenniesInDenomination() {
-    return numberOfPenniesInDenomination;
+  public int getDenominationCount(int pennies) {
+    return pennies / this.numberOfPenniesInDenomination;
+  }
+
+  public int getDollars(int count) {
+    return getPennies(count) / 100;
   }
 }

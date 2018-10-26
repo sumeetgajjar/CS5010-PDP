@@ -1,5 +1,6 @@
 package cs5010.register;
 
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,11 +9,22 @@ import java.util.stream.Collectors;
 
 import cs5010.register.bean.Denomination;
 import cs5010.register.bean.Transaction;
+import cs5010.register.bean.TransactionType;
 
 /**
  * Created by gajjar.s, on 1:37 PM, 10/26/18
  */
 public class SimpleRegister implements CashRegister {
+
+  private static final List<Denomination> DENOMINATION_ORDER = Arrays.asList(
+          Denomination.TENS,
+          Denomination.FIVES,
+          Denomination.ONES,
+          Denomination.QUARTER,
+          Denomination.DIMES,
+          Denomination.NICKELS,
+          Denomination.PENNIES
+  );
 
   private final List<Transaction> transactionList;
   private final Map<Denomination, Integer> cash;
@@ -34,8 +46,7 @@ public class SimpleRegister implements CashRegister {
    */
   @Override
   public void addPennies(int num) throws IllegalArgumentException {
-    checkIfAmountIsInvalid(num);
-    this.cash.put(Denomination.PENNIES, num);
+    this.addCash(Denomination.PENNIES, num);
   }
 
   /**
@@ -47,8 +58,7 @@ public class SimpleRegister implements CashRegister {
    */
   @Override
   public void addNickels(int num) throws IllegalArgumentException {
-    checkIfAmountIsInvalid(num);
-    this.cash.put(Denomination.NICKELS, num);
+    this.addCash(Denomination.NICKELS, num);
   }
 
   /**
@@ -60,8 +70,7 @@ public class SimpleRegister implements CashRegister {
    */
   @Override
   public void addDimes(int num) throws IllegalArgumentException {
-    checkIfAmountIsInvalid(num);
-    this.cash.put(Denomination.DIMES, num);
+    this.addCash(Denomination.DIMES, num);
   }
 
   /**
@@ -73,8 +82,7 @@ public class SimpleRegister implements CashRegister {
    */
   @Override
   public void addQuarters(int num) throws IllegalArgumentException {
-    checkIfAmountIsInvalid(num);
-    this.cash.put(Denomination.QUARTER, num);
+    this.addCash(Denomination.QUARTER, num);
   }
 
   /**
@@ -86,8 +94,7 @@ public class SimpleRegister implements CashRegister {
    */
   @Override
   public void addOnes(int num) throws IllegalArgumentException {
-    checkIfAmountIsInvalid(num);
-    this.cash.put(Denomination.ONES, num);
+    this.addCash(Denomination.ONES, num);
   }
 
   /**
@@ -99,8 +106,7 @@ public class SimpleRegister implements CashRegister {
    */
   @Override
   public void addFives(int num) throws IllegalArgumentException {
-    checkIfAmountIsInvalid(num);
-    this.cash.put(Denomination.FIVES, num);
+    this.addCash(Denomination.FIVES, num);
   }
 
   /**
@@ -112,8 +118,7 @@ public class SimpleRegister implements CashRegister {
    */
   @Override
   public void addTens(int num) throws IllegalArgumentException {
-    checkIfAmountIsInvalid(num);
-    this.cash.put(Denomination.TENS, num);
+    this.addCash(Denomination.TENS, num);
   }
 
   /**
@@ -139,13 +144,36 @@ public class SimpleRegister implements CashRegister {
    */
   @Override
   public Map<Integer, Integer> withdraw(int dollars, int cents) throws InsufficientCashException, IllegalArgumentException {
-    return null;
+    int givenAmountInPennies = (dollars * 100) + cents;
+
+    Map<Denomination, Integer> updatedCash = new EnumMap<>(Denomination.class);
+    Map<Denomination, Integer> withDrawl = new EnumMap<>(Denomination.class);
+
+    for (Denomination denomination : DENOMINATION_ORDER) {
+      int denominationCountInRegister = this.cash.getOrDefault(denomination, 0);
+      int denominationCountToBeGivenToUser = denomination.getDenominationCount(givenAmountInPennies);
+      int denominationCount = Math.min(denominationCountInRegister, denominationCountToBeGivenToUser);
+
+      if (denominationCount != 0) {
+        updatedCash.put(denomination, denominationCountInRegister - denominationCount);
+        withDrawl.put(denomination, denominationCount);
+        givenAmountInPennies = givenAmountInPennies - denomination.getPennies(denominationCount);
+      }
+    }
+
+    if (givenAmountInPennies == 0) {
+      for (Map.Entry<Denomination, Integer> entry : updatedCash.entrySet()) {
+        this.cash.put(entry.getKey(), entry.getValue());
+      }
+      return this.convertDenominationMap(withDrawl);
+    } else {
+      throw new InsufficientCashException("insufficient cash in the register");
+    }
   }
 
   @Override
   public Map<Integer, Integer> getContents() {
-    return this.cash.entrySet().stream()
-            .collect(Collectors.toMap(e -> e.getKey().getPennies(1), Map.Entry::getValue));
+    return convertDenominationMap(this.cash);
   }
 
   @Override
@@ -153,6 +181,24 @@ public class SimpleRegister implements CashRegister {
     return this.transactionList.stream()
             .map(Transaction::toString)
             .collect(Collectors.joining(System.lineSeparator()));
+  }
+
+  /**
+   * Adds the given denomination with given count in register. Throws {@link
+   * IllegalArgumentException} if the given amount is less than equal to zero.
+   *
+   * @param denomination the denomination type
+   * @param num          the given amount to check
+   * @throws IllegalArgumentException if the given amount is less than equal to zero
+   */
+  private void addCash(Denomination denomination, int num) throws IllegalArgumentException {
+    checkIfAmountIsInvalid(num);
+    this.transactionList.add(new Transaction(
+            TransactionType.DEPOSIT,
+            denomination.getDollars(num),
+            denomination.getPennies(num)));
+
+    this.cash.put(denomination, num);
   }
 
   /**
@@ -166,5 +212,16 @@ public class SimpleRegister implements CashRegister {
     if (num <= 0) {
       throw new IllegalArgumentException("invalid amount");
     }
+  }
+
+  /**
+   * Converts the given Map<Denomination,Integer> to Map<Integer,Integer>.
+   *
+   * @param map the given map to convert
+   * @return the converted map
+   */
+  private Map<Integer, Integer> convertDenominationMap(Map<Denomination, Integer> map) {
+    return map.entrySet().stream()
+            .collect(Collectors.toMap(e -> e.getKey().getPennies(1), Map.Entry::getValue));
   }
 }
