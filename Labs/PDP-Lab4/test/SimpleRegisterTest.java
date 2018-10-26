@@ -61,6 +61,20 @@ public class SimpleRegisterTest {
     expectedContents.put(500, 1);
     expectedContents.put(1000, 1);
 
+    String expectedAuditLog = String.format("%s: 0.01%s", TransactionType.DEPOSIT.getTypeString(),
+            System.lineSeparator());
+    expectedAuditLog += String.format("%s: 0.05%s", TransactionType.DEPOSIT.getTypeString(),
+            System.lineSeparator());
+    expectedAuditLog += String.format("%s: 0.10%s", TransactionType.DEPOSIT.getTypeString(),
+            System.lineSeparator());
+    expectedAuditLog += String.format("%s: 0.25%s", TransactionType.DEPOSIT.getTypeString(),
+            System.lineSeparator());
+    expectedAuditLog += String.format("%s: 1.00%s", TransactionType.DEPOSIT.getTypeString(),
+            System.lineSeparator());
+    expectedAuditLog += String.format("%s: 5.00%s", TransactionType.DEPOSIT.getTypeString(),
+            System.lineSeparator());
+    expectedAuditLog += String.format("%s: 10.00", TransactionType.DEPOSIT.getTypeString());
+
     this.cashRegister.addPennies(1);
     this.cashRegister.addNickels(1);
     this.cashRegister.addDimes(1);
@@ -69,12 +83,17 @@ public class SimpleRegisterTest {
     this.cashRegister.addFives(1);
     this.cashRegister.addTens(1);
 
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
+
     try {
       this.cashRegister.withdraw(16, 42);
       Assert.fail("should have failed");
     } catch (InsufficientCashException e) {
       Assert.assertEquals("insufficient cash in the register", e.getMessage());
     }
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
 
     try {
       this.cashRegister.withdraw(164, 2);
@@ -82,8 +101,8 @@ public class SimpleRegisterTest {
     } catch (InsufficientCashException e) {
       Assert.assertEquals("insufficient cash in the register", e.getMessage());
     }
-
     Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
   }
 
   @Test
@@ -197,48 +216,52 @@ public class SimpleRegisterTest {
     Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
     Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
 
+    expectedAuditLog += String.format("%s%s: 0.01%s", System.lineSeparator(),
+            TransactionType.WITHDRAWL.getTypeString(), System.lineSeparator());
     expectedContents.put(1, 9);
     Assert.assertEquals(Collections.singletonMap(1, 1), this.cashRegister.withdraw(0, 1));
     Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
 
+    expectedAuditLog += String.format("%s: 0.05%s", TransactionType.WITHDRAWL.getTypeString(),
+            System.lineSeparator());
     expectedContents.put(5, 9);
     Assert.assertEquals(Collections.singletonMap(5, 1), this.cashRegister.withdraw(0, 5));
     Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
 
+    expectedAuditLog += String.format("%s: 0.10%s", TransactionType.WITHDRAWL.getTypeString(),
+            System.lineSeparator());
     expectedContents.put(10, 9);
     Assert.assertEquals(Collections.singletonMap(10, 1), this.cashRegister.withdraw(0, 10));
     Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
 
+    expectedAuditLog += String.format("%s: 0.25%s", TransactionType.WITHDRAWL.getTypeString(),
+            System.lineSeparator());
     expectedContents.put(25, 9);
     Assert.assertEquals(Collections.singletonMap(25, 1), this.cashRegister.withdraw(0, 25));
     Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
 
+    expectedAuditLog += String.format("%s: 1.00%s", TransactionType.WITHDRAWL.getTypeString(),
+            System.lineSeparator());
     expectedContents.put(100, 9);
     Assert.assertEquals(Collections.singletonMap(100, 1), this.cashRegister.withdraw(1, 0));
     Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
 
+    expectedAuditLog += String.format("%s: 5.00%s", TransactionType.WITHDRAWL.getTypeString(),
+            System.lineSeparator());
     expectedContents.put(500, 9);
     Assert.assertEquals(Collections.singletonMap(500, 1), this.cashRegister.withdraw(5, 0));
     Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
 
+    expectedAuditLog += String.format("%s: 10.00", TransactionType.WITHDRAWL.getTypeString());
     expectedContents.put(1000, 9);
     Assert.assertEquals(Collections.singletonMap(1000, 1), this.cashRegister.withdraw(10, 0));
     Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
-
-    expectedAuditLog += String.format("%s%s: 0.01%s", System.lineSeparator(),
-            TransactionType.WITHDRAWL.getTypeString(), System.lineSeparator());
-    expectedAuditLog += String.format("%s: 0.05%s", TransactionType.WITHDRAWL.getTypeString(),
-            System.lineSeparator());
-    expectedAuditLog += String.format("%s: 0.10%s", TransactionType.WITHDRAWL.getTypeString(),
-            System.lineSeparator());
-    expectedAuditLog += String.format("%s: 0.25%s", TransactionType.WITHDRAWL.getTypeString(),
-            System.lineSeparator());
-    expectedAuditLog += String.format("%s: 1.00%s", TransactionType.WITHDRAWL.getTypeString(),
-            System.lineSeparator());
-    expectedAuditLog += String.format("%s: 5.00%s", TransactionType.WITHDRAWL.getTypeString(),
-            System.lineSeparator());
-    expectedAuditLog += String.format("%s: 10.00", TransactionType.WITHDRAWL.getTypeString());
-
     Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
   }
 
@@ -277,33 +300,54 @@ public class SimpleRegisterTest {
   public void testAddingMultipleCashDenominationToRegister() {
     Map<Integer, Integer> expectedContents = new HashMap<>();
 
-    expectedContents.put(1, 11221);
-    this.cashRegister.addPennies(11221);
-    Assert.assertEquals(expectedContents, this.cashRegister.getContents());
+    String expectedAuditLog = String.format("%s: 0.10%s", TransactionType.DEPOSIT.getTypeString(),
+            System.lineSeparator());
 
-    expectedContents.put(5, Denomination.NICKELS.getPennies(11221));
-    this.cashRegister.addNickels(11221);
-    Assert.assertEquals(expectedContents, this.cashRegister.getContents());
+    expectedContents.put(1, 10);
+    this.cashRegister.addPennies(10);
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
 
-    expectedContents.put(10, Denomination.DIMES.getPennies(11221));
-    this.cashRegister.addDimes(11221);
-    Assert.assertEquals(expectedContents, this.cashRegister.getContents());
+    expectedAuditLog += String.format("%s: 0.50%s", TransactionType.DEPOSIT.getTypeString(),
+            System.lineSeparator());
+    expectedContents.put(5, Denomination.NICKELS.getPennies(10));
+    this.cashRegister.addNickels(10);
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
 
-    expectedContents.put(25, Denomination.QUARTER.getPennies(11221));
-    this.cashRegister.addQuarters(11221);
-    Assert.assertEquals(expectedContents, this.cashRegister.getContents());
+    expectedAuditLog += String.format("%s: 1.00%s", TransactionType.DEPOSIT.getTypeString(),
+            System.lineSeparator());
+    expectedContents.put(10, Denomination.DIMES.getPennies(10));
+    this.cashRegister.addDimes(10);
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
 
-    expectedContents.put(100, Denomination.ONES.getPennies(11221));
-    this.cashRegister.addOnes(11221);
-    Assert.assertEquals(expectedContents, this.cashRegister.getContents());
+    expectedAuditLog += String.format("%s: 2.50%s", TransactionType.DEPOSIT.getTypeString(),
+            System.lineSeparator());
+    expectedContents.put(25, Denomination.QUARTER.getPennies(10));
+    this.cashRegister.addQuarters(10);
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
 
-    expectedContents.put(500, Denomination.FIVES.getPennies(11221));
-    this.cashRegister.addFives(11221);
-    Assert.assertEquals(expectedContents, this.cashRegister.getContents());
+    expectedAuditLog += String.format("%s: 10.00%s", TransactionType.DEPOSIT.getTypeString(),
+            System.lineSeparator());
+    expectedContents.put(100, Denomination.ONES.getPennies(10));
+    this.cashRegister.addOnes(10);
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
 
-    expectedContents.put(1000, Denomination.TENS.getPennies(11221));
-    this.cashRegister.addTens(11221);
-    Assert.assertEquals(expectedContents, this.cashRegister.getContents());
+    expectedAuditLog += String.format("%s: 50.00%s", TransactionType.DEPOSIT.getTypeString(),
+            System.lineSeparator());
+    expectedContents.put(500, Denomination.FIVES.getPennies(10));
+    this.cashRegister.addFives(10);
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
+
+    expectedAuditLog += String.format("%s: 100.00", TransactionType.DEPOSIT.getTypeString());
+    expectedContents.put(1000, Denomination.TENS.getPennies(10));
+    this.cashRegister.addTens(10);
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
   }
 
   @Test
