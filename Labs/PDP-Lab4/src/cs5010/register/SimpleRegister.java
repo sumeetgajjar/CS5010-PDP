@@ -1,11 +1,12 @@
 package cs5010.register;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import cs5010.register.bean.Denomination;
 import cs5010.register.bean.Transaction;
 
 /**
@@ -14,14 +15,14 @@ import cs5010.register.bean.Transaction;
 public class SimpleRegister implements CashRegister {
 
   private final List<Transaction> transactionList;
-  private final Map<Integer, Integer> cash;
+  private final Map<Denomination, Integer> cash;
 
   /**
    * Constructs a {@link SimpleRegister} object.
    */
   public SimpleRegister() {
     transactionList = new LinkedList<>();
-    cash = new HashMap<>();
+    cash = new EnumMap<>(Denomination.class);
   }
 
   @Override
@@ -66,7 +67,8 @@ public class SimpleRegister implements CashRegister {
 
   @Override
   public Map<Integer, Integer> getContents() {
-    return new HashMap<>(this.cash);
+    return this.cash.entrySet().stream()
+            .collect(Collectors.toMap(e -> e.getKey().getPennies(1), Map.Entry::getValue));
   }
 
   @Override
