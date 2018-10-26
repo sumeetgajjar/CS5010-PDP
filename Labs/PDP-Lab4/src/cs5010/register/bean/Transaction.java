@@ -1,7 +1,7 @@
 package cs5010.register.bean;
 
 /**
- * Created by gajjar.s, on 1:56 PM, 10/26/18
+ * This class represents a {@link Transaction} that is processed by the Cash Register.
  */
 public class Transaction {
 
@@ -9,13 +9,21 @@ public class Transaction {
   private final int dollars;
   private final int pennies;
 
+  /**
+   * Constructs a {@link Transaction} with the given params.
+   *
+   * @param transactionType the type of transaction
+   * @param dollars         the dollar amount in transaction
+   * @param pennies         the cent amount in transaction
+   */
   public Transaction(TransactionType transactionType, int dollars, int pennies) {
     this.transactionType = transactionType;
     this.dollars = dollars;
     this.pennies = pennies;
   }
 
-  public String getFormattedString() {
+  @Override
+  public String toString() {
     double dollars = this.dollars + (this.pennies / 100D);
     return String.format("%s: %.2f", this.transactionType.getTypeString(), dollars);
   }

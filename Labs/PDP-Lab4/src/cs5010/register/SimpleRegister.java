@@ -183,7 +183,7 @@ public class SimpleRegister implements CashRegister {
   @Override
   public String getAuditLog() {
     return this.transactionList.stream()
-            .map(Transaction::getFormattedString)
+            .map(Transaction::toString)
             .collect(Collectors.joining(System.lineSeparator()));
   }
 
