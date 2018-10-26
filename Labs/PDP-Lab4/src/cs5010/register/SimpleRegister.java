@@ -8,37 +8,37 @@ import java.util.Map;
 public class SimpleRegister implements CashRegister {
 
   @Override
-  public void addPennies(int num) {
+  public void addPennies(int num) throws IllegalArgumentException {
 
   }
 
   @Override
-  public void addNickels(int num) {
+  public void addNickels(int num) throws IllegalArgumentException {
 
   }
 
   @Override
-  public void addDimes(int num) {
+  public void addDimes(int num) throws IllegalArgumentException {
 
   }
 
   @Override
-  public void addQuarters(int num) {
+  public void addQuarters(int num) throws IllegalArgumentException {
 
   }
 
   @Override
-  public void addOnes(int num) {
+  public void addOnes(int num) throws IllegalArgumentException {
 
   }
 
   @Override
-  public void addFives(int num) {
+  public void addFives(int num) throws IllegalArgumentException {
 
   }
 
   @Override
-  public void addTens(int num) {
+  public void addTens(int num) throws IllegalArgumentException {
 
   }
 

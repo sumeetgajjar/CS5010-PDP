@@ -16,6 +16,7 @@ public class Transaction {
   }
 
   public String getFomattedString() {
-    return String.format("%s: %d.%d", this.transactionType.getTypeString(), this.dollars, this.pennies);
+    double dollars = this.dollars + (this.pennies / 100D);
+    return String.format("%s: %.2f", this.transactionType.getTypeString(), dollars);
   }
 }
