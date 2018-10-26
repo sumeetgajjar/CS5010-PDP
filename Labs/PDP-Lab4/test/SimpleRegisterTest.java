@@ -27,7 +27,7 @@ public class SimpleRegisterTest {
   }
 
   @Test
-  public void testInitializationOfCashRegister() {
+  public void testInitializationOfCashRegister() throws InsufficientCashException {
     Assert.assertEquals("", this.cashRegister.getAuditLog());
     Assert.assertEquals(0, this.cashRegister.getContents().size());
 
@@ -36,6 +36,44 @@ public class SimpleRegisterTest {
     } catch (InsufficientCashException e) {
       Assert.assertEquals("insufficient cash in the register", e.getMessage());
     }
+
+    this.cashRegister.addTens(10);
+    Assert.assertEquals(Collections.singletonMap(1000, 10), this.cashRegister.getContents());
+
+    this.cashRegister.withdraw(2, 0);
+    Assert.assertEquals(Collections.singletonMap(1000, 8), this.cashRegister.getContents());
+
+    String expectedAuditLog = TransactionType.DEPOSIT.getTypeString() + ": 100.00" + System.lineSeparator();
+    expectedAuditLog += TransactionType.WITHDRAWL.getTypeString() + ": 20.00" + System.lineSeparator();
+
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
+  }
+
+  @Test
+  public void testWithdrawMethod() {
+    this.cashRegister.addPennies(10);
+    this.cashRegister.addNickels(10);
+    this.cashRegister.addDimes(10);
+    this.cashRegister.addQuarters(10);
+    this.cashRegister.addOnes(10);
+    this.cashRegister.addFives(10);
+    this.cashRegister.addTens(10);
+
+    String expectedAuditLog = String.format("%s: 0.10%s", TransactionType.DEPOSIT.getTypeString(),
+            System.lineSeparator());
+    expectedAuditLog += String.format("%s: 0.50%s", TransactionType.DEPOSIT.getTypeString(),
+            System.lineSeparator());
+    expectedAuditLog += String.format("%s: 1.00%s", TransactionType.DEPOSIT.getTypeString(),
+            System.lineSeparator());
+    expectedAuditLog += String.format("%s: 2.50%s", TransactionType.DEPOSIT.getTypeString(),
+            System.lineSeparator());
+    expectedAuditLog += String.format("%s: 10.00%s", TransactionType.DEPOSIT.getTypeString(),
+            System.lineSeparator());
+    expectedAuditLog += String.format("%s: 50.00%s", TransactionType.DEPOSIT.getTypeString(),
+            System.lineSeparator());
+    expectedAuditLog += String.format("%s: 100.00", TransactionType.DEPOSIT.getTypeString());
+
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
   }
 
   @Test
