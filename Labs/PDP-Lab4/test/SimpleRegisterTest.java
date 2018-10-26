@@ -57,6 +57,60 @@ public class SimpleRegisterTest {
   }
 
   @Test
+  public void testChangingReturnedMapDoesNotAffectSimpleRegister() {
+    Map<Integer, Integer> expectedContents = new HashMap<>();
+
+    this.cashRegister.addPennies(10);
+    expectedContents.put(1, 10);
+    Map<Integer, Integer> contents = this.cashRegister.getContents();
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, contents));
+    contents.put(1, 1000);
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+
+    this.cashRegister.addNickels(10);
+    expectedContents.put(5, 10);
+    contents = this.cashRegister.getContents();
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, contents));
+    contents.put(5, 1000);
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+
+    this.cashRegister.addDimes(10);
+    expectedContents.put(10, 10);
+    contents = this.cashRegister.getContents();
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, contents));
+    contents.put(10, 1000);
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+
+    this.cashRegister.addQuarters(10);
+    expectedContents.put(25, 10);
+    contents = this.cashRegister.getContents();
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, contents));
+    contents.put(25, 1000);
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+
+    this.cashRegister.addOnes(10);
+    expectedContents.put(100, 10);
+    contents = this.cashRegister.getContents();
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, contents));
+    contents.put(100, 1000);
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+
+    this.cashRegister.addFives(10);
+    expectedContents.put(500, 10);
+    contents = this.cashRegister.getContents();
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, contents));
+    contents.put(500, 1000);
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+
+    this.cashRegister.addTens(10);
+    expectedContents.put(1000, 10);
+    contents = this.cashRegister.getContents();
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, contents));
+    contents.put(1000, 1000);
+    Assert.assertTrue(Utils.areMapEqual(expectedContents, this.cashRegister.getContents()));
+  }
+
+  @Test
   public void testWithDrawAmountInMultipleDenominations() throws InsufficientCashException {
     this.cashRegister.addPennies(10);
     this.cashRegister.addNickels(10);
