@@ -143,7 +143,9 @@ public class SimpleRegister implements CashRegister {
    * @throws IllegalArgumentException  if the given params are less than or equal to zero
    */
   @Override
-  public Map<Integer, Integer> withdraw(int dollars, int cents) throws InsufficientCashException, IllegalArgumentException {
+  public Map<Integer, Integer> withdraw(int dollars, int cents)
+          throws InsufficientCashException, IllegalArgumentException {
+
     checkIfWithdrawlAmountIsInvalid(dollars, cents);
     int givenAmountInPennies = (dollars * 100) + cents;
 
@@ -181,7 +183,7 @@ public class SimpleRegister implements CashRegister {
   @Override
   public String getAuditLog() {
     return this.transactionList.stream()
-            .map(Transaction::getFomattedString)
+            .map(Transaction::getFormattedString)
             .collect(Collectors.joining(System.lineSeparator()));
   }
 

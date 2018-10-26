@@ -15,7 +15,7 @@ public class Transaction {
     this.pennies = pennies;
   }
 
-  public String getFomattedString() {
+  public String getFormattedString() {
     double dollars = this.dollars + (this.pennies / 100D);
     return String.format("%s: %.2f", this.transactionType.getTypeString(), dollars);
   }
