@@ -373,28 +373,28 @@ public class SimpleRegisterTest {
       this.cashRegister.withdraw(0, 0);
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("invalid withdrawal amount", e.getMessage());
+      Assert.assertEquals("invalid amount", e.getMessage());
     }
 
     try {
       this.cashRegister.withdraw(-1, 10);
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("invalid withdrawal amount", e.getMessage());
+      Assert.assertEquals("invalid amount", e.getMessage());
     }
 
     try {
       this.cashRegister.withdraw(10, -10);
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("invalid withdrawal amount", e.getMessage());
+      Assert.assertEquals("invalid amount", e.getMessage());
     }
 
     try {
       this.cashRegister.withdraw(-1, -10);
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
-      Assert.assertEquals("invalid withdrawal amount", e.getMessage());
+      Assert.assertEquals("invalid amount", e.getMessage());
     }
   }
 
@@ -574,7 +574,7 @@ public class SimpleRegisterTest {
         this.cashRegister.addPennies(i);
         Assert.fail("should have failed");
       } catch (IllegalArgumentException e) {
-        Assert.assertEquals("invalid deposit amount", e.getMessage());
+        Assert.assertEquals("invalid amount", e.getMessage());
         Assert.assertEquals(0, this.cashRegister.getContents().size());
         Assert.assertEquals("", this.cashRegister.getAuditLog());
       }
@@ -583,7 +583,7 @@ public class SimpleRegisterTest {
         this.cashRegister.addNickels(i);
         Assert.fail("should have failed");
       } catch (IllegalArgumentException e) {
-        Assert.assertEquals("invalid deposit amount", e.getMessage());
+        Assert.assertEquals("invalid amount", e.getMessage());
         Assert.assertEquals(0, this.cashRegister.getContents().size());
         Assert.assertEquals("", this.cashRegister.getAuditLog());
       }
@@ -592,7 +592,7 @@ public class SimpleRegisterTest {
         this.cashRegister.addDimes(i);
         Assert.fail("should have failed");
       } catch (IllegalArgumentException e) {
-        Assert.assertEquals("invalid deposit amount", e.getMessage());
+        Assert.assertEquals("invalid amount", e.getMessage());
         Assert.assertEquals(0, this.cashRegister.getContents().size());
         Assert.assertEquals("", this.cashRegister.getAuditLog());
       }
@@ -601,7 +601,7 @@ public class SimpleRegisterTest {
         this.cashRegister.addQuarters(i);
         Assert.fail("should have failed");
       } catch (IllegalArgumentException e) {
-        Assert.assertEquals("invalid deposit amount", e.getMessage());
+        Assert.assertEquals("invalid amount", e.getMessage());
         Assert.assertEquals(0, this.cashRegister.getContents().size());
         Assert.assertEquals("", this.cashRegister.getAuditLog());
       }
@@ -610,7 +610,7 @@ public class SimpleRegisterTest {
         this.cashRegister.addOnes(i);
         Assert.fail("should have failed");
       } catch (IllegalArgumentException e) {
-        Assert.assertEquals("invalid deposit amount", e.getMessage());
+        Assert.assertEquals("invalid amount", e.getMessage());
         Assert.assertEquals(0, this.cashRegister.getContents().size());
         Assert.assertEquals("", this.cashRegister.getAuditLog());
       }
@@ -619,7 +619,7 @@ public class SimpleRegisterTest {
         this.cashRegister.addFives(i);
         Assert.fail("should have failed");
       } catch (IllegalArgumentException e) {
-        Assert.assertEquals("invalid deposit amount", e.getMessage());
+        Assert.assertEquals("invalid amount", e.getMessage());
         Assert.assertEquals(0, this.cashRegister.getContents().size());
         Assert.assertEquals("", this.cashRegister.getAuditLog());
       }
@@ -628,7 +628,7 @@ public class SimpleRegisterTest {
         this.cashRegister.addTens(i);
         Assert.fail("should have failed");
       } catch (IllegalArgumentException e) {
-        Assert.assertEquals("invalid deposit amount", e.getMessage());
+        Assert.assertEquals("invalid amount", e.getMessage());
         Assert.assertEquals(0, this.cashRegister.getContents().size());
         Assert.assertEquals("", this.cashRegister.getAuditLog());
       }
