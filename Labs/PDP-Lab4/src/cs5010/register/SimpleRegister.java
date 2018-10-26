@@ -165,7 +165,7 @@ public class SimpleRegister implements CashRegister {
     }
 
     if (givenAmountInPennies == 0) {
-      this.transactionList.add(new Transaction(TransactionType.WITHDRAWL, dollars, cents));
+      this.transactionList.add(new Transaction(TransactionType.WITHDRAW, dollars, cents));
       for (Map.Entry<Denomination, Integer> entry : updatedCash.entrySet()) {
         this.cash.put(entry.getKey(), entry.getValue());
       }

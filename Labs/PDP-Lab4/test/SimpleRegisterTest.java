@@ -14,7 +14,7 @@ import cs5010.register.SimpleRegister;
 import cs5010.register.bean.TransactionType;
 
 /**
- * A Junit class to Test {@link cs5010.register.SimpleRegister}
+ * A Junit class to Test {@link cs5010.register.SimpleRegister}.
  */
 public class SimpleRegisterTest {
 
@@ -51,7 +51,7 @@ public class SimpleRegisterTest {
     String expectedAuditLog = String.format("%s: 100.00%s",
             TransactionType.DEPOSIT.getTypeString(), System.lineSeparator());
 
-    expectedAuditLog += String.format("%s: 20.00", TransactionType.WITHDRAWL.getTypeString());
+    expectedAuditLog += String.format("%s: 20.00", TransactionType.WITHDRAW.getTypeString());
 
     Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
   }
@@ -319,49 +319,49 @@ public class SimpleRegisterTest {
     Assert.assertEquals(expectedContents, this.cashRegister.getContents());
 
     expectedAuditLog += String.format("%s%s: 0.01", System.lineSeparator(),
-            TransactionType.WITHDRAWL.getTypeString());
+            TransactionType.WITHDRAW.getTypeString());
     expectedContents.put(1, 9);
     Assert.assertEquals(Collections.singletonMap(1, 1), this.cashRegister.withdraw(0, 1));
     Assert.assertEquals(expectedContents, this.cashRegister.getContents());
     Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
 
     expectedAuditLog += String.format("%s%s: 0.05", System.lineSeparator(),
-            TransactionType.WITHDRAWL.getTypeString());
+            TransactionType.WITHDRAW.getTypeString());
     expectedContents.put(5, 9);
     Assert.assertEquals(Collections.singletonMap(5, 1), this.cashRegister.withdraw(0, 5));
     Assert.assertEquals(expectedContents, this.cashRegister.getContents());
     Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
 
     expectedAuditLog += String.format("%s%s: 0.10", System.lineSeparator(),
-            TransactionType.WITHDRAWL.getTypeString());
+            TransactionType.WITHDRAW.getTypeString());
     expectedContents.put(10, 9);
     Assert.assertEquals(Collections.singletonMap(10, 1), this.cashRegister.withdraw(0, 10));
     Assert.assertEquals(expectedContents, this.cashRegister.getContents());
     Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
 
     expectedAuditLog += String.format("%s%s: 0.25", System.lineSeparator(),
-            TransactionType.WITHDRAWL.getTypeString());
+            TransactionType.WITHDRAW.getTypeString());
     expectedContents.put(25, 9);
     Assert.assertEquals(Collections.singletonMap(25, 1), this.cashRegister.withdraw(0, 25));
     Assert.assertEquals(expectedContents, this.cashRegister.getContents());
     Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
 
     expectedAuditLog += String.format("%s%s: 1.00", System.lineSeparator(),
-            TransactionType.WITHDRAWL.getTypeString());
+            TransactionType.WITHDRAW.getTypeString());
     expectedContents.put(100, 9);
     Assert.assertEquals(Collections.singletonMap(100, 1), this.cashRegister.withdraw(1, 0));
     Assert.assertEquals(expectedContents, this.cashRegister.getContents());
     Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
 
     expectedAuditLog += String.format("%s%s: 5.00", System.lineSeparator(),
-            TransactionType.WITHDRAWL.getTypeString());
+            TransactionType.WITHDRAW.getTypeString());
     expectedContents.put(500, 9);
     Assert.assertEquals(Collections.singletonMap(500, 1), this.cashRegister.withdraw(5, 0));
     Assert.assertEquals(expectedContents, this.cashRegister.getContents());
     Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
 
     expectedAuditLog += String.format("%s%s: 10.00", System.lineSeparator(),
-            TransactionType.WITHDRAWL.getTypeString());
+            TransactionType.WITHDRAW.getTypeString());
     expectedContents.put(1000, 9);
     Assert.assertEquals(Collections.singletonMap(1000, 1), this.cashRegister.withdraw(10, 0));
     Assert.assertEquals(expectedContents, this.cashRegister.getContents());
