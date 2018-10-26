@@ -144,6 +144,7 @@ public class SimpleRegister implements CashRegister {
    */
   @Override
   public Map<Integer, Integer> withdraw(int dollars, int cents) throws InsufficientCashException, IllegalArgumentException {
+    checkIfWithdrawlAmountIsInvalid(dollars, cents);
     int givenAmountInPennies = (dollars * 100) + cents;
 
     Map<Denomination, Integer> updatedCash = new EnumMap<>(Denomination.class);
@@ -162,6 +163,7 @@ public class SimpleRegister implements CashRegister {
     }
 
     if (givenAmountInPennies == 0) {
+      this.transactionList.add(new Transaction(TransactionType.WITHDRAWL, dollars, cents));
       for (Map.Entry<Denomination, Integer> entry : updatedCash.entrySet()) {
         this.cash.put(entry.getKey(), entry.getValue());
       }
@@ -179,7 +181,7 @@ public class SimpleRegister implements CashRegister {
   @Override
   public String getAuditLog() {
     return this.transactionList.stream()
-            .map(Transaction::toString)
+            .map(Transaction::getFomattedString)
             .collect(Collectors.joining(System.lineSeparator()));
   }
 
@@ -192,11 +194,10 @@ public class SimpleRegister implements CashRegister {
    * @throws IllegalArgumentException if the given amount is less than equal to zero
    */
   private void addCash(Denomination denomination, int num) throws IllegalArgumentException {
-    checkIfAmountIsInvalid(num);
-    this.transactionList.add(new Transaction(
-            TransactionType.DEPOSIT,
-            denomination.getDollars(num),
-            denomination.getPennies(num)));
+    checkIfDepositDenominationCountIsInvalid(num);
+    int dollars = denomination.getDollars(num);
+    int pennies = denomination.getPennies(num) - Denomination.ONES.getPennies(dollars);
+    this.transactionList.add(new Transaction(TransactionType.DEPOSIT, dollars, pennies));
 
     this.cash.put(denomination, num);
   }
@@ -205,12 +206,30 @@ public class SimpleRegister implements CashRegister {
    * Checks if the given amount is invalid. It throws IllegalArgumentException if the given amount
    * is less than equal to zero.
    *
-   * @param num the given amount to check
+   * @param denominationCount the given amount to check
    * @throws IllegalArgumentException if the given amount is less than equal to zero
    */
-  private void checkIfAmountIsInvalid(int num) throws IllegalArgumentException {
-    if (num <= 0) {
-      throw new IllegalArgumentException("invalid amount");
+  private void checkIfDepositDenominationCountIsInvalid(int denominationCount) throws IllegalArgumentException {
+    if (denominationCount <= 0) {
+      throw new IllegalArgumentException("invalid deposit amount");
+    }
+  }
+
+  /**
+   * Checks if the given amount to withdraw is valid. Throws {@link IllegalArgumentException} if any
+   * of the given param is less than zero or both the params are zero.
+   *
+   * @param dollars dollars
+   * @param cents   cents
+   * @throws IllegalArgumentException if the given amount to withdraw is invalid
+   */
+  private void checkIfWithdrawlAmountIsInvalid(int dollars, int cents) throws IllegalArgumentException {
+    if (dollars < 0 || cents < 0) {
+      throw new IllegalArgumentException("invalid withdraw amount");
+    }
+
+    if (dollars == 0 && cents == 0) {
+      throw new IllegalArgumentException("invalid withdraw amount");
     }
   }
 
