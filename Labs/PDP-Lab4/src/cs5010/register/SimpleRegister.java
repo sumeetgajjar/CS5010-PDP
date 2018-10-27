@@ -156,9 +156,9 @@ public class SimpleRegister implements CashRegister {
    * denomination such that their value is less than required value. 3. Take that many notes/coins
    * out of the cash register, and reduce the required value by the appropriate amount. 4. If the
    * required value is greater than 0 and there is a lesser denomination, go to step 2. 5. If there
-   * are no more denominations, throw an exception because the amount cannot be dispensed with what
-   * the register contains. It throws an {@link IllegalArgumentException} is the given amount is
-   * less than equal to zero.
+   * are no more denominations, throw an {@link InsufficientCashException} because the amount cannot
+   * be dispensed with what the register contains. It throws an {@link IllegalArgumentException} is
+   * the given amount is less than equal to zero.
    *
    * @param dollars the dollar amount to be withdrawn
    * @param cents   the cent amount to be withdrawn
