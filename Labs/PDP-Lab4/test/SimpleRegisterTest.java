@@ -201,10 +201,17 @@ public class SimpleRegisterTest {
   }
 
   @Test
-  public void testCurrencyPrecisionInAuditLog() {
+  public void testCurrencyPrecisionInAuditLog() throws InsufficientCashException {
+    String expectedAuditedLog = String.format("%s: 123.45", TransactionType.DEPOSIT.getTypeString());
+
     this.cashRegister.addPennies(12345);
-    Assert.assertEquals(String.format("%s: 123.45", TransactionType.DEPOSIT.getTypeString()),
-            this.cashRegister.getAuditLog());
+    Assert.assertEquals(expectedAuditedLog, this.cashRegister.getAuditLog());
+
+    expectedAuditedLog += String.format("%s%s: 11.00", System.lineSeparator(),
+            TransactionType.WITHDRAW.getTypeString());
+    Assert.assertEquals(Collections.singletonMap(1, 1100), this.cashRegister.withdraw(9, 200));
+    Assert.assertEquals(expectedAuditedLog, this.cashRegister.getAuditLog());
+    Assert.assertEquals(Collections.singletonMap(1, 11245), this.cashRegister.getContents());
   }
 
   @Test
@@ -366,6 +373,12 @@ public class SimpleRegisterTest {
     Assert.assertEquals(Collections.singletonMap(1000, 1), this.cashRegister.withdraw(10, 0));
     Assert.assertEquals(expectedContents, this.cashRegister.getContents());
     Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
+  }
+
+  @Test
+  public void testWithdrawCentsGreaterThan100() throws InsufficientCashException {
+    this.cashRegister.addPennies(500);
+    Assert.assertEquals(Collections.singletonMap(1, 400), this.cashRegister.withdraw(1, 300));
   }
 
   @Test
