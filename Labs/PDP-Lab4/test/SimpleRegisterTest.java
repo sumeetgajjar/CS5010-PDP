@@ -202,7 +202,8 @@ public class SimpleRegisterTest {
 
   @Test
   public void testCurrencyPrecisionInAuditLog() throws InsufficientCashException {
-    String expectedAuditedLog = String.format("%s: 123.45", TransactionType.DEPOSIT.getTypeString());
+    String expectedAuditedLog = String.format("%s: 123.45",
+            TransactionType.DEPOSIT.getTypeString());
 
     this.cashRegister.addPennies(12345);
     Assert.assertEquals(expectedAuditedLog, this.cashRegister.getAuditLog());
