@@ -200,6 +200,13 @@ public class SimpleRegister implements CashRegister {
     }
   }
 
+  /**
+   * Return the contents of this register as a map of &lt; value of coin/bill in cents,number of
+   * coins/bills &gt;. The map will only contain coin/bill with non-zero count in the register. If
+   * the cash register is empty it will return an empty map.
+   *
+   * @return the contents of this register as a map
+   */
   @Override
   public Map<Integer, Integer> getContents() {
     return convertDenominationMap(this.cash);
@@ -280,8 +287,9 @@ public class SimpleRegister implements CashRegister {
    */
   private Map<Integer, Integer> convertDenominationMap(Map<Denomination, Long> map) {
     return map.entrySet().stream()
+            .filter(e -> e.getValue() != 0)
             .collect(Collectors.toMap(
-                e -> Math.toIntExact(e.getKey().getPennies(1)),
-                e -> Math.toIntExact(e.getValue())));
+                    e -> Math.toIntExact(e.getKey().getPennies(1)),
+                    e -> Math.toIntExact(e.getValue())));
   }
 }

@@ -122,15 +122,6 @@ public class SimpleRegisterTest {
     this.cashRegister.addFives(10);
     this.cashRegister.addTens(10);
 
-    Map<Integer, Integer> expectedContents = new HashMap<>();
-    expectedContents.put(1, 14);
-    expectedContents.put(5, 10);
-    expectedContents.put(10, 10);
-    expectedContents.put(25, 10);
-    expectedContents.put(100, 10);
-    expectedContents.put(500, 10);
-    expectedContents.put(1000, 10);
-
     Map<Integer, Integer> expectedWithdrawAmount = new HashMap<>();
     expectedWithdrawAmount.put(1, 2);
     Assert.assertEquals(expectedWithdrawAmount, this.cashRegister.withdraw(0, 2));
@@ -601,6 +592,28 @@ public class SimpleRegisterTest {
     }
   }
 
+  @Test
+  public void testMultipleDepositsMultipleWithdraws() throws InsufficientCashException {
+    Map<Integer, Integer> expectedContents = new HashMap<>();
+
+    String expectedAuditLog = String.format("%s: 0.01", TransactionType.DEPOSIT.getTypeString());
+    expectedAuditLog += String.format("%s%s: 0.01", System.lineSeparator(),
+            TransactionType.DEPOSIT.getTypeString());
+    expectedContents.put(1, 2);
+    this.cashRegister.addPennies(1);
+    this.cashRegister.addPennies(1);
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
+    Assert.assertEquals(expectedContents, this.cashRegister.getContents());
+
+    expectedAuditLog += String.format("%s%s: 0.01", System.lineSeparator(),
+            TransactionType.WITHDRAW.getTypeString());
+    expectedAuditLog += String.format("%s%s: 0.01", System.lineSeparator(),
+            TransactionType.WITHDRAW.getTypeString());
+    this.cashRegister.withdraw(0, 1);
+    this.cashRegister.withdraw(0, 1);
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
+    Assert.assertEquals(Collections.emptyMap(), this.cashRegister.getContents());
+  }
 
   @Test
   public void testAddingTens() {
