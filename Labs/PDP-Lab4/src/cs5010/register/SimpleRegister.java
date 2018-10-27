@@ -12,10 +12,14 @@ import cs5010.register.bean.Transaction;
 import cs5010.register.bean.TransactionType;
 
 /**
- * Created by gajjar.s, on 1:37 PM, 10/26/18
+ * This class represents a {@link SimpleRegister}. It implements {@link CashRegister} interface.
  */
 public class SimpleRegister implements CashRegister {
 
+  /**
+   * The order in which the denominations will be selected for dispensing the given withdraw
+   * amount.
+   */
   private static final List<Denomination> DENOMINATION_ORDER = Arrays.asList(
           Denomination.TENS,
           Denomination.FIVES,
@@ -39,85 +43,106 @@ public class SimpleRegister implements CashRegister {
 
   /**
    * Add pennies to the register. It throws {@link IllegalArgumentException} if the given amount is
-   * less than equal to zero.
+   * less than equal to zero. It throws {@link ArithmeticException} if the total number of pennies
+   * in the register exceeds the  {@link Integer} limit after addition of the given number.
    *
    * @param num number of pennies to be added
    * @throws IllegalArgumentException if the given amount is less than equal to zero
+   * @throws ArithmeticException      if the total number of pennies in the register exceeds the
+   *                                  {@link Integer} limit after the addition of given number
    */
   @Override
-  public void addPennies(int num) throws IllegalArgumentException {
+  public void addPennies(int num) throws IllegalArgumentException, ArithmeticException {
     this.addCash(Denomination.PENNIES, num);
   }
 
   /**
    * Add nickels to the register. It throws {@link IllegalArgumentException} if the given amount is
-   * less than equal to zero.
+   * less than equal to zero. It throws {@link ArithmeticException} if the total number of nickels
+   * in the register exceeds the  {@link Integer} limit after addition of the given number.
    *
    * @param num number of nickels to be added
    * @throws IllegalArgumentException if the given amount is less than equal to zero
+   * @throws ArithmeticException      if the total number of nickels in the register exceeds the
+   *                                  {@link Integer} limit after the addition of given number
    */
   @Override
-  public void addNickels(int num) throws IllegalArgumentException {
+  public void addNickels(int num) throws IllegalArgumentException, ArithmeticException {
     this.addCash(Denomination.NICKELS, num);
   }
 
   /**
    * Add dimes to the register. It throws {@link IllegalArgumentException} if the given amount is
-   * less than equal to zero.
+   * less than equal to zero. It throws {@link ArithmeticException} if the total number of dimes in
+   * the register exceeds the  {@link Integer} limit after addition of the given number.
    *
    * @param num number of dimes to be added
    * @throws IllegalArgumentException if the given amount is less than equal to zero
+   * @throws ArithmeticException      if the total number of dimes in the register exceeds the
+   *                                  {@link Integer} limit after the addition of given number
    */
   @Override
-  public void addDimes(int num) throws IllegalArgumentException {
+  public void addDimes(int num) throws IllegalArgumentException, ArithmeticException {
     this.addCash(Denomination.DIMES, num);
   }
 
   /**
    * Add quarters to the register. It throws {@link IllegalArgumentException} if the given amount is
-   * less than equal to zero.
+   * less than equal to zero. It throws {@link ArithmeticException} if the total number of quarters
+   * in the register exceeds the  {@link Integer} limit after addition of the given number.
    *
    * @param num number of quarters to be added
    * @throws IllegalArgumentException if the given amount is less than equal to zero
+   * @throws ArithmeticException      if the total number of quarters in the register exceeds the
+   *                                  {@link Integer} limit after the addition of given number
    */
   @Override
-  public void addQuarters(int num) throws IllegalArgumentException {
+  public void addQuarters(int num) throws IllegalArgumentException, ArithmeticException {
     this.addCash(Denomination.QUARTER, num);
   }
 
   /**
    * Add one-dollar bills to the register. It throws {@link IllegalArgumentException} if the given
-   * amount is less than equal to zero.
+   * amount is less than equal to zero. It throws {@link ArithmeticException} if the total number of
+   * ones in the register exceeds the  {@link Integer} limit after addition of the given number.
    *
    * @param num number of ones to be added
    * @throws IllegalArgumentException if the given amount is less than equal to zero
+   * @throws ArithmeticException      if the total number of ones in the register exceeds the {@link
+   *                                  Integer} limit after the addition of given number
    */
   @Override
-  public void addOnes(int num) throws IllegalArgumentException {
+  public void addOnes(int num) throws IllegalArgumentException, ArithmeticException {
     this.addCash(Denomination.ONES, num);
   }
 
   /**
    * Add five-dollar bills to the register. It throws {@link IllegalArgumentException} if the given
-   * amount is less than equal to zero.
+   * amount is less than equal to zero. It throws {@link ArithmeticException} if the total number of
+   * fives in the register exceeds the {@link Integer} limit after addition of the given number.
    *
    * @param num number of fives to be added
    * @throws IllegalArgumentException if the given amount is less than equal to zero
+   * @throws ArithmeticException      if the total number of fives in the register exceeds the
+   *                                  {@link Integer} limit after the addition of given number
    */
   @Override
-  public void addFives(int num) throws IllegalArgumentException {
+  public void addFives(int num) throws IllegalArgumentException, ArithmeticException {
     this.addCash(Denomination.FIVES, num);
   }
 
   /**
    * Add ten-dollar bills to the register. It throws {@link IllegalArgumentException} if the given
-   * amount is less than equal to zero.
+   * amount is less than equal to zero. It throws {@link ArithmeticException} if the total number of
+   * tens in the register exceeds the {@link Integer} limit after addition of the given number.
    *
    * @param num number of tens to be added
    * @throws IllegalArgumentException if the given amount is less than equal to zero
+   * @throws ArithmeticException      if the total number of tens in the register exceeds the {@link
+   *                                  Integer} limit after the addition of given number
    */
   @Override
-  public void addTens(int num) throws IllegalArgumentException {
+  public void addTens(int num) throws IllegalArgumentException, ArithmeticException {
     this.addCash(Denomination.TENS, num);
   }
 
@@ -138,7 +163,7 @@ public class SimpleRegister implements CashRegister {
    * @param dollars the dollar amount to be withdrawn
    * @param cents   the cent amount to be withdrawn
    * @return if dispensing is possible, a map of &lt;value of coin/bill in cents, number of
-   *         coins/bills&gt; that represents the change
+   * coins/bills&gt; that represents the change
    * @throws InsufficientCashException if dispensing the amount is not possible.
    * @throws IllegalArgumentException  if the given params are less than or equal to zero
    */
@@ -189,19 +214,25 @@ public class SimpleRegister implements CashRegister {
 
   /**
    * Adds the given denomination with given count in register. Throws {@link
-   * IllegalArgumentException} if the given amount is less than equal to zero.
+   * IllegalArgumentException} if the given amount is less than equal to zero. It throws an {@link
+   * ArithmeticException} if the total number of the given Denomination in the register exceeds the
+   * {@link Integer} limit after addition of the given number.
    *
    * @param denomination the denomination type
    * @param num          the given amount to check
    * @throws IllegalArgumentException if the given amount is less than equal to zero
+   * @throws ArithmeticException      if the total number of the given Denomination in the register
+   *                                  exceeds the {@link Integer} limit after addition of the given
+   *                                  number
    */
-  private void addCash(Denomination denomination, int num) throws IllegalArgumentException {
+  private void addCash(Denomination denomination, int num) throws IllegalArgumentException, ArithmeticException {
     checkIfDepositDenominationCountIsInvalid(num);
+    int cashInRegister = this.cash.getOrDefault(denomination, 0);
+    this.cash.put(denomination, Math.addExact(cashInRegister, num));
+
     int dollars = denomination.getDollars(num);
     int pennies = denomination.getPennies(num) - Denomination.ONES.getPennies(dollars);
     this.transactionList.add(new Transaction(TransactionType.DEPOSIT, dollars, pennies));
-
-    this.cash.put(denomination, num);
   }
 
   /**

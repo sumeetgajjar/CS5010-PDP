@@ -474,6 +474,7 @@ public class SimpleRegisterTest {
     expectedTransactionLog += String.format("%s%s: 1.00", System.lineSeparator(),
             TransactionType.DEPOSIT.getTypeString());
     Assert.assertEquals(expectedTransactionLog, this.cashRegister.getAuditLog());
+    Assert.assertEquals(Collections.singletonMap(1, 101), this.cashRegister.getContents());
   }
 
   @Test
@@ -489,6 +490,7 @@ public class SimpleRegisterTest {
     expectedTransactionLog += String.format("%s%s: 5.00", System.lineSeparator(),
             TransactionType.DEPOSIT.getTypeString());
     Assert.assertEquals(expectedTransactionLog, this.cashRegister.getAuditLog());
+    Assert.assertEquals(Collections.singletonMap(5, 101), this.cashRegister.getContents());
   }
 
 
@@ -505,6 +507,7 @@ public class SimpleRegisterTest {
     expectedTransactionLog += String.format("%s%s: 10.00", System.lineSeparator(),
             TransactionType.DEPOSIT.getTypeString());
     Assert.assertEquals(expectedTransactionLog, this.cashRegister.getAuditLog());
+    Assert.assertEquals(Collections.singletonMap(10, 101), this.cashRegister.getContents());
   }
 
   @Test
@@ -520,6 +523,7 @@ public class SimpleRegisterTest {
     expectedTransactionLog += String.format("%s%s: 25.00", System.lineSeparator(),
             TransactionType.DEPOSIT.getTypeString());
     Assert.assertEquals(expectedTransactionLog, this.cashRegister.getAuditLog());
+    Assert.assertEquals(Collections.singletonMap(25, 101), this.cashRegister.getContents());
   }
 
 
@@ -536,6 +540,7 @@ public class SimpleRegisterTest {
     expectedTransactionLog += String.format("%s%s: 100.00", System.lineSeparator(),
             TransactionType.DEPOSIT.getTypeString());
     Assert.assertEquals(expectedTransactionLog, this.cashRegister.getAuditLog());
+    Assert.assertEquals(Collections.singletonMap(100, 101), this.cashRegister.getContents());
   }
 
   @Test
@@ -551,6 +556,7 @@ public class SimpleRegisterTest {
     expectedTransactionLog += String.format("%s%s: 500.00", System.lineSeparator(),
             TransactionType.DEPOSIT.getTypeString());
     Assert.assertEquals(expectedTransactionLog, this.cashRegister.getAuditLog());
+    Assert.assertEquals(Collections.singletonMap(500, 101), this.cashRegister.getContents());
   }
 
 
@@ -567,6 +573,7 @@ public class SimpleRegisterTest {
     expectedTransactionLog += String.format("%s%s: 1000.00", System.lineSeparator(),
             TransactionType.DEPOSIT.getTypeString());
     Assert.assertEquals(expectedTransactionLog, this.cashRegister.getAuditLog());
+    Assert.assertEquals(Collections.singletonMap(1000, 101), this.cashRegister.getContents());
   }
 
   @Test
