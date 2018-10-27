@@ -233,7 +233,8 @@ public class SimpleRegister implements CashRegister {
     this.cash.put(denomination, (long) Math.addExact(cashInRegister, num));
 
     int dollars = Math.toIntExact(denomination.getDollars(num));
-    int pennies = Math.toIntExact(denomination.getPennies(num) - Denomination.ONES.getPennies(dollars));
+    int pennies = Math.toIntExact(
+            denomination.getPennies(num) - Denomination.ONES.getPennies(dollars));
     this.transactionList.add(new Transaction(TransactionType.DEPOSIT, dollars, pennies));
   }
 
@@ -280,7 +281,7 @@ public class SimpleRegister implements CashRegister {
   private Map<Integer, Integer> convertDenominationMap(Map<Denomination, Long> map) {
     return map.entrySet().stream()
             .collect(Collectors.toMap(
-                    e -> Math.toIntExact(e.getKey().getPennies(1)),
-                    e -> Math.toIntExact(e.getValue())));
+                e -> Math.toIntExact(e.getKey().getPennies(1)),
+                e -> Math.toIntExact(e.getValue())));
   }
 }
