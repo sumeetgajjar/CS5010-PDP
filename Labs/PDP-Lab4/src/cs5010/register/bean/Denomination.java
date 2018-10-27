@@ -20,7 +20,7 @@ public enum Denomination {
    *
    * @param numberOfPenniesInDenomination the number of pennies in one unit of denomination.
    */
-  Denomination(int numberOfPenniesInDenomination) {
+  private Denomination(int numberOfPenniesInDenomination) {
     this.numberOfPenniesInDenomination = numberOfPenniesInDenomination;
   }
 
