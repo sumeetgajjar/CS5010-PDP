@@ -163,7 +163,7 @@ public class SimpleRegister implements CashRegister {
    * @param dollars the dollar amount to be withdrawn
    * @param cents   the cent amount to be withdrawn
    * @return if dispensing is possible, a map of &lt;value of coin/bill in cents, number of
-   * coins/bills&gt; that represents the change
+   *         coins/bills&gt; that represents the change
    * @throws InsufficientCashException if dispensing the amount is not possible.
    * @throws IllegalArgumentException  if the given params are less than or equal to zero
    */
