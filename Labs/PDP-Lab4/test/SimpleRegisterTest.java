@@ -33,6 +33,7 @@ public class SimpleRegisterTest {
   @Test
   public void testInitializationOfCashRegister() throws InsufficientCashException {
     Assert.assertEquals("", this.cashRegister.getAuditLog());
+    Assert.assertEquals(Collections.emptyMap(), this.cashRegister.getContents());
     Assert.assertEquals(0, this.cashRegister.getContents().size());
 
     try {
@@ -59,6 +60,7 @@ public class SimpleRegisterTest {
   @Test
   public void testChangingReturnedMapDoesNotAffectSimpleRegister() {
     Map<Integer, Integer> expectedContents = new HashMap<>();
+    Assert.assertEquals(expectedContents, this.cashRegister.getContents());
 
     this.cashRegister.addPennies(10);
     expectedContents.put(1, 10);
@@ -205,6 +207,13 @@ public class SimpleRegisterTest {
     }
     Assert.assertEquals(expectedContents, this.cashRegister.getContents());
     Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
+  }
+
+  @Test
+  public void testCurrencyPrecisionInAuditLog() {
+    this.cashRegister.addPennies(12345);
+    Assert.assertEquals(String.format("%s: 123.45", TransactionType.DEPOSIT.getTypeString()),
+            this.cashRegister.getAuditLog());
   }
 
   @Test
