@@ -225,7 +225,9 @@ public class SimpleRegister implements CashRegister {
    *                                  exceeds the {@link Integer} limit after addition of the given
    *                                  number
    */
-  private void addCash(Denomination denomination, int num) throws IllegalArgumentException, ArithmeticException {
+  private void addCash(Denomination denomination, int num)
+          throws IllegalArgumentException, ArithmeticException {
+
     checkIfDepositDenominationCountIsInvalid(num);
     int cashInRegister = this.cash.getOrDefault(denomination, 0);
     this.cash.put(denomination, Math.addExact(cashInRegister, num));
