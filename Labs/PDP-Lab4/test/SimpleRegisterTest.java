@@ -475,6 +475,13 @@ public class SimpleRegisterTest {
             TransactionType.DEPOSIT.getTypeString());
     Assert.assertEquals(expectedTransactionLog, this.cashRegister.getAuditLog());
     Assert.assertEquals(Collections.singletonMap(1, 101), this.cashRegister.getContents());
+
+    try {
+      this.cashRegister.addPennies(Integer.MAX_VALUE);
+      Assert.fail("should have failed");
+    } catch (ArithmeticException e) {
+      Assert.assertEquals(Collections.singletonMap(1, 101), this.cashRegister.getContents());
+    }
   }
 
   @Test
@@ -491,6 +498,13 @@ public class SimpleRegisterTest {
             TransactionType.DEPOSIT.getTypeString());
     Assert.assertEquals(expectedTransactionLog, this.cashRegister.getAuditLog());
     Assert.assertEquals(Collections.singletonMap(5, 101), this.cashRegister.getContents());
+
+    try {
+      this.cashRegister.addNickels(Integer.MAX_VALUE);
+      Assert.fail("should have failed");
+    } catch (ArithmeticException e) {
+      Assert.assertEquals(Collections.singletonMap(5, 101), this.cashRegister.getContents());
+    }
   }
 
 
@@ -508,6 +522,13 @@ public class SimpleRegisterTest {
             TransactionType.DEPOSIT.getTypeString());
     Assert.assertEquals(expectedTransactionLog, this.cashRegister.getAuditLog());
     Assert.assertEquals(Collections.singletonMap(10, 101), this.cashRegister.getContents());
+
+    try {
+      this.cashRegister.addDimes(Integer.MAX_VALUE);
+      Assert.fail("should have failed");
+    } catch (ArithmeticException e) {
+      Assert.assertEquals(Collections.singletonMap(10, 101), this.cashRegister.getContents());
+    }
   }
 
   @Test
@@ -524,6 +545,13 @@ public class SimpleRegisterTest {
             TransactionType.DEPOSIT.getTypeString());
     Assert.assertEquals(expectedTransactionLog, this.cashRegister.getAuditLog());
     Assert.assertEquals(Collections.singletonMap(25, 101), this.cashRegister.getContents());
+
+    try {
+      this.cashRegister.addQuarters(Integer.MAX_VALUE);
+      Assert.fail("should have failed");
+    } catch (ArithmeticException e) {
+      Assert.assertEquals(Collections.singletonMap(25, 101), this.cashRegister.getContents());
+    }
   }
 
 
@@ -541,6 +569,13 @@ public class SimpleRegisterTest {
             TransactionType.DEPOSIT.getTypeString());
     Assert.assertEquals(expectedTransactionLog, this.cashRegister.getAuditLog());
     Assert.assertEquals(Collections.singletonMap(100, 101), this.cashRegister.getContents());
+
+    try {
+      this.cashRegister.addOnes(Integer.MAX_VALUE);
+      Assert.fail("should have failed");
+    } catch (ArithmeticException e) {
+      Assert.assertEquals(Collections.singletonMap(100, 101), this.cashRegister.getContents());
+    }
   }
 
   @Test
@@ -557,6 +592,13 @@ public class SimpleRegisterTest {
             TransactionType.DEPOSIT.getTypeString());
     Assert.assertEquals(expectedTransactionLog, this.cashRegister.getAuditLog());
     Assert.assertEquals(Collections.singletonMap(500, 101), this.cashRegister.getContents());
+
+    try {
+      this.cashRegister.addFives(Integer.MAX_VALUE);
+      Assert.fail("should have failed");
+    } catch (ArithmeticException e) {
+      Assert.assertEquals(Collections.singletonMap(500, 101), this.cashRegister.getContents());
+    }
   }
 
 
@@ -574,6 +616,13 @@ public class SimpleRegisterTest {
             TransactionType.DEPOSIT.getTypeString());
     Assert.assertEquals(expectedTransactionLog, this.cashRegister.getAuditLog());
     Assert.assertEquals(Collections.singletonMap(1000, 101), this.cashRegister.getContents());
+
+    try {
+      this.cashRegister.addTens(Integer.MAX_VALUE);
+      Assert.fail("should have failed");
+    } catch (ArithmeticException e) {
+      Assert.assertEquals(Collections.singletonMap(1000, 101), this.cashRegister.getContents());
+    }
   }
 
   @Test
