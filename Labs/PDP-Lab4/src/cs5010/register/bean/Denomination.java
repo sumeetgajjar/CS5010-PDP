@@ -30,7 +30,7 @@ public enum Denomination {
    * @param denominationCount the denomination count
    * @return the number of pennies for the given denomination count in this {@link Denomination}
    */
-  public int getPennies(int denominationCount) {
+  public long getPennies(long denominationCount) {
     return denominationCount * this.numberOfPenniesInDenomination;
   }
 
@@ -43,7 +43,7 @@ public enum Denomination {
    * @param pennies the pennies
    * @return the maximum equivalent count of this denomination for given value of pennies
    */
-  public int getDenominationCount(int pennies) {
+  public long getDenominationCount(long pennies) {
     return pennies / this.numberOfPenniesInDenomination;
   }
 
@@ -56,7 +56,7 @@ public enum Denomination {
    * @param denominationCount the denomination count
    * @return the maximum equivalent dollar count for the given count of this denomination
    */
-  public int getDollars(int denominationCount) {
+  public long getDollars(long denominationCount) {
     return ONES.getDenominationCount(getPennies(denominationCount));
   }
 }

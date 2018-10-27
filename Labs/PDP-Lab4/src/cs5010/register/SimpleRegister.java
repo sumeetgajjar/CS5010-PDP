@@ -31,7 +31,7 @@ public class SimpleRegister implements CashRegister {
   );
 
   private final List<Transaction> transactionList;
-  private final Map<Denomination, Integer> cash;
+  private final Map<Denomination, Long> cash;
 
   /**
    * Constructs a {@link SimpleRegister} object.
@@ -172,15 +172,15 @@ public class SimpleRegister implements CashRegister {
           throws InsufficientCashException, IllegalArgumentException {
 
     checkIfWithdrawAmountIsInvalid(dollars, cents);
-    int givenAmountInPennies = (dollars * 100) + cents;
+    long givenAmountInPennies = (dollars * 100L) + cents;
 
-    Map<Denomination, Integer> updatedCash = new EnumMap<>(Denomination.class);
-    Map<Denomination, Integer> withDrawl = new EnumMap<>(Denomination.class);
+    Map<Denomination, Long> updatedCash = new EnumMap<>(Denomination.class);
+    Map<Denomination, Long> withDrawl = new EnumMap<>(Denomination.class);
 
     for (Denomination denomination : DENOMINATION_ORDER) {
-      int denominationCountInRegister = this.cash.getOrDefault(denomination, 0);
-      int denominationCountDispense = denomination.getDenominationCount(givenAmountInPennies);
-      int denominationCount = Math.min(denominationCountInRegister, denominationCountDispense);
+      long denominationCountInRegister = this.cash.getOrDefault(denomination, 0L);
+      long denominationCountDispense = denomination.getDenominationCount(givenAmountInPennies);
+      long denominationCount = Math.min(denominationCountInRegister, denominationCountDispense);
 
       if (denominationCount != 0) {
         updatedCash.put(denomination, denominationCountInRegister - denominationCount);
@@ -191,7 +191,7 @@ public class SimpleRegister implements CashRegister {
 
     if (givenAmountInPennies == 0) {
       this.transactionList.add(new Transaction(TransactionType.WITHDRAW, dollars, cents));
-      for (Map.Entry<Denomination, Integer> entry : updatedCash.entrySet()) {
+      for (Map.Entry<Denomination, Long> entry : updatedCash.entrySet()) {
         this.cash.put(entry.getKey(), entry.getValue());
       }
       return this.convertDenominationMap(withDrawl);
@@ -229,11 +229,11 @@ public class SimpleRegister implements CashRegister {
           throws IllegalArgumentException, ArithmeticException {
 
     checkIfDepositDenominationCountIsInvalid(num);
-    int cashInRegister = this.cash.getOrDefault(denomination, 0);
-    this.cash.put(denomination, Math.addExact(cashInRegister, num));
+    int cashInRegister = Math.toIntExact(this.cash.getOrDefault(denomination, 0L));
+    this.cash.put(denomination, (long) Math.addExact(cashInRegister, num));
 
-    int dollars = denomination.getDollars(num);
-    int pennies = denomination.getPennies(num) - Denomination.ONES.getPennies(dollars);
+    int dollars = Math.toIntExact(denomination.getDollars(num));
+    int pennies = Math.toIntExact(denomination.getPennies(num) - Denomination.ONES.getPennies(dollars));
     this.transactionList.add(new Transaction(TransactionType.DEPOSIT, dollars, pennies));
   }
 
@@ -277,8 +277,10 @@ public class SimpleRegister implements CashRegister {
    * @param map the given map to convert
    * @return the converted map
    */
-  private Map<Integer, Integer> convertDenominationMap(Map<Denomination, Integer> map) {
+  private Map<Integer, Integer> convertDenominationMap(Map<Denomination, Long> map) {
     return map.entrySet().stream()
-            .collect(Collectors.toMap(e -> e.getKey().getPennies(1), Map.Entry::getValue));
+            .collect(Collectors.toMap(
+                    e -> Math.toIntExact(e.getKey().getPennies(1)),
+                    e -> Math.toIntExact(e.getValue())));
   }
 }
