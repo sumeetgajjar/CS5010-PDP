@@ -289,7 +289,7 @@ public class SimpleRegister implements CashRegister {
     return map.entrySet().stream()
             .filter(e -> e.getValue() != 0)
             .collect(Collectors.toMap(
-                    e -> Math.toIntExact(e.getKey().getPennies(1)),
-                    e -> Math.toIntExact(e.getValue())));
+                e -> Math.toIntExact(e.getKey().getPennies(1)),
+                e -> Math.toIntExact(e.getValue())));
   }
 }
