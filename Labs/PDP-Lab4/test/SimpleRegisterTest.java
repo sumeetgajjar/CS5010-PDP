@@ -219,8 +219,13 @@ public class SimpleRegisterTest {
   public void testWithdrawAmountOfDenominationNotPresentInRegister() {
     Map<Integer, Integer> expectedContents = new HashMap<>();
 
+    String expectedAuditLog = String.format("%s: 100.00",
+            TransactionType.DEPOSIT.getTypeString());
     expectedContents.put(1000, 10);
     this.cashRegister.addTens(10);
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
+    Assert.assertEquals(expectedContents, this.cashRegister.getContents());
+
     try {
       this.cashRegister.withdraw(11, 0);
       Assert.fail("should have failed");
@@ -228,9 +233,15 @@ public class SimpleRegisterTest {
       Assert.assertEquals("insufficient cash in the register", e.getMessage());
     }
     Assert.assertEquals(expectedContents, this.cashRegister.getContents());
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
 
+    expectedAuditLog += String.format("%s%s: 50.00", System.lineSeparator(),
+            TransactionType.DEPOSIT.getTypeString());
     expectedContents.put(500, 10);
     this.cashRegister.addFives(10);
+    Assert.assertEquals(expectedContents, this.cashRegister.getContents());
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
+
     try {
       this.cashRegister.withdraw(11, 0);
       Assert.fail("should have failed");
@@ -238,9 +249,15 @@ public class SimpleRegisterTest {
       Assert.assertEquals("insufficient cash in the register", e.getMessage());
     }
     Assert.assertEquals(expectedContents, this.cashRegister.getContents());
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
 
+    expectedAuditLog += String.format("%s%s: 1.00", System.lineSeparator(),
+            TransactionType.DEPOSIT.getTypeString());
     expectedContents.put(100, 1);
     this.cashRegister.addOnes(1);
+    Assert.assertEquals(expectedContents, this.cashRegister.getContents());
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
+
     try {
       this.cashRegister.withdraw(12, 0);
       Assert.fail("should have failed");
@@ -248,9 +265,15 @@ public class SimpleRegisterTest {
       Assert.assertEquals("insufficient cash in the register", e.getMessage());
     }
     Assert.assertEquals(expectedContents, this.cashRegister.getContents());
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
 
+    expectedAuditLog += String.format("%s%s: 0.25", System.lineSeparator(),
+            TransactionType.DEPOSIT.getTypeString());
     expectedContents.put(25, 1);
     this.cashRegister.addQuarters(1);
+    Assert.assertEquals(expectedContents, this.cashRegister.getContents());
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
+
     try {
       this.cashRegister.withdraw(12, 10);
       Assert.fail("should have failed");
@@ -258,9 +281,15 @@ public class SimpleRegisterTest {
       Assert.assertEquals("insufficient cash in the register", e.getMessage());
     }
     Assert.assertEquals(expectedContents, this.cashRegister.getContents());
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
 
+    expectedAuditLog += String.format("%s%s: 0.10", System.lineSeparator(),
+            TransactionType.DEPOSIT.getTypeString());
     expectedContents.put(10, 1);
     this.cashRegister.addDimes(1);
+    Assert.assertEquals(expectedContents, this.cashRegister.getContents());
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
+
     try {
       this.cashRegister.withdraw(12, 20);
       Assert.fail("should have failed");
@@ -268,9 +297,15 @@ public class SimpleRegisterTest {
       Assert.assertEquals("insufficient cash in the register", e.getMessage());
     }
     Assert.assertEquals(expectedContents, this.cashRegister.getContents());
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
 
+    expectedAuditLog += String.format("%s%s: 0.05", System.lineSeparator(),
+            TransactionType.DEPOSIT.getTypeString());
     expectedContents.put(5, 1);
     this.cashRegister.addNickels(1);
+    Assert.assertEquals(expectedContents, this.cashRegister.getContents());
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
+
     try {
       this.cashRegister.withdraw(12, 20);
       Assert.fail("should have failed");
@@ -278,9 +313,15 @@ public class SimpleRegisterTest {
       Assert.assertEquals("insufficient cash in the register", e.getMessage());
     }
     Assert.assertEquals(expectedContents, this.cashRegister.getContents());
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
 
+    expectedAuditLog += String.format("%s%s: 0.01", System.lineSeparator(),
+            TransactionType.DEPOSIT.getTypeString());
     expectedContents.put(1, 1);
     this.cashRegister.addPennies(1);
+    Assert.assertEquals(expectedContents, this.cashRegister.getContents());
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
+
     try {
       this.cashRegister.withdraw(12, 20);
       Assert.fail("should have failed");
@@ -288,6 +329,7 @@ public class SimpleRegisterTest {
       Assert.assertEquals("insufficient cash in the register", e.getMessage());
     }
     Assert.assertEquals(expectedContents, this.cashRegister.getContents());
+    Assert.assertEquals(expectedAuditLog, this.cashRegister.getAuditLog());
   }
 
   @Test
