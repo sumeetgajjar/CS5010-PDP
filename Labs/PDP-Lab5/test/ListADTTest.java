@@ -30,6 +30,10 @@ public class ListADTTest {
     ImmutableListADT<String> immutableListADT = getImmutableListADT();
 
     Assert.assertEquals("1", immutableListADT.get(0));
+    Assert.assertEquals("2", immutableListADT.get(1));
+    Assert.assertEquals("3", immutableListADT.get(2));
+    Assert.assertEquals("4", immutableListADT.get(3));
+
     Assert.assertEquals(4, immutableListADT.getSize());
   }
 
@@ -39,6 +43,10 @@ public class ListADTTest {
 
     MutableListADT<String> mutableListAdt = immutableListADT.getMutableListAdt();
     Assert.assertEquals(mutableListAdt.get(0), immutableListADT.get(0));
+    Assert.assertEquals(mutableListAdt.get(1), immutableListADT.get(1));
+    Assert.assertEquals(mutableListAdt.get(2), immutableListADT.get(2));
+    Assert.assertEquals(mutableListAdt.get(3), immutableListADT.get(3));
+
     Assert.assertEquals(mutableListAdt.getSize(), immutableListADT.getSize());
   }
 
@@ -63,12 +71,12 @@ public class ListADTTest {
   @Test
   public void testMutatingMutableListObtainedFromImmutableListDoesNotMutateImmutableList() {
     ImmutableListADT<String> immutableListADT = getImmutableListADT();
+
     MutableListADT<String> mutableListAdt = immutableListADT.getMutableListAdt();
 
     mutableListAdt.add(4, "5");
     Assert.assertEquals("5", mutableListAdt.get(4));
     Assert.assertEquals(5, mutableListAdt.getSize());
-
     Assert.assertEquals(4, immutableListADT.getSize());
 
     try {
@@ -224,5 +232,21 @@ public class ListADTTest {
 
     Assert.assertEquals(immutableListADT.getSize(), immutableListADT.getSize());
     Assert.assertEquals(Integer.valueOf(1), immutableListADT.get(0));
+  }
+
+  @Test
+  public void testMutabilityOnDataInImmutableList() {
+    StringBuilder firstElementInList = new StringBuilder("a");
+    ImmutableListADT<StringBuilder> immutableListADT =
+            ImmutableListADTImpl.<StringBuilder>getBuilder()
+                    .add(firstElementInList)
+                    .add(new StringBuilder("c"))
+                    .build();
+
+    Assert.assertEquals(2, immutableListADT.getSize());
+    Assert.assertEquals("a", immutableListADT.get(0).toString());
+
+    firstElementInList.append("b");
+    Assert.assertNotEquals("a", immutableListADT.get(0).toString());
   }
 }
