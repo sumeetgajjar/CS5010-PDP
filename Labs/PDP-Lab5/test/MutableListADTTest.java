@@ -1,5 +1,5 @@
 /**
- * A Junit class to test ImmutableListADT.
+ * A Junit class to test MutableListADT.
  */
 public class MutableListADTTest {
 
