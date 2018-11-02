@@ -16,7 +16,7 @@ public class MutableListADTImpl<T> extends ListADTImpl<T> implements MutableList
   }
 
   @Override
-  public ImmutableListADT<T> getImmutableListAdt() {
+  public ImmutableListADT<T> getImmutableListADT() {
     return null;
   }
 }

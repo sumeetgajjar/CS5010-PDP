@@ -13,5 +13,5 @@ public interface MutableListADT<T> extends ListADT<T> {
   @Override
   <R> MutableListADT<R> map(Function<T, R> converter);
 
-  ImmutableListADT<T> getImmutableListAdt();
+  ImmutableListADT<T> getImmutableListADT();
 }

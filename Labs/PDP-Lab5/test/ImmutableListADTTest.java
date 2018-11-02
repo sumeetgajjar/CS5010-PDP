@@ -37,7 +37,7 @@ public class ImmutableListADTTest {
     ImmutableListADT<String> immutableListADT = getImmutableListADT();
 
     //demo to get MutableList from the given ImmutableList.
-    MutableListADT<String> mutableListAdt = immutableListADT.getMutableListAdt();
+    MutableListADT<String> mutableListAdt = immutableListADT.getMutableListADT();
     for (int i = 0; i < immutableListADT.getSize(); i++) {
       Assert.assertEquals(mutableListAdt.get(i), immutableListADT.get(i));
     }
@@ -48,8 +48,8 @@ public class ImmutableListADTTest {
   @Test
   public void testGettingImmutableListFromMutableListOfImmutableList() {
     ImmutableListADT<String> immutableListADT1 = getImmutableListADT();
-    MutableListADT<String> mutableListAdt = immutableListADT1.getMutableListAdt();
-    ImmutableListADT<String> immutableListADT2 = mutableListAdt.getImmutableListAdt();
+    MutableListADT<String> mutableListAdt = immutableListADT1.getMutableListADT();
+    ImmutableListADT<String> immutableListADT2 = mutableListAdt.getImmutableListADT();
 
     Assert.assertEquals("4", immutableListADT2.get(3));
     Assert.assertEquals(4, immutableListADT2.getSize());
@@ -71,7 +71,7 @@ public class ImmutableListADTTest {
     demo to show mutating the MutableList of the given ImmutableList will not mutate the
     ImmutableList.
     */
-    MutableListADT<String> mutableListAdt = immutableListADT.getMutableListAdt();
+    MutableListADT<String> mutableListAdt = immutableListADT.getMutableListADT();
 
     mutableListAdt.add(4, "5");
     Assert.assertEquals("5", mutableListAdt.get(4));
@@ -281,7 +281,7 @@ public class ImmutableListADTTest {
     Assert.assertEquals(4, immutableListADT1.getSize());
 
     MutableListADT<String> mutableListAdt =
-            immutableListADT1.getMutableListAdt();
+            immutableListADT1.getMutableListADT();
     Assert.assertEquals(4, mutableListAdt.getSize());
 
     //constructing immutableListADT by using mutableListADT

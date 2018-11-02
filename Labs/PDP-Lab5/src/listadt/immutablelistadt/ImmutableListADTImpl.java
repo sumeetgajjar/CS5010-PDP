@@ -50,7 +50,7 @@ public class ImmutableListADTImpl<T> implements ImmutableListADT<T> {
   }
 
   @Override
-  public MutableListADT<T> getMutableListAdt() {
+  public MutableListADT<T> getMutableListADT() {
     return null;
   }
 
