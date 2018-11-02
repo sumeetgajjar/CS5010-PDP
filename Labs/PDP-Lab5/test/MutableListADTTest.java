@@ -45,7 +45,7 @@ public class MutableListADTTest {
 
   @Test
   public void testToStringForMutableList() {
-    MutableListADTImpl<String> mutableListADT = new MutableListADTImpl<>();
+    MutableListADT<String> mutableListADT = new MutableListADTImpl<>();
     mutableListADT.addBack("1");
     mutableListADT.addBack("2");
     Assert.assertEquals("(1,2)", mutableListADT.toString());
@@ -53,7 +53,7 @@ public class MutableListADTTest {
 
   @Test
   public void testMapOfMutableList() {
-    MutableListADTImpl<String> mutableListADT = new MutableListADTImpl<>();
+    MutableListADT<String> mutableListADT = new MutableListADTImpl<>();
     mutableListADT.addBack("1");
     mutableListADT.addBack("2");
 
@@ -80,7 +80,7 @@ public class MutableListADTTest {
 
   @Test
   public void testGettingImmutableListFromMutableList() {
-    MutableListADTImpl<String> mutableListADT = new MutableListADTImpl<>();
+    MutableListADT<String> mutableListADT = new MutableListADTImpl<>();
     mutableListADT.addBack("1");
     mutableListADT.addBack("2");
 
@@ -99,7 +99,7 @@ public class MutableListADTTest {
 
   @Test
   public void testGettingMutableListFromImmutableListOfMutableList() {
-    MutableListADTImpl<String> mutableListADT1 = new MutableListADTImpl<>();
+    MutableListADT<String> mutableListADT1 = new MutableListADTImpl<>();
     mutableListADT1.addBack("1");
     mutableListADT1.addBack("2");
     Assert.assertEquals(2, mutableListADT1.getSize());
@@ -115,5 +115,20 @@ public class MutableListADTTest {
     mutableListADT2.remove("2");
     Assert.assertEquals("3", mutableListADT2.get(1));
     Assert.assertEquals("2", mutableListADT1.get(1));
+  }
+
+  @Test
+  public void testMutatingMutableListDoesNotMutateItsImmutableList() {
+    MutableListADT<String> mutableListADT = new MutableListADTImpl<>();
+    mutableListADT.addBack("1");
+    mutableListADT.addBack("2");
+
+    ImmutableListADT<String> immutableListADT = mutableListADT.getImmutableListADT();
+    Assert.assertEquals(2, immutableListADT.getSize());
+
+    mutableListADT.addBack("3");
+
+    Assert.assertEquals(2, immutableListADT.getSize());
+    Assert.assertEquals("2", immutableListADT.get(2));
   }
 }

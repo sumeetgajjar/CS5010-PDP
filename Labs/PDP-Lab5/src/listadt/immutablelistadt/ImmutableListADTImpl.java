@@ -10,7 +10,7 @@ import listadt.mutablelistadt.MutableListADT;
  */
 public class ImmutableListADTImpl<T> implements ImmutableListADT<T> {
 
-  public ImmutableListADTImpl(ListADT<T> listADT) {
+  private ImmutableListADTImpl(ListADT<T> listADT) {
 
   }
 

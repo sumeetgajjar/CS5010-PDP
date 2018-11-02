@@ -4,6 +4,7 @@ import org.junit.Test;
 import listadt.ListADT;
 import listadt.ListADTImpl;
 import listadt.immutablelistadt.ImmutableListADT;
+import listadt.immutablelistadt.ImmutableListADTBuilder;
 import listadt.immutablelistadt.ImmutableListADTImpl;
 import listadt.mutablelistadt.MutableListADT;
 
@@ -11,10 +12,6 @@ import listadt.mutablelistadt.MutableListADT;
  * A Junit class to test ImmutableListADT.
  */
 public class ImmutableListADTTest {
-
-  private ImmutableListADTImpl<String> getImmutableListADT() {
-    return new ImmutableListADTImpl<>(getListADT());
-  }
 
   @Test
   public void testReadOnlyOperationsOfImmutableList() {
@@ -271,35 +268,22 @@ public class ImmutableListADTTest {
   }
 
   @Test
-  public void testConstructorOfImmutableList() {
-    ListADT<String> listADT = getListADT();
-    Assert.assertEquals(4, listADT.getSize());
-
-    //constructing immutableListADT by using listADT
-    ImmutableListADT<String> immutableListADT1 =
-            new ImmutableListADTImpl<>(listADT);
-    Assert.assertEquals(4, immutableListADT1.getSize());
-
-    MutableListADT<String> mutableListAdt =
-            immutableListADT1.getMutableListADT();
-    Assert.assertEquals(4, mutableListAdt.getSize());
-
-    //constructing immutableListADT by using mutableListADT
-    ImmutableListADTImpl<String> stringImmutableListADT2 =
-            new ImmutableListADTImpl<>(mutableListAdt);
-    Assert.assertEquals(4, stringImmutableListADT2.getSize());
-
-    //constructing immutableListADT by using immutableListADT
-    ImmutableListADTImpl<String> stringImmutableListADT3 =
-            new ImmutableListADTImpl<>(immutableListADT1);
-    Assert.assertEquals(4, stringImmutableListADT3.getSize());
-  }
-
-  @Test
   public void testToStringOfImmutableList() {
     ListADT<String> listADT = getListADT();
-    ImmutableListADTImpl<String> immutableListADT = new ImmutableListADTImpl<>(listADT);
+    ImmutableListADT<String> immutableListADT = getImmutableListADT();
     Assert.assertEquals(listADT.toString(), immutableListADT.toString());
+  }
+
+  private ImmutableListADT<String> getImmutableListADT() {
+    ListADT<String> listADT = getListADT();
+    int size = listADT.getSize();
+
+    ImmutableListADTBuilder<String> builder = ImmutableListADTImpl.getBuilder();
+    for (int i = 0; i < size; i++) {
+      builder = builder.add(listADT.get(i));
+    }
+
+    return builder.build();
   }
 
   private ListADT<String> getListADT() {
