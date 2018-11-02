@@ -127,7 +127,10 @@ public class MutableListADTTest {
     Assert.assertEquals(2, immutableListADT.getSize());
 
     mutableListADT.addBack("3");
+    Assert.assertEquals(2, immutableListADT.getSize());
+    Assert.assertEquals("2", immutableListADT.get(2));
 
+    mutableListADT.remove("1");
     Assert.assertEquals(2, immutableListADT.getSize());
     Assert.assertEquals("2", immutableListADT.get(2));
   }

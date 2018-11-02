@@ -14,6 +14,18 @@ import listadt.mutablelistadt.MutableListADT;
 public class ImmutableListADTTest {
 
   @Test
+  public void testInitializationOfImmutableList() {
+    ImmutableListADT<String> mutableListADT = ImmutableListADTImpl.<String>getBuilder().build();
+    Assert.assertEquals(0, mutableListADT.getSize());
+
+    try {
+      mutableListADT.get(0);
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid index", e.getMessage());
+    }
+  }
+
+  @Test
   public void testReadOnlyOperationsOfImmutableList() {
     ImmutableListADT<String> immutableListADT = getImmutableListADT();
 
