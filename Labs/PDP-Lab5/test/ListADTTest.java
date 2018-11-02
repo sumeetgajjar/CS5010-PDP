@@ -196,6 +196,9 @@ public class ListADTTest {
 
     Assert.assertEquals(immutableListADT.getSize(), integerImmutableListADT.getSize());
     Assert.assertEquals(Integer.valueOf(1), integerImmutableListADT.get(0));
+    Assert.assertEquals(Integer.valueOf(2), integerImmutableListADT.get(1));
+    Assert.assertEquals(Integer.valueOf(3), integerImmutableListADT.get(2));
+    Assert.assertEquals(Integer.valueOf(4), integerImmutableListADT.get(3));
 
     try {
       integerImmutableListADT.add(0, -1);
