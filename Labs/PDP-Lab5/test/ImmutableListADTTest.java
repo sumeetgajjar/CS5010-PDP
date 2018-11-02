@@ -12,15 +12,6 @@ import listadt.mutablelistadt.MutableListADT;
  */
 public class ImmutableListADTTest {
 
-  private ListADT<String> getListADT() {
-    ListADT<String> listADT = new ListADTImpl<>();
-    listADT.add(0, "1");
-    listADT.add(1, "2");
-    listADT.add(2, "3");
-    listADT.add(3, "4");
-    return listADT;
-  }
-
   private ImmutableListADTImpl<String> getImmutableListADT() {
     return new ImmutableListADTImpl<>(getListADT());
   }
@@ -311,5 +302,14 @@ public class ImmutableListADTTest {
     ListADT<String> listADT = getListADT();
     ImmutableListADTImpl<String> immutableListADT = new ImmutableListADTImpl<>(listADT);
     Assert.assertEquals(listADT.toString(), immutableListADT.toString());
+  }
+
+  private ListADT<String> getListADT() {
+    ListADT<String> listADT = new ListADTImpl<>();
+    listADT.add(0, "1");
+    listADT.add(1, "2");
+    listADT.add(2, "3");
+    listADT.add(3, "4");
+    return listADT;
   }
 }
