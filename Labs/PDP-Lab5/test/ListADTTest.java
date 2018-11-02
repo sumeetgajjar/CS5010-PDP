@@ -276,6 +276,12 @@ public class ListADTTest {
     ImmutableListADTImpl<String> stringImmutableListADT3 =
             new ImmutableListADTImpl<>(immutableListADT1);
     Assert.assertEquals(4, stringImmutableListADT3.getSize());
+  }
 
+  @Test
+  public void testToStringOfImmutableList() {
+    ListADT<String> listADT = getListADT();
+    ImmutableListADTImpl<String> immutableListADT = new ImmutableListADTImpl<>(listADT);
+    Assert.assertEquals(listADT.toString(), immutableListADT.toString());
   }
 }

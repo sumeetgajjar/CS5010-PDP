@@ -54,6 +54,11 @@ public class ImmutableListADTImpl<T> implements ImmutableListADT<T> {
     return null;
   }
 
+  @Override
+  public String toString() {
+    return super.toString();
+  }
+
   public static <E> ImmutableListADTBuilder<E> getBuilder() {
     return new ImmutableListADTImplBuilder<>();
   }
