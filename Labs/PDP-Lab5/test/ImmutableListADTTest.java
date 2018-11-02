@@ -8,9 +8,9 @@ import listadt.immutablelistadt.ImmutableListADTImpl;
 import listadt.mutablelistadt.MutableListADT;
 
 /**
- * A Junit class to test various types of List.
+ * A Junit class to test ImmutableListADT.
  */
-public class ListADTTest {
+public class ImmutableListADTTest {
 
   private ListADT<String> getListADT() {
     ListADT<String> listADT = new ListADTImpl<>();
@@ -35,6 +35,7 @@ public class ListADTTest {
     Assert.assertEquals("4", immutableListADT.get(3));
 
     Assert.assertEquals(4, immutableListADT.getSize());
+    Assert.assertEquals("(1,2,3,4)", immutableListADT.toString());
   }
 
   @Test
