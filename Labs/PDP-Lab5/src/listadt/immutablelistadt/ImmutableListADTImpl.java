@@ -53,4 +53,24 @@ public class ImmutableListADTImpl<T> implements ImmutableListADT<T> {
   public MutableListADT<T> getMutableListAdt() {
     return null;
   }
+
+  public ImmutableListADTBuilder<T> getBuilder() {
+    return new ImmutableListADTImplBuilder<>();
+  }
+
+  private static class ImmutableListADTImplBuilder<T> implements ImmutableListADTBuilder<T> {
+
+    private ImmutableListADTImplBuilder() {
+    }
+
+    @Override
+    public ImmutableListADTBuilder<T> add(T data) {
+      return null;
+    }
+
+    @Override
+    public ImmutableListADT<T> build() {
+      return null;
+    }
+  }
 }
