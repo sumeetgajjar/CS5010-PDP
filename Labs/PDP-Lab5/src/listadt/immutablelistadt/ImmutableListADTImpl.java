@@ -19,17 +19,17 @@ public class ImmutableListADTImpl<T> implements ImmutableListADT<T> {
   }
 
   @Override
-  public void addFront(T b) {
+  public void addFront(T b) throws UnsupportedOperationException {
     throw new UnsupportedOperationException("operation not allowed");
   }
 
   @Override
-  public void addBack(T b) {
+  public void addBack(T b) throws UnsupportedOperationException {
     throw new UnsupportedOperationException("operation not allowed");
   }
 
   @Override
-  public void add(int index, T b) {
+  public void add(int index, T b) throws UnsupportedOperationException {
     throw new UnsupportedOperationException("operation not allowed");
   }
 
@@ -39,7 +39,7 @@ public class ImmutableListADTImpl<T> implements ImmutableListADT<T> {
   }
 
   @Override
-  public void remove(T b) {
+  public void remove(T b) throws UnsupportedOperationException {
     throw new UnsupportedOperationException("operation not allowed");
   }
 
