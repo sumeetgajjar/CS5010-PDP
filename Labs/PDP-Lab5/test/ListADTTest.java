@@ -21,9 +21,13 @@ public class ListADTTest {
     return listADT;
   }
 
+  private ImmutableListADTImpl<String> getImmutableListADT() {
+    return new ImmutableListADTImpl<>(getListADT());
+  }
+
   @Test
   public void testReadOnlyOperationsOfImmutableList() {
-    ImmutableListADT<String> immutableListADT = new ImmutableListADTImpl<>(getListADT());
+    ImmutableListADT<String> immutableListADT = getImmutableListADT();
 
     Assert.assertEquals("1", immutableListADT.get(0));
     Assert.assertEquals(4, immutableListADT.getSize());
@@ -31,7 +35,7 @@ public class ListADTTest {
 
   @Test
   public void testGettingMutableListFromImmutableList() {
-    ImmutableListADT<String> immutableListADT = new ImmutableListADTImpl<>(getListADT());
+    ImmutableListADT<String> immutableListADT = getImmutableListADT();
 
     MutableListADT<String> mutableListAdt = immutableListADT.getMutableListAdt();
     Assert.assertEquals(mutableListAdt.get(0), immutableListADT.get(0));
@@ -40,7 +44,7 @@ public class ListADTTest {
 
   @Test
   public void testGettingImmutableListFromMutableListOfImmutableList() {
-    ImmutableListADT<String> immutableListADT1 = new ImmutableListADTImpl<>(getListADT());
+    ImmutableListADT<String> immutableListADT1 = getImmutableListADT();
     MutableListADT<String> mutableListAdt = immutableListADT1.getMutableListAdt();
     ImmutableListADT<String> immutableListADT2 = mutableListAdt.getImmutableListAdt();
 
@@ -58,7 +62,7 @@ public class ListADTTest {
 
   @Test
   public void testMutatingMutableListObtainedFromImmutableListDoesNotMutateImmutableList() {
-    ImmutableListADT<String> immutableListADT = new ImmutableListADTImpl<>(getListADT());
+    ImmutableListADT<String> immutableListADT = getImmutableListADT();
     MutableListADT<String> mutableListAdt = immutableListADT.getMutableListAdt();
 
     mutableListAdt.add(4, "5");
@@ -114,7 +118,7 @@ public class ListADTTest {
 
   @Test
   public void testAddFailureOnImmutableList() {
-    ImmutableListADT<String> immutableListADT = new ImmutableListADTImpl<>(getListADT());
+    ImmutableListADT<String> immutableListADT = getImmutableListADT();
     Assert.assertEquals("1", immutableListADT.get(0));
     Assert.assertEquals(4, immutableListADT.getSize());
     try {
@@ -129,7 +133,7 @@ public class ListADTTest {
 
   @Test
   public void testAddBackFailureOnImmutableList() {
-    ImmutableListADT<String> immutableListADT = new ImmutableListADTImpl<>(getListADT());
+    ImmutableListADT<String> immutableListADT = getImmutableListADT();
     Assert.assertEquals("4", immutableListADT.get(3));
     Assert.assertEquals(4, immutableListADT.getSize());
     try {
@@ -144,7 +148,7 @@ public class ListADTTest {
 
   @Test
   public void testAddFrontFailureOnImmutableList() {
-    ImmutableListADT<String> immutableListADT = new ImmutableListADTImpl<>(getListADT());
+    ImmutableListADT<String> immutableListADT = getImmutableListADT();
     Assert.assertEquals("1", immutableListADT.get(0));
     Assert.assertEquals(4, immutableListADT.getSize());
     try {
@@ -159,7 +163,7 @@ public class ListADTTest {
 
   @Test
   public void testRemoveFailureOnImmutableList() {
-    ImmutableListADT<String> immutableListADT = new ImmutableListADTImpl<>(getListADT());
+    ImmutableListADT<String> immutableListADT = getImmutableListADT();
     Assert.assertEquals("4", immutableListADT.get(3));
     Assert.assertEquals(4, immutableListADT.getSize());
     try {
@@ -172,5 +176,11 @@ public class ListADTTest {
     Assert.assertEquals(4, immutableListADT.getSize());
   }
 
+  @Test
+  public void testMapOfImmutableList() {
+    ImmutableListADT<String> immutableListADT = getImmutableListADT();
+    ImmutableListADT<Integer> integerImmutableListADT = immutableListADT.map(Integer::parseInt);
 
+
+  }
 }
