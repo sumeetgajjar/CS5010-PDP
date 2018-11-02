@@ -48,7 +48,7 @@ public class MutableListADTTest {
     MutableListADT<String> mutableListADT = new MutableListADTImpl<>();
     mutableListADT.addBack("1");
     mutableListADT.addBack("2");
-    Assert.assertEquals("(1,2)", mutableListADT.toString());
+    Assert.assertEquals("(1 2)", mutableListADT.toString());
   }
 
   @Test
@@ -63,19 +63,19 @@ public class MutableListADTTest {
     Assert.assertEquals(Integer.valueOf(1), integerMutableListADT.get(0));
     Assert.assertEquals(Integer.valueOf(2), integerMutableListADT.get(1));
 
-    Assert.assertEquals("(1,2)", mutableListADT.toString());
+    Assert.assertEquals("(1 2)", mutableListADT.toString());
 
     integerMutableListADT.addFront(-1);
     Assert.assertEquals(Integer.valueOf(-1), integerMutableListADT.get(0));
     Assert.assertEquals(3, integerMutableListADT.getSize());
 
-    integerMutableListADT.add(2, 3);
-    Assert.assertEquals(Integer.valueOf(3), integerMutableListADT.get(2));
+    integerMutableListADT.add(3, 3);
+    Assert.assertEquals(Integer.valueOf(2), integerMutableListADT.get(2));
     Assert.assertEquals(4, integerMutableListADT.getSize());
 
     integerMutableListADT.addBack(4);
-    Assert.assertEquals(Integer.valueOf(4), integerMutableListADT.get(3));
-    Assert.assertEquals(4, integerMutableListADT.getSize());
+    Assert.assertEquals(Integer.valueOf(4), integerMutableListADT.get(4));
+    Assert.assertEquals(5, integerMutableListADT.getSize());
   }
 
   @Test
