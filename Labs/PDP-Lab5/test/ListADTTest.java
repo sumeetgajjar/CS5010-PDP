@@ -181,6 +181,22 @@ public class ListADTTest {
     ImmutableListADT<String> immutableListADT = getImmutableListADT();
     ImmutableListADT<Integer> integerImmutableListADT = immutableListADT.map(Integer::parseInt);
 
+    Assert.assertEquals("1", immutableListADT.get(0));
+    Assert.assertEquals(4, immutableListADT.getSize());
 
+    Assert.assertNotEquals(immutableListADT.get(0), integerImmutableListADT.get(0));
+
+    Assert.assertEquals(immutableListADT.getSize(), integerImmutableListADT.getSize());
+    Assert.assertEquals(Integer.valueOf(1), integerImmutableListADT.get(0));
+
+    try {
+      integerImmutableListADT.add(0, -1);
+      Assert.fail("should have failed");
+    } catch (UnsupportedOperationException e) {
+      Assert.assertEquals("operation not allowed", e.getMessage());
+    }
+
+    Assert.assertEquals(immutableListADT.getSize(), integerImmutableListADT.getSize());
+    Assert.assertEquals(Integer.valueOf(1), integerImmutableListADT.get(0));
   }
 }
