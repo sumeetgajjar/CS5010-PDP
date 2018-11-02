@@ -39,6 +39,24 @@ public class ListADTTest {
   }
 
   @Test
+  public void testGettingImmutableListFromMutableListOfImmutableList() {
+    ImmutableListADT<String> immutableListADT1 = new ImmutableListADTImpl<>(getListADT());
+    MutableListADT<String> mutableListAdt = immutableListADT1.getMutableListAdt();
+    ImmutableListADT<String> immutableListADT2 = mutableListAdt.getImmutableListAdt();
+
+    Assert.assertEquals("4", immutableListADT2.get(3));
+    Assert.assertEquals(4, immutableListADT2.getSize());
+    try {
+      immutableListADT2.addBack("5");
+      Assert.fail("should have failed");
+    } catch (UnsupportedOperationException e) {
+      Assert.assertEquals("operation not allowed", e.getMessage());
+    }
+    Assert.assertEquals("4", immutableListADT2.get(3));
+    Assert.assertEquals(4, immutableListADT2.getSize());
+  }
+
+  @Test
   public void testMutatingMutableListObtainedFromImmutableListDoesNotMutateImmutableList() {
     ImmutableListADT<String> immutableListADT = new ImmutableListADTImpl<>(getListADT());
     MutableListADT<String> mutableListAdt = immutableListADT.getMutableListAdt();
@@ -153,4 +171,6 @@ public class ListADTTest {
     Assert.assertEquals("4", immutableListADT.get(3));
     Assert.assertEquals(4, immutableListADT.getSize());
   }
+
+
 }
