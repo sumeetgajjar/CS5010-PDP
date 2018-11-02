@@ -29,12 +29,15 @@ public class ImmutableListADTTest {
   public void testReadOnlyOperationsOfImmutableList() {
     ImmutableListADT<String> immutableListADT = getImmutableListADT();
 
-    Assert.assertEquals("1", immutableListADT.get(0));
-    Assert.assertEquals("2", immutableListADT.get(1));
-    Assert.assertEquals("3", immutableListADT.get(2));
-    Assert.assertEquals("4", immutableListADT.get(3));
+    //demo to get the ith element of ImmutableList.
+    for (int i = 0; i < immutableListADT.getSize(); i++) {
+      Assert.assertEquals(String.valueOf(i + 1), immutableListADT.get(i));
+    }
 
+    //demo to get the size of ImmutableList.
     Assert.assertEquals(4, immutableListADT.getSize());
+
+    //demo to get the string representation of th list.
     Assert.assertEquals("(1,2,3,4)", immutableListADT.toString());
   }
 
@@ -42,6 +45,7 @@ public class ImmutableListADTTest {
   public void testGettingMutableListFromImmutableList() {
     ImmutableListADT<String> immutableListADT = getImmutableListADT();
 
+    //demo to get MutableList from the given ImmutableList.
     MutableListADT<String> mutableListAdt = immutableListADT.getMutableListAdt();
     Assert.assertEquals(mutableListAdt.get(0), immutableListADT.get(0));
     Assert.assertEquals(mutableListAdt.get(1), immutableListADT.get(1));
@@ -73,6 +77,10 @@ public class ImmutableListADTTest {
   public void testMutatingMutableListObtainedFromImmutableListDoesNotMutateImmutableList() {
     ImmutableListADT<String> immutableListADT = getImmutableListADT();
 
+    /*
+    demo to show mutating the MutableList of the given ImmutableList will not mutate the
+    ImmutableList.
+    */
     MutableListADT<String> mutableListAdt = immutableListADT.getMutableListAdt();
 
     mutableListAdt.add(4, "5");
@@ -130,6 +138,8 @@ public class ImmutableListADTTest {
     ImmutableListADT<String> immutableListADT = getImmutableListADT();
     Assert.assertEquals("1", immutableListADT.get(0));
     Assert.assertEquals(4, immutableListADT.getSize());
+
+    //demo to show updating the ImmutableList is not allowed.
     try {
       immutableListADT.add(0, "5");
       Assert.fail("should have failed");
@@ -145,6 +155,8 @@ public class ImmutableListADTTest {
     ImmutableListADT<String> immutableListADT = getImmutableListADT();
     Assert.assertEquals("4", immutableListADT.get(3));
     Assert.assertEquals(4, immutableListADT.getSize());
+
+    //demo to show updating the ImmutableList is not allowed.
     try {
       immutableListADT.addBack("5");
       Assert.fail("should have failed");
@@ -160,6 +172,8 @@ public class ImmutableListADTTest {
     ImmutableListADT<String> immutableListADT = getImmutableListADT();
     Assert.assertEquals("1", immutableListADT.get(0));
     Assert.assertEquals(4, immutableListADT.getSize());
+
+    //demo to show updating the ImmutableList is not allowed.
     try {
       immutableListADT.addFront("5");
       Assert.fail("should have failed");
@@ -175,6 +189,8 @@ public class ImmutableListADTTest {
     ImmutableListADT<String> immutableListADT = getImmutableListADT();
     Assert.assertEquals("4", immutableListADT.get(3));
     Assert.assertEquals(4, immutableListADT.getSize());
+
+    //demo to show updating the ImmutableList is not allowed.
     try {
       immutableListADT.remove("4");
       Assert.fail("should have failed");
@@ -188,6 +204,8 @@ public class ImmutableListADTTest {
   @Test
   public void testMapOfImmutableList() {
     ImmutableListADT<String> immutableListADT = getImmutableListADT();
+
+    //demo to map the immutableList of Type T to immutableList of Type R.
     ImmutableListADT<Integer> integerImmutableListADT = immutableListADT.map(Integer::parseInt);
 
     Assert.assertEquals("1", immutableListADT.get(0));
@@ -208,12 +226,21 @@ public class ImmutableListADTTest {
       Assert.assertEquals("operation not allowed", e.getMessage());
     }
 
+    try {
+      integerImmutableListADT.remove(1);
+      Assert.fail("should have failed");
+    } catch (UnsupportedOperationException e) {
+      Assert.assertEquals("operation not allowed", e.getMessage());
+    }
+
     Assert.assertEquals(immutableListADT.getSize(), integerImmutableListADT.getSize());
     Assert.assertEquals(Integer.valueOf(1), integerImmutableListADT.get(0));
   }
 
   @Test
   public void testConstructingImmutableListUsingBuilder() {
+
+    //demo to show constructing of ImmutableList using builder.
     ImmutableListADT<Integer> immutableListADT = ImmutableListADTImpl.<Integer>getBuilder()
             .add(1)
             .add(2)
