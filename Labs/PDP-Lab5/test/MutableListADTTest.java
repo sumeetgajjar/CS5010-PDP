@@ -1,6 +1,11 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Objects;
+import java.util.function.Function;
+
+import listadt.ListADT;
+import listadt.ListADTImpl;
 import listadt.immutablelistadt.ImmutableListADT;
 import listadt.mutablelistadt.MutableListADT;
 import listadt.mutablelistadt.MutableListADTImpl;
@@ -145,5 +150,59 @@ public class MutableListADTTest {
     Assert.assertEquals(4, mutableListADT.getSize());
     Assert.assertEquals(2, immutableListADT.getSize());
     Assert.assertEquals("2", immutableListADT.get(1));
+  }
+
+  @Test
+  public void testLiskovSubstitutionPrinciple() {
+    ListADT<String> listADT = new ListADTImpl<>();
+    listADT.addBack("1");
+    listADT.addBack("2");
+    listADT.addBack("3");
+    listADT.addBack("4");
+    Assert.assertTrue(performOperationsOnListADT("5", listADT, Integer::parseInt));
+
+    ListADT<String> mutableListADT = new MutableListADTImpl<>();
+    listADT.addBack("1");
+    listADT.addBack("2");
+    listADT.addBack("3");
+    listADT.addBack("4");
+    Assert.assertTrue(performOperationsOnListADT("5", mutableListADT, Integer::parseInt));
+  }
+
+  private <T, R> boolean performOperationsOnListADT(T data,
+                                                    ListADT<T> listADT,
+                                                    Function<T, R> mapper) {
+    listADT.addFront(data);
+    if (!data.equals(listADT.get(0))) {
+      return false;
+    }
+
+    listADT.add(1, data);
+    if (!data.equals(listADT.get(1))) {
+      return false;
+    }
+
+    listADT.addBack(data);
+    if (!data.equals(listADT.get(listADT.getSize() - 1))) {
+      return false;
+    }
+
+    int sizeBeforeRemoval = listADT.getSize();
+    listADT.remove(data);
+    if (sizeBeforeRemoval - listADT.getSize() != 1) {
+      return false;
+    }
+
+    ListADT<R> mappedList = listADT.map(mapper);
+    if (listADT.getSize() != mappedList.getSize()) {
+      return false;
+    }
+
+    String stringRepresentationOfList = listADT.toString();
+    if (Objects.isNull(stringRepresentationOfList) || stringRepresentationOfList.isEmpty()) {
+      return false;
+    }
+
+    return true;
   }
 }
