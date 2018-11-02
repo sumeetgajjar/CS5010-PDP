@@ -47,7 +47,9 @@ public class ListADTImpl<T> implements ListADT<T> {
   public T get(int index) throws IllegalArgumentException {
     if ((index >= 0) && (index < getSize())) {
       return head.get(index);
-    } else throw new IllegalArgumentException("Invalid index");
+    } else {
+      throw new IllegalArgumentException("Invalid index");
+    }
 
   }
 

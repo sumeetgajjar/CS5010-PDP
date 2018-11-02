@@ -53,7 +53,9 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
 
   @Override
   public T get(int index) throws IllegalArgumentException {
-    if (index == 0) return this.object;
+    if (index == 0) {
+      return this.object;
+    }
     return this.rest.get(index - 1);
   }
 
@@ -72,9 +74,10 @@ public class GenericElementNode<T> implements GenericListADTNode<T> {
   public String toString() {
     String objstring = this.object.toString();
     String rest = this.rest.toString();
-    if (rest.length() > 0)
+    if (rest.length() > 0) {
       return objstring + " " + rest;
-    else
+    } else {
       return objstring;
+    }
   }
 }
