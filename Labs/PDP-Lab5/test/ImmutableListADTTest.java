@@ -38,7 +38,7 @@ public class ImmutableListADTTest {
     Assert.assertEquals(4, immutableListADT.getSize());
 
     //demo to get the string representation of th list.
-    Assert.assertEquals("(1,2,3,4)", immutableListADT.toString());
+    Assert.assertEquals("(1 2 3 4)", immutableListADT.toString());
   }
 
   @Test
@@ -98,7 +98,7 @@ public class ImmutableListADTTest {
     Assert.assertEquals("-1", mutableListAdt.get(0));
     Assert.assertEquals(6, mutableListAdt.getSize());
 
-    String expectedFirstElementOfImmutableList = "0";
+    String expectedFirstElementOfImmutableList = "1";
     Assert.assertEquals(expectedFirstElementOfImmutableList, immutableListADT.get(0));
     Assert.assertEquals(4, immutableListADT.getSize());
 
@@ -118,16 +118,16 @@ public class ImmutableListADTTest {
     Assert.assertEquals(4, immutableListADT.getSize());
 
     try {
-      mutableListAdt.get(4);
+      immutableListADT.get(4);
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
       Assert.assertEquals("Invalid index", e.getMessage());
     }
 
-    mutableListAdt.remove("0");
+    mutableListAdt.remove("1");
     Assert.assertEquals(6, mutableListAdt.getSize());
 
-    expectedFirstElementOfImmutableList = "0";
+    expectedFirstElementOfImmutableList = "1";
     Assert.assertEquals(expectedFirstElementOfImmutableList, immutableListADT.get(0));
     Assert.assertEquals(4, immutableListADT.getSize());
   }
