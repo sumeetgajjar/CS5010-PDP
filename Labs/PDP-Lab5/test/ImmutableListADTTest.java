@@ -38,10 +38,9 @@ public class ImmutableListADTTest {
 
     //demo to get MutableList from the given ImmutableList.
     MutableListADT<String> mutableListAdt = immutableListADT.getMutableListAdt();
-    Assert.assertEquals(mutableListAdt.get(0), immutableListADT.get(0));
-    Assert.assertEquals(mutableListAdt.get(1), immutableListADT.get(1));
-    Assert.assertEquals(mutableListAdt.get(2), immutableListADT.get(2));
-    Assert.assertEquals(mutableListAdt.get(3), immutableListADT.get(3));
+    for (int i = 0; i < immutableListADT.getSize(); i++) {
+      Assert.assertEquals(mutableListAdt.get(i), immutableListADT.get(i));
+    }
 
     Assert.assertEquals(mutableListAdt.getSize(), immutableListADT.getSize());
   }
@@ -205,10 +204,9 @@ public class ImmutableListADTTest {
     Assert.assertNotEquals(immutableListADT.get(0), integerImmutableListADT.get(0));
 
     Assert.assertEquals(immutableListADT.getSize(), integerImmutableListADT.getSize());
-    Assert.assertEquals(Integer.valueOf(1), integerImmutableListADT.get(0));
-    Assert.assertEquals(Integer.valueOf(2), integerImmutableListADT.get(1));
-    Assert.assertEquals(Integer.valueOf(3), integerImmutableListADT.get(2));
-    Assert.assertEquals(Integer.valueOf(4), integerImmutableListADT.get(3));
+    for (int i = 0; i < immutableListADT.getSize(); i++) {
+      Assert.assertEquals(Integer.valueOf(i + 1), integerImmutableListADT.get(i));
+    }
 
     try {
       integerImmutableListADT.add(0, -1);
