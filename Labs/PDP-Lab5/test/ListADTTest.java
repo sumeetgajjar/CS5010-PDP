@@ -259,23 +259,23 @@ public class ListADTTest {
     Assert.assertEquals(4, listADT.getSize());
 
     //constructing immutableListADT by using listADT
-    ImmutableListADT<String> immutableListADTConstructedUsingListADT =
+    ImmutableListADT<String> immutableListADT1 =
             new ImmutableListADTImpl<>(listADT);
-    Assert.assertEquals(4, immutableListADTConstructedUsingListADT.getSize());
+    Assert.assertEquals(4, immutableListADT1.getSize());
 
     MutableListADT<String> mutableListAdt =
-            immutableListADTConstructedUsingListADT.getMutableListAdt();
+            immutableListADT1.getMutableListAdt();
     Assert.assertEquals(4, mutableListAdt.getSize());
 
     //constructing immutableListADT by using mutableListADT
-    ImmutableListADTImpl<String> immutableListACTConstructedUsingMutableListACT =
+    ImmutableListADTImpl<String> stringImmutableListADT2 =
             new ImmutableListADTImpl<>(mutableListAdt);
-    Assert.assertEquals(4, immutableListACTConstructedUsingMutableListACT.getSize());
+    Assert.assertEquals(4, stringImmutableListADT2.getSize());
 
     //constructing immutableListADT by using immutableListADT
-    ImmutableListADTImpl<String> immutableListADTContructedUsingImmutableListADT =
-            new ImmutableListADTImpl<>(immutableListADTConstructedUsingListADT);
-    Assert.assertEquals(4, immutableListADTContructedUsingImmutableListADT.getSize());
+    ImmutableListADTImpl<String> stringImmutableListADT3 =
+            new ImmutableListADTImpl<>(immutableListADT1);
+    Assert.assertEquals(4, stringImmutableListADT3.getSize());
 
   }
 }
