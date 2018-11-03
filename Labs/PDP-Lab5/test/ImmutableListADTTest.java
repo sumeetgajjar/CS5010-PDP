@@ -284,7 +284,7 @@ public class ImmutableListADTTest {
   }
 
   @Test
-  public void testChangingListADTDoesNotMutateImmutableList() {
+  public void testMutatingListADTGivenToBuilderDoesNotMutateImmutableList() {
     ListADT<String> listADT = getListADT();
     Assert.assertEquals(4, listADT.getSize());
 
