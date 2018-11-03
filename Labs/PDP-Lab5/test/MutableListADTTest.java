@@ -5,10 +5,10 @@ import java.util.Objects;
 import java.util.function.Function;
 
 import listadt.ListADT;
+import listadt.ListADTFactory;
 import listadt.ListADTImpl;
 import listadt.immutablelistadt.ImmutableListADT;
 import listadt.mutablelistadt.MutableListADT;
-import listadt.mutablelistadt.MutableListADTImpl;
 
 /**
  * A Junit class to test MutableListADT.
@@ -18,7 +18,7 @@ public class MutableListADTTest {
   @Test
   public void testInitializationOfMutableList() {
     //demo to initialize a mutableList.
-    MutableListADT<String> mutableListADT = new MutableListADTImpl<>();
+    MutableListADT<String> mutableListADT = ListADTFactory.getNewMutableListADT();
     //demo to get the size of MutableList.
     Assert.assertEquals(0, mutableListADT.getSize());
 
@@ -31,7 +31,7 @@ public class MutableListADTTest {
 
   @Test
   public void testModifyingMutableList() {
-    MutableListADT<String> mutableListADT = new MutableListADTImpl<>();
+    MutableListADT<String> mutableListADT = ListADTFactory.getNewMutableListADT();
 
     //demo to add a element at any index in List.
     mutableListADT.add(0, "1");
@@ -57,7 +57,7 @@ public class MutableListADTTest {
 
   @Test
   public void testToStringForMutableList() {
-    MutableListADT<String> mutableListADT = new MutableListADTImpl<>();
+    MutableListADT<String> mutableListADT = ListADTFactory.getNewMutableListADT();
     mutableListADT.addBack("1");
     mutableListADT.addBack("2");
     //demo to get the string representation of the list.
@@ -66,7 +66,7 @@ public class MutableListADTTest {
 
   @Test
   public void testMapOfMutableList() {
-    MutableListADT<String> mutableListADT = new MutableListADTImpl<>();
+    MutableListADT<String> mutableListADT = ListADTFactory.getNewMutableListADT();
     mutableListADT.addBack("1");
     mutableListADT.addBack("2");
 
@@ -96,7 +96,7 @@ public class MutableListADTTest {
 
   @Test
   public void testGettingImmutableListFromMutableList() {
-    MutableListADT<String> mutableListADT = new MutableListADTImpl<>();
+    MutableListADT<String> mutableListADT = ListADTFactory.getNewMutableListADT();
     mutableListADT.addBack("1");
     mutableListADT.addBack("2");
 
@@ -116,7 +116,7 @@ public class MutableListADTTest {
 
   @Test
   public void testGettingMutableListFromImmutableListOfMutableList() {
-    MutableListADT<String> mutableListADT1 = new MutableListADTImpl<>();
+    MutableListADT<String> mutableListADT1 = ListADTFactory.getNewMutableListADT();
     mutableListADT1.addBack("1");
     mutableListADT1.addBack("2");
     Assert.assertEquals(2, mutableListADT1.getSize());
@@ -136,7 +136,7 @@ public class MutableListADTTest {
 
   @Test
   public void testMutatingMutableListDoesNotMutateItsImmutableList() {
-    MutableListADT<String> mutableListADT = new MutableListADTImpl<>();
+    MutableListADT<String> mutableListADT = ListADTFactory.getNewMutableListADT();
     mutableListADT.addBack("1");
     mutableListADT.addBack("2");
 
@@ -176,7 +176,7 @@ public class MutableListADTTest {
     listADT.addBack("4");
     Assert.assertTrue(performOperationsOnListADT("5", listADT, Integer::parseInt));
 
-    ListADT<String> mutableListADT = new MutableListADTImpl<>();
+    ListADT<String> mutableListADT = ListADTFactory.getNewMutableListADT();
     listADT.addBack("1");
     listADT.addBack("2");
     listADT.addBack("3");

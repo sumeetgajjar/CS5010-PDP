@@ -4,7 +4,7 @@ import org.junit.Test;
 import listadt.ListADT;
 import listadt.ListADTImpl;
 import listadt.immutablelistadt.ImmutableListADT;
-import listadt.immutablelistadt.ImmutableListADTImpl;
+import listadt.ListADTFactory;
 import listadt.mutablelistadt.MutableListADT;
 
 /**
@@ -14,7 +14,8 @@ public class ImmutableListADTTest {
 
   @Test
   public void testInitializationOfImmutableList() {
-    ImmutableListADT<String> mutableListADT = ImmutableListADTImpl.<String>getBuilder().build();
+    ImmutableListADT<String> mutableListADT =
+            ListADTFactory.<String>getNewImmutableListADTBuilder().build();
     Assert.assertEquals(0, mutableListADT.getSize());
 
     try {
@@ -243,13 +244,14 @@ public class ImmutableListADTTest {
     listADT.addBack(6);
 
     //demo to show constructing of ImmutableList using builder.
-    ImmutableListADT<Integer> immutableListADT = ImmutableListADTImpl.<Integer>getBuilder()
-            .add(1)
-            .add(2)
-            .add(3)
-            .add(4)
-            .addAll(listADT)
-            .build();
+    ImmutableListADT<Integer> immutableListADT =
+            ListADTFactory.<Integer>getNewImmutableListADTBuilder()
+                    .add(1)
+                    .add(2)
+                    .add(3)
+                    .add(4)
+                    .addAll(listADT)
+                    .build();
 
     Assert.assertEquals(6, immutableListADT.getSize());
     for (int i = 0; i < 6; i++) {
@@ -271,7 +273,7 @@ public class ImmutableListADTTest {
   public void testMutabilityOnDataInImmutableList() {
     StringBuilder firstElementInList = new StringBuilder("a");
     ImmutableListADT<StringBuilder> immutableListADT =
-            ImmutableListADTImpl.<StringBuilder>getBuilder()
+            ListADTFactory.<StringBuilder>getNewImmutableListADTBuilder()
                     .add(firstElementInList)
                     .add(new StringBuilder("c"))
                     .build();
@@ -290,7 +292,7 @@ public class ImmutableListADTTest {
 
     int expectedSizeOfImmutableList = 4;
     ImmutableListADT<String> immutableListADT =
-            ImmutableListADTImpl.<String>getBuilder().addAll(listADT).build();
+            ListADTFactory.<String>getNewImmutableListADTBuilder().addAll(listADT).build();
     Assert.assertEquals(expectedSizeOfImmutableList, immutableListADT.getSize());
 
     listADT.addBack("5");
@@ -311,7 +313,7 @@ public class ImmutableListADTTest {
 
   private ImmutableListADT<String> getImmutableListADT() {
     ListADT<String> listADT = getListADT();
-    return ImmutableListADTImpl.<String>getBuilder().addAll(listADT).build();
+    return ListADTFactory.<String>getNewImmutableListADTBuilder().addAll(listADT).build();
   }
 
   private ListADT<String> getListADT() {
