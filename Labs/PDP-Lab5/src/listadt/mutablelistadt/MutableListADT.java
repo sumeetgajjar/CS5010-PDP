@@ -6,8 +6,8 @@ import listadt.ListADT;
 import listadt.immutablelistadt.ImmutableListADT;
 
 /**
- * This interface represents MutableListADT. It extends all functionality of {@link ListADT}. It
- * overrides the {@link ListADT#map(Function)} method. The <code>map</code> method now returns
+ * This interface represents generic Mutable List. It extends all functionality of {@link ListADT} .
+ * It overrides the {@link ListADT#map(Function)} method. The <code>map</code> method now returns
  * {@link MutableListADT} instead of {@link ListADT}. This interface also has a method to get a
  * {@link ImmutableListADT} which has same elements as this {@link MutableListADT}.
  */

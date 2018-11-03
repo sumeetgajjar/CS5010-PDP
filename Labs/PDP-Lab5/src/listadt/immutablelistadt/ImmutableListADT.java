@@ -6,7 +6,7 @@ import listadt.ListADT;
 import listadt.mutablelistadt.MutableListADT;
 
 /**
- * This interface represents a {@link ImmutableListADT}. It extends {@link ListADT}. All
+ * This interface represents a generic Immutable List. It extends {@link ListADT}. All
  * implementations should make sure to throw {@link UnsupportedOperationException} if any method
  * which modifies this List is invoked. This interface also has a method to get a {@link
  * MutableListADT} which has same elements as this {@link ImmutableListADT}.

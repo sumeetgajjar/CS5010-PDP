@@ -11,7 +11,9 @@ import listadt.mutablelistadt.MutableListADT;
  * This class represents a Immutable List. It implements {@link ImmutableListADT}. This class uses
  * {@link ListADTImpl} as its underlying DataStructure to store the list elements. This class will
  * throw an {@link UnsupportedOperationException} if a method which tries to modify this list is
- * invoked. All subclasses, if any should ensure this behavior is respected.
+ * invoked. All subclasses, if any should ensure this behavior is respected. There are no public
+ * constructors for {@link ImmutableListADTImpl}, in order to create a {@link ImmutableListADTImpl},
+ * {@link ImmutableListADTImplBuilder} should be used.
  */
 public class ImmutableListADTImpl<T> implements ImmutableListADT<T> {
 
@@ -83,7 +85,7 @@ public class ImmutableListADTImpl<T> implements ImmutableListADT<T> {
    * @param converter the function that converts T into R
    * @param <R>       the type of data in the resulting list
    * @return the resulting Immutable list that is identical in structure to this list, but has data
-   *         of type R
+   * of type R
    */
   @Override
   public <R> ImmutableListADT<R> map(Function<T, R> converter) {
