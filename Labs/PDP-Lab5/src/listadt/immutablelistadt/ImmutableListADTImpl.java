@@ -146,7 +146,7 @@ public class ImmutableListADTImpl<T> implements ImmutableListADT<T> {
     }
 
     /**
-     * Add the element to the end of ImmutableListADT.
+     * Add the element at the end of ImmutableListADT.
      *
      * @param element the element to add
      * @return the builder object

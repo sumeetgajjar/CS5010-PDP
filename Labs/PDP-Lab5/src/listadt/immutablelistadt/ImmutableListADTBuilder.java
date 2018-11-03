@@ -10,7 +10,7 @@ import listadt.ListADT;
 public interface ImmutableListADTBuilder<T> {
 
   /**
-   * Add the element to the end of ImmutableListADT.
+   * Add the element at the end of ImmutableListADT.
    *
    * @param element the element to add
    * @return this builder object
