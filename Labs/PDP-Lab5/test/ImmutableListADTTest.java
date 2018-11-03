@@ -317,25 +317,31 @@ public class ImmutableListADTTest {
     listADT.addBack("2");
     listADT.addBack("3");
 
+    //demo to construct ImmutableListADT using Builder
     ImmutableListADT<String> immutableListADT =
             ListADTFactory.<String>getNewImmutableListADTBuilder()
                     .add("1")
                     .addAll(listADT)
                     .build();
 
+    //demo to access elements of ImmutableListADT
     String firstElement = immutableListADT.get(0);
     Assert.assertEquals("1", firstElement);
 
+    //demo to get size of ImmutableListADT
     int size = immutableListADT.getSize();
     Assert.assertEquals(3, size);
 
+    //demo to map ImmutableListADT of type "String" to type "Integer"
     ImmutableListADT<Integer> integerImmutableListADT = immutableListADT.map(Integer::parseInt);
     Assert.assertEquals(3, integerImmutableListADT.getSize());
     Assert.assertEquals(Integer.valueOf(1), integerImmutableListADT.get(0));
 
+    //demo to obtain the string representation of ImmutableList
     String stringRepresentationOfList = immutableListADT.toString();
     Assert.assertEquals("(1 2 3)", stringRepresentationOfList);
 
+    //demo to get Mutable counterpart of ImmutableList
     MutableListADT<String> mutableListADT = immutableListADT.getMutableListADT();
     mutableListADT.addBack("4");
     Assert.assertEquals(4, mutableListADT.getSize());
