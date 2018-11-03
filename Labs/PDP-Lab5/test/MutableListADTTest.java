@@ -198,6 +198,10 @@ public class MutableListADTTest {
     int size = mutableListADT.getSize();
     Assert.assertEquals(2, size);
 
+    //demo to remove a element no present in MutableList
+    mutableListADT.remove("3");
+    Assert.assertEquals(2, size);
+
     //demo to access element at given index in MutableList
     String firstElement = mutableListADT.get(0);
     Assert.assertEquals("1", firstElement);
