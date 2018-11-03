@@ -284,6 +284,25 @@ public class ImmutableListADTTest {
   }
 
   @Test
+  public void testChangingListADTDoesNotMutateImmutableList() {
+    ListADT<String> listADT = getListADT();
+    Assert.assertEquals(4, listADT.getSize());
+
+    int expectedSizeOfImmutableList = 4;
+    ImmutableListADT<String> immutableListADT =
+            ImmutableListADTImpl.<String>getBuilder().addAll(listADT).build();
+    Assert.assertEquals(expectedSizeOfImmutableList, immutableListADT.getSize());
+
+    listADT.addBack("5");
+    Assert.assertEquals(5, listADT.getSize());
+
+    Assert.assertEquals(expectedSizeOfImmutableList, immutableListADT.getSize());
+    for (int i = 0; i < expectedSizeOfImmutableList; i++) {
+      Assert.assertEquals(String.valueOf(i + 1), immutableListADT.get(i));
+    }
+  }
+
+  @Test
   public void testToStringOfImmutableList() {
     ListADT<String> listADT = getListADT();
     ImmutableListADT<String> immutableListADT = getImmutableListADT();
