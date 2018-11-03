@@ -174,6 +174,14 @@ public class MutableListADTTest {
     //demo to add element at given index in MutableList
     mutableListADT.add(0, "1");
 
+    //demo to get an element at index greater than size of MutableList
+    try {
+      mutableListADT.get(4);
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid index", e.getMessage());
+    }
+
     /*
     demo to add element at given index in MutableList such that the index is greater then the
     length of the list.
