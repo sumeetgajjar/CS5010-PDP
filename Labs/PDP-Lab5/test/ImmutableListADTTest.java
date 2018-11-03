@@ -2,9 +2,9 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import listadt.ListADT;
+import listadt.ListADTFactory;
 import listadt.ListADTImpl;
 import listadt.immutablelistadt.ImmutableListADT;
-import listadt.ListADTFactory;
 import listadt.mutablelistadt.MutableListADT;
 
 /**
@@ -309,6 +309,36 @@ public class ImmutableListADTTest {
     ListADT<String> listADT = getListADT();
     ImmutableListADT<String> immutableListADT = getImmutableListADT();
     Assert.assertEquals(listADT.toString(), immutableListADT.toString());
+  }
+
+  @Test
+  public void demoToUseImmutableListADT() {
+    ListADT<String> listADT = new ListADTImpl<>();
+    listADT.addBack("2");
+    listADT.addBack("3");
+
+    ImmutableListADT<String> immutableListADT =
+            ListADTFactory.<String>getNewImmutableListADTBuilder()
+                    .add("1")
+                    .addAll(listADT)
+                    .build();
+
+    String firstElement = immutableListADT.get(0);
+    Assert.assertEquals("1", firstElement);
+
+    int size = immutableListADT.getSize();
+    Assert.assertEquals(3, size);
+
+    ImmutableListADT<Integer> integerImmutableListADT = immutableListADT.map(Integer::parseInt);
+    Assert.assertEquals(3, integerImmutableListADT.getSize());
+    Assert.assertEquals(Integer.valueOf(1), integerImmutableListADT.get(0));
+
+    String stringRepresentationOfList = immutableListADT.toString();
+    Assert.assertEquals("(1 2 3)", stringRepresentationOfList);
+
+    MutableListADT<String> mutableListADT = immutableListADT.getMutableListADT();
+    mutableListADT.addBack("4");
+    Assert.assertEquals(4, mutableListADT.getSize());
   }
 
   private ImmutableListADT<String> getImmutableListADT() {
