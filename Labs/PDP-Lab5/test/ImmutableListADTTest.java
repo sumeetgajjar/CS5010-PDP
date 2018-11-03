@@ -328,6 +328,14 @@ public class ImmutableListADTTest {
     String firstElement = immutableListADT.get(0);
     Assert.assertEquals("1", firstElement);
 
+    //demo to get an element at index greater than size of ImmutableList
+    try {
+      immutableListADT.get(4);
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid index", e.getMessage());
+    }
+
     //demo to get size of ImmutableListADT
     int size = immutableListADT.getSize();
     Assert.assertEquals(3, size);
