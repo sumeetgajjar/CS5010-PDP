@@ -3,10 +3,10 @@ package listadt.mutablelistadt;
 import java.util.function.Function;
 
 import listadt.ListADT;
+import listadt.ListADTFactory;
 import listadt.ListADTImpl;
 import listadt.immutablelistadt.ImmutableListADT;
 import listadt.immutablelistadt.ImmutableListADTBuilder;
-import listadt.immutablelistadt.ImmutableListADTImpl;
 
 /**
  * This class represents a Mutable List. It extends {@link ListADTImpl} and it implements {@link
@@ -48,7 +48,7 @@ public class MutableListADTImpl<T> extends ListADTImpl<T> implements MutableList
    */
   @Override
   public ImmutableListADT<T> getImmutableListADT() {
-    ImmutableListADTBuilder<T> builder = ImmutableListADTImpl.getBuilder();
+    ImmutableListADTBuilder<T> builder = ListADTFactory.getNewImmutableListADTBuilder();
     int size = this.getSize();
     for (int i = 0; i < size; i++) {
       builder.add(this.get(i));
