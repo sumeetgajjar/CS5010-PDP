@@ -214,10 +214,6 @@ public class MutableListADTTest {
     }
 
     String stringRepresentationOfList = listADT.toString();
-    if (Objects.isNull(stringRepresentationOfList) || stringRepresentationOfList.isEmpty()) {
-      return false;
-    }
-
-    return true;
+    return Objects.nonNull(stringRepresentationOfList) && !stringRepresentationOfList.isEmpty();
   }
 }
