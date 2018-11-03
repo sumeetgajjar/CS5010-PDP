@@ -17,7 +17,9 @@ public class MutableListADTTest {
 
   @Test
   public void testInitializationOfMutableList() {
+    //demo to initialize a mutableList.
     MutableListADT<String> mutableListADT = new MutableListADTImpl<>();
+    //demo to get the size of MutableList.
     Assert.assertEquals(0, mutableListADT.getSize());
 
     try {
@@ -31,18 +33,23 @@ public class MutableListADTTest {
   public void testModifyingMutableList() {
     MutableListADT<String> mutableListADT = new MutableListADTImpl<>();
 
+    //demo to add a element at any index in List.
     mutableListADT.add(0, "1");
     Assert.assertEquals(1, mutableListADT.getSize());
+    //demo to get an element of MutableList.
     Assert.assertEquals("1", mutableListADT.get(0));
 
+    //demo to add a element at the front of the List.
     mutableListADT.addFront("-1");
     Assert.assertEquals(2, mutableListADT.getSize());
     Assert.assertEquals("-1", mutableListADT.get(0));
 
+    //demo to add a element at the back of the List.
     mutableListADT.addBack("2");
     Assert.assertEquals(3, mutableListADT.getSize());
     Assert.assertEquals("2", mutableListADT.get(2));
 
+    //demo to remove a element from the List.
     mutableListADT.remove("1");
     Assert.assertEquals(2, mutableListADT.getSize());
     Assert.assertEquals("2", mutableListADT.get(1));
@@ -53,6 +60,7 @@ public class MutableListADTTest {
     MutableListADT<String> mutableListADT = new MutableListADTImpl<>();
     mutableListADT.addBack("1");
     mutableListADT.addBack("2");
+    //demo to get the string representation of the list.
     Assert.assertEquals("(1 2)", mutableListADT.toString());
   }
 
@@ -62,6 +70,7 @@ public class MutableListADTTest {
     mutableListADT.addBack("1");
     mutableListADT.addBack("2");
 
+    //demo to map the mutableList of Type T to mutableList of Type R.
     MutableListADT<Integer> integerMutableListADT = mutableListADT.map(Integer::parseInt);
     Assert.assertEquals(integerMutableListADT.getSize(), mutableListADT.getSize());
 
@@ -91,6 +100,7 @@ public class MutableListADTTest {
     mutableListADT.addBack("1");
     mutableListADT.addBack("2");
 
+    //demo to get ImmutableList from the given MutableList.
     ImmutableListADT<String> immutableListAdt = mutableListADT.getImmutableListADT();
     Assert.assertEquals(mutableListADT.getSize(), immutableListAdt.getSize());
     for (int i = 0; i < immutableListAdt.getSize(); i++) {
@@ -130,6 +140,9 @@ public class MutableListADTTest {
     mutableListADT.addBack("1");
     mutableListADT.addBack("2");
 
+    /*
+    demo to show mutating the MutableList does not mutate its previously created ImmutableLists.
+    */
     ImmutableListADT<String> immutableListADT = mutableListADT.getImmutableListADT();
     Assert.assertEquals(2, immutableListADT.getSize());
 

@@ -37,7 +37,7 @@ public class ImmutableListADTTest {
     //demo to get the size of ImmutableList.
     Assert.assertEquals(4, immutableListADT.getSize());
 
-    //demo to get the string representation of th list.
+    //demo to get the string representation of the list.
     Assert.assertEquals("(1 2 3 4)", immutableListADT.toString());
   }
 
