@@ -168,6 +168,59 @@ public class MutableListADTTest {
   }
 
   @Test
+  public void demoUsingMutableListADT() {
+    MutableListADT<String> mutableListADT = ListADTFactory.getNewMutableListADT();
+
+    //demo to add element at given index in MutableList
+    mutableListADT.add(0, "1");
+
+    /*
+    demo to add element at given index in MutableList such that the index is greater then the
+    length of the list.
+    */
+    try {
+      mutableListADT.add(2, "1");
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("Invalid index to add an element", e.getMessage());
+    }
+
+    //demo to add element at end of the MutableList
+    mutableListADT.addBack("2");
+
+    //demo to add element at the front of the MutableList
+    mutableListADT.addFront("0");
+
+    //demo to remove a element in MutableList
+    mutableListADT.remove("0");
+
+    //demo to get the size of MutableList
+    int size = mutableListADT.getSize();
+    Assert.assertEquals(2, size);
+
+    //demo to access element at given index in MutableList
+    String firstElement = mutableListADT.get(0);
+    Assert.assertEquals("1", firstElement);
+
+    //demo to map a MutableList of type String to MutableList of Type Integer
+    MutableListADT<Integer> integerMutableListADT = mutableListADT.map(Integer::parseInt);
+    integerMutableListADT.addBack(3);
+    Assert.assertEquals(3, integerMutableListADT.getSize());
+
+    //demo to obtain immutable counterpart of the MutableList
+    ImmutableListADT<String> immutableListADT = mutableListADT.getImmutableListADT();
+    try {
+      immutableListADT.addFront("0");
+    } catch (UnsupportedOperationException e) {
+      Assert.assertEquals("operation not allowed", e.getMessage());
+    }
+
+    //demo to obtain string representation of the MutableList
+    String stringRepresentationOfList = mutableListADT.toString();
+    Assert.assertEquals("(1 2)", stringRepresentationOfList);
+  }
+
+  @Test
   public void testLiskovSubstitutionPrinciple() {
     ListADT<String> listADT = new ListADTImpl<>();
     listADT.addBack("1");
