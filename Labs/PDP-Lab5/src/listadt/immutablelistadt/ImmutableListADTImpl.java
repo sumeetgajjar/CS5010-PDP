@@ -158,6 +158,21 @@ public class ImmutableListADTImpl<T> implements ImmutableListADT<T> {
     }
 
     /**
+     * Add each element of given {@link ListADT} to the {@link ImmutableListADT}.
+     *
+     * @param listADT the given listADT
+     * @return the builder object
+     */
+    @Override
+    public ImmutableListADTImplBuilder<E> addAll(ListADT<E> listADT) {
+      int size = listADT.getSize();
+      for (int i = 0; i < size; i++) {
+        this.add(listADT.get(i));
+      }
+      return this;
+    }
+
+    /**
      * Returns a newly-created ImmutableListADT based on the contents of this Builder.
      *
      * @return a newly-created ImmutableListADT based on the contents of this Builder

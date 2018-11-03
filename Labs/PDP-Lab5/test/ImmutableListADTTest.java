@@ -239,19 +239,23 @@ public class ImmutableListADTTest {
   @Test
   public void testConstructingImmutableListUsingBuilder() {
 
+    ListADT<Integer> listADT = new ListADTImpl<>();
+    listADT.addBack(5);
+    listADT.addBack(6);
+
     //demo to show constructing of ImmutableList using builder.
     ImmutableListADT<Integer> immutableListADT = ImmutableListADTImpl.<Integer>getBuilder()
             .add(1)
             .add(2)
             .add(3)
             .add(4)
+            .addAll(listADT)
             .build();
 
-    Assert.assertEquals(4, immutableListADT.getSize());
-    Assert.assertEquals(Integer.valueOf(1), immutableListADT.get(0));
-    Assert.assertEquals(Integer.valueOf(2), immutableListADT.get(1));
-    Assert.assertEquals(Integer.valueOf(3), immutableListADT.get(2));
-    Assert.assertEquals(Integer.valueOf(4), immutableListADT.get(3));
+    Assert.assertEquals(6, immutableListADT.getSize());
+    for (int i = 0; i < 6; i++) {
+      Assert.assertEquals(Integer.valueOf(i + 1), immutableListADT.get(i));
+    }
 
     try {
       immutableListADT.add(0, -1);
