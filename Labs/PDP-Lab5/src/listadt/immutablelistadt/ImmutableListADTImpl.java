@@ -83,7 +83,7 @@ public class ImmutableListADTImpl<T> implements ImmutableListADT<T> {
    * @param converter the function that converts T into R
    * @param <R>       the type of data in the resulting list
    * @return the resulting Immutable list that is identical in structure to this list, but has data
-   * of type R
+   *         of type R
    */
   @Override
   public <R> ImmutableListADT<R> map(Function<T, R> converter) {
