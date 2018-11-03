@@ -8,7 +8,7 @@ package listadt.immutablelistadt;
 public interface ImmutableListADTBuilder<T> {
 
   /**
-   * Add the element to the ImmutableListADT.
+   * Add the element to the end of ImmutableListADT.
    *
    * @param element the element to add
    * @return this builder object

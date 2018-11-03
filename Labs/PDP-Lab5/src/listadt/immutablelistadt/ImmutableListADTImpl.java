@@ -83,7 +83,7 @@ public class ImmutableListADTImpl<T> implements ImmutableListADT<T> {
    * @param converter the function that converts T into R
    * @param <R>       the type of data in the resulting list
    * @return the resulting Immutable list that is identical in structure to this list, but has data
-   *         of type R
+   * of type R
    */
   @Override
   public <R> ImmutableListADT<R> map(Function<T, R> converter) {
@@ -120,24 +120,48 @@ public class ImmutableListADTImpl<T> implements ImmutableListADT<T> {
     return this.listADT.toString();
   }
 
+  /**
+   * Returns a new {@link ImmutableListADTBuilder}.
+   *
+   * @param <E> Type of the Builder
+   * @return a new {@link ImmutableListADTBuilder}
+   */
   public static <E> ImmutableListADTBuilder<E> getBuilder() {
     return new ImmutableListADTImplBuilder<>();
   }
 
+  /**
+   * This class represents a Builder to build {@link ImmutableListADTImpl}. It implements {@link
+   * ImmutableListADTBuilder}.
+   */
   private static class ImmutableListADTImplBuilder<E> implements ImmutableListADTBuilder<E> {
 
     private final ListADT<E> listADT;
 
+    /**
+     * Private constructor to create a {@link ImmutableListADTImplBuilder} object.
+     */
     private ImmutableListADTImplBuilder() {
       this.listADT = new ListADTImpl<>();
     }
 
+    /**
+     * Add the element to the end of ImmutableListADT.
+     *
+     * @param element the element to add
+     * @return the builder object
+     */
     @Override
     public ImmutableListADTBuilder<E> add(E element) {
       this.listADT.addBack(element);
       return this;
     }
 
+    /**
+     * Returns a newly-created ImmutableListADT based on the contents of this Builder.
+     *
+     * @return a newly-created ImmutableListADT based on the contents of this Builder
+     */
     @Override
     public ImmutableListADT<E> build() {
       return new ImmutableListADTImpl<>(listADT);
