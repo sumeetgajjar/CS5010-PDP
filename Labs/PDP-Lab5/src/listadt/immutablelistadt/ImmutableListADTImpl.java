@@ -3,9 +3,9 @@ package listadt.immutablelistadt;
 import java.util.function.Function;
 
 import listadt.ListADT;
+import listadt.ListADTFactory;
 import listadt.ListADTImpl;
 import listadt.mutablelistadt.MutableListADT;
-import listadt.mutablelistadt.MutableListADTImpl;
 
 /**
  * This class represents a Immutable List. It implements {@link ImmutableListADT}. This class uses
@@ -105,7 +105,7 @@ public class ImmutableListADTImpl<T> implements ImmutableListADT<T> {
    */
   @Override
   public MutableListADT<T> getMutableListADT() {
-    MutableListADT<T> mutableListADT = new MutableListADTImpl<>();
+    MutableListADT<T> mutableListADT = ListADTFactory.getNewMutableListADT();
 
     int size = this.listADT.getSize();
     for (int i = 0; i < size; i++) {
