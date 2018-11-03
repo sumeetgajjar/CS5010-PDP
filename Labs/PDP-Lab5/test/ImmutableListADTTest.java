@@ -215,6 +215,7 @@ public class ImmutableListADTTest {
     Assert.assertEquals(immutableListADT.getSize(), integerImmutableListADT.getSize());
     for (int i = 0; i < immutableListADT.getSize(); i++) {
       Assert.assertEquals(Integer.valueOf(i + 1), integerImmutableListADT.get(i));
+      Assert.assertEquals(String.valueOf(i + 1), immutableListADT.get(i));
     }
 
     try {

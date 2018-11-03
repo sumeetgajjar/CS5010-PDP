@@ -65,8 +65,10 @@ public class MutableListADTTest {
     MutableListADT<Integer> integerMutableListADT = mutableListADT.map(Integer::parseInt);
     Assert.assertEquals(integerMutableListADT.getSize(), mutableListADT.getSize());
 
-    Assert.assertEquals(Integer.valueOf(1), integerMutableListADT.get(0));
-    Assert.assertEquals(Integer.valueOf(2), integerMutableListADT.get(1));
+    for (int i = 0; i < mutableListADT.getSize(); i++) {
+      Assert.assertEquals(Integer.valueOf(i + 1), integerMutableListADT.get(i));
+      Assert.assertEquals(String.valueOf(i + 1), mutableListADT.get(i));
+    }
 
     Assert.assertEquals("(1 2)", mutableListADT.toString());
 
