@@ -4,7 +4,6 @@ import org.junit.Test;
 import listadt.ListADT;
 import listadt.ListADTImpl;
 import listadt.immutablelistadt.ImmutableListADT;
-import listadt.immutablelistadt.ImmutableListADTBuilder;
 import listadt.immutablelistadt.ImmutableListADTImpl;
 import listadt.mutablelistadt.MutableListADT;
 
@@ -293,14 +292,7 @@ public class ImmutableListADTTest {
 
   private ImmutableListADT<String> getImmutableListADT() {
     ListADT<String> listADT = getListADT();
-    int size = listADT.getSize();
-
-    ImmutableListADTBuilder<String> builder = ImmutableListADTImpl.getBuilder();
-    for (int i = 0; i < size; i++) {
-      builder = builder.add(listADT.get(i));
-    }
-
-    return builder.build();
+    return ImmutableListADTImpl.<String>getBuilder().addAll(listADT).build();
   }
 
   private ListADT<String> getListADT() {
