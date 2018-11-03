@@ -13,7 +13,7 @@ import listadt.mutablelistadt.MutableListADT;
 public interface ImmutableListADT<T> extends ListADT<T> {
 
   /**
-   * All implementation should throw {@link UnsupportedOperationException}.
+   * All implementation should throw {@link UnsupportedOperationException} when invoked.
    *
    * @throws UnsupportedOperationException if invoked
    */
@@ -21,7 +21,7 @@ public interface ImmutableListADT<T> extends ListADT<T> {
   void addFront(T b) throws UnsupportedOperationException;
 
   /**
-   * All implementation should throw {@link UnsupportedOperationException}.
+   * All implementation should throw {@link UnsupportedOperationException} when invoked.
    *
    * @throws UnsupportedOperationException if invoked
    */
@@ -29,7 +29,7 @@ public interface ImmutableListADT<T> extends ListADT<T> {
   void addBack(T b) throws UnsupportedOperationException;
 
   /**
-   * All implementation should throw {@link UnsupportedOperationException}.
+   * All implementation should throw {@link UnsupportedOperationException} when invoked.
    *
    * @throws UnsupportedOperationException if invoked
    */
@@ -37,7 +37,7 @@ public interface ImmutableListADT<T> extends ListADT<T> {
   void add(int index, T b) throws UnsupportedOperationException;
 
   /**
-   * All implementation should throw {@link UnsupportedOperationException}.
+   * All implementation should throw {@link UnsupportedOperationException} when invoked.
    *
    * @throws UnsupportedOperationException if invoked
    */
