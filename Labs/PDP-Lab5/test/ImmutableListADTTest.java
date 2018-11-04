@@ -237,6 +237,30 @@ public class ImmutableListADTTest {
   }
 
   @Test
+  public void testConstructingImmutableListUsingNullList() {
+    try {
+      ListADTFactory.getNewImmutableListADTBuilder()
+              .addAll(null);
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("given list cannot be null", e.getMessage());
+    }
+  }
+
+  @Test
+  public void testConstructingImmutableListWithNullElement() {
+    ImmutableListADT<String> immutableListADT =
+            ListADTFactory.<String>getNewImmutableListADTBuilder()
+                    .add("1")
+                    .add(null)
+                    .add("2")
+                    .build();
+
+    Assert.assertNull(immutableListADT.get(1));
+    Assert.assertEquals("2", immutableListADT.get(2));
+  }
+
+  @Test
   public void testConstructingImmutableListUsingBuilder() {
 
     ListADT<Integer> listADT = new ListADTImpl<>();
