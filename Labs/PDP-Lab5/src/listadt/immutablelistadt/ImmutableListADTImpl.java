@@ -170,7 +170,9 @@ public class ImmutableListADTImpl<T> implements ImmutableListADT<T> {
      * @throws IllegalArgumentException if the given list is null
      */
     @Override
-    public ImmutableListADTImplBuilder<E> addAll(ListADT<E> listADT) throws IllegalArgumentException {
+    public ImmutableListADTImplBuilder<E> addAll(ListADT<E> listADT)
+            throws IllegalArgumentException {
+
       if (Objects.isNull(listADT)) {
         throw new IllegalArgumentException("given list cannot be null");
       }
