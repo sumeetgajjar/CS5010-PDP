@@ -258,6 +258,17 @@ public class ImmutableListADTTest {
 
     Assert.assertNull(immutableListADT.get(1));
     Assert.assertEquals("2", immutableListADT.get(2));
+
+    ListADT<String> listADT = new ListADTImpl<>();
+    listADT.addBack("1");
+    listADT.addBack(null);
+
+    immutableListADT = ListADTFactory.<String>getNewImmutableListADTBuilder()
+            .add("0")
+            .addAll(listADT)
+            .build();
+
+    Assert.assertNull(immutableListADT.get(2));
   }
 
   @Test
