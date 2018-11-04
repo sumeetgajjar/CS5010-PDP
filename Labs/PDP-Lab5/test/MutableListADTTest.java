@@ -233,6 +233,17 @@ public class MutableListADTTest {
   }
 
   @Test
+  public void testConstructingMutableListWithNullElement() {
+    MutableListADT<Object> mutableListADT = ListADTFactory.getNewMutableListADT();
+    mutableListADT.addBack("1");
+    mutableListADT.addBack(null);
+    mutableListADT.addBack("2");
+
+    Assert.assertNull(mutableListADT.get(1));
+    Assert.assertEquals("1", mutableListADT.get(0));
+  }
+
+  @Test
   public void testLiskovSubstitutionPrinciple() {
     ListADT<String> listADT = new ListADTImpl<>();
     listADT.addBack("1");
