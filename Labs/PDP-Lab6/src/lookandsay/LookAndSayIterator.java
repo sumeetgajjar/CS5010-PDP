@@ -56,7 +56,7 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
    * Constructs a {@link LookAndSayIterator} object with the given params. The end value will be a
    * number with 100 9s (the largest 100 digit number). It throws an {@link
    * IllegalArgumentException} if the number of continuous digits in the given seed is greater than
-   * 9.
+   * 9. It throws {@link IllegalArgumentException} if the given param is null.
    *
    * @param seed the given seed
    * @throws IllegalArgumentException if the given seed is invalid
