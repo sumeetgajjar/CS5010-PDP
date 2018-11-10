@@ -178,11 +178,7 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
       }
     }
 
-    if (builder.length() == 0) {
-      return BigInteger.ZERO;
-    } else {
-      return new BigInteger(builder.toString());
-    }
+    return new BigInteger(builder.toString());
   }
 
   /**
