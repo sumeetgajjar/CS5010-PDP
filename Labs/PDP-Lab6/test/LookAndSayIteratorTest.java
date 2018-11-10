@@ -23,7 +23,7 @@ public class LookAndSayIteratorTest {
       Assert.assertTrue(rIterator.hasNext());
       Assert.assertEquals(new BigInteger("1"), rIterator.next());
 
-      Assert.assertFalse(rIterator.hasPrevious());
+      Assert.assertTrue(rIterator.hasPrevious());
       Assert.assertEquals(new BigInteger("11"), rIterator.prev());
     }
   }
