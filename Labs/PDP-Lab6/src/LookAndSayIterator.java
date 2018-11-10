@@ -1,4 +1,5 @@
 import java.math.BigInteger;
+import java.util.Objects;
 
 /**
  * Created by gajjar.s, on 8:24 PM, 11/9/18
@@ -10,18 +11,24 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
 
   private final BigInteger end;
   private BigInteger current;
+  private BigInteger next;
+  private BigInteger prev;
 
   /**
    * Constructs a {@link LookAndSayIterator} object with the given params. It throws an {@link
    * IllegalArgumentException} if the number of continuous digits in the given seed is greater than
-   * 9 or if the seed is not a positive number, or is not less than the end.
+   * 9 or if the seed is not a positive number, or is not less than the end. It throws {@link
+   * IllegalArgumentException} if any of the given params are null.
    *
    * @param seed the given seed
    * @param end  the given end number
    * @throws IllegalArgumentException if the given seed is invalid
    */
   public LookAndSayIterator(BigInteger seed, BigInteger end) throws IllegalArgumentException {
+    this.areParamsValid(seed, end);
     this.current = seed;
+    this.prev = getPrev(this.current);
+    this.next = getNext(this.current);
     this.end = end;
   }
 
@@ -55,7 +62,13 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
    */
   @Override
   public BigInteger prev() {
-    return null;
+    BigInteger valueToReturn = this.current;
+    if (this.hasPrevious()) {
+      BigInteger tempCurrent = this.current;
+      this.current = this.prev;
+      this.prev = getPrev(tempCurrent);
+    }
+    return valueToReturn;
   }
 
   /**
@@ -80,7 +93,7 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
    */
   @Override
   public boolean hasNext() {
-    return false;
+    return this.end.compareTo(this.next) > 0;
   }
 
   /**
@@ -94,7 +107,8 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
   public BigInteger next() {
     BigInteger valueToReturn = this.current;
     if (this.hasNext()) {
-      this.current = getNext(this.current);
+      this.current = this.next;
+      this.next = this.getNext(this.current);
     }
     return valueToReturn;
   }
@@ -102,35 +116,86 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
   private BigInteger getNext(BigInteger current) {
     BigInteger next = BigInteger.ZERO;
 
-    int count = 1;
+    int frequency = 1;
     int lastDigit = current.mod(BigInteger.TEN).intValue();
     current = current.divide(BigInteger.TEN);
-    int secondLastDigit = 0;
+    int secondLastDigit;
 
     while (!current.equals(BigInteger.ZERO)) {
       secondLastDigit = current.mod(BigInteger.TEN).intValue();
 
       if (lastDigit == secondLastDigit) {
-        count++;
+        frequency++;
       } else {
-        next = next.add(BigInteger.valueOf(count))
+        next = next.add(BigInteger.valueOf(frequency))
                 .multiply(BigInteger.TEN)
                 .add(BigInteger.valueOf(lastDigit));
-        count = 1;
+        frequency = 1;
       }
       lastDigit = secondLastDigit;
       current = current.divide(BigInteger.TEN);
     }
 
-    next = next.add(BigInteger.valueOf(count))
+    next = next.add(BigInteger.valueOf(frequency))
             .multiply(BigInteger.TEN)
             .add(BigInteger.valueOf(lastDigit));
 
     return next;
   }
 
-  public static void main(String[] args) {
-    System.out.println(new BigInteger("123").mod(BigInteger.TEN));
+  private BigInteger getPrev(BigInteger current) {
+    int digitCount;
+    int digit;
+    StringBuilder builder = new StringBuilder();
+    BigInteger hundred = BigInteger.TEN;
+    while (current.compareTo(BigInteger.ZERO) > 0) {
+      digit = current.mod(BigInteger.TEN).intValue();
+      digitCount = current.mod(BigInteger.TEN).intValue();
+      for (int i = 0; i < digitCount; i++) {
+        builder.append(digit);
+      }
+      current = current.divide(hundred);
+    }
+
+    return new BigInteger(builder.reverse().toString());
+  }
+
+  private void areParamsValid(BigInteger seed, BigInteger end) {
+    if (Objects.isNull(seed) || Objects.isNull(end)) {
+      throw new IllegalArgumentException("input cannot be null");
+    }
+
+    if (seed.compareTo(end) > 0) {
+      throw new IllegalArgumentException("invalid seed value");
+    }
+
+    if (this.containsDigitWithOddFrequencyGreaterThan10(seed)) {
+      throw new IllegalArgumentException("double digit frequencies not allowed");
+    }
+  }
+
+  private boolean containsDigitWithOddFrequencyGreaterThan10(BigInteger seed) {
+    int frequency = 1;
+    int lastDigit = seed.mod(BigInteger.TEN).intValue();
+    seed = seed.divide(BigInteger.TEN);
+    int secondLastDigit;
+
+    while (seed.compareTo(BigInteger.ZERO) > 0) {
+      secondLastDigit = seed.mod(BigInteger.TEN).intValue();
+
+      if (lastDigit == secondLastDigit) {
+        frequency++;
+      } else {
+        if (frequency > 9) {
+          return true;
+        }
+        frequency = 1;
+      }
+      lastDigit = secondLastDigit;
+      seed = seed.divide(BigInteger.TEN);
+    }
+
+    return frequency > 9;
   }
 
   private static String get100DigitRepeatingString(int number) {
@@ -140,5 +205,9 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
     }
 
     return builder.toString();
+  }
+
+  public static void main(String[] args) {
+    System.out.println(new BigInteger("123").mod(BigInteger.TEN));
   }
 }

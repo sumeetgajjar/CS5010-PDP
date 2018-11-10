@@ -43,6 +43,27 @@ public class LookAndSayIteratorTest {
   @Test
   public void testInvalidSeedValue() {
     try {
+      new LookAndSayIterator(null);
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("input cannot be null", e.getMessage());
+    }
+
+    try {
+      new LookAndSayIterator(BigInteger.ONE, null);
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("input cannot be null", e.getMessage());
+    }
+
+    try {
+      new LookAndSayIterator(null, null);
+      Assert.fail("should have failed");
+    } catch (IllegalArgumentException e) {
+      Assert.assertEquals("input cannot be null", e.getMessage());
+    }
+
+    try {
       new LookAndSayIterator(new BigInteger("0"));
       Assert.fail("should have failed");
     } catch (IllegalArgumentException e) {
@@ -111,7 +132,7 @@ public class LookAndSayIteratorTest {
   public void testNextWorks() {
     RIterator<BigInteger> rIterator = new LookAndSayIterator(BigInteger.ONE, new BigInteger("100"));
     Assert.assertTrue(rIterator.hasNext());
-    Assert.assertEquals(new BigInteger("100"), rIterator.next());
+    Assert.assertEquals(new BigInteger("1"), rIterator.next());
 
     Assert.assertTrue(rIterator.hasNext());
     Assert.assertEquals(new BigInteger("11"), rIterator.next());
@@ -122,6 +143,15 @@ public class LookAndSayIteratorTest {
     Assert.assertEquals(new BigInteger("21"), rIterator.next());
     Assert.assertFalse(rIterator.hasNext());
     Assert.assertEquals(new BigInteger("21"), rIterator.next());
+  }
+
+  @Test
+  public void testHasNextWorks() {
+    RIterator<BigInteger> rIterator = new LookAndSayIterator(BigInteger.ONE, new BigInteger("11"));
+    Assert.assertFalse(rIterator.hasNext());
+
+    rIterator = new LookAndSayIterator(BigInteger.ONE, BigInteger.ONE);
+    Assert.assertFalse(rIterator.hasNext());
   }
 
   @Test
