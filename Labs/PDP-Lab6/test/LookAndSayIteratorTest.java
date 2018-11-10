@@ -193,6 +193,9 @@ public class LookAndSayIteratorTest {
     Assert.assertTrue(rIterator.hasPrevious());
     Assert.assertEquals(seed, rIterator.prev());
 
+    Assert.assertFalse(rIterator.hasNext());
+
+    rIterator = new LookAndSayIterator(seed);
     Assert.assertTrue(rIterator.hasNext());
     Assert.assertEquals(seed, rIterator.next());
 
@@ -200,10 +203,10 @@ public class LookAndSayIteratorTest {
     Assert.assertEquals(new BigInteger("999899989998999899989918"), rIterator.next());
 
     Assert.assertTrue(rIterator.hasPrevious());
-    Assert.assertEquals(new BigInteger("3918391839183918391829"), rIterator.prev());
+    Assert.assertEquals(new BigInteger("39183918391839183918291118"), rIterator.prev());
 
     Assert.assertTrue(rIterator.hasPrevious());
-    Assert.assertEquals(new BigInteger("9998999899989998999899"), rIterator.prev());
+    Assert.assertEquals(new BigInteger("999899989998999899989918"), rIterator.prev());
   }
 
   private String getLargest100DigitValidSeed() {

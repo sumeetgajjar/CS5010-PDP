@@ -144,22 +144,18 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
   }
 
   private BigInteger getPrev(BigInteger current) {
-
-    boolean oddDigits = this.countDigits(current) % 2 == 1;
-    if (oddDigits) {
+    char[] digits = current.toString().toCharArray();
+    if (digits.length % 2 == 1) {
       return current;
     }
 
     int digitCount;
-    int digit;
+    char digit;
     StringBuilder builder = new StringBuilder();
-    while (current.compareTo(BigInteger.ZERO) > 0) {
-      digit = current.mod(BigInteger.TEN).intValue();
-      current = current.divide(BigInteger.TEN);
-      digitCount = current.mod(BigInteger.TEN).intValue();
-      current = current.divide(BigInteger.TEN);
-
-      for (int i = 0; i < digitCount; i++) {
+    for (int i = 0; i < digits.length; i += 2) {
+      digitCount = digits[i] - '0';
+      digit = digits[i + 1];
+      for (int j = 0; j < digitCount; j++) {
         builder.append(digit);
       }
     }
@@ -167,7 +163,7 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
     if (builder.length() == 0) {
       return BigInteger.ZERO;
     } else {
-      return new BigInteger(builder.reverse().toString());
+      return new BigInteger(builder.toString());
     }
   }
 
