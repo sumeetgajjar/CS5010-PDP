@@ -18,16 +18,9 @@ public class LookAndSayIteratorTest {
 
       Assert.assertTrue(rIterator.hasNext());
       Assert.assertFalse(rIterator.hasPrevious());
-      Assert.assertEquals(new BigInteger("11"), rIterator.next());
+      Assert.assertEquals(new BigInteger("1"), rIterator.next());
       Assert.assertEquals(BigInteger.ONE, rIterator.prev());
     }
-  }
-
-  @Test
-  public void testIteratorNextAndPrev() {
-    RIterator<BigInteger> rIterator = new LookAndSayIterator(new BigInteger("112321"));
-    Assert.assertEquals(new BigInteger("2112131211"), rIterator.next());
-    Assert.assertEquals(new BigInteger("112321"), rIterator.prev());
   }
 
   @Test
@@ -75,6 +68,10 @@ public class LookAndSayIteratorTest {
   public void testEndValueWithDoubleDigitFrequencyWorks() {
     RIterator<BigInteger> rIterator = new LookAndSayIterator(new BigInteger("111111111"),
             new BigInteger("1111111111"));
+
+    Assert.assertTrue(rIterator.hasNext());
+    Assert.assertEquals(new BigInteger("111111111"), rIterator.next());
+    Assert.assertTrue(rIterator.hasNext());
     Assert.assertEquals(new BigInteger("91"), rIterator.next());
   }
 
@@ -82,10 +79,10 @@ public class LookAndSayIteratorTest {
   public void testNextWorks() {
     RIterator<BigInteger> rIterator = new LookAndSayIterator(BigInteger.ONE, new BigInteger("100"));
     Assert.assertTrue(rIterator.hasNext());
-    Assert.assertEquals(new BigInteger("11"), rIterator.next());
+    Assert.assertEquals(new BigInteger("100"), rIterator.next());
 
     Assert.assertTrue(rIterator.hasNext());
-    Assert.assertEquals(new BigInteger("21"), rIterator.next());
+    Assert.assertEquals(new BigInteger("11"), rIterator.next());
 
     Assert.assertFalse(rIterator.hasNext());
     Assert.assertEquals(new BigInteger("21"), rIterator.next());
@@ -99,6 +96,12 @@ public class LookAndSayIteratorTest {
   public void testPrevWorks() {
     RIterator<BigInteger> rIterator = new LookAndSayIterator(new BigInteger("213"));
     Assert.assertTrue(rIterator.hasNext());
+    Assert.assertEquals(new BigInteger("213"), rIterator.next());
+
+    Assert.assertTrue(rIterator.hasNext());
+    Assert.assertEquals(new BigInteger("121113"), rIterator.next());
+
+    Assert.assertTrue(rIterator.hasPrevious());
     Assert.assertEquals(new BigInteger("121113"), rIterator.next());
 
     Assert.assertTrue(rIterator.hasPrevious());

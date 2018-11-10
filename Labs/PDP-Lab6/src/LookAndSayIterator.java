@@ -41,6 +41,10 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
   public LookAndSayIterator() {
   }
 
+  /**
+   *
+   * @return
+   */
   @Override
   public BigInteger prev() {
     return null;
@@ -51,7 +55,6 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
    * behind in following cases
    * <ul>
    * <li>If the current number contains odd number of digits</li>
-   * <li>If the </li>
    * </ul>
    *
    * @return true if it is possible to go back one step, false otherwise
