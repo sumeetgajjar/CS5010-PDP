@@ -21,8 +21,9 @@ public class LookAndSayIteratorTest {
             new LookAndSayIterator(BigInteger.ONE, new BigInteger("12")))) {
 
       Assert.assertTrue(rIterator.hasNext());
-      Assert.assertFalse(rIterator.hasPrevious());
       Assert.assertEquals(new BigInteger("1"), rIterator.next());
+
+      Assert.assertFalse(rIterator.hasPrevious());
       Assert.assertEquals(new BigInteger("11"), rIterator.prev());
     }
   }

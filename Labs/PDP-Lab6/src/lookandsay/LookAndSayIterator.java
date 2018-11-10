@@ -87,15 +87,6 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
     return this.prev.compareTo(this.current) != 0 && this.prev.compareTo(BigInteger.ONE) >= 0;
   }
 
-  private int countDigits(BigInteger current) {
-    int count = 0;
-    while (current.compareTo(BigInteger.ZERO) > 0) {
-      count++;
-      current = current.divide(BigInteger.TEN);
-    }
-    return count;
-  }
-
   /**
    * Returns true if the next number to be returned is still lesser than end value, false
    * otherwise.
@@ -212,10 +203,5 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
     }
 
     return builder.toString();
-  }
-
-  public static void main(String[] args) {
-    new BigInteger("0");
-    System.out.println(new BigInteger("123").mod(BigInteger.TEN));
   }
 }
