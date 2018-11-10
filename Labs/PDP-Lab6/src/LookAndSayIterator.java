@@ -5,7 +5,7 @@ import java.math.BigInteger;
  */
 public class LookAndSayIterator implements RIterator<BigInteger> {
 
-  private static final BigInteger LARGEST_END_BIGINTEGER = get100DigitRepeatingString(9);
+  private static final BigInteger LARGEST_END_BIG_INTEGER = get100DigitRepeatingString(9);
 
   public LookAndSayIterator(BigInteger seed, BigInteger end) {
 
