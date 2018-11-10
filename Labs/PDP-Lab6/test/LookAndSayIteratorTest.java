@@ -83,6 +83,20 @@ public class LookAndSayIteratorTest {
   }
 
   @Test
+  public void testNextReturnsZero() {
+    RIterator<BigInteger> rIterator = new LookAndSayIterator(new BigInteger("10"));
+
+    Assert.assertTrue(rIterator.hasPrevious());
+    Assert.assertEquals(BigInteger.ZERO, rIterator.prev());
+
+    Assert.assertTrue(rIterator.hasNext());
+    Assert.assertEquals(BigInteger.ZERO, rIterator.next());
+
+    Assert.assertTrue(rIterator.hasNext());
+    Assert.assertEquals(BigInteger.TEN, rIterator.next());
+  }
+
+  @Test
   public void testEndValueWithDoubleDigitFrequencyWorks() {
     RIterator<BigInteger> rIterator = new LookAndSayIterator(new BigInteger("111111111"),
             new BigInteger("1111111111"));
@@ -132,8 +146,7 @@ public class LookAndSayIteratorTest {
   @Test
   public void testRIteratorWithLargeSeedValue() {
     BigInteger seed = new BigInteger(getLargest100DigitValidSeed());
-    RIterator<BigInteger> rIterator = new LookAndSayIterator(
-            seed);
+    RIterator<BigInteger> rIterator = new LookAndSayIterator(seed);
 
     Assert.assertFalse(rIterator.hasPrevious());
     Assert.assertEquals(seed, rIterator.prev());

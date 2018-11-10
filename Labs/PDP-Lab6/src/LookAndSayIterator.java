@@ -7,8 +7,9 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
 
   private static final BigInteger DEFAULT_END_VALUE = new BigInteger(get100DigitRepeatingString(9));
   private static final BigInteger DEFAULT_START_VALUE = BigInteger.ONE;
-  private final BigInteger current;
+
   private final BigInteger end;
+  private BigInteger current;
 
   /**
    * Constructs a {@link LookAndSayIterator} object with the given params. It throws an {@link
@@ -91,7 +92,45 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
    */
   @Override
   public BigInteger next() {
-    return null;
+    BigInteger valueToReturn = this.current;
+    if (this.hasNext()) {
+      this.current = getNext(this.current);
+    }
+    return valueToReturn;
+  }
+
+  private BigInteger getNext(BigInteger current) {
+    BigInteger next = BigInteger.ZERO;
+
+    int count = 1;
+    int lastDigit = current.mod(BigInteger.TEN).intValue();
+    current = current.divide(BigInteger.TEN);
+    int secondLastDigit = 0;
+
+    while (!current.equals(BigInteger.ZERO)) {
+      secondLastDigit = current.mod(BigInteger.TEN).intValue();
+
+      if (lastDigit == secondLastDigit) {
+        count++;
+      } else {
+        next = next.add(BigInteger.valueOf(count))
+                .multiply(BigInteger.TEN)
+                .add(BigInteger.valueOf(lastDigit));
+        count = 1;
+      }
+      lastDigit = secondLastDigit;
+      current = current.divide(BigInteger.TEN);
+    }
+
+    next = next.add(BigInteger.valueOf(count))
+            .multiply(BigInteger.TEN)
+            .add(BigInteger.valueOf(lastDigit));
+
+    return next;
+  }
+
+  public static void main(String[] args) {
+    System.out.println(new BigInteger("123").mod(BigInteger.TEN));
   }
 
   private static String get100DigitRepeatingString(int number) {
