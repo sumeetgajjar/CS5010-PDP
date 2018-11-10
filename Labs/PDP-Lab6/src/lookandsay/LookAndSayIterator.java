@@ -143,36 +143,6 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
     return new BigInteger(builder.toString());
   }
 
-//  private BigInteger getNext(BigInteger current) {
-//    BigInteger next = BigInteger.ZERO;
-//
-//    int frequency = 1;
-//    int lastDigit = current.mod(BigInteger.TEN).intValue();
-//    current = current.divide(BigInteger.TEN);
-//    int secondLastDigit;
-//
-//    while (!current.equals(BigInteger.ZERO)) {
-//      secondLastDigit = current.mod(BigInteger.TEN).intValue();
-//
-//      if (lastDigit == secondLastDigit) {
-//        frequency++;
-//      } else {
-//        next = next.add(BigInteger.valueOf(frequency))
-//                .multiply(BigInteger.TEN)
-//                .add(BigInteger.valueOf(lastDigit));
-//        frequency = 1;
-//      }
-//      lastDigit = secondLastDigit;
-//      current = current.divide(BigInteger.TEN);
-//    }
-//
-//    next = next.add(BigInteger.valueOf(frequency))
-//            .multiply(BigInteger.TEN)
-//            .add(BigInteger.valueOf(lastDigit));
-//
-//    return next;
-//  }
-
   private BigInteger getPrev(BigInteger current) {
 
     boolean oddDigits = this.countDigits(current) % 2 == 1;
