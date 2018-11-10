@@ -18,8 +18,15 @@ import java.util.Objects;
  */
 public class LookAndSayIterator implements RIterator<BigInteger> {
 
+  /**
+   * Default end value for the sequence.
+   */
   private static final BigInteger DEFAULT_END_VALUE =
           new BigInteger(getStringWith100RepeatingDigits(9));
+
+  /**
+   * Default seed value for the sequence.
+   */
   private static final BigInteger DEFAULT_START_VALUE = BigInteger.ONE;
 
   private final BigInteger end;
