@@ -5,7 +5,10 @@ import java.math.BigInteger;
  */
 public class LookAndSayIterator implements RIterator<BigInteger> {
 
-  private static final BigInteger LARGEST_END_BIG_INTEGER = get100DigitRepeatingString(9);
+  private static final BigInteger DEFAULT_END_VALUE = new BigInteger(get100DigitRepeatingString(9));
+  private static final BigInteger DEFAULT_START_VALUE = BigInteger.ONE;
+  private final BigInteger current;
+  private final BigInteger end;
 
   /**
    * Constructs a {@link LookAndSayIterator} object with the given params. It throws an {@link
@@ -17,7 +20,8 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
    * @throws IllegalArgumentException if the given seed is invalid
    */
   public LookAndSayIterator(BigInteger seed, BigInteger end) throws IllegalArgumentException {
-
+    this.current = seed;
+    this.end = end;
   }
 
   /**
@@ -30,7 +34,7 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
    * @throws IllegalArgumentException if the given seed is invalid
    */
   public LookAndSayIterator(BigInteger seed) throws IllegalArgumentException {
-
+    this(seed, DEFAULT_END_VALUE);
   }
 
   /**
@@ -38,6 +42,7 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
    * The end value will be a number with 100 9s (the largest 100 digit number).
    */
   public LookAndSayIterator() {
+    this(DEFAULT_START_VALUE, DEFAULT_END_VALUE);
   }
 
   /**
@@ -89,12 +94,12 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
     return null;
   }
 
-  private static BigInteger get100DigitRepeatingString(int number) {
+  private static String get100DigitRepeatingString(int number) {
     StringBuilder builder = new StringBuilder();
     for (int i = 0; i < 100; i++) {
       builder.append(number);
     }
 
-    return new BigInteger(builder.toString(), 10);
+    return builder.toString();
   }
 }
