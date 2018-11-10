@@ -170,6 +170,8 @@ public class LookAndSayIteratorTest {
   @Test
   public void testPrevWorks() {
     RIterator<BigInteger> rIterator = new LookAndSayIterator(new BigInteger("213"));
+    Assert.assertFalse(rIterator.hasPrevious());
+
     Assert.assertTrue(rIterator.hasNext());
     Assert.assertEquals(new BigInteger("213"), rIterator.next());
 
@@ -184,6 +186,7 @@ public class LookAndSayIteratorTest {
 
     Assert.assertFalse(rIterator.hasPrevious());
     Assert.assertEquals(new BigInteger("213"), rIterator.prev());
+    Assert.assertFalse(rIterator.hasPrevious());
   }
 
   @Test

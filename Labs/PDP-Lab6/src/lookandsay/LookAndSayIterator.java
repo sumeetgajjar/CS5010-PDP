@@ -155,7 +155,7 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
 
   /**
    * Returns the previous number in the look and say sequence with the given number as current
-   * number.
+   * number. It returns the given number if the number of digits in the given number is odd.
    *
    * @param current the current sequence
    * @return the previous number in the look and say sequence with the given number as current
