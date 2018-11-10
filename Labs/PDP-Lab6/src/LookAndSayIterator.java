@@ -5,6 +5,19 @@ import java.math.BigInteger;
  */
 public class LookAndSayIterator implements RIterator<BigInteger> {
 
+  private static final BigInteger LARGEST_END_BIGINTEGER = get100DigitRepeatingString(9);
+
+  public LookAndSayIterator(BigInteger seed, BigInteger end) {
+
+  }
+
+  public LookAndSayIterator(BigInteger seed) {
+
+  }
+
+  public LookAndSayIterator() {
+  }
+
   @Override
   public BigInteger prev() {
     return null;
@@ -23,5 +36,14 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
   @Override
   public BigInteger next() {
     return null;
+  }
+
+  private static BigInteger get100DigitRepeatingString(int number) {
+    StringBuilder builder = new StringBuilder();
+    for (int i = 0; i < 100; i++) {
+      builder.append(number);
+    }
+
+    return new BigInteger(builder.toString(), 10);
   }
 }
