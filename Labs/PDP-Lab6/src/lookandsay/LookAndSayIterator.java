@@ -8,7 +8,8 @@ import java.util.Objects;
  */
 public class LookAndSayIterator implements RIterator<BigInteger> {
 
-  private static final BigInteger DEFAULT_END_VALUE = new BigInteger(get100DigitRepeatingString(9));
+  private static final BigInteger DEFAULT_END_VALUE =
+          new BigInteger(getStringWith100RepeatingDigits(9));
   private static final BigInteger DEFAULT_START_VALUE = BigInteger.ONE;
 
   private final BigInteger end;
@@ -196,7 +197,7 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
     return frequency > 9;
   }
 
-  private static String get100DigitRepeatingString(int number) {
+  private static String getStringWith100RepeatingDigits(int number) {
     StringBuilder builder = new StringBuilder();
     for (int i = 0; i < 100; i++) {
       builder.append(number);
