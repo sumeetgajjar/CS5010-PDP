@@ -65,6 +65,24 @@ public class LookAndSayIteratorTest {
   }
 
   @Test
+  public void testSeedWithLeadingZero() {
+    RIterator<BigInteger> rIterator = new LookAndSayIterator(new BigInteger("0001"));
+    Assert.assertTrue(rIterator.hasNext());
+    Assert.assertEquals(new BigInteger("1"), rIterator.next());
+
+    Assert.assertFalse(rIterator.hasPrevious());
+    Assert.assertEquals(new BigInteger("1"), rIterator.prev());
+  }
+
+  @Test
+  public void testSeedWithLeadingZeroInPrevNumber() {
+    RIterator<BigInteger> rIterator = new LookAndSayIterator(new BigInteger("102011"));
+    Assert.assertTrue(rIterator.hasPrevious());
+    Assert.assertEquals(new BigInteger("1"), rIterator.prev());
+
+  }
+
+  @Test
   public void testEndValueWithDoubleDigitFrequencyWorks() {
     RIterator<BigInteger> rIterator = new LookAndSayIterator(new BigInteger("111111111"),
             new BigInteger("1111111111"));
@@ -109,5 +127,38 @@ public class LookAndSayIteratorTest {
 
     Assert.assertFalse(rIterator.hasPrevious());
     Assert.assertEquals(new BigInteger("213"), rIterator.prev());
+  }
+
+  @Test
+  public void testRIteratorWithLargeSeedValue() {
+    BigInteger seed = new BigInteger(getLargest100DigitValidSeed());
+    RIterator<BigInteger> rIterator = new LookAndSayIterator(
+            seed);
+
+    Assert.assertFalse(rIterator.hasPrevious());
+    Assert.assertEquals(seed, rIterator.prev());
+
+    Assert.assertTrue(rIterator.hasNext());
+    Assert.assertEquals(seed, rIterator.next());
+
+    BigInteger current = new BigInteger("9998999899989998999899");
+    Assert.assertTrue(rIterator.hasNext());
+    Assert.assertEquals(current, rIterator.next());
+
+    Assert.assertTrue(rIterator.hasPrevious());
+    Assert.assertEquals(current, rIterator.prev());
+
+    Assert.assertTrue(rIterator.hasPrevious());
+    Assert.assertEquals(seed, rIterator.prev());
+  }
+
+  private String getLargest100DigitValidSeed() {
+    StringBuilder builder = new StringBuilder();
+    for (int i = 0; i < 5; i++) {
+      builder.append("999999999")
+              .append("888888888");
+    }
+    builder.append("999999999");
+    return builder.toString();
   }
 }
