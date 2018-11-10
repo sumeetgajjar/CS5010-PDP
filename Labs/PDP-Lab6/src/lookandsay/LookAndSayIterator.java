@@ -91,10 +91,7 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
 
   /**
    * Returns true if it is possible to go back one step, false otherwise. It cannot go one step
-   * behind in following cases
-   * <ul>
-   * <li>If the current number contains odd number of digits</li>
-   * </ul>
+   * behind if the current number contains odd number of digits
    *
    * @return true if it is possible to go back one step, false otherwise
    */
