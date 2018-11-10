@@ -132,6 +132,12 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
     return valueToReturn;
   }
 
+  /**
+   * Returns the next number in the look and say sequence with the given number as current number.
+   *
+   * @param current the current number
+   * @return the next number in the look and say sequence with the given number as current number
+   */
   private BigInteger getNext(BigInteger current) {
     char[] digits = current.toString().toCharArray();
     int count = 1;
@@ -150,6 +156,14 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
     return new BigInteger(builder.toString());
   }
 
+  /**
+   * Returns the previous number in the look and say sequence with the given number as current
+   * number.
+   *
+   * @param current the current sequence
+   * @return the previous number in the look and say sequence with the given number as current
+   *         number
+   */
   private BigInteger getPrev(BigInteger current) {
     char[] digits = current.toString().toCharArray();
     if (digits.length % 2 == 1) {
@@ -174,6 +188,13 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
     }
   }
 
+  /**
+   * Checks if the given params are valid. Throws {@link IllegalArgumentException} if the given
+   * params are invalid.
+   *
+   * @param seed the given seed value to check
+   * @param end  the given end value to check
+   */
   private void areParamsValid(BigInteger seed, BigInteger end) {
     if (Objects.isNull(seed) || Objects.isNull(end)) {
       throw new IllegalArgumentException("input cannot be null");
@@ -183,19 +204,25 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
       throw new IllegalArgumentException("invalid seed value");
     }
 
-    if (this.containsDigitWithOddFrequencyGreaterThan10(seed)) {
+    if (this.containsContinuousDigitWithFrequencyGreaterThan9(seed)) {
       throw new IllegalArgumentException("double digit frequencies not allowed");
     }
   }
 
-  private boolean containsDigitWithOddFrequencyGreaterThan10(BigInteger seed) {
+  /**
+   * Returns true if the given Seed value contains continuous digits with frequency greater than 9.
+   *
+   * @param number the number to check
+   * @return true if the given Seed value contains continuous digits with frequency greater than 9
+   */
+  private boolean containsContinuousDigitWithFrequencyGreaterThan9(BigInteger number) {
     int frequency = 1;
-    int lastDigit = seed.mod(BigInteger.TEN).intValue();
-    seed = seed.divide(BigInteger.TEN);
+    int lastDigit = number.mod(BigInteger.TEN).intValue();
+    number = number.divide(BigInteger.TEN);
     int secondLastDigit;
 
-    while (seed.compareTo(BigInteger.ZERO) > 0) {
-      secondLastDigit = seed.mod(BigInteger.TEN).intValue();
+    while (number.compareTo(BigInteger.ZERO) > 0) {
+      secondLastDigit = number.mod(BigInteger.TEN).intValue();
 
       if (lastDigit == secondLastDigit) {
         frequency++;
@@ -206,16 +233,22 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
         frequency = 1;
       }
       lastDigit = secondLastDigit;
-      seed = seed.divide(BigInteger.TEN);
+      number = number.divide(BigInteger.TEN);
     }
 
     return frequency > 9;
   }
 
-  private static String getStringWith100RepeatingDigits(int number) {
+  /**
+   * Returns a string containing 100 continuous occurrences of the given digit.
+   *
+   * @param digit the given digit
+   * @return a string containing 100 continuous occurrences of the given digit
+   */
+  private static String getStringWith100RepeatingDigits(int digit) {
     StringBuilder builder = new StringBuilder();
     for (int i = 0; i < 100; i++) {
-      builder.append(number);
+      builder.append(digit);
     }
 
     return builder.toString();
