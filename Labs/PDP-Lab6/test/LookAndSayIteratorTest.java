@@ -4,6 +4,9 @@ import org.junit.Test;
 import java.math.BigInteger;
 import java.util.Arrays;
 
+import lookandsay.LookAndSayIterator;
+import lookandsay.RIterator;
+
 /**
  * Created by gajjar.s, on 8:26 PM, 11/9/18
  */
@@ -19,7 +22,7 @@ public class LookAndSayIteratorTest {
       Assert.assertTrue(rIterator.hasNext());
       Assert.assertFalse(rIterator.hasPrevious());
       Assert.assertEquals(new BigInteger("1"), rIterator.next());
-      Assert.assertEquals(BigInteger.ONE, rIterator.prev());
+      Assert.assertEquals(new BigInteger("11"), rIterator.prev());
     }
   }
 
@@ -91,14 +94,16 @@ public class LookAndSayIteratorTest {
     Assert.assertTrue(rIterator.hasNext());
     Assert.assertEquals(new BigInteger("1"), rIterator.next());
 
-    Assert.assertFalse(rIterator.hasPrevious());
-    Assert.assertEquals(new BigInteger("1"), rIterator.prev());
+    Assert.assertTrue(rIterator.hasPrevious());
+    Assert.assertEquals(new BigInteger("11"), rIterator.prev());
   }
 
   @Test
   public void testSeedWithLeadingZeroInPrevNumber() {
     RIterator<BigInteger> rIterator = new LookAndSayIterator(new BigInteger("102011"));
     Assert.assertTrue(rIterator.hasPrevious());
+    Assert.assertEquals(new BigInteger("102011"), rIterator.prev());
+    Assert.assertFalse(rIterator.hasPrevious());
     Assert.assertEquals(new BigInteger("1"), rIterator.prev());
 
   }
@@ -107,14 +112,14 @@ public class LookAndSayIteratorTest {
   public void testNextReturnsZero() {
     RIterator<BigInteger> rIterator = new LookAndSayIterator(new BigInteger("10"));
 
-    Assert.assertTrue(rIterator.hasPrevious());
-    Assert.assertEquals(BigInteger.ZERO, rIterator.prev());
-
-    Assert.assertTrue(rIterator.hasNext());
-    Assert.assertEquals(BigInteger.ZERO, rIterator.next());
+    Assert.assertFalse(rIterator.hasPrevious());
+    Assert.assertEquals(BigInteger.TEN, rIterator.prev());
 
     Assert.assertTrue(rIterator.hasNext());
     Assert.assertEquals(BigInteger.TEN, rIterator.next());
+
+    Assert.assertTrue(rIterator.hasNext());
+    Assert.assertEquals(new BigInteger("1110"), rIterator.next());
   }
 
   @Test
@@ -164,10 +169,10 @@ public class LookAndSayIteratorTest {
     Assert.assertEquals(new BigInteger("121113"), rIterator.next());
 
     Assert.assertTrue(rIterator.hasPrevious());
-    Assert.assertEquals(new BigInteger("121113"), rIterator.next());
+    Assert.assertEquals(new BigInteger("11123113"), rIterator.prev());
 
     Assert.assertTrue(rIterator.hasPrevious());
-    Assert.assertEquals(new BigInteger("213"), rIterator.prev());
+    Assert.assertEquals(new BigInteger("121113"), rIterator.prev());
 
     Assert.assertFalse(rIterator.hasPrevious());
     Assert.assertEquals(new BigInteger("213"), rIterator.prev());
@@ -184,15 +189,14 @@ public class LookAndSayIteratorTest {
     Assert.assertTrue(rIterator.hasNext());
     Assert.assertEquals(seed, rIterator.next());
 
-    BigInteger current = new BigInteger("9998999899989998999899");
     Assert.assertTrue(rIterator.hasNext());
-    Assert.assertEquals(current, rIterator.next());
+    Assert.assertEquals(new BigInteger("9998999899989998999899"), rIterator.next());
 
     Assert.assertTrue(rIterator.hasPrevious());
-    Assert.assertEquals(current, rIterator.prev());
+    Assert.assertEquals(new BigInteger("3918391839183918391829"), rIterator.prev());
 
     Assert.assertTrue(rIterator.hasPrevious());
-    Assert.assertEquals(seed, rIterator.prev());
+    Assert.assertEquals(new BigInteger("9998999899989998999899"), rIterator.prev());
   }
 
   private String getLargest100DigitValidSeed() {

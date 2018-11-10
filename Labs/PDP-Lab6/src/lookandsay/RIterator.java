@@ -1,3 +1,5 @@
+package lookandsay;
+
 import java.util.Iterator;
 
 /**

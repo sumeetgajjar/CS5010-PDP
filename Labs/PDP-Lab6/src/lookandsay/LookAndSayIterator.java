@@ -1,3 +1,5 @@
+package lookandsay;
+
 import java.math.BigInteger;
 import java.util.Objects;
 
@@ -64,9 +66,9 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
   public BigInteger prev() {
     BigInteger valueToReturn = this.current;
     if (this.hasPrevious()) {
-      BigInteger tempCurrent = this.current;
+      this.next = this.current;
       this.current = this.prev;
-      this.prev = getPrev(tempCurrent);
+      this.prev = getPrev(this.prev);
     }
     return valueToReturn;
   }
@@ -82,7 +84,16 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
    */
   @Override
   public boolean hasPrevious() {
-    return false;
+    return this.prev.compareTo(this.current) != 0 && this.prev.compareTo(BigInteger.ONE) >= 0;
+  }
+
+  private int countDigits(BigInteger current) {
+    int count = 0;
+    while (current.compareTo(BigInteger.ZERO) > 0) {
+      count++;
+      current = current.divide(BigInteger.TEN);
+    }
+    return count;
   }
 
   /**
@@ -107,6 +118,7 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
   public BigInteger next() {
     BigInteger valueToReturn = this.current;
     if (this.hasNext()) {
+      this.prev = this.current;
       this.current = this.next;
       this.next = this.getNext(this.current);
     }
@@ -114,50 +126,79 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
   }
 
   private BigInteger getNext(BigInteger current) {
-    BigInteger next = BigInteger.ZERO;
-
-    int frequency = 1;
-    int lastDigit = current.mod(BigInteger.TEN).intValue();
-    current = current.divide(BigInteger.TEN);
-    int secondLastDigit;
-
-    while (!current.equals(BigInteger.ZERO)) {
-      secondLastDigit = current.mod(BigInteger.TEN).intValue();
-
-      if (lastDigit == secondLastDigit) {
-        frequency++;
+    char[] digits = current.toString().toCharArray();
+    int count = 1;
+    StringBuilder builder = new StringBuilder();
+    for (int i = 0; i < digits.length - 1; i++) {
+      if (digits[i] == digits[i + 1]) {
+        count++;
       } else {
-        next = next.add(BigInteger.valueOf(frequency))
-                .multiply(BigInteger.TEN)
-                .add(BigInteger.valueOf(lastDigit));
-        frequency = 1;
+        builder.append(count);
+        builder.append(digits[i]);
+        count = 1;
       }
-      lastDigit = secondLastDigit;
-      current = current.divide(BigInteger.TEN);
     }
-
-    next = next.add(BigInteger.valueOf(frequency))
-            .multiply(BigInteger.TEN)
-            .add(BigInteger.valueOf(lastDigit));
-
-    return next;
+    builder.append(count);
+    builder.append(digits[digits.length - 1]);
+    return new BigInteger(builder.toString());
   }
 
+//  private BigInteger getNext(BigInteger current) {
+//    BigInteger next = BigInteger.ZERO;
+//
+//    int frequency = 1;
+//    int lastDigit = current.mod(BigInteger.TEN).intValue();
+//    current = current.divide(BigInteger.TEN);
+//    int secondLastDigit;
+//
+//    while (!current.equals(BigInteger.ZERO)) {
+//      secondLastDigit = current.mod(BigInteger.TEN).intValue();
+//
+//      if (lastDigit == secondLastDigit) {
+//        frequency++;
+//      } else {
+//        next = next.add(BigInteger.valueOf(frequency))
+//                .multiply(BigInteger.TEN)
+//                .add(BigInteger.valueOf(lastDigit));
+//        frequency = 1;
+//      }
+//      lastDigit = secondLastDigit;
+//      current = current.divide(BigInteger.TEN);
+//    }
+//
+//    next = next.add(BigInteger.valueOf(frequency))
+//            .multiply(BigInteger.TEN)
+//            .add(BigInteger.valueOf(lastDigit));
+//
+//    return next;
+//  }
+
   private BigInteger getPrev(BigInteger current) {
+
+    boolean oddDigits = this.countDigits(current) % 2 == 1;
+    if (oddDigits) {
+      return current;
+    }
+
     int digitCount;
     int digit;
     StringBuilder builder = new StringBuilder();
-    BigInteger hundred = BigInteger.TEN;
     while (current.compareTo(BigInteger.ZERO) > 0) {
       digit = current.mod(BigInteger.TEN).intValue();
+      current = current.divide(BigInteger.TEN);
       digitCount = current.mod(BigInteger.TEN).intValue();
+      current = current.divide(BigInteger.TEN);
+
       for (int i = 0; i < digitCount; i++) {
         builder.append(digit);
       }
-      current = current.divide(hundred);
     }
 
-    return new BigInteger(builder.reverse().toString());
+    if (builder.length() == 0) {
+      return BigInteger.ZERO;
+    } else {
+      return new BigInteger(builder.reverse().toString());
+    }
   }
 
   private void areParamsValid(BigInteger seed, BigInteger end) {
@@ -165,7 +206,7 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
       throw new IllegalArgumentException("input cannot be null");
     }
 
-    if (seed.compareTo(end) > 0) {
+    if (seed.compareTo(end) > 0 || seed.compareTo(DEFAULT_START_VALUE) < 0) {
       throw new IllegalArgumentException("invalid seed value");
     }
 
@@ -208,6 +249,7 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
   }
 
   public static void main(String[] args) {
+    new BigInteger("0");
     System.out.println(new BigInteger("123").mod(BigInteger.TEN));
   }
 }
