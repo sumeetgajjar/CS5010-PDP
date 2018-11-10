@@ -7,7 +7,6 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
 
   private static final BigInteger LARGEST_END_BIG_INTEGER = get100DigitRepeatingString(9);
 
-
   /**
    * Constructs a {@link LookAndSayIterator} object with the given params. It throws an {@link
    * IllegalArgumentException} if the number of continuous digits in the given seed is greater than
@@ -42,8 +41,11 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
   }
 
   /**
+   * Return the current number in the sequence and reverts to the previous number in the sequence.
+   * It only reverts to the previous number if {@link RIterator#hasPrevious()} returns true, else it
+   * returns the current number for all subsequent calls to this method.
    *
-   * @return
+   * @return the current number in the sequence and revert to the previous number in the sequence
    */
   @Override
   public BigInteger prev() {
@@ -75,6 +77,13 @@ public class LookAndSayIterator implements RIterator<BigInteger> {
     return false;
   }
 
+  /**
+   * Returns the current number in the sequence and advance to the next number. It only advances to
+   * the next number in the sequence if {@link RIterator#hasNext()} returns true, else it will not
+   * advance and will return current number for all subsequent calls to this method.
+   *
+   * @return the current number in the sequence and advance to the next number
+   */
   @Override
   public BigInteger next() {
     return null;
